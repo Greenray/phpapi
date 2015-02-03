@@ -478,10 +478,8 @@ class phpAPI {
                         if (!$this->_verbose) {
                             echo 'Parsing tokens';
                         }
-                        # This array holds data gathered before the type of element is
-                        # discovered and an object is created for it, including doc comment
-                        # data. This data is stored in the object once it has been created and
-                        #then merged into the objects data fields upon object completion.
+                        # This array holds data gathered before the type of element is discovered and an object is created for it, including doc comment data.
+                        # This data is stored in the object once it has been created and then merged into the objects data fields upon object completion.
                         $currentData    = [];
                         $currentPackage = $this->_defaultPackage; # The current package
                         if ($this->_useClassPathAsPackage) {      # Magic up package name from filepath
@@ -692,7 +690,7 @@ class phpAPI {
 
                                     case T_FUNCTION:
                                         # Read function
-                                        $name = $this->_getProgramElementName($tokens, $key);
+                                        $name   = $this->_getProgramElementName($tokens, $key);
                                         $method = & new methodDoc($name, $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath()); # Create method object
                                         $this->verbose('+ Entering '.get_class($method).': '.$method->name());
                                         if (isset($currentData['docComment'])) {
@@ -738,10 +736,8 @@ class phpAPI {
                                         break;
 
                                     case T_STRING:
-
                                         if ($token[1] == 'define') {
                                             $const = & new fieldDoc($this->_getNext($tokens, $key, T_CONSTANT_ENCAPSED_STRING), $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath()); # Create constant object
-
                                             $this->verbose('Found '.get_class($const).': global constant '.$const->name());
                                             $const->set('final', TRUE); # Is constant
                                             $value = '';
@@ -1003,11 +999,13 @@ class phpAPI {
                                 }
                             } else { # Primitive tokens
                                 switch ($token) {
+
                                     case '{':
                                         if (!$in_parsed_string) {
                                             $ce->inBody++;
                                         }
                                         break;
+
                                     case '}':
                                         if (!$in_parsed_string) {
                                             if ($open_curly_braces) { # End of var curly brace syntax
@@ -1029,6 +1027,7 @@ class phpAPI {
                                             }
                                         }
                                         break;
+
                                     case ';': # Case for closing abstract functions
                                         if (!$in_parsed_string && $ce->inBody == 0 && count($currentElement) > 0) {
                                             $ce->mergeData();
@@ -1042,6 +1041,7 @@ class phpAPI {
                                             }
                                         }
                                         break;
+                                        
                                     case '"': # Catch parsed strings so as to ignore tokens within
                                         $in_parsed_string = !$in_parsed_string;
                                         break;
