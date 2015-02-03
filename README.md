@@ -56,10 +56,11 @@ INSTALLATION
 
 FILES
 
-	default.ini - Default ini file
+	phpapi.ini - Default ini file
 	README.md - This file
-	classes/*.php - Classes used by phpAPI
+	classes/*.php - Classes used by phpapi
 	doclets/standard/*.php - Standard HTML doclet
+    formatters/*.php - Formatters
 
 USAGE
 
