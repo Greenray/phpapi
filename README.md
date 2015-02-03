@@ -1,11 +1,14 @@
 NAME
+
 	phpapi: The PHP Documentation Creator
     This the fork of the Peej's Quick & Dirty PHPDoc Clone
 
 VERSION
+
 	1.0
 
 DESCRIPTION
+
 	phpapi is a Javadoc style comment parser for PHP, written with an emphasis
     on speed and simplicity. It is designed to be as close a clone to Javadoc as
     possible.
@@ -14,9 +17,11 @@ DESCRIPTION
     на скорость и простоту и как можно ближе к клону Javadoc.
 
 REQUIREMENTS
+
 	PHP 5.3+ is required.
 
 ABOUT
+
 	phpapi uses the PHP tokenizer extension, this means that it lets PHP do the
     parsing of your source code. phpAPI just takes the tokens PHP parses out and
     turns them into API documentation.
@@ -26,6 +31,7 @@ ABOUT
 
 
 FEATURES
+
 	* Fast running speed, uses PHP tokenizer function to take advantage of PHPs
       internal parsing functionality.
 	* Parsing of any valid PHP file, with multiple classes and functions in the
@@ -41,6 +47,7 @@ FEATURES
 	* Javadoc extensions compatible with other PHPDoc programs.
 
 INSTALLATION
+
 	Unzip the archive somewhere, edit the default config file and then run
 	phpapi.php with your CLI version of PHP.
 
@@ -48,22 +55,26 @@ INSTALLATION
     phpapi.php.
 
 FILES
+
 	default.ini - Default ini file
-	README - This file
+	README.md - This file
 	classes/*.php - Classes used by phpAPI
 	doclets/standard/*.php - Standard HTML doclet
 
 USAGE
-	phpAPI.php <config_file>
+
+	phpapi.php <config_file>
 
 	To create a config file for your project, copy the default.ini file and
 	edit it to your needs, it's fully commented.
 
-    Для созданияя конфигурационного файла вашего проекта, скопируйте default.ini
+    Для созданияя конфигурационного файла вашего проекта, скопируйте phpapi.ini
     и отредактируйте его в соответствие с имеющемися комментариями.
 
 CONFIGURATION
-	phpAPI supports a number of configuration directives:
+
+	phpapi supports a number of configuration directives:
+    phpapi поддерживает следующие директивы:
 
 	* files - Names of files to parse. This can be a single filename, or a
 	  comma separated list of filenames. Wildcards are allowed.
@@ -121,6 +132,7 @@ CONFIGURATION
     * geshi - path to code beautifier for sources.
 
 DOC COMMENTS
+
 	A full description of the format of doc comments can be found on the
 	Sun Javadoc web site (http://java.sun.com/j2se/javadoc/). Doc comments look
 	like this:
@@ -131,7 +143,9 @@ DOC COMMENTS
 	 */
 
 TAGS
-	phpAPI supports the following tags:
+
+	phpapi supports the following tags:
+    phpapi поддерживает следующие теги:
 
 	@abstract - defining a class or method as abstract.
 	@access type - the access type of the field or method.
@@ -154,6 +168,7 @@ TAGS
 	are added or slightly changed due to PHPs loose typing.
 
 COPYRIGHT AND LICENSE
+
 	This program is a fork of the
     PHPDoctor: The PHP Documentation Creator version 2.0.5
     Copyright (C) 2005 Paul James <paul@peej.co.uk>
