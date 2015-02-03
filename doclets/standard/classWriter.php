@@ -1,12 +1,12 @@
 <?php
-# phpAPI: The PHP Documentation Creator
+# phpapi: The PHP Documentation Creator
 
 /** This generates the HTML API documentation for each individual interface and class.
  * @file      doclets/standard/classWriter.php
  * @version   1.0
- * @author    Victor Nabatov <greenray.spb@gmail.com>
+ * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2011 - 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License <http://creativecommons.org/licenses/by-nc-sa/3.0/>
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
  * @package   Standard
  */
 
@@ -19,7 +19,7 @@ class classWriter extends HTMLWriter {
         parent::HTMLWriter($doclet);
         $this->_id = 'definition';
         $rootDoc   = & $this->_doclet->rootDoc();
-        $phpAPI    = & $this->_doclet->phpAPI();
+        $phpapi    = & $this->_doclet->phpapi();
         $packages  = & $rootDoc->packages();
         ksort($packages);
         foreach ($packages as $packageName => $package) {
@@ -27,7 +27,7 @@ class classWriter extends HTMLWriter {
             $this->_sections[1] = ['title' => 'Namespace',  'url' => $package->asPath().'/package-summary.html'];
             $this->_sections[2] = ['title' => 'Class', 'selected' => TRUE];
             #$this->_sections[3] = ['title' => 'Use'];
-            if ($phpAPI->getOption('tree')) {
+            if ($phpapi->getOption('tree')) {
                 $this->_sections[4] = ['title' => 'Tree',   'url' => $package->asPath().'/package-tree.html'];
             }
             if ($doclet->includeSource()) {
@@ -307,7 +307,7 @@ class classWriter extends HTMLWriter {
                         echo '<h2 id="detail_method">Constructor Detail</h2>';
                         $textTag = & $constructor->tags('@text');
                         $this->_sourceLocation($constructor);
-                        echo '<h3 id="', $constructor->name(), '()">', $constructor->name(), '</h3>';
+                        echo '<h3 id="', $constructor->name(), '">', $constructor->name(), '</h3>';
                         echo '<code class="signature">', $constructor->modifiers(), ' ', $constructor->returnTypeAsString(), ' <strong>';
                         echo $constructor->name(), '</strong>', $constructor->flatSignature();
                         echo '</code>';
@@ -325,7 +325,7 @@ class classWriter extends HTMLWriter {
                         foreach ($methods as $method) {
                             $textTag = & $method->tags('@text');
                             $this->_sourceLocation($method);
-                            echo '<h3 id="', $method->name(), '()">', $method->name(), '</h3>';
+                            echo '<h3 id="', $method->name(), '">', $method->name(), '</h3>';
                             echo '<code class="signature">', $method->modifiers(), ' ', $method->returnTypeAsString(), ' <strong>';
                             echo $method->name(), '</strong>', $method->flatSignature();
                             echo '</code>';

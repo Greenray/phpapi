@@ -1,13 +1,13 @@
 <?php
-# phpAPI: The PHP Documentation Creator
+# phpapi: The PHP Documentation Creator
 
 /** Represents a PHP variable, constant or member variable (field).
  * @file      classes/fieldDoc.php
  * @version   1.0
- * @author    Victor Nabatov <greenray.spb@gmail.com>
+ * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2011 - 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License <http://creativecommons.org/licenses/by-nc-sa/3.0/>
- * @package   phpAPI
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
+ * @package   phpapi
  */
 
 class fieldDoc extends ProgramElementDoc {
@@ -32,10 +32,10 @@ class fieldDoc extends ProgramElementDoc {
      * @return void
      */
     public function fieldDoc($name, &$parent, &$root, $filename = NULL, $lineNumber = NULL, $sourcePath = NULL) {
-        $this->_name = trim($name, '$\'"');
-        $this->_parent = & $parent; # set reference to parent
-        $this->_root = & $root; # set reference to root
-        $this->_type = & new type('mixed', $root);
+        $this->_name   = trim($name, '$\'"');
+        $this->_parent = & $parent;   # Set reference to parent
+        $this->_root   = & $root;     # Set reference to root
+        $this->_type   = & new type('mixed', $root);
         $this->_filename = $filename;
         $this->_lineNumber = $lineNumber;
         $this->_sourcePath = $sourcePath;

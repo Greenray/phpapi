@@ -1,17 +1,17 @@
 <?php
-# phpAPI: The PHP Documentation Creator
+# phpapi: The PHP Documentation Creator
 
 /** Represents a PHP class and provides access to information about the class,
  * the class' comment and tags, and the members of the class. A classDoc only
- * exists if it was processed in this run of phpAPI. References to classes
+ * exists if it was processed in this run of phpapi. References to classes
  * which may or may not have been processed in this run are referred to using
  * type (which can be converted to classDoc, if possible).
  * @file      classes/classDoc.php
  * @version   1.0
- * @author    Victor Nabatov <greenray.spb@gmail.com>
+ * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2011 - 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License <http://creativecommons.org/licenses/by-nc-sa/3.0/>
- * @package   phpAPI
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
+ * @package   phpapi
  */
 
 class classDoc extends ProgramElementDoc {
@@ -99,9 +99,9 @@ class classDoc extends ProgramElementDoc {
      */
     public function addMethod(&$method) {
         if (isset($this->_methods[$method->name()])) {
-            $phpAPI = & $this->_root->phpAPI();
+            $phpapi = & $this->_root->phpapi();
             echo LF;
-            $phpAPI->warning('Found method '.$method->name().' again, overwriting previous version');
+            $phpapi->warning('Found method '.$method->name().' again, overwriting previous version');
         }
         $this->_methods[$method->name()] = & $method;
     }
@@ -310,14 +310,14 @@ class classDoc extends ProgramElementDoc {
         }
 
         if (isset($parent)) {
-            $phpAPI = $this->_root->phpAPI();
+            $phpapi = $this->_root->phpapi();
 
             # Merge class tags array
             $tags = & $parent->tags();
             if ($tags) {
                 foreach ($tags as $name => $tag) {
                     if (!isset($this->_tags[$name])) {
-                        $phpAPI->verbose('> Merging class '.$this->name().' with tags from parent '.$parent->name());
+                        $phpapi->verbose('> Merging class '.$this->name().' with tags from parent '.$parent->name());
                         if (is_array($tag)) {
                             foreach ($tags[$name] as $key => $tag) {
                                 $this->_tags[$name][$key] = & $tags[$name][$key];
@@ -341,7 +341,7 @@ class classDoc extends ProgramElementDoc {
                     if ($tags) {
                         foreach ($tags as $tagName => $tag) {
                             if (!isset($methods[$name]->_tags[$tagName])) {
-                                $phpAPI->verbose('> Merging method '.$this->name().':'.$name.' with tag '.$tagName.' from parent '.$parent->name().':'.$parentMethod->name());
+                                $phpapi->verbose('> Merging method '.$this->name().':'.$name.' with tag '.$tagName.' from parent '.$parent->name().':'.$parentMethod->name());
                                 if (is_array($tag)) {
                                     foreach ($tags[$tagName] as $key => $tag) {
                                         $methods[$name]->_tags[$tagName][$key] = & $tags[$tagName][$key];
@@ -360,7 +360,7 @@ class classDoc extends ProgramElementDoc {
                             $type = & $methods[$name]->_parameters[$paramName]->type();
                         }
                         if (!isset($methods[$name]->_parameters[$paramName]) || $type->typeName() == 'mixed') {
-                            $phpAPI->verbose('> Merging method '.$this->name().':'.$name.' with parameter '.$paramName.' from parent '.$parent->name().':'.$parentMethod->name());
+                            $phpapi->verbose('> Merging method '.$this->name().':'.$name.' with parameter '.$paramName.' from parent '.$parent->name().':'.$parentMethod->name());
                             $paramType = & $param->type();
                             $methods[$name]->_parameters[$paramName] = & new fieldDoc($paramName, $methods[$name], $this->_root);
                             $methods[$name]->_parameters[$paramName]->set('type', new type($paramType->typeName(), $this->_root));
@@ -368,13 +368,13 @@ class classDoc extends ProgramElementDoc {
                     }
                     # Method return type
                     if ($parentMethod->returnType() && $methods[$name]->_returnType->typeName() == 'void') {
-                        $phpAPI->verbose('> Merging method '.$this->name().':'.$name.' with return type from parent '.$parent->name().':'.$parentMethod->name());
+                        $phpapi->verbose('> Merging method '.$this->name().':'.$name.' with return type from parent '.$parent->name().':'.$parentMethod->name());
                         $methods[$name]->_returnType = $parentMethod->returnType();
                     }
                     # Method thrown exceptions
                     foreach ($parentMethod->thrownExceptions() as $exceptionName => $exception) {
                         if (!isset($methods[$name]->_throws[$exceptionName])) {
-                            $phpAPI->verbose('> Merging method '.$this->name().':'.$name.' with exception '.$exceptionName.' from parent '.$parent->name().':'.$parentMethod->name());
+                            $phpapi->verbose('> Merging method '.$this->name().':'.$name.' with exception '.$exceptionName.' from parent '.$parent->name().':'.$parentMethod->name());
                             $methods[$name]->_throws[$exceptionName] = & $exception;
                         }
                     }

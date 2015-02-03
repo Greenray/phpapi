@@ -1,15 +1,15 @@
 <?php
-# phpAPI: The PHP Documentation Creator
+# phpapi: The PHP Documentation Creator
 
 /** Represents a PHP package.
  * Provides access to information about the package,
  * the package's comment and tags, and the classes in the package.
  * @file      classes/packageDoc.php
  * @version   1.0
- * @author    Victor Nabatov <greenray.spb@gmail.com>
+ * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2011 - 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License <http://creativecommons.org/licenses/by-nc-sa/3.0/>
- * @package   phpAPI
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
+ * @package   phpapi
  */
 
 class packageDoc extends Doc {
@@ -37,25 +37,25 @@ class packageDoc extends Doc {
         $this->_name = $name;
         $this->_root = & $root;
 
-        $phpAPI = & $root->phpAPI();
+        $phpapi = & $root->phpapi();
 
         # parse overview file
-        $packageCommentDir = $phpAPI->getOption('packageCommentDir');
+        $packageCommentDir = $phpapi->getOption('packageCommentDir');
         $packageCommentFilename = strtolower(str_replace('/', '.', $this->_name)).'.html';
         if (isset($packageCommentDir) && is_file($packageCommentDir.$packageCommentFilename)) {
             $overviewFile = $packageCommentDir.$packageCommentFilename;
         } else {
-            $pos = strrpos(str_replace('\\', '/', $phpAPI->_currentFilename), '/');
+            $pos = strrpos(str_replace('\\', '/', $phpapi->_currentFilename), '/');
             if ($pos !== FALSE) {
-                $overviewFile = substr($phpAPI->_currentFilename, 0, $pos).'/package.html';
+                $overviewFile = substr($phpapi->_currentFilename, 0, $pos).'/package.html';
             } else {
-                $overviewFile = $phpAPI->sourcePath().$this->_name.'.html';
+                $overviewFile = $phpapi->sourcePath().$this->_name.'.html';
             }
         }
         if (is_file($overviewFile)) {
-            $phpAPI->message("\n".'Reading package overview file "'.$overviewFile.'".');
+            $phpapi->message("\n".'Reading package overview file "'.$overviewFile.'".');
             if ($text = $this->getFileContents($overviewFile)) {
-                $this->_data = $phpAPI->processDocComment('/** '.$text.' */', $this->_root);
+                $this->_data = $phpapi->processDocComment('/** '.$text.' */', $this->_root);
                 $this->mergeData();
             }
         }
@@ -83,9 +83,9 @@ class packageDoc extends Doc {
      */
     public function addClass(&$class) {
         if (isset($this->_classes[$class->name()])) {
-            $phpAPI = & $this->_root->phpAPI();
+            $phpapi = & $this->_root->phpapi();
             echo "\n";
-            $phpAPI->warning('Found class '.$class->name().' again, overwriting previous version');
+            $phpapi->warning('Found class '.$class->name().' again, overwriting previous version');
         }
         $this->_classes[$class->name()] = & $class;
     }
@@ -104,9 +104,9 @@ class packageDoc extends Doc {
      */
     public function addFunction(&$function) {
         if (isset($this->_functions[$function->name()])) {
-            $phpAPI = & $this->_root->phpAPI();
+            $phpapi = & $this->_root->phpapi();
             echo "\n";
-            $phpAPI->warning('Found function '.$function->name().' again, overwriting previous version');
+            $phpapi->warning('Found function '.$function->name().' again, overwriting previous version');
         }
         $this->_functions[$function->name()] = & $function;
     }

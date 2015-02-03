@@ -1,12 +1,12 @@
 <?php
-# phpAPI: The PHP Documentation Creator
+# phpapi: The PHP Documentation Creator
 
 /** Generate the index.html file used for presenting the frame-formated "cover page" of the API documentation.
  * @file      doclets/standard/globalWriter.php
  * @version   1.0
- * @author    Victor Nabatov <greenray.spb@gmail.com>
+ * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2011 - 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License <http://creativecommons.org/licenses/by-nc-sa/3.0/>
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
  * @package   Standard
  */
 
@@ -54,8 +54,7 @@ class htmlWriter {
         $output .= '<html lang="en">';
         $output .= '<head>';
         $output .= '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">';
-        $output .= '<meta name="generator" content="phpAPI '.VERSION.' (https://github.com/Greenray/phpAPI/)">';
-        $output .= '<meta name="when" content="'.gmdate('r').'">';
+        $output .= '<meta name="generator" content="phpapi '.VERSION.' (https://github.com/Greenray/phpapi/)">';
         $output .= '<link rel="stylesheet" type="text/css" href="'.str_repeat('../', $this->_depth).'stylesheet.css">';
         $output .= '<link rel="start" href="'.str_repeat('../', $this->_depth).'overview-summary.html">';
         $output .= '<title>';
@@ -163,7 +162,7 @@ class htmlWriter {
      * @return void
      */
     public function _write($path, $title, $shell) {
-        $phpAPI = & $this->_doclet->phpAPI();
+        $phpapi = & $this->_doclet->phpapi();
         # Make directory separators suitable to this platform
         $path = str_replace('/', DS, $path);
         # Make directories if they don't exist
@@ -174,7 +173,7 @@ class htmlWriter {
             $testPath .= $dir.DS;
             if (!is_dir($testPath)) {
                 if (!@mkdir($testPath)) {
-                    $phpAPI->error(sprintf('Cannot create directory "%s"', $testPath));
+                    $phpapi->error(sprintf('Cannot create directory "%s"', $testPath));
                     exit;
                 }
             }
@@ -182,7 +181,7 @@ class htmlWriter {
         # Write file
         $fp = fopen($this->_doclet->destinationPath().$path, 'w');
         if ($fp) {
-            $phpAPI->message('Writing "'.$path.'"');
+            $phpapi->message('Writing "'.$path.'"');
             fwrite($fp, $this->_htmlHeader($title));
             if ($shell) {
                 fwrite($fp, $this->_shellHeader($path));
@@ -194,7 +193,7 @@ class htmlWriter {
             fwrite($fp, $this->_htmlFooter());
             fclose($fp);
         } else {
-            $phpAPI->error('Cannot write "'.$this->_doclet->destinationPath().$path.'"');
+            $phpapi->error('Cannot write "'.$this->_doclet->destinationPath().$path.'"');
             exit;
         }
     }
@@ -293,7 +292,7 @@ class htmlWriter {
             }
         }
         if ($tagString) {
-            echo '<div id="finfo">
+            echo '<div class="finfo">
                     <table class="hid">'.$tagString.'</table>
                   </div>';
         }

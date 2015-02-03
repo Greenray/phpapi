@@ -1,14 +1,14 @@
 <?php
-# phpAPI: The PHP Documentation Creator
+# phpapi: The PHP Documentation Creator
 
 /** Represents a documentation tag, e.g. @since, @author, @version.
  * Given a tag (e.g. "@since 1.2"), holds tag name (e.g. "@since") and tag text (e.g. "1.2").
  * Tags with structure or which require special processing are handled by subclasses.
  * @file      classes/Tag.php
  * @version   1.0
- * @author    Victor Nabatov <greenray.spb@gmail.com>
+ * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2011 - 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License <http://creativecommons.org/licenses/by-nc-sa/3.0/>
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
  * @package   Tags
  */
 
@@ -116,9 +116,9 @@ class tag {
      * @todo This method does not act as described but should be altered to do so
      */
     function &firstSentenceTags($formatter) {
-        $phpAPI  = $this->_root->phpAPI();
+        $phpapi  = $this->_root->phpapi();
         $matches = [];
-        if ($phpAPI->getOption('pearCompat')) {
+        if ($phpapi->getOption('pearCompat')) {
             $expression = '/^(.+)(?:\n|\.( |\t|\n|<\/p>|<\/?h[1-6]>|<hr))/sU';
             if (preg_match($expression, $this->text($formatter), $matches)) {
                 if (isset($matches[2])) {
@@ -149,7 +149,7 @@ class tag {
         $tagStrings = preg_split('/{(@.+)}/sU', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
         if ($tagStrings) {
             $inlineTags = NULL;
-            $phpAPI = & $this->_root->phpAPI();
+            $phpapi = & $this->_root->phpapi();
             foreach ($tagStrings as $tag) {
                 if (substr($tag, 0, 1) === '@') {
                     $pos = strpos($tag, ' ');
@@ -165,7 +165,7 @@ class tag {
                     $text = $tag;
                 }
                 $data = NULL;
-                $inlineTag = & $phpAPI->createTag($name, $text, $data, $this->_root);
+                $inlineTag = & $phpapi->createTag($name, $text, $data, $this->_root);
                 $inlineTag->setParent($this->_parent);
                 $inlineTags[] = $inlineTag;
             }

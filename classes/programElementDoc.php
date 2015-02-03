@@ -1,15 +1,15 @@
 <?php
-# phpAPI: The PHP Documentation Creator
+# phpapi: The PHP Documentation Creator
 
 /** Represents a PHP program element: global, function, class, interface,
  * field, constructor, or method. This is an abstract class dealing with
  * information common to these elements.
  * @file      classes/programElementDoc.php
  * @version   1.0
- * @author    Victor Nabatov <greenray.spb@gmail.com>
+ * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2011 - 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License <http://creativecommons.org/licenses/by-nc-sa/3.0/>
- * @package   phpAPI
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
+ * @package   phpapi
  * @abstract
  */
 
@@ -197,7 +197,7 @@ class programElementDoc extends Doc {
      * @return string
      */
     public function sourceFilename() {
-        $phpAPI = $this->_root->phpAPI();
+        $phpapi = $this->_root->phpapi();
         return substr($this->_filename, strlen($this->_sourcePath) + 1);
     }
 

@@ -1,12 +1,12 @@
 <?php
-# phpAPI: The PHP Documentation Creator
+# phpapi: The PHP Documentation Creator
 
 /** This generates the HTML API documentation for each global function.
  * @file      doclets/standard/functionWriter.php
  * @version   1.0
- * @author    Victor Nabatov <greenray.spb@gmail.com>
+ * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2011 - 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License <http://creativecommons.org/licenses/by-nc-sa/3.0/>
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
  * @package   Standard
  */
 
@@ -64,7 +64,7 @@ class functionWriter extends HTMLWriter {
                 foreach ($functions as $function) {
                     $textTag = & $function->tags('@text');
                     $this->_sourceLocation($function);
-                    echo '<h3 id="', $function->name(), '()">', $function->name(), '</h3>';
+                    echo '<h3 id="', $function->name(), '">', $function->name(), '</h3>';
                     echo '<code class="signature">', $function->modifiers(), ' ', $function->returnTypeAsString(), ' <strong>'.$function->name().'</strong>';
                     echo $function->flatSignature();
                     echo '</code>';

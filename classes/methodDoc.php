@@ -1,13 +1,13 @@
 <?php
-# phpAPI: The PHP Documentation Creator
+# phpapi: The PHP Documentation Creator
 
 /** Represents a PHP function or method (member function).
  * @file      classes/methodDoc.php
  * @version   1.0
- * @author    Victor Nabatov <greenray.spb@gmail.com>
+ * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2011 - 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License <http://creativecommons.org/licenses/by-nc-sa/3.0/>
- * @package   phpAPI
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
+ * @package   phpapi
  */
 
 class methodDoc extends ExecutableDoc {
@@ -31,11 +31,11 @@ class methodDoc extends ExecutableDoc {
      * @param str sourcePath The source path containing the source file
      */
     public function methodDoc($name, &$parent, &$root, $filename, $lineNumber, $sourcePath) {
-        $this->_name = $name;
-        $this->_parent = & $parent; # set reference to parent
-        $this->_root = & $root; # set reference to root
+        $this->_name       = $name;
+        $this->_parent     = & $parent; # set reference to parent
+        $this->_root       = & $root; # set reference to root
         $this->_returnType = & new type('void', $root);
-        $this->_filename = $filename;
+        $this->_filename   = $filename;
         $this->_lineNumber = $lineNumber;
         $this->_sourcePath = $sourcePath;
     }

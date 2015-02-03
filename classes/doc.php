@@ -1,15 +1,15 @@
 <?php
-# phpAPI: The PHP Documentation Creator
+# phpapi: The PHP Documentation Creator
 
-/** Abstract base class of all Doc classes. Doc item's are representations of
- * PHP language constructs (class, package, method,...) which have comments
- * and have been processed by this run of phpAPI.
+/** Abstract base class of all Doc classes.
+ * Doc item's are representations of PHP language constructs (class, package, method,...)
+ * which have comments and have been processed by this run of phpapi.
  * @file      classes/doc.php
  * @version   1.0
- * @author    Victor Nabatov <greenray.spb@gmail.com>
+ * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2011 - 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License <http://creativecommons.org/licenses/by-nc-sa/3.0/>
- * @package   phpAPI
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
+ * @package   phpapi
  * @abstract
  */
 
@@ -260,7 +260,6 @@ class doc {
                         }
                     } else {
                         if (!isset($this->_parameters[$name])) {
-                            #phpAPI::warning('Unknown parameter "'.$name.'" found for method "'.$this->_package.'.'.$this->_parent->name().'::'.$this->_name.'".');
                             $this->_parameters[$name] = & new fieldDoc($name, $this, $this->_root);
                             if (isset($this->_package))
                                 $this->_parameters[$name]->set('package', $this->_package);

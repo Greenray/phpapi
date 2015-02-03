@@ -1,20 +1,20 @@
 <?php
-# PhpAPI: The PHP Documentation Creator
+# phpapi: The PHP Documentation Creator
 
-/** This class holds the information from one run of phpAPI.
+/** This class holds the information from one run of phpapi.
  * Particularly the packages, classes and options specified by the user.
  * It is the root of the parsed tokens and is passed to the doclet to be formatted into output.
- * @file      classes/phpAPI.php
+ * @file      classes/phpapi.php
  * @version   1.0
- * @author    Victor Nabatov <greenray.spb@gmail.com>
+ * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2011 - 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License <http://creativecommons.org/licenses/by-nc-sa/3.0/
- * @package   phpAPI
+ * @package   phpapi
  */
 
-class phpAPI {
+class phpapi {
 
-    /** The path phpAPI is running from.
+    /** The path phpapi is running from.
      * @var string
      */
     public $_path = '.';
@@ -86,7 +86,7 @@ class phpAPI {
     public $_overview = NULL;
 
     /** Package comment directory.
-     * If set, phpAPI will look in this directory for package comment files.
+     * If set, phpapi will look in this directory for package comment files.
      * Otherwise it looks in a directory named after the package ala Javadoc.
      * @var string
      */
@@ -160,9 +160,9 @@ class phpAPI {
     public $_pearCompat = FALSE;
 
     /** Constructor.
-     * @param string $config The configuration file to use for this run of phpAPI (Default = 'default.ini')
+     * @param string $config The configuration file to use for this run of phpapi (Default = 'default.ini')
      */
-    public function phpAPI($config = 'default.ini') {
+    public function phpapi($config = 'default.ini') {
         # Record start time
         $this->_startTime = $this->_getTime();
 
@@ -181,7 +181,7 @@ class phpAPI {
             exit;
         }
 
-        # Set phpAPI options
+        # Set phpapi options
         if (isset($this->_options['verbose'])) {
             $this->_verbose = $this->_options['verbose'];
             $this->verbose('Being verbose');
@@ -416,7 +416,7 @@ class phpAPI {
         return (substr($path, -1, 1) != '/' && substr($path, -1, 1) != '\\') ? $path.'/' : $path;
     }
 
-    /** Return the path phpAPI is running from.
+    /** Return the path phpapi is running from.
      * @return string Path to doclet
      */
     public function docletPath() {
@@ -1281,7 +1281,7 @@ class phpAPI {
 
     /** Create a tag.
      * This method first tries to load a Taglet for the given tag name, upon failing it
-     * then tries to load a phpAPI specialised tag class (e.g. classes/paramtag.php),
+     * then tries to load a phpapi specialised tag class (e.g. classes/paramtag.php),
      * if it still has not found a tag class it uses the standard tag class.
      * @param  string $name    The name of the tag
      * @param  string $text    The contents of the tag

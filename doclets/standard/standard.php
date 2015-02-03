@@ -1,5 +1,5 @@
 <?php
-# PhpAPI: The PHP Documentation Creator
+# phpapi: The PHP Documentation Creator
 
 # load classes
 require 'htmlWriter.php';
@@ -22,9 +22,9 @@ require 'sourceWriter.php';
  * This doclet generates HTML output similar to that produced by the Javadoc standard doclet.
  * @file      doclets/standard/standard.php
  * @version   1.0
- * @author    Victor Nabatov <greenray.spb@gmail.com>
+ * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2011 - 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License <http://creativecommons.org/licenses/by-nc-sa/3.0/>
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
  * @package   Standard
  */
 
@@ -85,26 +85,26 @@ class standard extends Doclet {
     public function standard(&$rootDoc, $formatter) {
         # set doclet options
         $this->_rootDoc = & $rootDoc;
-        $phpAPI  = & $rootDoc->phpAPI();
+        $phpapi  = & $rootDoc->phpapi();
         $options = & $rootDoc->options();
 
         $this->formatter = $formatter;
 
         if (isset($options['destination'])) {
-            $this->_destination = $phpAPI->makeAbsolutePath($options['destination'], $phpAPI->sourcePath());
+            $this->_destination = $phpapi->makeAbsolutePath($options['destination'], $phpapi->sourcePath());
         } elseif (isset($options['output_dir'])) {
-            $this->_destination = $phpAPI->makeAbsolutePath($options['output_dir'], $phpAPI->sourcePath());
+            $this->_destination = $phpapi->makeAbsolutePath($options['output_dir'], $phpapi->sourcePath());
         } else {
-            $this->_destination = $phpAPI->makeAbsolutePath('apidocs', $phpAPI->sourcePath());
+            $this->_destination = $phpapi->makeAbsolutePath('apidocs', $phpapi->sourcePath());
         }
-        $this->_destination = $phpAPI->fixPath($this->_destination);
+        $this->_destination = $phpapi->fixPath($this->_destination);
 
         if (is_dir($this->_destination)) {
-            $phpAPI->warning('Output directory already exists, overwriting');
+            $phpapi->warning('Output directory already exists, overwriting');
         } else {
             mkdir($this->_destination);
         }
-        $phpAPI->verbose('Setting output directory to "'.$this->_destination.'"');
+        $phpapi->verbose('Setting output directory to "'.$this->_destination.'"');
 
         if (isset($options['windowtitle'])) {
             $this->_windowTitle = $options['windowtitle'];
@@ -130,7 +130,7 @@ class standard extends Doclet {
         if ($this->_includeSource) {
             include_once $options['geshi'];
             if (!class_exists('GeSHi')) {
-                $phpAPI->warning('Cannot find GeSHi, not pretty printing source');
+                $phpapi->warning('Cannot find GeSHi, not pretty printing source');
             }
         }
         # Write frame
@@ -164,8 +164,8 @@ class standard extends Doclet {
             $sourceWriter = & new sourceWriter($this);
         }
         # copy stylesheet
-        $phpAPI->message('Copying stylesheet');
-        copy($phpAPI->docletPath().'stylesheet.css', $this->_destination.'stylesheet.css');
+        $phpapi->message('Copying stylesheet');
+        copy($phpapi->docletPath().'stylesheet.css', $this->_destination.'stylesheet.css');
         $this->_bottom = GENERATOR;
     }
 
@@ -177,10 +177,10 @@ class standard extends Doclet {
     }
 
     /** Return a reference to the application object.
-     * @return phpAPI
+     * @return phpapi
      */
-    function &phpAPI() {
-        return $this->_rootDoc->phpAPI();
+    function &phpapi() {
+        return $this->_rootDoc->phpapi();
     }
 
     /** Get the destination path to write the doclet output to.

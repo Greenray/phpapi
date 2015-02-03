@@ -59,6 +59,7 @@ td.type                 { text-align: right; vertical-align: top }
 td p.description        { margin: 2px 0 0 20px }
 #tree ul ul             { margin-top: 0; margin-bottom: 0 }
 .center                 { text-align: center }
+.left                   { text-align: left }
 .right                  { text-align: right }
 .w_100                  { width: 100px }
 .w_200                  { width: 200px }
@@ -74,5 +75,5 @@ table.hid               { padding: 5px; width: 100% }
 #footer                 { background: #cee; font-weight: bold;  padding: 10px 0 20px 0; text-shadow: 1px 1px 1px #fff; text-align: center }
 p#footer                { font-size: 80%; text-align: right }
 .footer                 { background: #cee }
-#finfo                  { background: #a0a0a0; border-radius: 5px; margin: 0 auto; padding:2px; width: 90%; -webkit-border-radius: 5px; -moz-border-radius: 5px }
+.finfo                  { background: #a0a0a0; border-radius: 5px; margin: 0 auto; padding:2px; width: 90%; -webkit-border-radius: 5px; -moz-border-radius: 5px }
 .inherit                { margin: 10px 0 }

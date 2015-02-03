@@ -1,23 +1,23 @@
 <?php
 # idxCMS Flat Files Content Management Sysytem
 
-/** Нolds the information from one run of phpAPI.
+/** Нolds the information from one run of phpapi.
  * Particularly the packages, classes and options specified by the user.
  * It is  the root of the parsed tokens and is passed to the doclet to be formatted into output.
  * @file      classes/rootDoc.php
  * @version   1.0
- * @author    Victor Nabatov <greenray.spb@gmail.com>
+ * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2011 - 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License <http://creativecommons.org/licenses/by-nc-sa/3.0/>
- * @package   phpAPI
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
+ * @package   phpapi
  */
 
 class rootDoc extends Doc {
 
-    /** Reference to the phpAPI application object.
-     * @var phpAPI
+    /** Reference to the phpapi application object.
+     * @var phpapi
      */
-    public $_phpAPI = NULL;
+    public $_phpapi = NULL;
 
     /** The parsed packages.
      * @var packageDoc[]
@@ -30,24 +30,24 @@ class rootDoc extends Doc {
     public $_sources = array();
 
     /** Constructor.
-     * @param phpAPI phpAPI Application object
+     * @param phpapi phpapi Application object
      */
-    public function rootDoc(&$phpAPI) {
+    public function rootDoc(&$phpapi) {
         # Set a reference to application object
-        $this->_phpAPI = & $phpAPI;
-        $overview = $phpAPI->getOption('overview');
+        $this->_phpapi = & $phpapi;
+        $overview = $phpapi->getOption('overview');
         # Parse overview file
         if (isset($overview)) {
             if (is_file($overview)) {
-                $phpAPI->message('Reading overview file "'.$overview.'".');
+                $phpapi->message('Reading overview file "'.$overview.'".');
                 $text = $this->getFileContents($overview);
                 if (!empty($text)) {
                     $text = str_replace(["\r\n", "\n\r", "\r", "\n"], '<br>', $text);
-                    $this->_data = $phpAPI->processDocComment('/** '.$text.' */', $this);
+                    $this->_data = $phpapi->processDocComment('/** '.$text.' */', $this);
                     $this->mergeData();
                 }
             } else {
-                $phpAPI->warning('Cannot find overview file "'.$overview.'".');
+                $phpapi->warning('Cannot find overview file "'.$overview.'".');
             }
         }
     }
@@ -65,21 +65,21 @@ class rootDoc extends Doc {
      * @param array fileData
      */
     public function addSource($filename, $source, $fileData) {
-        $this->_sources[substr($filename, strlen($this->_phpAPI->sourcePath()) + 1)] = [$source, $fileData];
+        $this->_sources[substr($filename, strlen($this->_phpapi->sourcePath()) + 1)] = [$source, $fileData];
     }
 
-    /** Return a reference to the phpAPI application object.
-     * @return phpAPI.
+    /** Return a reference to the phpapi application object.
+     * @return phpapi.
      */
-    function &phpAPI() {
-        return $this->_phpAPI;
+    function &phpapi() {
+        return $this->_phpapi;
     }
 
     /** Return a reference to the set options.
      * @return str[] An array of strings
      */
     function &options() {
-        return $this->_phpAPI->options();
+        return $this->_phpapi->options();
     }
 
     /** Return a reference to the packages to be documented.

@@ -1,12 +1,12 @@
 <?php
-# PhpAPI: The PHP Documentation Creator
+# phpapi: The PHP Documentation Creator
 
 /** This uses GeSHi to generate formatted source for each source file in the parsed code.
  * @file      doclets/standard/sourceWriter.php
  * @version   1.0
- * @author    Victor Nabatov <greenray.spb@gmail.com>
+ * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2011 - 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License <http://creativecommons.org/licenses/by-nc-sa/3.0/>
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
  * @package   Standard
  */
 
@@ -18,13 +18,13 @@ class sourceWriter extends HTMLWriter {
     public function sourceWriter(&$doclet) {
         parent::HTMLWriter($doclet);
         $rootDoc = & $this->_doclet->rootDoc();
-        $phpAPI  = & $this->_doclet->phpAPI();
+        $phpapi  = & $this->_doclet->phpapi();
 
         $this->_sections[0] = ['title' => 'Overview',   'url' => 'overview-summary.html'];
         $this->_sections[1] = ['title' => 'Namespace'];
         $this->_sections[2] = ['title' => 'Class'];
         #$this->_sections[3] = ['title' => 'Use'];
-        if ($phpAPI->getOption('tree')) {
+        if ($phpapi->getOption('tree')) {
             $this->_sections[4] = ['title' => 'Tree',   'url' => 'overview-tree.html'];
         }
         $this->_sections[5] = ['title' => 'Files',      'url' => 'overview-files.html', 'selected' => TRUE];
@@ -57,7 +57,7 @@ class sourceWriter extends HTMLWriter {
             $this->_sections[1] = ['title' => 'Package'];
             $this->_sections[2] = ['title' => 'Class'];
             #$this->_sections[3] = ['title' => 'Use'];
-            if ($phpAPI->getOption('tree')) {
+            if ($phpapi->getOption('tree')) {
                 $this->_sections[4] = ['title' => 'Tree'];
             }
             $this->_sections[5] = ['title' => 'Files',      'url' => 'overview-files.html'];

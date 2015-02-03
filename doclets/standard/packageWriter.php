@@ -1,13 +1,13 @@
 <?php
-# PhpAPI: The PHP Documentation Creator
+# phpapi: The PHP Documentation Creator
 
 /** This generates the package-summary.html files that list the interfaces and
  * classes for a given package.
  * @file      doclets/standard/packageWriter.php
  * @version   1.0
- * @author    Victor Nabatov <greenray.spb@gmail.com>
+ * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2011 - 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License <http://creativecommons.org/licenses/by-nc-sa/3.0/>
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
  * @package   Standard
  */
 
@@ -20,9 +20,9 @@ class packageWriter extends HTMLWriter {
         parent::HTMLWriter($doclet);
 
         $rootDoc = & $this->_doclet->rootDoc();
-        $phpAPI  = & $this->_doclet->phpAPI();
+        $phpapi  = & $this->_doclet->phpapi();
 
-        $displayTree = $phpAPI->getOption('tree');
+        $displayTree = $phpapi->getOption('tree');
 
         if ($displayTree) {
             $this->_sections[0] = ['title' => 'Overview',   'url' => 'overview-summary.html'];

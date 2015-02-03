@@ -1,12 +1,12 @@
 <?php
-# PhpAPI: The PHP Documentation Creator
+# phpapi: The PHP Documentation Creator
 
 /** This class generates the overview-summary.html file that lists all parsed packages.
  * @file      doclets/standard/packageIndexWriter.php
  * @version   1.0
- * @author    Victor Nabatov <greenray.spb@gmail.com>
+ * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2011 - 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License <http://creativecommons.org/licenses/by-nc-sa/3.0/>
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
  * @package   Standard
  */
 
@@ -17,13 +17,13 @@ class packageIndexWriter extends HTMLWriter {
      */
     public function packageIndexWriter(&$doclet) {
         parent::htmlWriter($doclet);
-        $phpAPI = & $this->_doclet->phpAPI();
+        $phpapi = & $this->_doclet->phpapi();
 
         $this->_sections[0] = ['title' => 'Overview', 'selected' => TRUE];
         $this->_sections[1] = ['title' => 'Namespace'];
         $this->_sections[2] = ['title' => 'Class'];
         #$this->_sections[3] = ['title' => 'Use'];
-        if ($phpAPI->getOption('tree')) {
+        if ($phpapi->getOption('tree')) {
             $this->_sections[4] = ['title' => 'Tree',   'url' => 'overview-tree.html'];
         }
         if ($doclet->includeSource()) {
