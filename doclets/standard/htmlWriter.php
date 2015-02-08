@@ -50,21 +50,22 @@ class htmlWriter {
      * @return string        YNML page header
      */
     public function _htmlHeader($title) {
-        $output  = '<!doctype html>';
-        $output .= '<html lang="en">';
-        $output .= '<head>';
-        $output .= '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">';
-        $output .= '<meta name="generator" content="phpapi '.VERSION.' (https://github.com/Greenray/phpapi/)">';
-        $output .= '<link rel="stylesheet" type="text/css" href="'.str_repeat('../', $this->_depth).'stylesheet.css">';
-        $output .= '<link rel="start" href="'.str_repeat('../', $this->_depth).'overview-summary.html">';
-        $output .= '<title>';
+        $output  =
+            '<!doctype html>
+             <html lang="en">
+             <head>
+             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+             <meta name="generator" content="phpapi '.VERSION.' (https://github.com/Greenray/phpapi/)">
+             <link rel="stylesheet" type="text/css" href="'.str_repeat('../', $this->_depth).'stylesheet.css">
+             <link rel="start" href="'.str_repeat('../', $this->_depth).'overview-summary.html">
+             <title>';
         if ($title) {
             $output .= $title.' ('.$this->_doclet->windowTitle().')';
         } else {
             $output .= $this->_doclet->windowTitle();
         }
-        $output .= '</title>';
-        $output .= '</head>';
+        $output .= '</title>
+                    </head>';
         return $output;
     }
 
@@ -93,9 +94,9 @@ class htmlWriter {
      */
     public function _shellFooter($path) {
         $output = $this->_nav($path);
-        $output .= '<hr>';
-        $output .= '<div class="footer center">'.$this->_doclet->bottom().'</div>';
-        $output .= '</body>';
+        $output .= '<hr>
+                        <div class="footer center">'.$this->_doclet->bottom().'</div>
+                    </body>';
         return $output;
     }
 
@@ -104,8 +105,8 @@ class htmlWriter {
      * @return string       Navigation for documentation
      */
     public function _nav($path) {
-        $output = '<div class="header">';
-        $output .= '<span style="float:right">'.$this->_doclet->getHeader().'</span>';
+        $output = '<div class="header">
+                       <span style="float:right">'.$this->_doclet->getHeader().'</span>';
         if ($this->_sections) {
             $output .= '<ul>';
             foreach ($this->_sections as $section) {
@@ -121,27 +122,27 @@ class htmlWriter {
             }
             $output .= '</ul>';
         }
-        $output .= '</div>';
-        $output .= '<div class="small_links">';
-        $output .= '<a href="'.str_repeat('../', $this->_depth).'index.html" target="_top">Frames</a> ';
-        $output .= '<a href="'.str_repeat('../', $this->_depth).$path.'" target="_top"> No frames</a>';
-        $output .= '</div>';
+        $output .= '</div>
+                        <div class="small_links">
+                            <a href="'.str_repeat('../', $this->_depth).'index.html" target="_top">Frames</a>
+                            <a href="'.str_repeat('../', $this->_depth).$path.'" target="_top"> No frames</a>
+                        </div>';
         $thisClass = strtolower(get_class($this));
         if ($thisClass == 'classwriter') {
             $output .= '<div class="small_links">';
-            $output .= 'Summary: <a href="#summary_field">Field</a> | <a href="#summary_method">Method</a> | <a href="#summary_constr">Constr</a> ';
-            $output .= 'Detail: <a href="#detail_field">Field</a> | <a href="#detail_method">Method</a> | <a href="#summary_constr">Constr</a>';
-            $output .= '</div>';
+                           'Summary: <a href="#summary_field">Field</a> | <a href="#summary_method">Method</a> | <a href="#summary_constr">Constr</a>
+                            Detail: <a href="#detail_field">Field</a> | <a href="#detail_method">Method</a> | <a href="#summary_constr">Constr</a>
+                        </div>';
         } elseif ($thisClass == 'functionwriter') {
-            $output .= '<div class="small_links">';
-            $output .= 'Summary: <a href="#summary_function">Function</a> ';
-            $output .= 'Detail: <a href="#detail_function">Function</a>';
-            $output .= '</div>';
+            $output .= '<div class="small_links">
+                            Summary: <a href="#summary_function">Function</a>
+                            Detail: <a href="#detail_function">Function</a>
+                        </div>';
         } elseif ($thisClass == 'globalwriter') {
-            $output .= '<div class="small_links">';
-            $output .= 'Summary: <a href="#summary_global">Global</a> ';
-            $output .= ' etail: <a href="#detail_global">Global</a>';
-            $output .= '</div>';
+            $output .= '<div class="small_links">
+                            Summary: <a href="#summary_global">Global</a>
+                            Detail: <a href="#detail_global">Global</a>
+                        </div>';
         }
         return $output;
     }

@@ -37,7 +37,7 @@ div.header h1           { font-size: 120%; font-style: italic; padding: 0 4px; m
 div.header ul           { list-style: none; margin: 0 }
 div.header ul li        { display: inline; font-size: 100%; font-weight: bold; padding: 0 4px }
 div.header ul li.active { background: #00008c; color: #fff }
-div.small_links         { font-size: 80%; margin: 8px; text-transform: uppercase }
+div.small_links         { margin: 8px }
 #frame h1, #frame h2    { background: #cee; text-align: center }
 #frame h1               { font-size: 120% }
 #frame h2               { font-size: 100% }
@@ -68,12 +68,12 @@ td p.description        { margin: 2px 0 0 20px }
 .green                  { color: green }
 .lilac                  { color: #cc0099 }
 .red                    { color: red }
-.hid                    { background: #ecede5; border: 0 }
+.hid                    { border: 0 }
 table.hid               { padding: 5px; width: 100% }
 .name                   { width: 400px }
 #header                 { background: #cee; font-size: 140%; font-weight: bold; height: 30px; padding: 10px 0 20px 0; text-align: center; text-shadow: 1px 1px 1px #fff }
 #footer                 { background: #cee; font-weight: bold;  padding: 10px 0 20px 0; text-shadow: 1px 1px 1px #fff; text-align: center }
 p#footer                { font-size: 80%; text-align: right }
 .footer                 { background: #cee }
-.finfo                  { background: #a0a0a0; border-radius: 5px; margin: 0 auto; padding:2px; width: 90%; -webkit-border-radius: 5px; -moz-border-radius: 5px }
+.finfo                  { background: #ececec; border-radius: 5px; margin: 0 auto; padding:2px; width: 90%; -webkit-border-radius: 5px; -moz-border-radius: 5px }
 .inherit                { margin: 10px 0 }
