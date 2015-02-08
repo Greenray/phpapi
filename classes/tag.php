@@ -51,21 +51,21 @@ class tag {
         $this->_type = $type;
     }
 
-    /** Get name of this tag.
+    /** Gets name of this tag.
      * @return str
      */
     public function name() {
         return $this->_name;
     }
 
-    /** Get display name of this tag.
+    /** Gets display name of this tag.
      * @return str
      */
     public function displayName() {
         return ucfirst(substr($this->_name, 1));
     }
 
-    /** Get the value of the tag as raw data, without any text processing applied.
+    /** Gets the value of the tag as raw data, without any text processing applied.
      * @param Doclet doclet
      * @return str
      */
@@ -73,14 +73,14 @@ class tag {
         return $this->_text;
     }
 
-    /** Get type of this tag.
+    /** Gets type of this tag.
      * @return str
      */
     public function type() {
         return $this->_type;
     }
 
-    /** Set this tags parent
+    /** Sets this tags parent
      * @param ProgramElementDoc element The parent element
      */
     public function setParent(&$element) {
@@ -102,7 +102,7 @@ class tag {
         return $this->_getInlineTags($this->text($formatter));
     }
 
-    /** Return the first sentence of the comment as tags.
+    /** Returns the first sentence of the comment as tags.
      * Includes inline tags (i.e. {@link reference} tags) but not regular tags.
      * Each section of plain text is represented as a Tag of kind "Text".
      * Inline tags are represented as a SeeTag of kind "link".
@@ -140,12 +140,12 @@ class tag {
         return $return;
     }
 
-    /** Parse out inline tags from within a text string.
+    /** Parses out inline tags from within a text string.
      * @param str text
      * @return Tag[]
      */
     function &_getInlineTags($text) {
-        $return = NULL;
+        $return     = NULL;
         $tagStrings = preg_split('/{(@.+)}/sU', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
         if ($tagStrings) {
             $inlineTags = NULL;
@@ -161,7 +161,12 @@ class tag {
                         $text = NULL;
                     }
                 } else {
-                    $name = '@text';
+                    $name    = '@text';
+                    $strings = explode('.', $tag);
+                    if (!empty($strings[1])) {
+                        $tag  = array_shift($strings).LF;
+                        $tag .= implode('.', $strings);
+                    }
                     $text = $tag;
                 }
                 $data = NULL;
@@ -174,56 +179,56 @@ class tag {
         return $return;
     }
 
-    /** Return true if this Taglet is used in constructor documentation.
+    /** Returns true if this Taglet is used in constructor documentation.
      * @return bool
      */
     public function inConstructor() {
         return TRUE;
     }
 
-    /** Return true if this Taglet is used in field documentation.
+    /** Returns true if this Taglet is used in field documentation.
      * @return bool
      */
     public function inField() {
         return TRUE;
     }
 
-    /** Return true if this Taglet is used in method documentation.
+    /** Returns true if this Taglet is used in method documentation.
      * @return bool
      */
     public function inMethod() {
         return TRUE;
     }
 
-    /** Return true if this Taglet is used in overview documentation.
+    /** Returns true if this Taglet is used in overview documentation.
      * @return bool
      */
     public function inOverview() {
         return TRUE;
     }
 
-    /** Return true if this Taglet is used in package documentation.
+    /** Returns true if this Taglet is used in package documentation.
      * @return bool
      */
     public function inPackage() {
         return TRUE;
     }
 
-    /** Return true if this Taglet is used in class or interface documentation.
+    /** Returns true if this Taglet is used in class or interface documentation.
      * @return bool
      */
     public function inType() {
         return TRUE;
     }
 
-    /** Return true if this Taglet is an inline tag.
+    /** Returns true if this Taglet is an inline tag.
      * @return bool
      */
     public function isInlineTag() {
         return FALSE;
     }
 
-    /** Return true if this Taglet should be outputted even if it has no text content.
+    /** Returns true if this Taglet should be outputted even if it has no text content.
      * @return bool
      */
     public function displayEmpty() {

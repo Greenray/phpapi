@@ -44,7 +44,7 @@ class htmlWriter {
         $this->_doclet = & $doclet;
     }
 
-    /** Build the HTML header.
+    /** Builds the HTML header.
      * Includes doctype definition, <html> and <head> sections, meta data and window title.
      * @param  string $title HTML page title
      * @return string        YNML page header
@@ -69,14 +69,14 @@ class htmlWriter {
         return $output;
     }
 
-    /** Build the HTML footer.
+    /** Builds the HTML footer.
      * @return string Closes html page
      */
     public function _htmlFooter() {
         return '</html>';
     }
 
-    /** Build the HTML shell header.
+    /** Builds the HTML shell header.
      * Includes beginning of the <body> section, and the page header.
      * @param  string $path The path to write the file to
      * @return string       Menu for page header
@@ -87,7 +87,7 @@ class htmlWriter {
         return $output;
     }
 
-    /** Build the HTML shell footer.
+    /** Builds the HTML shell footer.
      * Includes the end of the <body> section, and page footer.
      * @param  string $path The path to write the file to
      * @return string       Menu for page footer
@@ -100,7 +100,7 @@ class htmlWriter {
         return $output;
     }
 
-    /** Build the navigation bar.
+    /** Builds the navigation bar.
      * @param  string $path The path to write the file to
      * @return string       Navigation for documentation
      */
@@ -147,6 +147,10 @@ class htmlWriter {
         return $output;
     }
 
+    /** Location of the source file.
+     * @param object $doc Object of the current source file
+     * @return void
+     */
     public function _sourceLocation($doc) {
         if ($this->_doclet->includeSource()) {
             $url = strtolower(str_replace(DS, '/', $doc->sourceFilename()));
@@ -156,7 +160,7 @@ class htmlWriter {
         }
     }
 
-    /** Write the HTML page to disk using the given path.
+    /** Writes the HTML page to disk using the given path.
      * @param  string  $path  The path to write the file to
      * @param  string  $title The title for this page
      * @param  boolean $shell Include the page shell in the output
@@ -199,7 +203,7 @@ class htmlWriter {
         }
     }
 
-    /** Format tags for output.
+    /** Formats tags for output.
      * @param Tag[]   $tags The text tag to process
      * @return string       The string representation of the elements doc tags
      */
@@ -299,7 +303,7 @@ class htmlWriter {
         }
     }
 
-    /** Convert inline tags into a string for outputting.
+    /** Converts inline tags into a string for outputting.
      * @param Tag      $tag   The text tag to process
      * @param  boolean $first Process first line of tag only
      * @return string         The string representation of the elements doc tags

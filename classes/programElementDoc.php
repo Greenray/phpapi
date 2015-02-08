@@ -55,22 +55,22 @@ class programElementDoc extends Doc {
      */
     public $_sourcePath = NULL;
 
-    /** Set element to have public access. */
+    /** Sets element to have public access. */
     public function makePublic() {
         $this->_access = 'public';
     }
 
-    /** Set element to have protected access. */
+    /** Sets element to have protected access. */
     public function makeProtected() {
         $this->_access = 'protected';
     }
 
-    /** Set element to have private access. */
+    /** Sets element to have private access. */
     public function makePrivate() {
         $this->_access = 'private';
     }
 
-    /** Get the containing class of this program element.
+    /** Gets the containing class of this program element.
      * If the element is in the global scope and does not have a parent class, this will return null.
      * @return ClassDoc
      */
@@ -82,21 +82,21 @@ class programElementDoc extends Doc {
         return $return;
     }
 
-    /** Get the package that this program element is contained in.
+    /** Gets the package that this program element is contained in.
      * @return PackageDoc
      */
     function &containingPackage() {
         return $this->_root->packageNamed($this->_package);
     }
 
-    /** Get the name of the package that this program element is contained in.
+    /** Gets the name of the package that this program element is contained in.
      * @return str
      */
     public function packageName() {
         return $this->_package;
     }
 
-    /** Get the fully qualified name.
+    /** Gets the fully qualified name.
      * <pre>
      * Example:
      * for the method bar() in class Foo in the package Baz, return:
@@ -113,7 +113,7 @@ class programElementDoc extends Doc {
         }
     }
 
-    /** Get modifiers string.
+    /** Gets modifiers string.
      * <pre>
      * Example, for:
      * public abstract int foo() { ... }
@@ -139,7 +139,7 @@ class programElementDoc extends Doc {
         return $modifiers;
     }
 
-    /** Return true if this program element is public.
+    /** Returns true if this program element is public.
      * @return bool
      */
     public function isPublic() {
@@ -150,7 +150,7 @@ class programElementDoc extends Doc {
         }
     }
 
-    /** Return true if this program element is protected.
+    /** Returns true if this program element is protected.
      * @return bool
      */
     public function isProtected() {
@@ -161,7 +161,7 @@ class programElementDoc extends Doc {
         }
     }
 
-    /** Return true if this program element is private.
+    /** Returns true if this program element is private.
      * @return bool
      */
     public function isPrivate() {
@@ -172,28 +172,28 @@ class programElementDoc extends Doc {
         }
     }
 
-    /** Return true if this program element is final.
+    /** Returns true if this program element is final.
      * @return bool
      */
     public function isFinal() {
         return $this->_final;
     }
 
-    /** Return true if this program element is static.
+    /** Returns true if this program element is static.
      * @return bool
      */
     public function isStatic() {
         return $this->_static;
     }
 
-    /** Get the source location of this element
+    /** Gets the source location of this element
      * @return str
      */
     public function location() {
         return $this->sourceFilename().' at line '.$this->sourceLine();
     }
 
-    /** Return the name of the souce file.
+    /** Returns the name of the souce file.
      * @return string
      */
     public function sourceFilename() {
@@ -201,14 +201,14 @@ class programElementDoc extends Doc {
         return substr($this->_filename, strlen($this->_sourcePath) + 1);
     }
 
-    /** Return the line number of the souce code.
+    /** Returns the line number of the souce code.
      * @return type
      */
     public function sourceLine() {
         return $this->_lineNumber;
     }
 
-    /** Return the element path.
+    /** Returns the element path.
      * @return str
      */
     public function asPath() {

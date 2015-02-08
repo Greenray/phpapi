@@ -41,21 +41,21 @@ class type {
         $this->_root = & $root;
     }
 
-    /** Get name of this type.
+    /** Gets name of this type.
      * @return string Name of type
      */
     public function typeName() {
         return $this->_name;
     }
 
-    /** Return the type's dimension information, as a string.
+    /** Returns the type's dimension information, as a string.
      * @return string Type's dimention info
      */
     public function dimension() {
         return str_repeat('[]', $this->_dimension);
     }
 
-    /** Get qualified name of this type.
+    /** Gets qualified name of this type.
      * @return string Qualified naame of the type
      * @todo This method is still to be implemented
      */
@@ -70,7 +70,7 @@ class type {
         return $this->_name.$this->dimension();
     }
 
-    /** Return this type as a class.
+    /** Returns this type as a class.
      * @return ClassDoc A classDoc if the type is a class, null if it is a primitive type
      */
     function &asClassDoc() {

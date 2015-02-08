@@ -46,13 +46,13 @@ class classWriter extends HTMLWriter {
 
                     ob_start();
 
-                    echo "<hr>";
-                    echo '<div class="qualifiedName">', $class->qualifiedName(), '</div>';
+                    echo '<hr>';
+                    echo '<div class="qualifiedName">'.$class->qualifiedName().'</div>';
                     $this->_sourceLocation($class);
                     if ($class->isInterface()) {
-                        echo '<h1>Interface ', $class->name(), '</h1>';
+                        echo '<h1>Interface '.$class->name().'</h1>';
                     } else {
-                        echo '<h1>Class ', $class->name(), '</h1>';
+                        echo '<h1>Class '.$class->name().'</h1>';
                     }
                     echo '<pre class="tree">';
                     $result = $this->_buildTree($rootDoc, $classes[$name]);
@@ -144,15 +144,16 @@ class classWriter extends HTMLWriter {
                         foreach ($constants as $field) {
                             $textTag = & $field->tags('@text');
                             echo '<tr>';
-                            echo '<td class="type w_200">', $field->modifiers(FALSE), ' ', $field->typeAsString(), '</td>';
+                            echo '<td class="type w_200">'.$field->modifiers(FALSE).' '.$field->typeAsString().'</td>';
                             echo '<td class="description">';
-                            echo '<p class="name"><a href="#', $field->name(), '">';
-                            if (is_null($field->constantValue())) {
-                                echo '$';
+                            echo '<p class="name"><a href="#'.$field->name().'">';
+                            echo '<span class="lilac">'.$field->name().'</span></a>';
+                            if (!is_null($field->value())) {
+                                echo $this->showValue($field->value());
                             }
-                            echo $field->name(), '</a></p>';
+                            echo '</p>';
                             if ($textTag) {
-                                echo '<p class="description">', strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>'), '</p>';
+                                echo '<p class="description">'.strip_tags($this->_processInlineTags($textTag, TRUE).'<a><b><strong><u><em>'), '</p>';
                             }
                             echo '</td>';
                             echo '</tr>';
@@ -166,15 +167,16 @@ class classWriter extends HTMLWriter {
                         foreach ($fields as $field) {
                             $textTag = & $field->tags('@text');
                             echo '<tr>';
-                            echo '<td class="type w_200">', $field->modifiers(FALSE), ' ', $field->typeAsString(), '</td>';
+                            echo '<td class="type w_200">'.$field->modifiers(FALSE).' '.$field->typeAsString().'</td>';
                             echo '<td class="description">';
-                            echo '<p class="name"><a href="#', $field->name(), '">';
-                            if (is_null($field->constantValue())) {
-                                echo '$';
+                            echo '<p class="name"><a href="#'.$field->name().'">';
+                            echo '<span class="green">$'.$field->name().'</span></a>';
+                            if (!is_null($field->value())) {
+                                echo $this->showValue($field->value());
                             }
-                            echo $field->name(), '</a></p>';
+                            echo '</p>';
                             if ($textTag) {
-                                echo '<p class="description">', strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>'), '</p>';
+                                echo '<p class="description">'.strip_tags($this->_processInlineTags($textTag, TRUE).'<a><b><strong><u><em>'), '</p>';
                             }
                             echo '</td>';
                             echo '</tr>';
@@ -238,12 +240,10 @@ class classWriter extends HTMLWriter {
                             $this->_sourceLocation($field);
                             echo '<h3 id="', $field->name(), '">', $field->name(), '</h3>';
                             echo '<code class="signature">', $field->modifiers(), ' ', $field->typeAsString(), ' <strong>';
-                            if (is_null($field->constantValue())) {
-                                echo '$';
-                            }
+//                            if (is_null($field->constantValue())) {}
                             echo $field->name(), '</strong>';
                             if (!is_null($field->value())) {
-                                echo ' = ', htmlspecialchars($field->value());
+                                echo $this->showValue($field->value());
                             }
                             echo '</code>';
                             echo '<div class="details">';
@@ -262,35 +262,15 @@ class classWriter extends HTMLWriter {
                             $textTag = & $field->tags('@text');
                             $type = & $field->type();
                             $this->_sourceLocation($field);
-                            echo '<span class="green"><h3 id="', $field->name(), '">', $field->name(), '</h3></span>';
-                            echo '<code class="signature"><strong>', $field->modifiers(), ' ', $field->typeAsString(), ' ';
+                            echo '<code class="signature" id="', $field->name(), '">'.$field->modifiers().' '.$field->typeAsString().' ';
                             if (is_null($field->constantValue())) {
-                                echo '<span class="blue">$'.$field->name().'</span>';
+                                echo '<span class="green">$'.$field->name().'</span>';
                             } else {
                                 echo '<span class="lilac">'.$field->name().'</span>';
                             }
                             echo '</strong>';
                             if (!is_null($field->value())) {
-                                echo ' = ';
-                                $quot  = strpos($field->value(), '"');
-                                $dquot = strpos($field->value(), '\'');
-                                if ($quot === 0 || $dquot === 0) {
-                                    echo '<span class="red">'.htmlspecialchars($field->value()).'</span>';
-                                } else {
-                                    $quot  = substr($field->value(), 0, 1);
-                                    $start = 0;
-                                    if ($quot == '[') {
-                                        $dquot = substr($field->value(), 1, -1);
-                                        $start = 1;
-                                    } else {
-                                        $quot = substr($field->value(), 5, 1);
-                                        if ($quot == '(') {
-                                            $dquot = substr($field->value(), 6, -1);
-                                            $start = 6;
-                                        }
-                                    }
-                                    echo substr_replace($field->value(), '<span class="red">'.htmlspecialchars($dquot).'</span>', $start, strlen($dquot));
-                                }
+                                echo $this->showValue($field->value());
                             }
                             echo '</code>';
                             echo '<div class="details">';
@@ -307,8 +287,7 @@ class classWriter extends HTMLWriter {
                         echo '<h2 id="detail_method">Constructor Detail</h2>';
                         $textTag = & $constructor->tags('@text');
                         $this->_sourceLocation($constructor);
-                        echo '<h3 id="', $constructor->name(), '">', $constructor->name(), '</h3>';
-                        echo '<code class="signature">', $constructor->modifiers(), ' ', $constructor->returnTypeAsString(), ' <strong>';
+                        echo '<code class="signature" id="', $constructor->name(), '()">', $constructor->modifiers(), ' ', $constructor->returnTypeAsString(), ' <strong>';
                         echo $constructor->name(), '</strong>', $constructor->flatSignature();
                         echo '</code>';
                         echo '<div class="details">';
@@ -325,8 +304,7 @@ class classWriter extends HTMLWriter {
                         foreach ($methods as $method) {
                             $textTag = & $method->tags('@text');
                             $this->_sourceLocation($method);
-                            echo '<h3 id="', $method->name(), '">', $method->name(), '</h3>';
-                            echo '<code class="signature">', $method->modifiers(), ' ', $method->returnTypeAsString(), ' <strong>';
+                            echo '<code class="signature" id="', $method->name(), '()">', $method->modifiers(), ' ', $method->returnTypeAsString(), ' <strong>';
                             echo $method->name(), '</strong>', $method->flatSignature();
                             echo '</code>';
                             echo '<div class="details">';
@@ -448,5 +426,29 @@ class classWriter extends HTMLWriter {
                 }
             }
         }
+    }
+
+    private function showValue($value) {
+        $result = ' = ';
+        $quot   = strpos($value, '"');
+        $dquot  = strpos($value, '\'');
+        if ($quot === 0 || $dquot === 0) {
+            $result .= '<span class="red">'.htmlspecialchars($value).'</span>';
+        } else {
+            $quot  = substr($value, 0, 1);
+            $start = 0;
+            if ($quot == '[') {
+                $dquot = substr($value, 1, -1);
+                $start = 1;
+            } else {
+                $quot = substr($value, 5, 1);
+                if ($quot == '(') {
+                    $dquot = substr($value, 6, -1);
+                    $start = 6;
+                }
+            }
+            $result .= substr_replace($value, '<span class="red">'.htmlspecialchars($dquot).'</span>', $start, strlen($dquot));
+        }
+        return $result;
     }
 }

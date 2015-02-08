@@ -475,7 +475,7 @@ class phpapi {
                         $fileString = str_replace(["\r\n", "\r"], LF, $fileString);   # Fix line endings
                         $this->_currentFilename = $filename;
                         $tokens = token_get_all($fileString);
-                        if (!$this->_verbose) {
+                        if ($this->_verbose) {
                             echo 'Parsing tokens';
                         }
                         # This array holds data gathered before the type of element is discovered and an object is created for it, including doc comment data.
@@ -514,7 +514,7 @@ class phpapi {
                                 switch ($token[0]) {
 
                                     case T_COMMENT:     # Read comment
-                                    case T_ML_COMMENT:  # and multiline comment (deprecated in newer versions)
+ //                                   case T_ML_COMMENT:  # and multiline comment (deprecated in newer versions)
                                     case T_DOC_COMMENT: # and catch PHP5 doc comment token too
                                         $currentData = array_merge($currentData, $this->processDocComment($token[1], $rootDoc));
                                         if ($currentData) {
@@ -522,7 +522,7 @@ class phpapi {
                                             if ($commentNumber == 1) {
                                                 if (isset($currentData['package'])) { # Store 1st comment incase it is a file level comment
                                                     $oldDefaultPackage = $defaultPackage;
-                                                    $defaultPackage = $currentData['package'];
+                                                    $defaultPackage    = $currentData['package'];
                                                 }
                                                 $fileData = $currentData;
                                             }
@@ -1041,7 +1041,7 @@ class phpapi {
                                             }
                                         }
                                         break;
-                                        
+
                                     case '"': # Catch parsed strings so as to ignore tokens within
                                         $in_parsed_string = !$in_parsed_string;
                                         break;
@@ -1049,14 +1049,15 @@ class phpapi {
                             }
                             $counter++;
                             if ($counter > 99) {
-                                if (!$this->_verbose)
+                                if ($this->_verbose) {
                                     echo '.';
+                                }
                                 $counter = 0;
                             }
                         }
-                        if (!$this->_verbose)
-                            echo "\n";
-
+                        if ($this->_verbose) {
+                            echo LF;
+                        }
                         $rootDoc->addSource($filename, $fileString, $fileData);
                     } else {
                         $this->error('Cannot read file "'.$filename.'"');

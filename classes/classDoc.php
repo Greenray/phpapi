@@ -76,7 +76,7 @@ class classDoc extends ProgramElementDoc {
         $this->_sourcePath = $sourcePath;
     }
 
-    /** Add a constant to this class.
+    /** Adds a constant to this class.
      * @param FieldDoc field
      */
     public function addConstant(&$constant) {
@@ -85,7 +85,7 @@ class classDoc extends ProgramElementDoc {
         }
     }
 
-    /** Add a field to this class.
+    /** Adds a field to this class.
      * @param FieldDoc field
      */
     public function addField(&$field) {
@@ -94,7 +94,7 @@ class classDoc extends ProgramElementDoc {
         }
     }
 
-    /** Add a method to this class.
+    /** Adds a method to this class.
      * @param MethodDoc method
      */
     public function addMethod(&$method) {
@@ -106,22 +106,21 @@ class classDoc extends ProgramElementDoc {
         $this->_methods[$method->name()] = & $method;
     }
 
-    /** Return constants in this class.
+    /** Returns constants in this class.
      * @return FieldDoc[]
      */
     function &constants() {
         return $this->_constants;
     }
 
-    /** Return fields in this class.
+    /** Returns fields in this class.
      * @return FieldDoc[]
      */
     function &fields() {
         return $this->_fields;
     }
 
-    /** Return a field in this class.
-     *
+    /** Returns a field in this class.
      * @return FieldDoc
      */
     function &fieldNamed($fieldName) {
@@ -132,7 +131,7 @@ class classDoc extends ProgramElementDoc {
         return $return;
     }
 
-    /** Return the methods in this class.
+    /** Returns the methods in this class.
      * @param boolean regularOnly Do not return constructors and destructors
      * @return MethodDoc[]
      */
@@ -150,7 +149,7 @@ class classDoc extends ProgramElementDoc {
         return $return;
     }
 
-    /** Return a method in this class.
+    /** Returns a method in this class.
      * @return MethodDoc
      */
     function &methodNamed($methodName) {
@@ -161,7 +160,7 @@ class classDoc extends ProgramElementDoc {
         return $return;
     }
 
-    /** Return constructor for this class.
+    /** Returns constructor for this class.
      * @return MethodDoc
      */
     function &constructor() {
@@ -175,7 +174,7 @@ class classDoc extends ProgramElementDoc {
         return $return;
     }
 
-    /** Return destructor for this class.
+    /** Returns destructor for this class.
      * @return MethodDoc
      */
     function &destructor() {
@@ -189,14 +188,14 @@ class classDoc extends ProgramElementDoc {
         return $return;
     }
 
-    /** Return interfaces implemented by this class or interfaces extended by this interface.
+    /** Returns interfaces implemented by this class or interfaces extended by this interface.
      * @return ClassDoc[]
      */
     function &interfaces() {
         return $this->_interfaces;
     }
 
-    /** Return an interface in this class.
+    /** Returns an interface in this class.
      * @return ClassDoc
      */
     function &interfaceNamed($interfaceName) {
@@ -207,14 +206,14 @@ class classDoc extends ProgramElementDoc {
         return $return;
     }
 
-    /** Return traits used by this class
+    /** Returns traits used by this class
      * @return ClassDoc[]
      */
     function &traits() {
         return $this->_traits;
     }
 
-    /** Return an interface in this class.
+    /** Returns an interface in this class.
      * @return ClassDoc
      */
     function &traitNamed($traitName) {
@@ -225,28 +224,28 @@ class classDoc extends ProgramElementDoc {
         return $return;
     }
 
-    /** Return true if this class is abstract.
+    /** Returns true if this class is abstract.
      * @return boolean
      */
     public function isAbstract() {
         return $this->_abstract;
     }
 
-    /** Return true if this element is an interface.
+    /** Returns true if this element is an interface.
      * @return boolean
      */
     public function isInterface() {
         return $this->_interface;
     }
 
-    /** Return true if this element is a trait.
+    /** Returns true if this element is a trait.
      * @return boolean
      */
     public function isTrait() {
         return $this->_trait;
     }
 
-    /** Test whether this class is a subclass of the specified class.
+    /** Tests whether this class is a subclass of the specified class.
      * @param ClassDoc cd
      * @return boolean
      */
@@ -254,35 +253,36 @@ class classDoc extends ProgramElementDoc {
         return ($this->_superclass == $cd->name()) ? TRUE : FALSE;
     }
 
-    /** Return the superclass of this class.
+    /** Returns the superclass of this class.
      * @return ClassDoc
      */
     public function superclass() {
         return $this->_superclass;
     }
 
-    /** Is this construct a class. Note: interfaces are not classes.
+    /** Constructs a class.
+     * @note interfaces are not classes.
      * @return boolean
      */
     public function isClass() {
         return !$this->_interface && !$this->_trait;
     }
 
-    /** Is this construct an ordinary class (not an interface or an exception).
+    /** Constructs an ordinary class (not an interface or an exception).
      * @return boolean
      */
     public function isOrdinaryClass() {
         return ($this->isClass() && !$this->isException()) ? TRUE : FALSE;
     }
 
-    /** Is this construct an exception.
+    /** Constructs an exception.
      * @return boolean
      */
     public function isException() {
         return (strtolower($this->_superclass) == 'exception') ? TRUE : FALSE;
     }
 
-    /** Return the known subclasses of this class
+    /** Returns the known subclasses of this class
      * @return classDoc[]
      */
     public function subclasses() {
@@ -295,7 +295,7 @@ class classDoc extends ProgramElementDoc {
         return $return;
     }
 
-    /** Merge the details of the superclass with this class.
+    /** Merges the details of the superclass with this class.
      * @param str superClassName
      */
     public function mergeSuperClassData($superClassName = NULL) {

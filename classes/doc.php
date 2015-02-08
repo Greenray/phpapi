@@ -85,14 +85,14 @@ class doc {
         return FALSE;
     }
 
-    /** Return the name of this doc item.
+    /** Returns the name of this doc item.
      * @return str
      */
     public function name() {
         return $this->_name;
     }
 
-    /** Return tags of the specified kind in this Doc item.
+    /** Returns tags of the specified kind in this Doc item.
      * For example, if 'tagName' has value "@serial", all tags in this Doc item of type "@serial" will be returned.
      * If NULL is given for 'tagName', all tags in this Doc item are returned.
      * @param str tagName Name of the tag kind to search for
@@ -109,7 +109,7 @@ class doc {
         return $return;
     }
 
-    /** Set a tag.
+    /** Sets a tag.
      * @param str tagName Name of the tag kind to search for
      * @param Tag tag The tag to set
      */
@@ -117,85 +117,84 @@ class doc {
         $this->_tags[$tagName] = & $tag;
     }
 
-    /** Return the full unprocessed text of the comment.
+    /** Returns the full unprocessed text of the comment.
      * @return str
      */
     public function getRawCommentText() {
         return $this->_docComment;
     }
 
-    /** Is this construct a class. Note: interfaces are not classes.
-     * False until overridden.
+    /** Constructs a class. False until overridden.
      * @return bool
      */
     public function isClass() {
         return FALSE;
     }
 
-    /** Is this construct a constructor. False until overridden.
+    /** Constructs a constructor. False until overridden.
      * @return bool
      */
     public function isConstructor() {
         return FALSE;
     }
 
-    /** Is this construct an exception. False until overridden.
+    /** Constructs an exception. False until overridden.
      * @return bool
      */
     public function isException() {
         return FALSE;
     }
 
-    /** Is this construct a global variable. False until overridden.
+    /** Constructs a global variable. False until overridden.
      * @return bool
      */
     public function isGlobal() {
         return FALSE;
     }
 
-    /** Is this construct final. False until overridden.
+    /** Constructs final. False until overridden.
      * @return bool
      */
     public function isFinal() {
         return FALSE;
     }
 
-    /** Is this construct a field. False until overridden.
+    /** Constructs a field. False until overridden.
      * @return bool
      */
     public function isField() {
         return FALSE;
     }
 
-    /** Is this construct a function. False until overridden.
+    /** Constructs a function. False until overridden.
      * @return bool
      */
     public function isFunction() {
         return FALSE;
     }
 
-    /** Is this construct an interface. False until overridden.
+    /** Constructs an interface. False until overridden.
      * @return bool
      */
     public function isInterface() {
         return FALSE;
     }
 
-    /** Is this construct an trait. False until overridden.
+    /** Constructs an trait. False until overridden.
      * @return bool
      */
     public function isTrait() {
         return FALSE;
     }
 
-    /** Is this construct a method. False until overridden.
+    /** Constructs a method. False until overridden.
      * @return bool
      */
     public function isMethod() {
         return FALSE;
     }
 
-    /** Is this construct an ordinary class (not an interface or an exception).
+    /** Constructs an ordinary class (not an interface or an exception).
      * False until overridden.
      * @return bool
      */
@@ -203,7 +202,7 @@ class doc {
         return FALSE;
     }
 
-    /** Merge the contents of the doc comment into the element object.
+    /** Merges the contents of the doc comment into the element object.
      * @return void
      */
     public function mergeData() {
@@ -225,11 +224,11 @@ class doc {
                     if (is_array($tag)) {
                         foreach ($this->_data['tags'][$name] as $key => $tag) {
                             if (
-                                ($thisClass == 'rootdoc' && $this->_data['tags'][$name][$key]->inOverview()) ||
-                                ($thisClass == 'packagedoc' && $this->_data['tags'][$name][$key]->inPackage()) ||
-                                ($thisClass == 'classdoc' && $this->_data['tags'][$name][$key]->inType()) ||
-                                ($thisClass == 'methoddoc' && $this->_data['tags'][$name][$key]->inMethod()) ||
-                                ($thisClass == 'fielddoc' && $this->_data['tags'][$name][$key]->inField())
+                                ($thisClass == 'rootdoc'    && $this->_data['tags'][$name][$key]->inOverview()) ||
+                                ($thisClass == 'packagedoc' && $this->_data['tags'][$name][$key]->inPackage())  ||
+                                ($thisClass == 'classdoc'   && $this->_data['tags'][$name][$key]->inType())     ||
+                                ($thisClass == 'methoddoc'  && $this->_data['tags'][$name][$key]->inMethod())   ||
+                                ($thisClass == 'fielddoc'   && $this->_data['tags'][$name][$key]->inField())
                             ) {
                                 $this->_tags[$name][$key] = & $this->_data['tags'][$name][$key];
                                 $this->_tags[$name][$key]->setParent($this);
@@ -237,11 +236,11 @@ class doc {
                         }
                     } else {
                         if (
-                            ($thisClass == 'rootdoc' && $this->_data['tags'][$name]->inOverview()) ||
-                            ($thisClass == 'packagedoc' && $this->_data['tags'][$name]->inPackage()) ||
-                            ($thisClass == 'classdoc' && $this->_data['tags'][$name]->inType()) ||
-                            ($thisClass == 'methoddoc' && $this->_data['tags'][$name]->inMethod()) ||
-                            ($thisClass == 'fielddoc' && $this->_data['tags'][$name]->inField())
+                            ($thisClass == 'rootdoc'    && $this->_data['tags'][$name]->inOverview()) ||
+                            ($thisClass == 'packagedoc' && $this->_data['tags'][$name]->inPackage())  ||
+                            ($thisClass == 'classdoc'   && $this->_data['tags'][$name]->inType())     ||
+                            ($thisClass == 'methoddoc'  && $this->_data['tags'][$name]->inMethod())   ||
+                            ($thisClass == 'fielddoc'   && $this->_data['tags'][$name]->inField())
                         ) {
                             $this->_tags[$name] = & $this->_data['tags'][$name];
                             $this->_tags[$name]->setParent($this);
@@ -281,7 +280,7 @@ class doc {
         }
     }
 
-    /** Get body of a text document.
+    /** Gets body of a text document.
      * @param str filename
      * @return str
      */

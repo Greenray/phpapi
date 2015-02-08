@@ -43,7 +43,7 @@ div.small_links         { margin: 8px }
 #frame h2               { font-size: 100% }
 #frame ul               { background: #ffffc5; border: 2px solid black; list-style: disc inside; margin: 0 }
 #frame ul li            { padding: 2px 10px 0 5px }
-div.qualifiedName       { font-size: 80%; font-weight: bold; margin: 10px 0 0 10px }
+div.qualifiedName       { font-weight: bold; margin: 10px 0 0 6px }
 div.location,
 a.location              { display: block; float: right; margin: 5px 10px 0 0 }
 #definition h1          { margin: 0 0 10px }

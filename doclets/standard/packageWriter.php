@@ -174,8 +174,9 @@ class packageWriter extends HTMLWriter {
                     $textTag = & $globals[$name]->tags('@text');
                     echo '<tr><td class="name"><a href="package-globals.html#', $globals[$name]->name(), '">', $globals[$name]->name(), '</a></td>';
                     echo '<td class="description">';
-                    if ($textTag)
+                    if ($textTag) {
                         echo strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
+                    }
                     echo '</td></tr>';
                 }
                 echo '</table>';
