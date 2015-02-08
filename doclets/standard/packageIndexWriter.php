@@ -43,7 +43,7 @@ class packageIndexWriter extends HTMLWriter {
         if ($textTag) {
             $description = $this->_processInlineTags($textTag, TRUE);
             if ($description) {
-                echo '<div class="comment">', $description, '</div>';
+                echo '<div class="comment">'.$description.'</div>';
                 echo '<dl><dt>See:</dt><dd><b><a href="#overview_description">Description</a></b></dd></dl>';
             }
         }
@@ -63,7 +63,7 @@ class packageIndexWriter extends HTMLWriter {
         if ($textTag) {
             $description = $this->_processInlineTags($textTag);
             if ($description) {
-                echo '<div class="comment" id="overview_description">', $description, '</div>';
+                echo '<div class="comment" id="overview_description">'.$description.'</div>';
             }
         }
 

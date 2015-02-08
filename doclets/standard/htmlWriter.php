@@ -37,6 +37,8 @@ class htmlWriter {
      */
     public $_output = '';
 
+    public $_htmlTags = ['<pre>', '<code>'];
+
     /** Writer constructor.
      * @var doclet
      */
@@ -95,8 +97,8 @@ class htmlWriter {
     public function _shellFooter($path) {
         $output = $this->_nav($path);
         $output .= '<hr>
-                        <div class="footer center">'.$this->_doclet->bottom().'</div>
-                    </body>';
+                    <div class="footer center">'.$this->_doclet->bottom().'</div>
+                 </body>';
         return $output;
     }
 
@@ -304,7 +306,7 @@ class htmlWriter {
     }
 
     /** Converts inline tags into a string for outputting.
-     * @param Tag      $tag   The text tag to process
+     * @param  Tag     $tag   The text tag to process
      * @param  boolean $first Process first line of tag only
      * @return string         The string representation of the elements doc tags
      */
@@ -329,5 +331,18 @@ class htmlWriter {
             return $this->_doclet->formatter->toFormattedText($description);
         }
         return NULL;
+    }
+
+    /** Parses html.
+     * @return string HTML div block with highlited html tags
+     */
+    public function parseHtml($text) {
+        $regexp = [
+            "#<pre>(.*?)</pre>#is" => htmlspecialchars('\\1'),
+            "#<code>(.*?)</code>#is" => htmlspecialchars('\\1')
+        ];
+        $text = preg_replace(array_keys($regexp), array_values($regexp), $text);
+        $text = str_replace(["\r\n", "\n\r", "\r", "\n"], "<br />", $text);
+        return $text;
     }
 }

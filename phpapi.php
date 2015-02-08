@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 /** phpapi: The PHP Documentation Creator
- * Copyright (C) 2014 - 2015 Victor Nabatov greenray.spb@gmail.com
+ * Copyright (C) 2014 - 2015 Victor Nabatov <greenray.spb@gmail.com>
  *
  * This program is a fork of the
  * PHPDoctor: The PHP Documentation Creator version 2.0.5
@@ -103,10 +103,10 @@ if (!isset($argv[1])) {
     } elseif (is_file(dirname(__FILE__).DS.'phpapi.ini')) {
         $argv[1] = dirname(__FILE__).DS.'phpapi.ini';
     } else {
-        die("Usage: phpapi [config_file]\n");
+        die("Usage: phpapi [config_file]".LF);
     }
 }
 
 $phpdoc  = new phpapi($argv[1]);
-$rootDoc = &$phpdoc->parse();
+$rootDoc = $phpdoc->parse();
 $phpdoc->execute($rootDoc);

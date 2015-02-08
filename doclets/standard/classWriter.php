@@ -107,24 +107,24 @@ class classWriter extends HTMLWriter {
                     echo '<hr>';
 
                     if ($class->isInterface()) {
-                        echo '<p class="signature">', $class->modifiers(), ' interface <strong>', $class->name(), '</strong>';
+                        echo '<p class="signature">'.$class->modifiers().' interface <strong>'.$class->name().'</strong>';
                     } elseif ($class->isTrait()) {
-                        echo '<p class="signature">', $class->modifiers(), ' trait <strong>', $class->name(), '</strong>';
+                        echo '<p class="signature">'.$class->modifiers().' trait <strong>'.$class->name().'</strong>';
                     } else {
-                        echo '<p class="signature">', $class->modifiers(), ' class <strong>', $class->name(), '</strong>';
+                        echo '<p class="signature">'.$class->modifiers().' class <strong>'.$class->name().'</strong>';
                     }
                     if ($class->superclass()) {
                         $superclass = & $rootDoc->classNamed($class->superclass());
                         if ($superclass) {
-                            echo '<br>extends <a href="', str_repeat('../', $this->_depth), $superclass->asPath(), '">', $superclass->name(), '</a>';
+                            echo ' extends <a href="'.str_repeat('../', $this->_depth).$superclass->asPath().'">'.$superclass->name().'</a>';
                         } else {
-                            echo '<br>extends ', $class->superclass(), LF;
+                            echo ' extends '.$class->superclass().LF;
                         }
                     }
                     echo '</p>';
                     $textTag = & $class->tags('@text');
                     if ($textTag) {
-                        echo '<div class="comment" id="overview_description">', $this->_processInlineTags($textTag), '</div>';
+                        echo '<div class="comment" id="overview_description">'.$this->_processInlineTags($textTag).'</div>';
                     }
                     $this->_processTags($class->tags());
 

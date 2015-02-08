@@ -83,7 +83,7 @@ class packageWriter extends HTMLWriter {
             ob_start();
 
             echo '<hr>';
-            echo '<h1>Namespace ', $package->name(), '</h1>';
+            echo '<h1>Namespace '.$package->name().'</h1>';
             $textTag = & $package->tags('@text');
             if ($textTag) {
                 echo '<div class="comment">', $this->_processInlineTags($textTag, TRUE), '</div>';
@@ -96,10 +96,11 @@ class packageWriter extends HTMLWriter {
                 echo '<tr><th colspan="2" class="title">Class Summary</th></tr>';
                 foreach ($classes as $name => $class) {
                     $textTag = & $classes[$name]->tags('@text');
-                    echo '<tr><td class="name"><a href="', str_repeat('../', $this->_depth), $classes[$name]->asPath(), '">', $classes[$name]->name(), '</a></td>';
+                    echo '<tr><td class="name"><a href="'.str_repeat('../', $this->_depth).$classes[$name]->asPath().'">'.$classes[$name]->name().'</a></td>';
                     echo '<td class="description">';
-                    if ($textTag)
+                    if ($textTag) {
                         echo strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
+                    }
                     echo '</td></tr>';
                 }
                 echo '</table>';
@@ -113,8 +114,9 @@ class packageWriter extends HTMLWriter {
                     $textTag = & $interfaces[$name]->tags('@text');
                     echo '<tr><td class="name"><a href="', str_repeat('../', $this->_depth), $interfaces[$name]->asPath(), '">', $interfaces[$name]->name(), '</a></td>';
                     echo '<td class="description">';
-                    if ($textTag)
+                    if ($textTag) {
                         echo strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
+                    }
                     echo '</td></tr>';
                 }
                 echo '</table>';
@@ -126,10 +128,11 @@ class packageWriter extends HTMLWriter {
                 echo '<tr><th colspan="2" class="title">Trait Summary</th></tr>';
                 foreach ($traits as $name => $trait) {
                     $textTag = & $traits[$name]->tags('@text');
-                    echo '<tr><td class="name"><a href="', str_repeat('../', $this->_depth), $traits[$name]->asPath(), '">', $traits[$name]->name(), '</a></td>';
+                    echo '<tr><td class="name"><a href="'.str_repeat('../', $this->_depth).$traits[$name]->asPath().'">'.$traits[$name]->name().'</a></td>';
                     echo '<td class="description">';
-                    if ($textTag)
+                    if ($textTag) {
                         echo strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
+                    }
                     echo '</td></tr>';
                 }
                 echo '</table>';
@@ -137,14 +140,15 @@ class packageWriter extends HTMLWriter {
             $exceptions = & $package->exceptions();
             if ($exceptions) {
                 ksort($exceptions);
-                echo '<table class="title">'."\n";
+                echo '<table class="title">'.LF;
                 echo '<tr><th colspan="2" class="title">Exception Summary</th></tr>';
                 foreach ($exceptions as $name => $exception) {
                     $textTag = & $exceptions[$name]->tags('@text');
-                    echo '<tr><td class="name"><a href="', str_repeat('../', $this->_depth), $exceptions[$name]->asPath(), '">', $exceptions[$name]->name(), '</a></td>';
+                    echo '<tr><td class="name"><a href="'.str_repeat('../', $this->_depth).$exceptions[$name]->asPath().'">', $exceptions[$name]->name().'</a></td>';
                     echo '<td class="description">';
-                    if ($textTag)
+                    if ($textTag) {
                         echo strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
+                    }
                     echo '</td></tr>';
                 }
                 echo '</table>';
@@ -156,10 +160,11 @@ class packageWriter extends HTMLWriter {
                 echo '<tr><th colspan="2" class="title">Function Summary</th></tr>';
                 foreach ($functions as $name => $function) {
                     $textTag = & $functions[$name]->tags('@text');
-                    echo '<tr><td class="name"><a href="package-functions.html#', $functions[$name]->name(), '">', $functions[$name]->name(), '</a></td>';
+                    echo '<tr><td class="name"><a href="package-functions.html#'.$functions[$name]->name().'">'.$functions[$name]->name().'</a></td>';
                     echo '<td class="description">';
-                    if ($textTag)
+                    if ($textTag) {
                         echo strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
+                    }
                     echo '</td></tr>';
                 }
                 echo '</table>';
@@ -168,11 +173,11 @@ class packageWriter extends HTMLWriter {
             $globals = & $package->globals();
             if ($globals) {
                 ksort($globals);
-                echo '<table class="title">', "\n";
+                echo '<table class="title">'.LF;
                 echo '<tr><th colspan="2" class="title">Global Summary</th></tr>';
                 foreach ($globals as $name => $global) {
                     $textTag = & $globals[$name]->tags('@text');
-                    echo '<tr><td class="name"><a href="package-globals.html#', $globals[$name]->name(), '">', $globals[$name]->name(), '</a></td>';
+                    echo '<tr><td class="name"><a href="package-globals.html#'.$globals[$name]->name().'">'.$globals[$name]->name().'</a></td>';
                     echo '<td class="description">';
                     if ($textTag) {
                         echo strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
@@ -184,7 +189,7 @@ class packageWriter extends HTMLWriter {
 
             $textTag = & $package->tags('@text');
             if ($textTag) {
-                echo '<h1>Namespace ', $package->name(), ' Description</h1>';
+                echo '<h1>Namespace '.$package->name().' Description</h1>';
                 echo '<div class="comment" id="overview_description">'.$this->_processInlineTags($textTag), '</div>';
             }
 
@@ -201,7 +206,7 @@ class packageWriter extends HTMLWriter {
                 $this->_sections[1] = ['title' => 'Namespace', 'url' => $package->asPath().'/package-summary.html', 'relative' => TRUE];
                 $this->_sections[2] = ['title' => 'Class'];
                 #$this->_sections[3] = ['title' => 'Use'];
-                $this->_sections[4] = ['title' => 'Tree', 'url' => $package->asPath().'/package-tree.html', 'selected' => TRUE, 'relative' => TRUE];
+                $this->_sections[4] = ['title' => 'Tree',       'url' => $package->asPath().'/package-tree.html', 'selected' => TRUE, 'relative' => TRUE];
                 if ($doclet->includeSource()) {
                     $this->_sections[5] = ['title' => 'Files',  'url' => 'overview-files.html'];
                 }
@@ -223,7 +228,7 @@ class packageWriter extends HTMLWriter {
                 ob_start();
 
                 echo '<hr>';
-                echo '<h1>Class Hierarchy for Package ', $package->name(), '</h1>';
+                echo '<h1>Class Hierarchy for Package '.$package->name().'</h1>';
                 $this->_displayTree($tree);
                 echo '<hr>';
                 $this->_output = ob_get_contents();

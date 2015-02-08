@@ -138,7 +138,7 @@ class todoWriter extends HTMLWriter {
             echo '<tr><th colspan="2" class="title">Todo Methods</th></tr>';
             foreach ($todoMethods as $method) {
                 $todoTag = & $method->tags('@todo');
-                echo "<tr>\n";
+                echo '<tr>';
                 echo '<td class="name"><a href="', $method->asPath(), '">', $method->qualifiedName(), '</a></td>';
                 echo '<td class="description">';
                 if ($todoTag)
@@ -154,8 +154,8 @@ class todoWriter extends HTMLWriter {
             echo '<tr><th colspan="2" class="title">Todo Globals</th></tr>';
             foreach ($todoGlobals as $global) {
                 $todoTag = & $global->tags('@todo');
-                echo "<tr>\n";
-                echo '<td class="name"><a href="', $global->asPath(), '">', $global->qualifiedName(), '</a></td>';
+                echo '<tr>';
+                echo '<td class="name"><a href="'.$global->asPath().'">'.$global->qualifiedName().'</a></td>';
                 echo '<td class="description">';
                 if ($todoTag)
                     echo strip_tags($this->_processInlineTags($todoTag, TRUE), '<a><b><strong><u><em>');

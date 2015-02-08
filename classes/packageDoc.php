@@ -53,7 +53,7 @@ class packageDoc extends Doc {
             }
         }
         if (is_file($overviewFile)) {
-            $phpapi->message("\n".'Reading package overview file "'.$overviewFile.'".');
+            $phpapi->message(LF.'Reading package overview file "'.$overviewFile.'".');
             if ($text = $this->getFileContents($overviewFile)) {
                 $this->_data = $phpapi->processDocComment('/** '.$text.' */', $this->_root);
                 $this->mergeData();
@@ -84,7 +84,7 @@ class packageDoc extends Doc {
     public function addClass(&$class) {
         if (isset($this->_classes[$class->name()])) {
             $phpapi = & $this->_root->phpapi();
-            echo "\n";
+            echo LF;
             $phpapi->warning('Found class '.$class->name().' again, overwriting previous version');
         }
         $this->_classes[$class->name()] = & $class;
@@ -105,7 +105,7 @@ class packageDoc extends Doc {
     public function addFunction(&$function) {
         if (isset($this->_functions[$function->name()])) {
             $phpapi = & $this->_root->phpapi();
-            echo "\n";
+            echo LF;
             $phpapi->warning('Found function '.$function->name().' again, overwriting previous version');
         }
         $this->_functions[$function->name()] = & $function;

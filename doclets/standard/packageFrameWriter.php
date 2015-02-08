@@ -57,7 +57,7 @@ class packageFrameWriter extends HTMLWriter {
         if ($interfaces && is_array($interfaces)) {
             ksort($interfaces);
             echo '<h2>Interfaces</h2>';
-            echo "<ul>\n";
+            echo '<ul>';
             foreach ($interfaces as $name => $interface) {
                 echo '<li><a href="', str_repeat('../', $package->depth() + 1), $interfaces[$name]->asPath(), '" target="main">', $interfaces[$name]->name(), '</a></li>';
             }
@@ -101,7 +101,7 @@ class packageFrameWriter extends HTMLWriter {
         if ($globals && is_array($globals)) {
             ksort($globals);
             echo '<h2>Globals</h2>';
-            echo '<ul>\n';
+            echo '<ul>';
             foreach ($globals as $name => $global) {
                 echo '<li><a href="', str_repeat('../', $package->depth() + 1), $globals[$name]->asPath(), '" target="main">', $globals[$name]->name(), '</a></li>';
             }

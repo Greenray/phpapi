@@ -33,7 +33,6 @@ class textFormatter {
      * @return str
      */
     public function _removeWhitespace($text) {
-        $text = preg_replace("/[ \t]*\n[ \t]*/", LF, $text);
-        return $text;
+        return preg_replace("/[ \t]*\n[ \t]*/", LF, $text);
     }
 }
