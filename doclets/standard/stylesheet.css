@@ -64,6 +64,7 @@ td p.description        { margin: 2px 0 0 20px }
 .w_100                  { width: 100px }
 .w_200                  { width: 200px }
 .w_300                  { width: 300px }
+.black                  { color: black }
 .blue                   { color: blue }
 .green                  { color: green }
 .lilac                  { color: #cc0099 }

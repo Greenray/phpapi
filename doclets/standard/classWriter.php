@@ -176,7 +176,7 @@ class classWriter extends HTMLWriter {
                             }
                             echo '</p>';
                             if ($textTag) {
-                                echo '<p class="description">'.strip_tags($this->_processInlineTags($textTag, TRUE).'<a><b><strong><u><em>'), '</p>';
+                                echo '<p class="description">'.strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>').'</p>';
                             }
                             echo '</td>';
                             echo '</tr>';
@@ -196,11 +196,11 @@ class classWriter extends HTMLWriter {
                         echo '<tr><th colspan="2">Constructor Summary</th></tr>';
                         $textTag = & $constructor->tags('@text');
                         echo '<tr>';
-                        echo '<td class="type w_200">', $constructor->modifiers(FALSE), ' ', $constructor->returnTypeAsString(), '</td>';
+                        echo '<td class="type w_200">'.$constructor->modifiers(FALSE).' '.$constructor->returnTypeAsString().'</td>';
                         echo '<td class="description">';
-                        echo '<p class="name"><a href="#', $constructor->name(), '()">', $constructor->name(), '</a>', $constructor->flatSignature(), '</p>';
+                        echo '<p class="name"><a href="#'.$constructor->name().'()"><strong><span class="black">'.$constructor->name().'</span></strong></a>'.$constructor->flatSignature().'</p>';
                         if ($textTag) {
-                            echo '<p class="description">', strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>'), '</p>';
+                            echo '<p class="description">'.strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>').'</p>';
                         }
                         echo '</td>';
                         echo '</tr>';
@@ -213,11 +213,11 @@ class classWriter extends HTMLWriter {
                         foreach ($methods as $method) {
                             $textTag = & $method->tags('@text');
                             echo '<tr>';
-                            echo '<td class="type w_200">', $method->modifiers(FALSE), ' ', $method->returnTypeAsString(), '</td>';
+                            echo '<td class="type w_200">'.$method->modifiers(FALSE).' '.$method->returnTypeAsString().'</td>';
                             echo '<td class="description">';
-                            echo '<p class="name"><a href="#', $method->name(), '()">', $method->name(), '</a>', $method->flatSignature(), '</p>';
+                            echo '<p class="name"><a href="#'.$method->name().'()"><strong><span class="black">'.$method->name().'</span></strong></a>'.$method->flatSignature().'</p>';
                             if ($textTag) {
-                                echo '<p class="description">', strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>'), '</p>';
+                                echo '<p class="description">'.strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>').'</p>';
                             }
                             echo '</td>';
                             echo '</tr>';
