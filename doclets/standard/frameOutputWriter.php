@@ -3,7 +3,7 @@
 
 /** This generates the index.html file used for presenting the frame-formated
  * "cover page" of the API documentation.
- * 
+ *
  * @file      doclets/standard/farmeOutputWriter.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
@@ -33,7 +33,9 @@ class frameOutputWriter extends HTMLWriter {
         </frameset>
         <frame src="overview-summary.html" name="main">
     </frameset>
-    <div id="footer"'.GENERATOR.' '.COPYRIGHT.'</div>
+    <frameset>
+        <frame src="footer-frame.html" name="footer" noresize scrolling="no">
+    </frameset>
 </frameset>
 <noframes>
         <body>
