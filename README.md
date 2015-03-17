@@ -91,27 +91,17 @@ CONFIGURATION
 	* verbose = on|off - Verbose mode outputs additional messages during
       execution.
 	* doclet - Select the doclet to use for generating output.
-	* doclet_path - The directory to find the doclet in. Doclets are expected to
-      be in a directory named after themselves at the location given.
-	* taglet_path - The directory to find taglets in. Taglets allow you to make
-	  phpAPI handle new tags and to alter the behavour of existing tags and
-      their output.
 	* default_package - If the code you are parsing does not use package tags or
 	  not all elements have package tags, use this setting to place unbound
       elements into a particular package.
 	* overview - Specifies the name of a HTML file containing text for the
 	  overview documentation to be placed on the overview page. The	path is
       relative to "source" unless an absolute path is given.
-	* package_comment_dir - Package comments will be looked for in a file named
-	  package.html in the same directory as the first source file parsed in that
-      package or in the directory given below. If the directive below is used
-      then package comments should be named "<packageName>.html".
 	* globals = on|off - Parse out global variables.
-	* constants = on|off - Parse out global constants.
-	* private = on|off - Generate documentation for all class members.
-	* protected = on|off - Generate documentation for public and protected class
-	  members.
-	* public = on|off- Generate documentation for only public class members.
+	* constants = on|off - Parse out constants.
+	* private = on|off   - Parse out private class members.
+	* protected = on|off - Parse out protected class members.
+	* public = on|off    - Parse out public class members.
 
 	The following directives are specific for the standard doclet:
 
@@ -125,12 +115,7 @@ CONFIGURATION
 	* footer - Specifies the footer text to be placed at the bottom of each
 	  output file. The footer will be placed to the right of the lower
       navigation bar.
-	* bottom - Specifies the text to be placed at the bottom of each output file.
-	  The text will be placed at the bottom of the page, below the lower
-      navigation bar.
 	* tree - Create a class tree.
-    * include_source = on|off - To include source code to generated document.
-    * geshi - path to code beautifier for sources.
 
 DOC COMMENTS
 
