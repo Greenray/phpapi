@@ -14,7 +14,7 @@
 class fieldDoc extends ProgramElementDoc {
 
     /** The type of the variable.
-     * @var type
+     * @var string
      */
     public $_type = NULL;
 
@@ -25,18 +25,18 @@ class fieldDoc extends ProgramElementDoc {
 
     /** Constructor.
      *
-     * @param string name Name of this element
-     * @param classDoc|methodDoc parent The parent of this element
-     * @param rootDoc root   The root element
-     * @param string filename   The filename of the source file this element is in
-     * @param integer lineNumber The line number of the source file this element is at
-     * @param string sourcePath The source path containing the source file
+     * @param string             $name       Name of this element
+     * @param classDoc|methodDoc $parent     The parent of this element
+     * @param rootDoc            $root       The root element
+     * @param string             $filename   The filename of the source file this element is in
+     * @param integer            $lineNumber The line number of the source file this element is at
+     * @param string             $sourcePath The source path containing the source file
      * @return void
      */
     public function fieldDoc($name, &$parent, &$root, $filename = NULL, $lineNumber = NULL, $sourcePath = NULL) {
         $this->_name       = trim($name, '$\'"');
-        $this->_parent     =& $parent;                  # Set reference to parent
-        $this->_root       =& $root;                    # Set reference to root
+        $this->_parent     =& $parent;
+        $this->_root       =& $root;
         $this->_type       =& new type('mixed', $root);
         $this->_filename   = $filename;
         $this->_lineNumber = $lineNumber;
@@ -44,7 +44,7 @@ class fieldDoc extends ProgramElementDoc {
     }
 
     /** Get type of this variable.
-     * @return Type
+     * @return type The type of the variable
      */
     function &type() {
         return $this->_type;
@@ -58,14 +58,14 @@ class fieldDoc extends ProgramElementDoc {
     }
 
     /** Construct is a field.
-     * @return bool
+     * @return boolean
      */
     public function isField() {
         return !$this->isGlobal();
     }
 
     /** Construct is a global.
-     * @return bool
+     * @return boolean
      */
     public function isGlobal() {
         return (get_class($this->_parent) == 'rootDoc') ? TRUE : FALSE;
@@ -86,7 +86,7 @@ class fieldDoc extends ProgramElementDoc {
     }
 
     /** Returns the value of the constant.
-     * @return str
+     * @return mixed|NULL Constant value
      */
     public function constantValue() {
         return ($this->_final) ? $this->_value : NULL;

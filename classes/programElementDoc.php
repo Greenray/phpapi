@@ -73,7 +73,7 @@ class programElementDoc extends Doc {
 
     /** Gets the containing class of this program element.
      * If the element is in the global scope and does not have a parent class, this will return null.
-     * @return classDoc
+     * @return classDoc|NULL
      */
     function &containingClass() {
         $return = NULL;
@@ -89,7 +89,7 @@ class programElementDoc extends Doc {
     }
 
     /** Gets the name of the package that this program element is contained in.
-     * @return str
+     * @return string
      */
     public function packageName() {
         return $this->_package;
@@ -103,7 +103,7 @@ class programElementDoc extends Doc {
      * Baz\Foo\bar()
      * </pre>
      *
-     * @return str
+     * @return string
      */
     public function qualifiedName() {
         $parent =& $this->containingClass();
@@ -121,7 +121,7 @@ class programElementDoc extends Doc {
      * 'public abstract'
      * </pre>
      *
-     * @return str
+     * @return string Modifiers
      */
     public function modifiers($showPublic = TRUE) {
         $modifiers = '';
@@ -134,49 +134,49 @@ class programElementDoc extends Doc {
     }
 
     /** Returns true if this program element is public.
-     * @return bool
+     * @return boolean
      */
     public function isPublic() {
         return ($this->_access == 'public') ? TRUE : FALSE;
     }
 
     /** Returns true if this program element is protected.
-     * @return bool
+     * @return boolean
      */
     public function isProtected() {
         return ($this->_access == 'protected') ? TRUE : FALSE;
     }
 
     /** Returns true if this program element is private.
-     * @return bool
+     * @return boolean
      */
     public function isPrivate() {
         return ($this->_access == 'private') ? TRUE : FALSE;
     }
 
     /** Returns true if this program element is final.
-     * @return bool
+     * @return boolean
      */
     public function isFinal() {
         return $this->_final;
     }
 
     /** Returns true if this program element is static.
-     * @return bool
+     * @return boolean
      */
     public function isStatic() {
         return $this->_static;
     }
 
     /** Gets the source location of this element
-     * @return str
+     * @return string The source location of this element
      */
     public function location() {
         return $this->sourceFilename().' at line '.$this->sourceLine();
     }
 
     /** Returns the name of the souce file.
-     * @return string
+     * @return string The name of the souce file
      */
     public function sourceFilename() {
         $phpapi = $this->_root->phpapi();
@@ -184,7 +184,7 @@ class programElementDoc extends Doc {
     }
 
     /** Returns the line number of the souce code.
-     * @return type
+     * @return integer Line number of the souce code
      */
     public function sourceLine() {
         return $this->_lineNumber;

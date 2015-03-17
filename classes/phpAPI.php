@@ -211,9 +211,7 @@ class phpapi {
                 foreach ($globResults as $filepath) {
                     $okay = TRUE;
                     foreach ($this->_ignore as $ignore) {
-                        if (strstr($filepath, trim($ignore))) {
-                            $okay = FALSE;
-                        }
+                        if (strstr($filepath, trim($ignore))) $okay = FALSE;
                     }
                     if ($okay) $list[] = realpath($filepath);
                 }
@@ -374,12 +372,11 @@ class phpapi {
                     $this->message('Reading file "'.$filename.'"');
                     $fileString = file_get_contents($filename);
                     if ($fileString != FALSE) {
-                        $fileString = str_replace(["\r\n", "\r"], LF, $fileString);   # Fix line endings
+                        $fileString  = str_replace(["\r\n", "\r"], LF, $fileString);   # Fix line endings
                         $this->_currentFilename = $filename;
                         $tokens = token_get_all($fileString);
-                        if ($this->_verbose) {
-                            echo 'Parsing tokens';
-                        }
+
+                        if ($this->_verbose) echo 'Parsing tokens';
 
                         # This array holds data gathered before the type of element is discovered and an object is created for it, including doc comment data.
                         # This data is stored in the object once it has been created and then merged into the objects data fields upon object completion.
@@ -394,7 +391,6 @@ class phpapi {
                         $open_curly_braces = FALSE;
                         $in_parsed_string  = FALSE;
 
-                        $counter       = 0;
                         $lineNumber    = 1;
                         $commentNumber = 0;
                         $numOfTokens   = count($tokens);
@@ -404,11 +400,11 @@ class phpapi {
                             if (!$in_parsed_string && is_array($token)) {
                                 $lineNumber += substr_count($token[1], LF);
                                 if ($commentNumber == 1 && (
-                                    $token[0] == T_CLASS ||
-                                    $token[0] == T_INTERFACE ||
-                                    $token[0] == T_FUNCTION ||
+                                    $token[0] == T_CLASS        ||
+                                    $token[0] == T_INTERFACE    ||
+                                    $token[0] == T_FUNCTION     ||
                                     $token[0] == T_VARIABLE
-                                    )) { # We have a code block after the 1st comment, so it is not a file level comment
+                                     )) { # We have a code block after the 1st comment, so it is not a file level comment
                                     $defaultPackage = $oldDefaultPackage;
                                     $fileData = [];
                                 }
@@ -432,11 +428,12 @@ class phpapi {
                                     case T_CLASS:
 
                                         $class =& new classDoc($this->_getProgramElementName($tokens, $key), $rootDoc, $filename, $lineNumber, $this->sourcePath()); # Create class object
+
                                         $this->verbose('+ Entering '.get_class($class).': '.$class->name());
+
                                         if (isset($currentData['docComment'])) {
                                             $class->set('docComment', $currentData['docComment']);
                                         }
-
                                         $class->set('data', $currentData);
                                         if (isset($currentData['package']) && $currentData['package'] != NULL) {
                                             $currentPackage = $currentData['package'];
@@ -448,20 +445,19 @@ class phpapi {
                                         # Set parent reference
                                         $class->setByRef('parent', $parentPackage);
                                         $currentData = [];
-
                                         if ($this->_includeElements($class)) $currentElement[count($currentElement)] =& $class;
-
                                         $ce =& $class;
                                         break;
 
                                     case T_INTERFACE:
 
                                         $interface =& new classDoc($this->_getProgramElementName($tokens, $key), $rootDoc, $filename, $lineNumber, $this->sourcePath());
+
                                         $this->verbose('+ Entering '.get_class($interface).': '.$interface->name());
+
                                         if (isset($currentData['docComment'])) {
                                             $interface->set('docComment', $currentData['docComment']);
                                         }
-
                                         $interface->set('data', $currentData);
                                         $interface->set('interface', TRUE);
                                         if (isset($currentData['package']) && $currentData['package'] != NULL) {
@@ -474,20 +470,19 @@ class phpapi {
                                         # Set parent reference
                                         $interface->setByRef('parent', $parentPackage);
                                         $currentData = [];
-
                                         if ($this->_includeElements($interface)) $currentElement[count($currentElement)] =& $interface;
-
                                         $ce =& $interface;
                                         break;
 
                                     case T_TRAIT:
 
                                         $trait =& new classDoc($this->_getProgramElementName($tokens, $key), $rootDoc, $filename, $lineNumber, $this->sourcePath()); # Create trait object
+
                                         $this->verbose('+ Entering '.get_class($trait).': '.$trait->name());
+
                                         if (isset($currentData['docComment'])) {
                                             $trait->set('docComment', $currentData['docComment']);
                                         }
-
                                         $trait->set('data', $currentData);
                                         $trait->set('trait', TRUE);
                                         if (isset($currentData['package']) && $currentData['package'] != NULL) {
@@ -496,12 +491,11 @@ class phpapi {
                                         $trait->set('package', $currentPackage);
                                         $parentPackage =& $rootDoc->packageNamed($trait->packageName(), TRUE);
                                         $parentPackage->addClass($trait);
+
+                                        # Set parent reference
                                         $trait->setByRef('parent', $parentPackage);
-
                                         $currentData = [];
-
                                         if ($this->_includeElements($trait)) $currentElement[count($currentElement)] =& $trait;
-
                                         $ce =& $trait;
                                         break;
 
@@ -517,17 +511,17 @@ class phpapi {
                                     case T_IMPLEMENTS:
 
                                         $interfaceName = $this->_getProgramElementName($tokens, $key);
-                                        $interface =& $rootDoc->classNamed($interfaceName);
+                                        $interface     =& $rootDoc->classNamed($interfaceName);
                                         if ($interface) $ce->set('interfaces', $interface);
                                         break;
 
                                     case T_THROW:
-                                        # Throws exception
+
                                         $className = $this->_getNext($tokens, $key, T_STRING);
                                         $class =& $rootDoc->classNamed($className);
-                                        if ($class) {
-                                               $ce->setByRef('throws', $class);
-                                        } else $ce->set('throws', $className);
+                                        if ($class)
+                                             $ce->setByRef('throws', $class);
+                                        else $ce->set('throws', $className);
                                         break;
 
                                     case T_PRIVATE:
@@ -568,9 +562,9 @@ class phpapi {
                                                 if ($tokens[$key][0] == T_STRING) {
                                                     $className = $tokens[$key][1];
                                                     $class =& $rootDoc->classNamed($className);
-                                                    if ($class) {
-                                                           $ce->setByRef('traits', $class);
-                                                    } else $ce->set('traits', $className);
+                                                    if ($class)
+                                                         $ce->setByRef('traits', $class);
+                                                    else $ce->set('traits', $className);
                                                 }
                                             }
                                         }
@@ -581,9 +575,8 @@ class phpapi {
                                         $namespace = '';
                                         while ($tokens[++$key][0] != T_STRING);
                                         $namespace = $tokens[$key++][1];
-                                        while ($tokens[$key][0] == T_NS_SEPARATOR) {
+                                        while ($tokens[$key][0] == T_NS_SEPARATOR)
                                             $namespace .= $tokens[$key++][1].$tokens[$key++][1];
-                                        }
                                         $currentPackage = $defaultPackage = $oldDefaultPackage = $namespace;
                                         $key--;
                                         break;
@@ -592,13 +585,15 @@ class phpapi {
 
                                         $name   = $this->_getProgramElementName($tokens, $key);
                                         $method =& new methodDoc($name, $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath());
+
                                         $this->verbose('+ Entering '.get_class($method).': '.$method->name());
-                                        if (isset($currentData['docComment'])) {
+
+                                        if (isset($currentData['docComment']))
                                             $method->set('docComment', $currentData['docComment']);
-                                        }
                                         $method->set('data', $currentData);
                                         $ceClass = get_class($ce);
                                         if ($ceClass == 'rootDoc') {
+
                                             $this->verbose(' is a global function');
 
                                             if (isset($currentData['access']) && $currentData['access'] == 'private')
@@ -615,7 +610,9 @@ class phpapi {
                                         } elseif ($ceClass == 'classDoc' || $ceClass == 'methodDoc') {
                                             $method->set('package', $ce->packageName()); # Set package
                                             if ($method->name() == '__construct' || $method->name() == $ce->name()) {
+
                                                 $this->verbose(' is a constructor of '.get_class($ce).' '.$ce->name());
+
                                                 $method->set("name", "__construct");
                                                 $ce->addMethod($method);
                                             } else {
@@ -623,7 +620,9 @@ class phpapi {
                                                     $method->makePrivate();
                                                 if (isset($currentData['access']) && $currentData['access'] == 'private')
                                                     $method->makePrivate();
+
                                                 $this->verbose(' is a method of '.get_class($ce).' '.$ce->name());
+
                                                 if ($this->_includeElements($method)) {
                                                     $method->mergeData();
                                                     $ce->addMethod($method);
@@ -638,20 +637,20 @@ class phpapi {
                                     case T_STRING:
 
                                         if ($token[1] == 'define') {
-                                            $const =& new fieldDoc($this->_getNext($tokens, $key, T_CONSTANT_ENCAPSED_STRING), $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath()); # Create constant object
-                                            $this->verbose('Found '.get_class($const).': global constant '.$const->name());
-                                            $const->set('final', TRUE);
+                                            $const =& new fieldDoc($this->_getNext($tokens, $key, T_CONSTANT_ENCAPSED_STRING), $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath());
 
+                                            $this->verbose('Found '.get_class($const).': global constant '.$const->name());
+
+                                            $const->set('final', TRUE);
                                             $value = '';
                                             do {
                                                 $key++;
                                             } while (isset($tokens[$key]) && $tokens[$key] != ',');
                                             $key++;
-
                                             while (isset($tokens[$key]) && $tokens[$key] != ')') {
-                                                if (is_array($tokens[$key])) {
-                                                       $value .= $tokens[$key][1];
-                                                } else $value .= $tokens[$key];
+                                                if (is_array($tokens[$key]))
+                                                     $value .= $tokens[$key][1];
+                                                else $value .= $tokens[$key];
                                                 $key++;
                                             }
                                             $value = trim($value);
@@ -659,7 +658,6 @@ class phpapi {
                                                 $value = 'array(...)';
                                             }
                                             $const->set('value', $value);
-
                                             if (is_numeric($value)) {
                                                 $const->set('type', new type('integer', $rootDoc));
                                             } elseif (strtolower($value) == 'true' || strtolower($value) == 'false') {
@@ -670,23 +668,18 @@ class phpapi {
                                             ) {
                                                 $const->set('type', new type('string', $rootDoc));
                                             }
-
                                             unset($value);
 
                                             if (isset($currentData['docComment'])) $const->set('docComment', $currentData['docComment']);
-
                                             $const->set('data', $currentData);
-
-                                            if (isset($currentData['package'])) {
-                                                   $const->set('package', $currentData['package']);
-                                            } else $const->set('package', $currentPackage);
-
+                                            if (isset($currentData['package']))
+                                                 $const->set('package', $currentData['package']);
+                                            else $const->set('package', $currentPackage);
                                             $const->mergeData();
 
                                             $parentPackage =& $rootDoc->packageNamed($const->packageName(), TRUE);
                                             if ($this->_includeElements($const)) $parentPackage->addGlobal($const);
                                             $currentData = [];
-
                                         } elseif (isset($currentData['var']) && $currentData['var'] == 'const') {
 
                                             # Member constant
@@ -698,16 +691,16 @@ class phpapi {
                                                 } elseif (isset($value) && $tokens[$key] != ',' && $tokens[$key] != ';') {
 
                                                     # Set value
-                                                    if (is_array($tokens[$key])) {
-                                                           $value .= $tokens[$key][1];
-                                                    } else $value .= $tokens[$key];
+                                                    if (is_array($tokens[$key]))
+                                                         $value .= $tokens[$key][1];
+                                                    else $value .= $tokens[$key];
                                                 } elseif ($tokens[$key] == ',' || $tokens[$key] == ';') {
                                                     if (!isset($name)) $name = $this->_getPrev($tokens, $key, [T_VARIABLE, T_STRING]);
-
                                                     $const =& new fieldDoc($name, $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath());
-                                                    $this->verbose('Found '.get_class($const).': '.$const->name());
-                                                    if ($this->_hasPrivateName($const->name())) $const->makePrivate();
 
+                                                    $this->verbose('Found '.get_class($const).': '.$const->name());
+
+                                                    if ($this->_hasPrivateName($const->name())) $const->makePrivate();
                                                     $const->set('final', TRUE);
                                                     if (isset($value)) {
                                                         $value = trim($value);
@@ -715,7 +708,6 @@ class phpapi {
                                                             $value = 'array(...)';
                                                         }
                                                         $const->set('value', $value);
-
                                                         if (is_numeric($value)) {
                                                             $const->set('type', new type('integer', $rootDoc));
                                                         } elseif (strtolower($value) == 'true' || strtolower($value) == 'false') {
@@ -728,7 +720,6 @@ class phpapi {
                                                         }
                                                     }
                                                     if (isset($currentData['docComment'])) $const->set('docComment', $currentData['docComment']);
-
                                                     $const->set('data', $currentData);
                                                     $const->set('package', $ce->packageName());
                                                     $const->set('static', TRUE);
@@ -737,7 +728,6 @@ class phpapi {
 
                                                     $const->mergeData();
                                                     if ($this->_includeElements($const)) $ce->addConstant($const);
-
                                                     unset($name);
                                                     unset($value);
                                                 }
@@ -761,7 +751,9 @@ class phpapi {
                                                         $typehint = $tokens[$key][1];
                                                     } elseif ($tokens[$key][0] == T_VARIABLE && !isset($param)) {
                                                         $param =& new fieldDoc($tokens[$key][1], $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath());
+
                                                         $this->verbose('Found '.get_class($param).': '.$param->name());
+
                                                         if (isset($currentData['docComment'])) {
                                                             $param->set('docComment', $currentData['docComment']);
                                                         }
@@ -769,9 +761,9 @@ class phpapi {
                                                             $param->set('type', new type($typehint, $rootDoc));
                                                             $this->verbose(' has a typehint of '.$typehint);
                                                         }
-
                                                         $param->set('data', $currentData);
                                                         $param->set('package', $ce->packageName());
+
                                                         $this->verbose(' is a parameter of '.get_class($ce).' '.$ce->name());
 
                                                         $param->mergeData();
@@ -780,7 +772,6 @@ class phpapi {
                                                     } elseif (isset($param) && ($tokens[$key][0] == T_STRING || $tokens[$key][0] == T_CONSTANT_ENCAPSED_STRING || $tokens[$key][0] == T_LNUMBER)) { # Set value
                                                         $value = $tokens[$key][1];
                                                         $param->set('value', $value);
-
                                                         if (!$typehint) {
                                                             if (is_numeric($value)) {
                                                                 $param->set('type', new type('integer', $rootDoc));
@@ -814,42 +805,39 @@ class phpapi {
                                                 unset ($global);
                                                 break;
                                             }
+
                                             $this->verbose('Found '.get_class($global).': global variable '.$global->name());
 
                                             if (isset($tokens[$key - 1][0]) && isset($tokens[$key - 2][0]) && $tokens[$key - 2][0] == T_STRING && $tokens[$key - 1][0] == T_WHITESPACE) {
                                                 $global->set('type', new type($tokens[$key - 2][1], $rootDoc));
+                                            } else {
+                                                unset ($global);
+                                                break;
                                             }
-
                                             while (isset($tokens[$key]) && $tokens[$key] != '=' && $tokens[$key] != ';') {
                                                 $key++;
                                             }
-
                                             if (isset($tokens[$key]) && $tokens[$key] == '=') {
                                                 $default = '';
                                                 $key2 = $key + 1;
                                                 do {
-                                                    if (is_array($tokens[$key2])) {
+                                                    if (is_array($tokens[$key2]))
                                                         if ($tokens[$key2][1] != '=') $default .= $tokens[$key2][1];
-                                                    } else {
-                                                        if ($tokens[$key2] != '=')    $default .= $tokens[$key2];
-                                                    }
+                                                    elseif ($tokens[$key2]    != '=') $default .= $tokens[$key2];
                                                     $key2++;
                                                 } while (isset($tokens[$key2]) && $tokens[$key2] != ';' && $tokens[$key2] != ',' && $tokens[$key2] != ')');
 
-                                                $global->set('value', trim($default, ' ()'));
+                                                $global->set('value', trim($default));
                                             }
                                             $global->set('data', $currentData);
-
-                                            if (isset($currentData['package'])) {
-                                                   $global->set('package', $currentData['package']);
-                                            } else $global->set('package', $currentPackage);
-
+                                            if (isset($currentData['package']))
+                                                 $global->set('package', $currentData['package']);
+                                            else $global->set('package', $currentPackage);
                                             $global->mergeData();
 
                                             $parentPackage =& $rootDoc->packageNamed($global->packageName(), TRUE);
                                             if ($this->_includeElements($global)) $parentPackage->addGlobal($global);
                                             $currentData = [];
-
                                         } elseif (
                                             # Read member variable
                                             (isset($currentData['var']) && $currentData['var'] == 'var') ||
@@ -875,14 +863,15 @@ class phpapi {
                                                     } elseif (($tokens[$key] == ')') || ($tokens[$key] == ']')) {
                                                         $bracketCount--;
                                                     }
-                                                    if (is_array($tokens[$key])) {
-                                                           $value .= $tokens[$key][1];
-                                                    } else $value .= $tokens[$key];
+                                                    if (is_array($tokens[$key]))
+                                                         $value .= $tokens[$key][1];
+                                                    else $value .= $tokens[$key];
                                                 } elseif ($tokens[$key] == ',' || $tokens[$key] == ';') {
                                                     if (!isset($name)) $name = $this->_getPrev($tokens, $key, T_VARIABLE);
-
                                                     $field =& new fieldDoc($name, $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath());
+
                                                     $this->verbose('Found '.get_class($field).': '.$field->name());
+
                                                     if ($this->_hasPrivateName($field->name())) $field->makePrivate();
                                                     if (isset($value)) {
                                                         $value = trim($value);
@@ -892,13 +881,13 @@ class phpapi {
                                                         $field->set('value', $value);
                                                     }
                                                     if (isset($currentData['docComment'])) $field->set('docComment', $currentData['docComment']);
-
                                                     $field->set('data', $currentData);
                                                     $field->set('package', $ce->packageName());
+
                                                     $this->verbose(' is a member variable of '.get_class($ce).' '.$ce->name());
+
                                                     $field->mergeData();
                                                     if ($this->_includeElements($field)) $ce->addField($field);
-
                                                     unset($name);
                                                     unset($value);
                                                 }
@@ -930,7 +919,9 @@ class phpapi {
                                                 $ce->inBody--;
                                                 if ($ce->inBody == 0 && count($currentElement) > 0) {
                                                     $ce->mergeData();
+
                                                     $this->verbose('- Leaving '.get_class($ce).': '.$ce->name());
+
                                                     array_pop($currentElement); # Re-assign current element
                                                     if (count($currentElement) > 0) {
                                                         $ce =& $currentElement[count($currentElement) - 1];
@@ -949,7 +940,9 @@ class phpapi {
                                         # Case for closing abstract functions
                                         if (!$in_parsed_string && $ce->inBody == 0 && count($currentElement) > 0) {
                                             $ce->mergeData();
+
                                             $this->verbose('- Leaving empty '.get_class($ce).': '.$ce->name());
+
                                             array_pop($currentElement); # Re-assign current element
                                             if (count($currentElement) > 0) {
                                                 $ce =& $currentElement[count($currentElement) - 1];
@@ -966,11 +959,6 @@ class phpapi {
                                         $in_parsed_string = !$in_parsed_string;
                                         break;
                                 }
-                            }
-                            $counter++;
-                            if ($counter > 99) {
-                                if ($this->_verbose) echo '.';
-                                $counter = 0;
                             }
                         }
                         if ($this->_verbose) echo LF;
@@ -995,7 +983,9 @@ class phpapi {
     public function execute(&$rootDoc) {
         $docletFile = $this->fixPath(DOCLETS).$this->_doclet.DS.$this->_doclet.'.php';
         if (is_file($docletFile)) { # Load doclet
+
             $this->message('Loading doclet "'.$this->_doclet.'"');
+
             require_once($docletFile);
             $doclet =& new $this->_doclet($rootDoc, $this->getFormatter());
         } else {
