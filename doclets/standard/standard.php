@@ -106,7 +106,7 @@ class standard {
 
         $frameOutputWriter =& new frameOutputWriter($this);
         # Write package overview frame
-//        $headerFrameWriter =& new headerFrameWriter($this);
+        $headerFrameWriter =& new headerFrameWriter($this);
         echo '<body>';
         echo '<div id="header"><h1>'.$this->docTitle().'</h1></div>';
         echo '</body>';
