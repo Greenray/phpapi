@@ -2,10 +2,11 @@
 # phpapi: The PHP Documentation Creator
 
 /** Represents a PHP variable type. Type can be a class or primitive data type.
+ *
  * @file      classes/type.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
- * @copyright (c) 2011 - 2015 Victor Nabatov
+ * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
  * @package   phpapi
  */
@@ -29,7 +30,7 @@ class type {
 
     /** Constructor.
      * @param  string  $name The name of the variable type
-     * @param  RootDoc $root The RootDoc object to tie this type too
+     * @param  rootDoc $root The rootDoc object to tie this type too
      * @return void
      */
     public function type($name, &$root) {
@@ -38,7 +39,7 @@ class type {
             $name = substr($name, 0, -2);
         }
         $this->_name = $name;
-        $this->_root = & $root;
+        $this->_root =& $root;
     }
 
     /** Gets name of this type.
@@ -71,9 +72,9 @@ class type {
     }
 
     /** Returns this type as a class.
-     * @return ClassDoc A classDoc if the type is a class, null if it is a primitive type
+     * @return classDoc A classDoc if the type is a class, null if it is a primitive type
      */
-    function &asClassDoc() {
+    function &asclassDoc() {
         return $this->_root->classNamed($this->_name);
     }
 }

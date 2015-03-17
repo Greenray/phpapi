@@ -4,10 +4,11 @@
 require_once 'seeTag.php';
 
 /** Represents a throws tag.
+ *
  * @file      classes/throwsTag.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
- * @copyright (c) 2011 - 2015 Victor Nabatov
+ * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
  * @package   Tags
  */
@@ -17,11 +18,11 @@ class throwsTag extends SeeTag {
     /** Constructor.
      * @param  string  $text The contents of the tag
      * @param  array   $data Reference to doc comment data array
-     * @param  RootDoc $root The root object
+     * @param  rootDoc $root The root object
      * @return void
      */
     public function throwsTag($text, &$data, &$root) {
-        $explode = preg_split('/[ \t]+/', $text);
+        $explode     = preg_split('/[ \t]+/', $text);
         $this->_link = array_shift($explode);
         $data['throws'][$this->_link] = $this->_link;
         parent::tag('@throws', join(' ', $explode), $root);

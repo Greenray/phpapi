@@ -1,30 +1,36 @@
 <?php
 # phpapi: The PHP Documentation Creator
 
-require_once(dirname(__file__).DS.'textFormatter.php');
-
 /** The standard formatter.
  * Basic implementation, just deals with unordered lists for now.
- * @file      doclets/formatters/htmlStandardFormatter.php
+ *
+ * @file      doclets/formatters/htmlFormatter.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
- * @copyright (c) 2011 - 2015 Victor Nabatov
+ * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
  * @package   Formatters
  */
-class htmlStandardFormatter extends TextFormatter {
 
-    public function toFormattedText($text) {
-        $text = $this->_addListMarkupUL($text);
-        $text = '<p>'.str_replace("\n\n", '</p><p>', $this->toPlainText($text)).'</p>';
-        $text = str_replace('<ul>',  "</p>\n<ul>", $text);
-        $text = str_replace('</ul>', "</ul>\n<p>", $text);
-        $text = $this->_removeWhitespace($text);
+class htmlFormatter {
+
+    /** Formats plain text.
+     * Creates a paragraph, keeping lists (if they have one) and remove the extra spaces..
+     * @param  string $text The text to format
+     * @return string       Formatted text
+     */
+    public function toPlainText($text) {
+        if (!empty($text)) {
+            $text = $this->_addListMarkupUL($text);
+            $text = '<p>'.str_replace("\n\n", '</p><p>', preg_replace("/[ \t]*\n[ \t]*/", LF, $text)).'</p>';
+            $text = str_replace('<ul>',  "</p>\n<ul>", $text);
+            $text = str_replace('</ul>', "</ul>\n<p>", $text);
+        }
         return $text;
     }
 
     /** Detects unordered lists and adds the necessary markup.
-     * Create unordered lists. -, + are recogized as bullet points.
+     * Creates unordered lists. -, + are recogized as bullet points.
      * @param  string $txt The text to parse and modify
      * @return string
      */

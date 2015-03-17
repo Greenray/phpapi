@@ -5,7 +5,7 @@
  * @file      classes/paramTag.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
- * @copyright (c) 2011 - 2015 Victor Nabatov
+ * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
  * @package   Tags
  */
@@ -18,9 +18,9 @@ class paramTag extends Tag {
     public $_var = NULL;
 
     /** Constructor.
-     * @param str text The contents of the tag
+     * @param string text The contents of the tag
      * @param array data Reference to doc comment data array
-     * @param RootDoc root The root object
+     * @param rootDoc root The root object
      */
     public function paramTag($text, &$data, &$root) {
         $explode = preg_split('/[ \t]+/', $text);
@@ -36,10 +36,8 @@ class paramTag extends Tag {
             $text = join(' ', $explode);
         }
         if ($text !== '') {
-            parent::tag('@param', '$'.$this->_var.'+'.$text, $root, $type);
-        } else {
-            parent::tag('@param', NULL, $root);
-        }
+               parent::tag('@param', '$'.$this->_var.'+'.$text, $root, $type);
+        } else parent::tag('@param', NULL, $root);
     }
 
     /** Get display name of this tag.

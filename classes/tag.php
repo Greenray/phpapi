@@ -4,10 +4,11 @@
 /** Represents a documentation tag, e.g. @since, @author, @version.
  * Given a tag (e.g. "@since 1.2"), holds tag name (e.g. "@since") and tag text (e.g. "1.2").
  * Tags with structure or which require special processing are handled by subclasses.
+ *
  * @file      classes/Tag.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
- * @copyright (c) 2011 - 2015 Victor Nabatov
+ * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
  * @package   Tags
  */
@@ -40,13 +41,13 @@ class tag {
     public $_parent = NULL;
 
     /** Constructor.
-     * @param str name The name of the tag (including @)
-     * @param str text The contents of the tag
-     * @param RootDoc root The root object
+     * @param string name The name of the tag (including @)
+     * @param string text The contents of the tag
+     * @param rootDoc root The root object
      */
     public function tag($name, $text, &$root, $type = '') {
         $this->_name = $name;
-        $this->_root = & $root;
+        $this->_root =& $root;
         $this->_text = $text;
         $this->_type = $type;
     }
@@ -84,7 +85,7 @@ class tag {
      * @param ProgramElementDoc element The parent element
      */
     public function setParent(&$element) {
-        $this->_parent = & $element;
+        $this->_parent =& $element;
     }
 
     /** For documentation comment with embedded @link tags, return the array of tags.
@@ -109,39 +110,22 @@ class tag {
      * The sentence ends at the first period that is followed by a space, tab,
      * or a line terminator, at the first tagline, or closing of a HTML block element
      * (<p> <h1> <h2> <h3> <h4> <h5> <h6> <hr> <pre>).
-     * If PEAR compatibility mode is on, the first double line break also ends
-     * the first sentence. PEAR documentation advocates ommiting the period from
-     * the first sentence.
      * @return Tag[] An array of Tags representing the first sentence of the comment
      * @todo This method does not act as described but should be altered to do so
      */
     function &firstSentenceTags($formatter) {
-        $phpapi  = $this->_root->phpapi();
-        $matches = [];
-        if ($phpapi->getOption('pearCompat')) {
-            $expression = '/^(.+)(?:\n|\.( |\t|\n|<\/p>|<\/?h[1-6]>|<hr))/sU';
-            if (preg_match($expression, $this->text($formatter), $matches)) {
-                if (isset($matches[2])) {
-                    $return = & $this->_getInlineTags($matches[1].'.'.$matches[2]);
-                } else {
-                    $return = & $this->_getInlineTags($matches[1].'.');
-                }
-            } else {
-                $return = & $this->_getInlineTags($this->text($formatter).'.');
-            }
-        } else {
-            $expression = '/^(.+)(\.(?: |\t|\n|<\/p>|<\/?h[1-6]>|<hr)|$)/sU';
-            if (preg_match($expression, $this->text($formatter), $matches)) {
-                $return = & $this->_getInlineTags($matches[1].$matches[2]);
-            } else {
-                $return = [&$this];
-            }
-        }
+        $phpapi     = $this->_root->phpapi();
+        $matches    = [];
+        $expression = '/^(.+)(\.(?: |\t|\n|<\/p>|<\/?h[1-6]>|<hr)|$)/sU';
+        if (preg_match($expression, $this->text($formatter), $matches))
+              $return =& $this->_getInlineTags($matches[1].$matches[2]);
+        else  $return = [&$this];
+
         return $return;
     }
 
     /** Parses out inline tags from within a text string.
-     * @param str text
+     * @param string text
      * @return Tag[]
      */
     function &_getInlineTags($text) {
@@ -149,7 +133,7 @@ class tag {
         $tagStrings = preg_split('/{(@.+)}/sU', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
         if ($tagStrings) {
             $inlineTags = NULL;
-            $phpapi = & $this->_root->phpapi();
+            $phpapi =& $this->_root->phpapi();
             foreach ($tagStrings as $tag) {
                 if (substr($tag, 0, 1) === '@') {
                     $pos = strpos($tag, ' ');
@@ -170,11 +154,11 @@ class tag {
                     $text = $tag;
                 }
                 $data = NULL;
-                $inlineTag = & $phpapi->createTag($name, $text, $data, $this->_root);
+                $inlineTag =& $phpapi->createTag($name, $text, $data, $this->_root);
                 $inlineTag->setParent($this->_parent);
                 $inlineTags[] = $inlineTag;
             }
-            $return = & $inlineTags;
+            $return =& $inlineTags;
         }
         return $return;
     }

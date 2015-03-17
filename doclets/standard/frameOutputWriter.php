@@ -3,10 +3,11 @@
 
 /** This generates the index.html file used for presenting the frame-formated
  * "cover page" of the API documentation.
+ * 
  * @file      doclets/standard/farmeOutputWriter.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
- * @copyright (c) 2011 - 2015 Victor Nabatov
+ * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
  * @package   Standard
  */
@@ -20,8 +21,8 @@ class frameOutputWriter extends HTMLWriter {
         parent::HTMLWriter($doclet);
 
         ob_start();
-        echo <<<END
-<frameset rows="7%,88%,5%" framespacing="0">
+        echo
+'<frameset rows="7%,88%,5%" framespacing="0">
     <frameset>
         <frame src="header-frame.html" name="header" noresize scrolling="no">
     </frameset>
@@ -32,7 +33,7 @@ class frameOutputWriter extends HTMLWriter {
         </frameset>
         <frame src="overview-summary.html" name="main">
     </frameset>
-    <frame src="footer-frame.html" name="footer" noresize scrolling="no">
+    <div id="footer"'.GENERATOR.' '.COPYRIGHT.'</div>
 </frameset>
 <noframes>
         <body>
@@ -40,18 +41,10 @@ class frameOutputWriter extends HTMLWriter {
             <p>This document is designed to be viewed using frames. If you see this message, you are using a non-frame-capable browser.<br>
             Link to <a href="overview-summary.html">Non-frame version</a>.</p>
         </body>
-    </noframes>
-END;
+    </noframes>';
         $this->_output = ob_get_contents();
         ob_end_clean();
 
         $this->_write('index.html', FALSE, FALSE);
-    }
-
-    /** Get the HTML DOCTYPE for this output.
-     * @return string
-     */
-    public function _doctype() {
-        return '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">';
     }
 }

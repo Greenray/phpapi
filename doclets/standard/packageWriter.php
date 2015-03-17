@@ -3,10 +3,11 @@
 
 /** This generates the package-summary.html files that list the interfaces and
  * classes for a given package.
+ *
  * @file      doclets/standard/packageWriter.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
- * @copyright (c) 2011 - 2015 Victor Nabatov
+ * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
  * @package   Standard
  */
@@ -19,8 +20,8 @@ class packageWriter extends HTMLWriter {
     public function packageWriter(&$doclet) {
         parent::HTMLWriter($doclet);
 
-        $rootDoc = & $this->_doclet->rootDoc();
-        $phpapi  = & $this->_doclet->phpapi();
+        $rootDoc =& $this->_doclet->rootDoc();
+        $phpapi  =& $this->_doclet->phpapi();
 
         $displayTree = $phpapi->getOption('tree');
 
@@ -28,11 +29,7 @@ class packageWriter extends HTMLWriter {
             $this->_sections[0] = ['title' => 'Overview',   'url' => 'overview-summary.html'];
             $this->_sections[1] = ['title' => 'Namespace'];
             $this->_sections[2] = ['title' => 'Class'];
-            #$this->_sections[3] = ['title' => 'Use'];
             $this->_sections[4] = ['title' => 'Tree',  'selected' => TRUE];
-            if ($doclet->includeSource()) {
-                $this->_sections[5] = ['title' => 'Files',  'url' => 'overview-files.html'];
-            }
             $this->_sections[6] = ['title' => 'Deprecated', 'url' => 'deprecated-list.html'];
             $this->_sections[7] = ['title' => 'Todo',       'url' => 'todo-list.html'];
             $this->_sections[8] = ['title' => 'Index',      'url' => 'index-all.html'];
@@ -40,7 +37,7 @@ class packageWriter extends HTMLWriter {
             $this->_id = 'tree';
 
             $tree = [];
-            $classes = & $rootDoc->classes();
+            $classes =& $rootDoc->classes();
             if ($classes) {
                 foreach ($classes as $class) {
                     $this->_buildTree($tree, $class);
@@ -60,42 +57,37 @@ class packageWriter extends HTMLWriter {
             $this->_write('overview-tree.html', 'Overview', TRUE);
         }
         $this->_id = 'package';
-        $packages = & $rootDoc->packages();
+        $packages =& $rootDoc->packages();
         ksort($packages);
         foreach ($packages as $packageName => $package) {
 
             $this->_depth = $package->depth() + 1;
 
-            $this->_sections[0] = ['title' => 'Overview',   'url' => 'overview-summary.html'];
+            $this->_sections[0] = ['title' => 'Overview',       'url' => 'overview-summary.html'];
             $this->_sections[1] = ['title' => 'Namespace', 'selected' => TRUE];
             $this->_sections[2] = ['title' => 'Class'];
-            #$this->_sections[3] = ['title' => 'Use'];
-            if ($displayTree) {
-                $this->_sections[4] = ['title' => 'Tree',   'url' => $package->asPath().'/package-tree.html'];
-            }
-            if ($doclet->includeSource()) {
-                $this->_sections[5] = ['title' => 'Files',  'url' => 'overview-files.html'];
-            }
-            $this->_sections[6] = ['title' => 'Deprecated', 'url' => 'deprecated-list.html'];
-            $this->_sections[7] = ['title' => 'Todo',       'url' => 'todo-list.html'];
-            $this->_sections[8] = ['title' => 'Index',      'url' => 'index-all.html'];
+            if ($displayTree)
+                $this->_sections[4] = ['title' => 'Tree',       'url' => $package->asPath().'/package-tree.html'];
+            $this->_sections[6] = ['title' => 'Deprecated',     'url' => 'deprecated-list.html'];
+            $this->_sections[7] = ['title' => 'Todo',           'url' => 'todo-list.html'];
+            $this->_sections[8] = ['title' => 'Index',          'url' => 'index-all.html'];
 
             ob_start();
 
             echo '<hr>';
             echo '<h1>Namespace '.$package->name().'</h1>';
-            $textTag = & $package->tags('@text');
+            $textTag =& $package->tags('@text');
             if ($textTag) {
                 echo '<div class="comment">', $this->_processInlineTags($textTag, TRUE), '</div>';
                 echo '<dl><dt>See:</dt><dd><b><a href="#overview_description">Description</a></b></dd></dl>';
             }
-            $classes = & $package->ordinaryClasses();
+            $classes =& $package->ordinaryClasses();
             if ($classes) {
                 ksort($classes);
                 echo '<table class="title">';
                 echo '<tr><th colspan="2" class="title">Class Summary</th></tr>';
                 foreach ($classes as $name => $class) {
-                    $textTag = & $classes[$name]->tags('@text');
+                    $textTag =& $classes[$name]->tags('@text');
                     echo '<tr><td class="name"><a href="'.str_repeat('../', $this->_depth).$classes[$name]->asPath().'">'.$classes[$name]->name().'</a></td>';
                     echo '<td class="description">';
                     if ($textTag) {
@@ -105,13 +97,13 @@ class packageWriter extends HTMLWriter {
                 }
                 echo '</table>';
             }
-            $interfaces = & $package->interfaces();
+            $interfaces =& $package->interfaces();
             if ($interfaces) {
                 ksort($interfaces);
                 echo '<table class="title">';
                 echo '<tr><th colspan="2" class="title">Interface Summary</th></tr>';
                 foreach ($interfaces as $name => $interface) {
-                    $textTag = & $interfaces[$name]->tags('@text');
+                    $textTag =& $interfaces[$name]->tags('@text');
                     echo '<tr><td class="name"><a href="', str_repeat('../', $this->_depth), $interfaces[$name]->asPath(), '">', $interfaces[$name]->name(), '</a></td>';
                     echo '<td class="description">';
                     if ($textTag) {
@@ -121,13 +113,13 @@ class packageWriter extends HTMLWriter {
                 }
                 echo '</table>';
             }
-            $traits = & $package->traits();
+            $traits =& $package->traits();
             if ($traits) {
                 ksort($traits);
                 echo '<table class="title">';
                 echo '<tr><th colspan="2" class="title">Trait Summary</th></tr>';
                 foreach ($traits as $name => $trait) {
-                    $textTag = & $traits[$name]->tags('@text');
+                    $textTag =& $traits[$name]->tags('@text');
                     echo '<tr><td class="name"><a href="'.str_repeat('../', $this->_depth).$traits[$name]->asPath().'">'.$traits[$name]->name().'</a></td>';
                     echo '<td class="description">';
                     if ($textTag) {
@@ -137,13 +129,13 @@ class packageWriter extends HTMLWriter {
                 }
                 echo '</table>';
             }
-            $exceptions = & $package->exceptions();
+            $exceptions =& $package->exceptions();
             if ($exceptions) {
                 ksort($exceptions);
                 echo '<table class="title">'.LF;
                 echo '<tr><th colspan="2" class="title">Exception Summary</th></tr>';
                 foreach ($exceptions as $name => $exception) {
-                    $textTag = & $exceptions[$name]->tags('@text');
+                    $textTag =& $exceptions[$name]->tags('@text');
                     echo '<tr><td class="name"><a href="'.str_repeat('../', $this->_depth).$exceptions[$name]->asPath().'">', $exceptions[$name]->name().'</a></td>';
                     echo '<td class="description">';
                     if ($textTag) {
@@ -153,13 +145,13 @@ class packageWriter extends HTMLWriter {
                 }
                 echo '</table>';
             }
-            $functions = & $package->functions();
+            $functions =& $package->functions();
             if ($functions) {
                 ksort($functions);
                 echo '<table class="title">';
                 echo '<tr><th colspan="2" class="title">Function Summary</th></tr>';
                 foreach ($functions as $name => $function) {
-                    $textTag = & $functions[$name]->tags('@text');
+                    $textTag =& $functions[$name]->tags('@text');
                     echo '<tr><td class="name"><a href="package-functions.html#'.$functions[$name]->name().'">'.$functions[$name]->name().'</a></td>';
                     echo '<td class="description">';
                     if ($textTag) {
@@ -170,13 +162,13 @@ class packageWriter extends HTMLWriter {
                 echo '</table>';
             }
 
-            $globals = & $package->globals();
+            $globals =& $package->globals();
             if ($globals) {
                 ksort($globals);
                 echo '<table class="title">'.LF;
                 echo '<tr><th colspan="2" class="title">Global Summary</th></tr>';
                 foreach ($globals as $name => $global) {
-                    $textTag = & $globals[$name]->tags('@text');
+                    $textTag =& $globals[$name]->tags('@text');
                     echo '<tr><td class="name"><a href="package-globals.html#'.$globals[$name]->name().'">'.$globals[$name]->name().'</a></td>';
                     echo '<td class="description">';
                     if ($textTag) {
@@ -187,7 +179,7 @@ class packageWriter extends HTMLWriter {
                 echo '</table>';
             }
 
-            $textTag = & $package->tags('@text');
+            $textTag =& $package->tags('@text');
             if ($textTag) {
                 echo '<h1>Namespace '.$package->name().' Description</h1>';
                 echo '<div class="comment" id="overview_description">'.$this->_processInlineTags($textTag), '</div>';
@@ -202,14 +194,10 @@ class packageWriter extends HTMLWriter {
 
             if ($displayTree) {
 
-                $this->_sections[0] = ['title' => 'Overview',  'url' => 'overview-summary.html'];
-                $this->_sections[1] = ['title' => 'Namespace', 'url' => $package->asPath().'/package-summary.html', 'relative' => TRUE];
+                $this->_sections[0] = ['title' => 'Overview',   'url' => 'overview-summary.html'];
+                $this->_sections[1] = ['title' => 'Namespace',  'url' => $package->asPath().'/package-summary.html', 'relative' => TRUE];
                 $this->_sections[2] = ['title' => 'Class'];
-                #$this->_sections[3] = ['title' => 'Use'];
                 $this->_sections[4] = ['title' => 'Tree',       'url' => $package->asPath().'/package-tree.html', 'selected' => TRUE, 'relative' => TRUE];
-                if ($doclet->includeSource()) {
-                    $this->_sections[5] = ['title' => 'Files',  'url' => 'overview-files.html'];
-                }
                 $this->_sections[6] = ['title' => 'Deprecated', 'url' => 'deprecated-list.html'];
                 $this->_sections[7] = ['title' => 'Todo',       'url' => 'todo-list.html'];
                 $this->_sections[8] = ['title' => 'Index',      'url' => 'index-all.html'];
@@ -217,12 +205,10 @@ class packageWriter extends HTMLWriter {
                 $this->_id = 'tree';
 
                 $tree = [];
-                $classes = & $package->ordinaryClasses();
+                $classes =& $package->ordinaryClasses();
                 if ($classes) {
                     ksort($classes);
-                    foreach ($classes as $class) {
-                        $this->_buildTree($tree, $class);
-                    }
+                    foreach ($classes as $class) $this->_buildTree($tree, $class);
                 }
 
                 ob_start();
@@ -241,23 +227,21 @@ class packageWriter extends HTMLWriter {
     }
 
     /** Build the class tree branch for the given element.
-     * @param ClassDoc[] tree
-     * @param ClassDoc element
+     * @param classDoc[] tree
+     * @param classDoc element
      */
     public function _buildTree(&$tree, &$element) {
         $tree[$element->name()] = $element;
         if ($element->superclass()) {
-            $rootDoc = & $this->_doclet->rootDoc();
-            $superclass = & $rootDoc->classNamed($element->superclass());
-            if ($superclass) {
-                $this->_buildTree($tree, $superclass);
-            }
+            $rootDoc =& $this->_doclet->rootDoc();
+            $superclass =& $rootDoc->classNamed($element->superclass());
+            if ($superclass) $this->_buildTree($tree, $superclass);
         }
     }
 
     /** Build the class tree branch for the given element.
-     * @param ClassDoc[] tree
-     * @param str parent
+     * @param classDoc[] tree
+     * @param string parent
      */
     public function _displayTree($tree, $parent = NULL) {
         $outputList = TRUE;

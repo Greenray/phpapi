@@ -1,14 +1,15 @@
 <?php
 # phpapi: The PHP Documentation Creator
 
-/** This class holds the information from one run of phpapi.
+/** php tokenizer and parser.
  * Particularly the packages, classes and options specified by the user.
  * It is the root of the parsed tokens and is passed to the doclet to be formatted into output.
+ *
  * @file      classes/phpapi.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
- * @copyright (c) 2011 - 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License <http://creativecommons.org/licenses/by-nc-sa/3.0/
+ * @copyright (c) 2015 Victor Nabatov
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * @package   phpapi
  */
 
@@ -52,7 +53,7 @@ class phpapi {
     /** Directory containing files for parsing.
      * @var string
      */
-    public $_sourcePath = ['./'];
+    public $_sourcePath = './';
 
     /** Number of parsed source files
      * @var integer
@@ -69,28 +70,11 @@ class phpapi {
      */
     public $_defaultPackage = 'The Unknown Package';
 
-    /** Use the filesystem path of the class as the package it should be in.
-     * @var boolean
-     */
-    public $_useClassPathAsPackage = FALSE;
-
-    /** Ignore any package tags in the source code.
-     * @var boolean
-     */
-    public $_ignorePackageTags = FALSE;
-
     /** Overview file.
      * The "source" file that contains the overview documentation.
      * @var string
      */
     public $_overview = NULL;
-
-    /** Package comment directory.
-     * If set, phpapi will look in this directory for package comment files.
-     * Otherwise it looks in a directory named after the package ala Javadoc.
-     * @var string
-     */
-    public $_packageCommentDir = NULL;
 
     /** Parse out global variables.
      * @var boolean
@@ -130,34 +114,17 @@ class phpapi {
     /** Specifies the name of the text formatter class.
      * @var string
      */
-    public $_formatter = 'htmlStandardFormatter';
-
-    /** Specifies the path to the doclet starting class file.
-     * If the doclet class is not in a file named <_doclet>/<_doclet>.php
-     * then this path should include the filename of the class file also.
-     * @var string
-     */
-    public $_docletPath = 'doclets';
-
-    /** Specifies the path to the taglets to use.
-     * @var string
-     */
-    public $_tagletPath = 'taglets';
-
-    /** Specifies the path to the formatters to use.
-     * @var string
-     */
-    public $_formatterPath = 'formatters';
+    public $_formatter = 'htmlFormatter';
 
     /** The path and filename of the current file being parsed.
      * @var string
      */
     public $_currentFilename = NULL;
 
-    /** Whether or not to use PEAR compatibility mode for first sentence tags.
-     * @var boolean
+    /** Language for interface.
+     * @var string
      */
-    public $_pearCompat = FALSE;
+    public $_lang;
 
     /** Constructor.
      * @param string $config The configuration file to use for this run of phpapi (Default = 'default.ini')
@@ -182,31 +149,19 @@ class phpapi {
         }
 
         # Set phpapi options
-        if (isset($this->_options['verbose'])) {
-            $this->_verbose = $this->_options['verbose'];
-            $this->verbose('Being verbose');
-        }
-        if (isset($this->_options['quiet'])) {
-            $this->_quiet = $this->_options['quiet'];
-        }
         if (isset($this->_options['source'])) {
             $this->_sourcePath = [];
             foreach (explode(',', $this->_options['source']) as $path) {
                 $this->_sourcePath[] = $this->fixPath($path, getcwd());
             }
         }
-        if (isset($this->_options['subdirs'])) {
-            $this->_subdirs = $this->_options['subdirs'];
-        }
-        if (isset($this->_options['files'])) {
-            $files = explode(',', $this->_options['files']);
-        } else {
-            $files = ['*.php'];
-        }
-        if (isset($this->_options['ignore'])) {
-            $this->_ignore = explode(',', $this->_options['ignore']);
-        }
+
+        if (isset($this->_options['files']))
+             $files = explode(',', $this->_options['files']);
+        else $files = '*.php';
+
         $this->verbose('Searching for files to parse...');
+
         $this->_files = [];
         foreach ($this->_sourcePath as $path) {
             $this->_files[$path] = array_unique($this->_buildFileList($files, $path));
@@ -215,67 +170,24 @@ class phpapi {
             $this->error('Cannot find any files to parse');
             exit;
         }
-        if (isset($this->_options['default_package'])) {
-            $this->_defaultPackage = $this->_options['default_package'];
-        }
-        if (isset($this->_options['use_class_path_as_package'])) {
-            $this->_useClassPathAsPackage = $this->_options['use_class_path_as_package'];
-        }
-        if (isset($this->_options['ignore_package_tags'])) {
-            $this->_ignorePackageTags = $this->_options['ignore_package_tags'];
-        }
 
-        # Use first path element
-        if (isset($this->_options['overview'])) {
-            $this->_overview = $this->makeAbsolutePath($this->_options['overview'], $this->_sourcePath[0]);
-        }
-        if (isset($this->_options['package_comment_dir'])) {
-            $this->_packageCommentDir = $this->makeAbsolutePath($this->_options['package_comment_dir'], $this->_sourcePath[0]);
-        }
-        if (isset($this->_options['globals'])) {
-            $this->_globals = $this->_options['globals'];
-        }
-        if (isset($this->_options['constants'])) {
-            $this->_constants = $this->_options['constants'];
-        }
-        if (isset($this->_options['tree'])) {
-            $this->_tree = $this->_options['tree'];
-        }
-        if (isset($this->_options['private']) && $this->_options['private']) {
-            $this->_public    = TRUE;
-            $this->_protected = TRUE;
-            $this->_private   = TRUE;
-        } elseif (isset($this->_options['protected']) && $this->_options['protected']) {
-            $this->_public    = TRUE;
-            $this->_protected = TRUE;
-            $this->_private   = FALSE;
-        } elseif (isset($this->_options['public']) && $this->_options['public']) {
-            $this->_public    = TRUE;
-            $this->_protected = FALSE;
-            $this->_private   = FALSE;
-        }
-        if (isset($this->_options['doclet'])) {
-            $this->_doclet = $this->_options['doclet'];
-        }
-        if (isset($this->_options['doclet_path'])) {
-            $this->_docletPath = $this->_options['doclet_path'];
-        } else {
-            $this->_docletPath = $this->_path.DS.$this->_docletPath;
-        }
-        if (isset($this->_options['taglet_path'])) {
-            $this->_tagletPath = $this->_options['taglet_path'];
-        }
-        if (isset($this->_options['formatter'])) {
-            $this->_formatter = $this->_options['formatter'];
-        }
-        if (isset($this->_options['formatter_path'])) {
-            $this->_formatterPath = $this->_options['formatter_path'];
-        } else {
-            $this->_formatterPath = $this->_path.DS.$this->_formatterPath;
-        }
-        if (isset($this->_options['pear_compat'])) {
-            $this->_pearCompat = $this->_options['pear_compat'];
-        }
+        if (isset($this->_options['default_package'])) $this->_defaultPackage        = $this->_options['default_package'];
+
+        if (isset($this->_options['ignore']))    $this->_ignore  = explode(',', $this->_options['ignore']);
+        if (isset($this->_options['subdirs']))   $this->_subdirs = $this->_options['subdirs'];
+        if (isset($this->_options['verbose']))   $this->_verbose = $this->_options['verbose'];
+        if (isset($this->_options['quiet']))     $this->_quiet   = $this->_options['quiet'];
+        if (isset($this->_options['overview']))  $this->_overview  = $this->makeAbsolutePath($this->_options['overview'], $this->_sourcePath[0]);
+        if (isset($this->_options['globals']))   $this->_globals   = $this->_options['globals'];
+        if (isset($this->_options['constants'])) $this->_constants = $this->_options['constants'];
+        if (isset($this->_options['tree']))      $this->_tree      = $this->_options['tree'];
+        if (isset($this->_options['doclet']))    $this->_doclet    = $this->_options['doclet'];
+        if (isset($this->_options['formatter'])) $this->_formatter = $this->_options['formatter'];
+        if (isset($this->_options['lang']))      $this->_lang      = $this->_options['lang'];
+
+        if (isset($this->_options['private'])   && $this->_options['private'])   $this->_private   = TRUE;
+        if (isset($this->_options['protected']) && $this->_options['protected']) $this->_protected = TRUE;
+        if (isset($this->_options['public'])    && $this->_options['public'])    $this->_public    = TRUE;
     }
 
     /** Build a complete list of file to parse.
@@ -290,6 +202,7 @@ class phpapi {
         if (!$dir) {
             return $list;
         }
+
         $dir = $this->fixPath($dir);
         foreach ($files as $filename) {
             $filename = $this->makeAbsolutePath(trim($filename), $dir);
@@ -302,13 +215,9 @@ class phpapi {
                             $okay = FALSE;
                         }
                     }
-                    if ($okay) {
-                        $list[] = realpath($filepath);
-                    }
+                    if ($okay) $list[] = realpath($filepath);
                 }
-            } elseif (!$this->_subdirs) {
-                $this->error('Cannot find file "'.$filename.'"');
-            }
+            } elseif (!$this->_subdirs) $this->error('Cannot find file "'.$filename.'"');
         }
 
         # Recurse into subdir
@@ -318,9 +227,7 @@ class phpapi {
                 foreach ($globResults as $dirName) {
                     $okay = TRUE;
                     foreach ($this->_ignore as $ignore) {
-                        if (strstr($dirName, trim($ignore))) {
-                            $okay = FALSE;
-                        }
+                        if (strstr($dirName, trim($ignore))) $okay = FALSE;
                     }
                     if ($okay && (GLOB_ONLYDIR || is_dir($dirName))) { # Handle missing only dir support
                         $list = array_merge($list, $this->_buildFileList($files, $this->makeAbsolutePath($dirName, $this->_path)));
@@ -336,19 +243,16 @@ class phpapi {
      * @return void
      */
     public function message($msg) {
-        if (!$this->_quiet) {
-            echo $msg, LF;
-        }
+        if (!$this->_quiet) echo $msg, LF;
     }
 
     /** Write a message to standard output.
+     *
      * @param string $msg Verbose message to output
      * @return void
      */
     public function verbose($msg) {
-        if ($this->_verbose) {
-            echo $msg, LF;
-        }
+        if ($this->_verbose) echo $msg, LF;
     }
 
     /** Write a warning message to standard error.
@@ -356,20 +260,17 @@ class phpapi {
      * @return void
      */
     public function warning($msg) {
-        if (!defined('STDERR')) {
-            define('STDERR', fopen("php://stderr", "wb"));
-        }
+        if (!defined('STDERR')) define('STDERR', fopen("php://stderr", "wb"));
         fwrite(STDERR, 'WARNING: '.$msg.LF);
     }
 
     /** Write an error message to standard error.
+     *
      * @param string $msg Error message to output
      * @return void
      */
     public function error($msg) {
-        if (!defined('STDERR')) {
-            define('STDERR', fopen("php://stderr", "wb"));
-        }
+        if (!defined('STDERR')) define('STDERR', fopen("php://stderr", "wb"));
         fwrite(STDERR, 'ERROR: '.$msg.LF);
     }
 
@@ -382,6 +283,7 @@ class phpapi {
     }
 
     /** Turn path into an absolute path using the given prefix?
+     *
      * @param  string $path   Path to make absolute
      * @param  string $prefix Absolute path to append to relative path
      * @return string         Absolute path to needed object
@@ -395,10 +297,10 @@ class phpapi {
             preg_match('|^[a-z]+://|', $path) # Url
         ) {
             return $path;
+
         } else {
-            if (substr($path, 0, 2) == './') {
-                $path = substr($path, 2);
-            }
+            if (substr($path, 0, 2) == './') $path = substr($path, 2);
+
             $absPath = $this->fixPath($prefix).$path;
             $count = 1;
             while ($count > 0) {
@@ -409,6 +311,7 @@ class phpapi {
     }
 
     /** Add a trailing slash to a path if it does not have one.
+     *
      * @param string $path Path to postfix
      * @return string      Fixed path
      */
@@ -420,7 +323,7 @@ class phpapi {
      * @return string Path to doclet
      */
     public function docletPath() {
-        return realpath($this->fixPath($this->_docletPath).$this->fixPath($this->_doclet)).DS;
+        return realpath($this->fixPath(DOCLETS).$this->fixPath($this->_doclet)).DS;
     }
 
     /** Return the source path.
@@ -445,6 +348,7 @@ class phpapi {
     }
 
     /** Get a configuration option.
+     *
      * @param  string $option Option name
      * @return mixed          Option value
      */
@@ -457,16 +361,14 @@ class phpapi {
      * @return array $rootDoc The root of the parsed tokens
      */
     function &parse() {
-        $rootDoc = & new rootDoc($this);
+        $rootDoc =& new rootDoc($this);
         $ii = 0;
         foreach ($this->_files as $path => $files) {
             $this->_sourceIndex = $ii++;
             if (isset($this->_options['overview'])) {
                 $this->_overview = $this->makeAbsolutePath($this->_options['overview'], $this->sourcePath());
             }
-            if (isset($this->_options['package_comment_dir'])) {
-                $this->_packageCommentDir = $this->makeAbsolutePath($this->_options['package_comment_dir'], $this->sourcePath());
-            }
+
             foreach ($files as $filename) {
                 if ($filename) {
                     $this->message('Reading file "'.$filename.'"');
@@ -478,18 +380,16 @@ class phpapi {
                         if ($this->_verbose) {
                             echo 'Parsing tokens';
                         }
+
                         # This array holds data gathered before the type of element is discovered and an object is created for it, including doc comment data.
                         # This data is stored in the object once it has been created and then merged into the objects data fields upon object completion.
                         $currentData    = [];
                         $currentPackage = $this->_defaultPackage; # The current package
-                        if ($this->_useClassPathAsPackage) {      # Magic up package name from filepath
-                            $currentPackage .= '\\'.str_replace(' ', '\\', ucwords(str_replace(DS, ' ', substr(dirname($filename), strlen($this->sourcePath()) + 1))));
-                        }
                         $defaultPackage = $oldDefaultPackage = $currentPackage;
                         $fileData = [];
 
-                        $currentElement = [];      # Stack of element family, current at top of stack
-                        $ce = & $rootDoc;          # Reference to element at top of stack
+                        $currentElement = [];     # Stack of element family, current at top of stack
+                        $ce =& $rootDoc;          # Reference to element at top of stack
 
                         $open_curly_braces = FALSE;
                         $in_parsed_string  = FALSE;
@@ -498,6 +398,7 @@ class phpapi {
                         $lineNumber    = 1;
                         $commentNumber = 0;
                         $numOfTokens   = count($tokens);
+
                         for ($key = 0; $key < $numOfTokens; $key++) {
                             $token = $tokens[$key];
                             if (!$in_parsed_string && is_array($token)) {
@@ -513,9 +414,8 @@ class phpapi {
                                 }
                                 switch ($token[0]) {
 
-                                    case T_COMMENT:     # Read comment
- //                                   case T_ML_COMMENT:  # and multiline comment (deprecated in newer versions)
-                                    case T_DOC_COMMENT: # and catch PHP5 doc comment token too
+                                    case T_COMMENT:
+                                    case T_DOC_COMMENT:
                                         $currentData = array_merge($currentData, $this->processDocComment($token[1], $rootDoc));
                                         if ($currentData) {
                                             $commentNumber++;
@@ -530,102 +430,104 @@ class phpapi {
                                         break;
 
                                     case T_CLASS:
-                                        # Read class
-                                        $class = & new classDoc($this->_getProgramElementName($tokens, $key), $rootDoc, $filename, $lineNumber, $this->sourcePath()); # Create class object
+
+                                        $class =& new classDoc($this->_getProgramElementName($tokens, $key), $rootDoc, $filename, $lineNumber, $this->sourcePath()); # Create class object
                                         $this->verbose('+ Entering '.get_class($class).': '.$class->name());
-                                        if (isset($currentData['docComment'])) { # Set doc comment
+                                        if (isset($currentData['docComment'])) {
                                             $class->set('docComment', $currentData['docComment']);
                                         }
-                                        $class->set('data', $currentData);       # Set data
-                                        if (isset($currentData['package']) && $currentData['package'] != NULL) { # Set package
+
+                                        $class->set('data', $currentData);
+                                        if (isset($currentData['package']) && $currentData['package'] != NULL) {
                                             $currentPackage = $currentData['package'];
                                         }
                                         $class->set('package', $currentPackage);
-                                        $parentPackage = & $rootDoc->packageNamed($class->packageName(), TRUE);  # Get parent package
-                                        $parentPackage->addClass($class);           # Add class to package
-                                        $class->setByRef('parent', $parentPackage); # Set parent reference
-                                        $currentData = [];                          # Empty data store
-                                        if ($this->_includeElements($class)) {
-                                            $currentElement[count($currentElement)] = & $class; # Re-assign current element
-                                        }
-                                        $ce = & $class;
+                                        $parentPackage =& $rootDoc->packageNamed($class->packageName(), TRUE);
+                                        $parentPackage->addClass($class);
+
+                                        # Set parent reference
+                                        $class->setByRef('parent', $parentPackage);
+                                        $currentData = [];
+
+                                        if ($this->_includeElements($class)) $currentElement[count($currentElement)] =& $class;
+
+                                        $ce =& $class;
                                         break;
 
                                     case T_INTERFACE:
-                                        # Read interface
-                                        $interface = & new classDoc($this->_getProgramElementName($tokens, $key), $rootDoc, $filename, $lineNumber, $this->sourcePath()); # Create interface object
+
+                                        $interface =& new classDoc($this->_getProgramElementName($tokens, $key), $rootDoc, $filename, $lineNumber, $this->sourcePath());
                                         $this->verbose('+ Entering '.get_class($interface).': '.$interface->name());
-                                        if (isset($currentData['docComment'])) { # Set doc comment
+                                        if (isset($currentData['docComment'])) {
                                             $interface->set('docComment', $currentData['docComment']);
                                         }
-                                        $interface->set('data', $currentData);   # Set data
-                                        $interface->set('interface', TRUE);      # This element is an interface
-                                        if (isset($currentData['package']) && $currentData['package'] != NULL) {    # Set package
+
+                                        $interface->set('data', $currentData);
+                                        $interface->set('interface', TRUE);
+                                        if (isset($currentData['package']) && $currentData['package'] != NULL) {
                                             $currentPackage = $currentData['package'];
                                         }
                                         $interface->set('package', $currentPackage);
+                                        $parentPackage =& $rootDoc->packageNamed($interface->packageName(), TRUE);
+                                        $parentPackage->addClass($interface);
 
-                                        $parentPackage = & $rootDoc->packageNamed($interface->packageName(), TRUE); # Get parent package
-                                        $parentPackage->addClass($interface);           # Add class to package
-                                        $interface->setByRef('parent', $parentPackage); # Set parent reference
-                                        $currentData = [];                              # Empty data store
-                                        if ($this->_includeElements($interface)) {
-                                            $currentElement[count($currentElement)] = & $interface; # Re-assign current element
-                                        }
-                                        $ce = & $interface;
+                                        # Set parent reference
+                                        $interface->setByRef('parent', $parentPackage);
+                                        $currentData = [];
+
+                                        if ($this->_includeElements($interface)) $currentElement[count($currentElement)] =& $interface;
+
+                                        $ce =& $interface;
                                         break;
 
                                     case T_TRAIT:
-                                        # Read trait
-                                        $trait = & new classDoc($this->_getProgramElementName($tokens, $key), $rootDoc, $filename, $lineNumber, $this->sourcePath()); # Create trait object
+
+                                        $trait =& new classDoc($this->_getProgramElementName($tokens, $key), $rootDoc, $filename, $lineNumber, $this->sourcePath()); # Create trait object
                                         $this->verbose('+ Entering '.get_class($trait).': '.$trait->name());
-                                        if (isset($currentData['docComment'])) { # Set doc comment
+                                        if (isset($currentData['docComment'])) {
                                             $trait->set('docComment', $currentData['docComment']);
                                         }
-                                        $trait->set('data', $currentData); # Set data
-                                        $trait->set('trait', TRUE);        # This element is a trait
-                                        if (isset($currentData['package']) && $currentData['package'] != NULL) { # Set package
+
+                                        $trait->set('data', $currentData);
+                                        $trait->set('trait', TRUE);
+                                        if (isset($currentData['package']) && $currentData['package'] != NULL) {
                                             $currentPackage = $currentData['package'];
                                         }
                                         $trait->set('package', $currentPackage);
+                                        $parentPackage =& $rootDoc->packageNamed($trait->packageName(), TRUE);
+                                        $parentPackage->addClass($trait);
+                                        $trait->setByRef('parent', $parentPackage);
 
-                                        $parentPackage = & $rootDoc->packageNamed($trait->packageName(), TRUE);  # Get parent package
-                                        $parentPackage->addClass($trait);           # Add class to package
-                                        $trait->setByRef('parent', $parentPackage); # Set parent reference
-                                        $currentData = [];                          # Empty data store
-                                        if ($this->_includeElements($trait)) {
-                                            $currentElement[count($currentElement)] = & $trait; # Re-assign current element
-                                        }
-                                        $ce = & $trait;
+                                        $currentData = [];
+
+                                        if ($this->_includeElements($trait)) $currentElement[count($currentElement)] =& $trait;
+
+                                        $ce =& $trait;
                                         break;
 
                                     case T_EXTENDS:
-                                        # Get extends clause
+
                                         $superClassName = $this->_getProgramElementName($tokens, $key);
                                         $ce->set('superclass', $superClassName);
-                                        if ($superClass = & $rootDoc->classNamed($superClassName) && $commentTag = & $superClass->tags('@text')) {
+                                        if ($superClass =& $rootDoc->classNamed($superClassName) && $commentTag =& $superClass->tags('@text')) {
                                             $ce->setTag('@text', $commentTag);
                                         }
                                         break;
 
                                     case T_IMPLEMENTS:
-                                        # Get implements clause
+
                                         $interfaceName = $this->_getProgramElementName($tokens, $key);
-                                        $interface = & $rootDoc->classNamed($interfaceName);
-                                        if ($interface) {
-                                            $ce->set('interfaces', $interface);
-                                        }
+                                        $interface =& $rootDoc->classNamed($interfaceName);
+                                        if ($interface) $ce->set('interfaces', $interface);
                                         break;
 
                                     case T_THROW:
                                         # Throws exception
                                         $className = $this->_getNext($tokens, $key, T_STRING);
-                                        $class = & $rootDoc->classNamed($className);
+                                        $class =& $rootDoc->classNamed($className);
                                         if ($class) {
-                                            $ce->setByRef('throws', $class);
-                                        } else {
-                                            $ce->set('throws', $className);
-                                        }
+                                               $ce->setByRef('throws', $class);
+                                        } else $ce->set('throws', $className);
                                         break;
 
                                     case T_PRIVATE:
@@ -661,16 +563,14 @@ class phpapi {
                                         break;
 
                                     case T_USE:
-                                        if (strtolower(get_class($ce)) == 'classdoc') {
+                                        if (get_class($ce) == 'classDoc') {
                                             while ($tokens[++$key][0] != ';') {
                                                 if ($tokens[$key][0] == T_STRING) {
                                                     $className = $tokens[$key][1];
-                                                    $class = & $rootDoc->classNamed($className);
+                                                    $class =& $rootDoc->classNamed($className);
                                                     if ($class) {
-                                                        $ce->setByRef('traits', $class);
-                                                    } else {
-                                                        $ce->set('traits', $className);
-                                                    }
+                                                           $ce->setByRef('traits', $class);
+                                                    } else $ce->set('traits', $className);
                                                 }
                                             }
                                         }
@@ -689,32 +589,32 @@ class phpapi {
                                         break;
 
                                     case T_FUNCTION:
-                                        # Read function
+
                                         $name   = $this->_getProgramElementName($tokens, $key);
-                                        $method = & new methodDoc($name, $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath()); # Create method object
+                                        $method =& new methodDoc($name, $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath());
                                         $this->verbose('+ Entering '.get_class($method).': '.$method->name());
                                         if (isset($currentData['docComment'])) {
-                                            $method->set('docComment', $currentData['docComment']); # Set doc comment
+                                            $method->set('docComment', $currentData['docComment']);
                                         }
-                                        $method->set('data', $currentData); # Set data
-                                        $ceClass = strtolower(get_class($ce));
-                                        if ($ceClass == 'rootdoc') {        # Global function, add to package
+                                        $method->set('data', $currentData);
+                                        $ceClass = get_class($ce);
+                                        if ($ceClass == 'rootDoc') {
                                             $this->verbose(' is a global function');
+
                                             if (isset($currentData['access']) && $currentData['access'] == 'private')
-                                                $method->makePrivate();
-                                            if (isset($currentData['package']) && $currentData['package'] != NULL) { # Set package
-                                                $method->set('package', $currentData['package']);
-                                            } else {
-                                                $method->set('package', $currentPackage);
-                                            }
+                                                   $method->makePrivate();
+                                            if (isset($currentData['package']) && $currentData['package'] != NULL) {
+                                                   $method->set('package', $currentData['package']);
+                                            } else $method->set('package', $currentPackage);
+
                                             $method->mergeData();
-                                            $parentPackage = & $rootDoc->packageNamed($method->packageName(), TRUE); # Get parent package
+                                            $parentPackage =& $rootDoc->packageNamed($method->packageName(), TRUE);
                                             if ($this->_includeElements($method)) {
-                                                $parentPackage->addFunction($method);                  # Add method to package
+                                                $parentPackage->addFunction($method);
                                             }
-                                        } elseif ($ceClass == 'classdoc' || $ceClass == 'methoddoc') { # Class method, add to class
+                                        } elseif ($ceClass == 'classDoc' || $ceClass == 'methodDoc') {
                                             $method->set('package', $ce->packageName()); # Set package
-                                            if ($method->name() == '__construct' || strtolower($method->name()) == strtolower($ce->name())) { # Constructor
+                                            if ($method->name() == '__construct' || $method->name() == $ce->name()) {
                                                 $this->verbose(' is a constructor of '.get_class($ce).' '.$ce->name());
                                                 $method->set("name", "__construct");
                                                 $ce->addMethod($method);
@@ -730,265 +630,280 @@ class phpapi {
                                                 }
                                             }
                                         }
-                                        $currentData = [];                                   # Empty data store
-                                        $currentElement[count($currentElement)] = & $method; # Re-assign current element
-                                        $ce = & $method;
+                                        $currentData = [];
+                                        $currentElement[count($currentElement)] =& $method;
+                                        $ce =& $method;
                                         break;
 
                                     case T_STRING:
+
                                         if ($token[1] == 'define') {
-                                            $const = & new fieldDoc($this->_getNext($tokens, $key, T_CONSTANT_ENCAPSED_STRING), $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath()); # Create constant object
+                                            $const =& new fieldDoc($this->_getNext($tokens, $key, T_CONSTANT_ENCAPSED_STRING), $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath()); # Create constant object
                                             $this->verbose('Found '.get_class($const).': global constant '.$const->name());
-                                            $const->set('final', TRUE); # Is constant
+                                            $const->set('final', TRUE);
+
                                             $value = '';
                                             do {
                                                 $key++;
                                             } while (isset($tokens[$key]) && $tokens[$key] != ',');
                                             $key++;
+
                                             while (isset($tokens[$key]) && $tokens[$key] != ')') {
                                                 if (is_array($tokens[$key])) {
-                                                    $value .= $tokens[$key][1];
-                                                } else {
-                                                    $value .= $tokens[$key];
-                                                }
+                                                       $value .= $tokens[$key][1];
+                                                } else $value .= $tokens[$key];
                                                 $key++;
                                             }
                                             $value = trim($value);
-                                            if (substr($value, 0, 5) == 'array') {
+                                            if ((substr($value, 0, 5) == 'array') || (substr($value, 0, 1) == '[') && (substr($value, -1, 1)== ']')) {
                                                 $value = 'array(...)';
                                             }
                                             $const->set('value', $value);
+
                                             if (is_numeric($value)) {
-                                                $const->set('type', new type('int', $rootDoc));
+                                                $const->set('type', new type('integer', $rootDoc));
                                             } elseif (strtolower($value) == 'true' || strtolower($value) == 'false') {
-                                                $const->set('type', new type('bool', $rootDoc));
+                                                $const->set('type', new type('boolean', $rootDoc));
                                             } elseif (
                                                 substr($value, 0, 1) == '"' && substr($value, -1, 1) == '"' ||
                                                 substr($value, 0, 1) == "'" && substr($value, -1, 1) == "'"
                                             ) {
-                                                $const->set('type', new type('str', $rootDoc));
+                                                $const->set('type', new type('string', $rootDoc));
                                             }
+
                                             unset($value);
-                                            if (isset($currentData['docComment'])) { # Set doc comment
-                                                $const->set('docComment', $currentData['docComment']);
-                                            }
-                                            $const->set('data', $currentData);       # Set data
-                                            if (isset($currentData['package'])) {    # Set package
-                                                $const->set('package', $currentData['package']);
-                                            } else {
-                                                $const->set('package', $currentPackage);
-                                            }
+
+                                            if (isset($currentData['docComment'])) $const->set('docComment', $currentData['docComment']);
+
+                                            $const->set('data', $currentData);
+
+                                            if (isset($currentData['package'])) {
+                                                   $const->set('package', $currentData['package']);
+                                            } else $const->set('package', $currentPackage);
+
                                             $const->mergeData();
-                                            $parentPackage = & $rootDoc->packageNamed($const->packageName(), TRUE); # Get parent package
-                                            if ($this->_includeElements($const)) {
-                                                $parentPackage->addGlobal($const); # Add constant to package
-                                            }
-                                            $currentData = [];                     # Empty data store
+
+                                            $parentPackage =& $rootDoc->packageNamed($const->packageName(), TRUE);
+                                            if ($this->_includeElements($const)) $parentPackage->addGlobal($const);
+                                            $currentData = [];
 
                                         } elseif (isset($currentData['var']) && $currentData['var'] == 'const') {
+
                                             # Member constant
                                             do {
                                                 $key++;
                                                 if ($tokens[$key] == '=') {
                                                     $name = $this->_getPrev($tokens, $key, [T_VARIABLE, T_STRING]);
                                                     $value = '';
-                                                } elseif (isset($value) && $tokens[$key] != ',' && $tokens[$key] != ';') { # Set value
+                                                } elseif (isset($value) && $tokens[$key] != ',' && $tokens[$key] != ';') {
+
+                                                    # Set value
                                                     if (is_array($tokens[$key])) {
-                                                        $value .= $tokens[$key][1];
-                                                    } else {
-                                                        $value .= $tokens[$key];
-                                                    }
+                                                           $value .= $tokens[$key][1];
+                                                    } else $value .= $tokens[$key];
                                                 } elseif ($tokens[$key] == ',' || $tokens[$key] == ';') {
-                                                    if (!isset($name)) {
-                                                        $name = $this->_getPrev($tokens, $key, [T_VARIABLE, T_STRING]);
-                                                    }
-                                                    $const = & new fieldDoc($name, $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath()); # Create field object
+                                                    if (!isset($name)) $name = $this->_getPrev($tokens, $key, [T_VARIABLE, T_STRING]);
+
+                                                    $const =& new fieldDoc($name, $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath());
                                                     $this->verbose('Found '.get_class($const).': '.$const->name());
-                                                    if ($this->_hasPrivateName($const->name()))
-                                                        $const->makePrivate();
+                                                    if ($this->_hasPrivateName($const->name())) $const->makePrivate();
+
                                                     $const->set('final', TRUE);
-                                                    if (isset($value)) { # Set value
+                                                    if (isset($value)) {
                                                         $value = trim($value);
-                                                        if (strlen($value) > 50 && substr($value, 0, 5) == 'array') {
+                                                        if ((strlen($value) > 50) && (substr($value, 0, 5) == 'array') || (substr($value, 0, 1) == '[') && (substr($value, -1, 1) == ']')) {
                                                             $value = 'array(...)';
                                                         }
                                                         $const->set('value', $value);
+
                                                         if (is_numeric($value)) {
-                                                            $const->set('type', new type('int', $rootDoc));
+                                                            $const->set('type', new type('integer', $rootDoc));
                                                         } elseif (strtolower($value) == 'true' || strtolower($value) == 'false') {
-                                                            $const->set('type', new type('bool', $rootDoc));
+                                                            $const->set('type', new type('boolean', $rootDoc));
                                                         } elseif (
                                                             substr($value, 0, 1) == '"' && substr($value, -1, 1) == '"' ||
                                                             substr($value, 0, 1) == "'" && substr($value, -1, 1) == "'"
                                                         ) {
-                                                            $const->set('type', new type('str', $rootDoc));
+                                                            $const->set('type', new type('string', $rootDoc));
                                                         }
                                                     }
-                                                    if (isset($currentData['docComment'])) {    # Set doc comment
-                                                        $const->set('docComment', $currentData['docComment']);
-                                                    }
-                                                    $const->set('data', $currentData);          # Set data
-                                                    $const->set('package', $ce->packageName()); # Set package
+                                                    if (isset($currentData['docComment'])) $const->set('docComment', $currentData['docComment']);
+
+                                                    $const->set('data', $currentData);
+                                                    $const->set('package', $ce->packageName());
                                                     $const->set('static', TRUE);
+
                                                     $this->verbose(' is a member constant of '.get_class($ce).' '.$ce->name());
+
                                                     $const->mergeData();
-                                                    if ($this->_includeElements($const)) {
-                                                        $ce->addConstant($const);
-                                                    }
+                                                    if ($this->_includeElements($const)) $ce->addConstant($const);
+
                                                     unset($name);
                                                     unset($value);
                                                 }
                                             } while (isset($tokens[$key]) && $tokens[$key] != ';');
                                             $currentData = []; # Empty data store
 
-                                        } elseif (strtolower(get_class($ce)) == 'methoddoc' && $ce->inBody == 0) {
+                                        } elseif (get_class($ce) == 'methodDoc' && $ce->inBody == 0) {
+
                                             # Function parameter
                                             $typehint = NULL;
                                             do {
                                                 $key++;
                                                 if (!isset($tokens[$key]))
                                                     break;
+
                                                 if ($tokens[$key] == ',' || $tokens[$key] == ')') {
                                                     unset($param);
+
                                                 } elseif (is_array($tokens[$key])) {
-                                                    if ($tokens[$key][0] == T_STRING && !isset($param)) { # Type hint
+                                                    if ($tokens[$key][0] == T_STRING && !isset($param)) {
                                                         $typehint = $tokens[$key][1];
                                                     } elseif ($tokens[$key][0] == T_VARIABLE && !isset($param)) {
-                                                        $param = & new fieldDoc($tokens[$key][1], $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath()); # Create constant object
+                                                        $param =& new fieldDoc($tokens[$key][1], $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath());
                                                         $this->verbose('Found '.get_class($param).': '.$param->name());
-                                                        if (isset($currentData['docComment'])) {    # Set doc comment
+                                                        if (isset($currentData['docComment'])) {
                                                             $param->set('docComment', $currentData['docComment']);
                                                         }
                                                         if ($typehint) {
                                                             $param->set('type', new type($typehint, $rootDoc));
                                                             $this->verbose(' has a typehint of '.$typehint);
                                                         }
-                                                        $param->set('data', $currentData);          # Set data
-                                                        $param->set('package', $ce->packageName()); # Set package
+
+                                                        $param->set('data', $currentData);
+                                                        $param->set('package', $ce->packageName());
                                                         $this->verbose(' is a parameter of '.get_class($ce).' '.$ce->name());
+
                                                         $param->mergeData();
                                                         $ce->addParameter($param);
                                                         $typehint = NULL;
                                                     } elseif (isset($param) && ($tokens[$key][0] == T_STRING || $tokens[$key][0] == T_CONSTANT_ENCAPSED_STRING || $tokens[$key][0] == T_LNUMBER)) { # Set value
                                                         $value = $tokens[$key][1];
                                                         $param->set('value', $value);
+
                                                         if (!$typehint) {
                                                             if (is_numeric($value)) {
-                                                                $param->set('type', new type('int', $rootDoc));
+                                                                $param->set('type', new type('integer', $rootDoc));
                                                             } elseif (strtolower($value) == 'true' || strtolower($value) == 'false') {
-                                                                $param->set('type', new type('bool', $rootDoc));
+                                                                $param->set('type', new type('boolean', $rootDoc));
                                                             } elseif (
                                                                 substr($value, 0, 1) == '"' && substr($value, -1, 1) == '"' ||
                                                                 substr($value, 0, 1) == "'" && substr($value, -1, 1) == "'"
                                                             ) {
-                                                                $param->set('type', new type('str', $rootDoc));
+                                                                $param->set('type', new type('string', $rootDoc));
                                                             }
                                                         }
                                                     }
                                                 }
                                             } while (isset($tokens[$key]) && $tokens[$key] != ')');
-                                            $currentData = []; # Empty data store
+
+                                            $currentData = [];
                                         }
                                         break;
 
                                     case T_VARIABLE:
-                                        # Read global variable
-                                        if (strtolower(get_class($ce)) == 'rootdoc') { # Global var, add to package
-                                            $global = & new fieldDoc($tokens[$key][1], $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath()); # Create constant object
+
+                                        # Global variable
+                                        if (get_class($ce) == 'rootDoc') {
+
+                                            $global =& new fieldDoc($tokens[$key][1], $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath());
+
+                                            if (isset($currentData['docComment'])) {
+                                                $global->set('docComment', $currentData['docComment']);
+                                            } else {
+                                                unset ($global);
+                                                break;
+                                            }
                                             $this->verbose('Found '.get_class($global).': global variable '.$global->name());
+
                                             if (isset($tokens[$key - 1][0]) && isset($tokens[$key - 2][0]) && $tokens[$key - 2][0] == T_STRING && $tokens[$key - 1][0] == T_WHITESPACE) {
                                                 $global->set('type', new type($tokens[$key - 2][1], $rootDoc));
-                                            } while (isset($tokens[$key]) && $tokens[$key] != '=' && $tokens[$key] != ';') {
+                                            }
+
+                                            while (isset($tokens[$key]) && $tokens[$key] != '=' && $tokens[$key] != ';') {
                                                 $key++;
                                             }
+
                                             if (isset($tokens[$key]) && $tokens[$key] == '=') {
                                                 $default = '';
                                                 $key2 = $key + 1;
                                                 do {
                                                     if (is_array($tokens[$key2])) {
-                                                        if ($tokens[$key2][1] != '=') {
-                                                            $default .= $tokens[$key2][1];
-                                                        }
+                                                        if ($tokens[$key2][1] != '=') $default .= $tokens[$key2][1];
                                                     } else {
-                                                        if ($tokens[$key2] != '=') {
-                                                            $default .= $tokens[$key2];
-                                                        }
+                                                        if ($tokens[$key2] != '=')    $default .= $tokens[$key2];
                                                     }
                                                     $key2++;
                                                 } while (isset($tokens[$key2]) && $tokens[$key2] != ';' && $tokens[$key2] != ',' && $tokens[$key2] != ')');
-                                                $global->set('value', trim($default, ' ()')); # Set value
+
+                                                $global->set('value', trim($default, ' ()'));
                                             }
-                                            if (isset($currentData['docComment'])) {          # Set doc comment
-                                                $global->set('docComment', $currentData['docComment']);
-                                            }
-                                            $global->set('data', $currentData);               # Set data
-                                            if (isset($currentData['package'])) {             # Set package
-                                                $global->set('package', $currentData['package']);
-                                            } else {
-                                                $global->set('package', $currentPackage);
-                                            }
+                                            $global->set('data', $currentData);
+
+                                            if (isset($currentData['package'])) {
+                                                   $global->set('package', $currentData['package']);
+                                            } else $global->set('package', $currentPackage);
+
                                             $global->mergeData();
-                                            $parentPackage = & $rootDoc->packageNamed($global->packageName(), TRUE); # Get parent package
-                                            if ($this->_includeElements($global)) {
-                                                $parentPackage->addGlobal($global); # Add constant to package
-                                            }
-                                            $currentData = [];                      # Empty data store
-                                            # Read member variable
+
+                                            $parentPackage =& $rootDoc->packageNamed($global->packageName(), TRUE);
+                                            if ($this->_includeElements($global)) $parentPackage->addGlobal($global);
+                                            $currentData = [];
+
                                         } elseif (
+                                            # Read member variable
                                             (isset($currentData['var']) && $currentData['var'] == 'var') ||
                                             (isset($currentData['access']) && ($currentData['access'] == 'public'    ||
                                                                                $currentData['access'] == 'protected' ||
                                                                                $currentData['access'] == 'private'))
                                         ) {
                                             unset($name);
+
                                             do {
                                                 $key++;
-                                                if ($tokens[$key] == '=') { # Start value
+                                                if ($tokens[$key] == '=') {
+
+                                                    # Start value
                                                     $name  = $this->_getPrev($tokens, $key, T_VARIABLE);
                                                     $value = '';
                                                     $bracketCount = 0;
-                                                } elseif (isset($value) && ($tokens[$key] != ',' || $bracketCount > 0) && $tokens[$key] != ';') { # Set value
+                                                } elseif (isset($value) && ($tokens[$key] != ',' || $bracketCount > 0) && $tokens[$key] != ';') {
+
+                                                    # Set value
                                                     if (($tokens[$key] == '(') || ($tokens[$key] == '[')) {
                                                         $bracketCount++;
                                                     } elseif (($tokens[$key] == ')') || ($tokens[$key] == ']')) {
                                                         $bracketCount--;
                                                     }
                                                     if (is_array($tokens[$key])) {
-                                                        $value .= $tokens[$key][1];
-                                                    } else {
-                                                        $value .= $tokens[$key];
-                                                    }
+                                                           $value .= $tokens[$key][1];
+                                                    } else $value .= $tokens[$key];
                                                 } elseif ($tokens[$key] == ',' || $tokens[$key] == ';') {
-                                                    if (!isset($name)) {
-                                                        $name = $this->_getPrev($tokens, $key, T_VARIABLE);
-                                                    }
-                                                    $field = & new fieldDoc($name, $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath()); # Create field object
+                                                    if (!isset($name)) $name = $this->_getPrev($tokens, $key, T_VARIABLE);
+
+                                                    $field =& new fieldDoc($name, $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath());
                                                     $this->verbose('Found '.get_class($field).': '.$field->name());
-                                                    if ($this->_hasPrivateName($field->name())) {
-                                                        $field->makePrivate();
-                                                    }
-                                                    if (isset($value)) {           # Set value
+                                                    if ($this->_hasPrivateName($field->name())) $field->makePrivate();
+                                                    if (isset($value)) {
                                                         $value = trim($value);
-                                                        if (strlen($value) > 100 && ((substr($value, 0, 5) == 'array') || (substr($value, 0, 1) == '['))) {
+                                                        if ((strlen($value) > 100) && (substr($value, 0, 5) == 'array') || (substr($value, 0, 1) == '[') && (substr($value, -1, 1) == ']')) {
                                                             $value = 'array(...)';
                                                         }
                                                         $field->set('value', $value);
                                                     }
-                                                    if (isset($currentData['docComment'])) {    # Set doc comment
-                                                        $field->set('docComment', $currentData['docComment']);
-                                                    }
-                                                    $field->set('data', $currentData);          # Set data
-                                                    $field->set('package', $ce->packageName()); # Set package
+                                                    if (isset($currentData['docComment'])) $field->set('docComment', $currentData['docComment']);
+
+                                                    $field->set('data', $currentData);
+                                                    $field->set('package', $ce->packageName());
                                                     $this->verbose(' is a member variable of '.get_class($ce).' '.$ce->name());
                                                     $field->mergeData();
-                                                    if ($this->_includeElements($field)) {
-                                                        $ce->addField($field);
-                                                    }
+                                                    if ($this->_includeElements($field)) $ce->addField($field);
+
                                                     unset($name);
                                                     unset($value);
                                                 }
                                             } while (isset($tokens[$key]) && $tokens[$key] != ';');
-                                            $currentData = []; # Empty data store
+                                            $currentData = [];
                                         }
                                         break;
 
@@ -997,30 +912,31 @@ class phpapi {
                                         $open_curly_braces = TRUE;
                                         break;
                                 }
-                            } else { # Primitive tokens
+                            } else {
+
+                                # Primitive tokens
                                 switch ($token) {
 
                                     case '{':
-                                        if (!$in_parsed_string) {
-                                            $ce->inBody++;
-                                        }
+                                        if (!$in_parsed_string) $ce->inBody++;
                                         break;
 
                                     case '}':
                                         if (!$in_parsed_string) {
-                                            if ($open_curly_braces) { # End of var curly brace syntax
-                                                $open_curly_braces = FALSE;
-                                            } else {
+
+                                            # End of var curly brace syntax
+                                            if ($open_curly_braces) $open_curly_braces = FALSE;
+                                            else {
                                                 $ce->inBody--;
                                                 if ($ce->inBody == 0 && count($currentElement) > 0) {
                                                     $ce->mergeData();
                                                     $this->verbose('- Leaving '.get_class($ce).': '.$ce->name());
                                                     array_pop($currentElement); # Re-assign current element
                                                     if (count($currentElement) > 0) {
-                                                        $ce = & $currentElement[count($currentElement) - 1];
+                                                        $ce =& $currentElement[count($currentElement) - 1];
                                                     } else {
                                                         unset($ce);
-                                                        $ce = & $rootDoc;
+                                                        $ce =& $rootDoc;
                                                     }
                                                     $currentPackage = $defaultPackage;
                                                 }
@@ -1028,36 +944,36 @@ class phpapi {
                                         }
                                         break;
 
-                                    case ';': # Case for closing abstract functions
+                                    case ';':
+
+                                        # Case for closing abstract functions
                                         if (!$in_parsed_string && $ce->inBody == 0 && count($currentElement) > 0) {
                                             $ce->mergeData();
                                             $this->verbose('- Leaving empty '.get_class($ce).': '.$ce->name());
                                             array_pop($currentElement); # Re-assign current element
                                             if (count($currentElement) > 0) {
-                                                $ce = & $currentElement[count($currentElement) - 1];
+                                                $ce =& $currentElement[count($currentElement) - 1];
                                             } else {
                                                 unset($ce);
-                                                $ce = & $rootDoc;
+                                                $ce =& $rootDoc;
                                             }
                                         }
                                         break;
 
-                                    case '"': # Catch parsed strings so as to ignore tokens within
+                                    case '"':
+
+                                        # Catch parsed strings so as to ignore tokens within
                                         $in_parsed_string = !$in_parsed_string;
                                         break;
                                 }
                             }
                             $counter++;
                             if ($counter > 99) {
-                                if ($this->_verbose) {
-                                    echo '.';
-                                }
+                                if ($this->_verbose) echo '.';
                                 $counter = 0;
                             }
                         }
-                        if ($this->_verbose) {
-                            echo LF;
-                        }
+                        if ($this->_verbose) echo LF;
                         $rootDoc->addSource($filename, $fileString, $fileData);
                     } else {
                         $this->error('Cannot read file "'.$filename.'"');
@@ -1077,12 +993,11 @@ class phpapi {
      * @return void
      */
     public function execute(&$rootDoc) {
-        $docletFile = $this->fixPath($this->_docletPath).$this->_doclet.'/'.$this->_doclet.'.php';
+        $docletFile = $this->fixPath(DOCLETS).$this->_doclet.DS.$this->_doclet.'.php';
         if (is_file($docletFile)) { # Load doclet
             $this->message('Loading doclet "'.$this->_doclet.'"');
-            require_once($this->fixPath($this->_docletPath).'/doclet.php');
             require_once($docletFile);
-            $doclet = & new $this->_doclet($rootDoc, $this->getFormatter());
+            $doclet =& new $this->_doclet($rootDoc, $this->getFormatter());
         } else {
             $this->error('Cannot find doclet "'.$docletFile.'"');
         }
@@ -1093,7 +1008,7 @@ class phpapi {
      * @return object TextFormatter
      */
     public function getFormatter() {
-        $formatterFile = $this->fixPath($this->_formatterPath).$this->_formatter.'.php';
+        $formatterFile = $this->fixPath(FORMATTERS).$this->_formatter.'.php';
         if (is_file($formatterFile)) {
             require_once($formatterFile);
             return new $this->_formatter();
@@ -1108,7 +1023,7 @@ class phpapi {
      * @param string $parent  Superclass (Default = NULL)
      */
     public function _mergeSuperClassData(&$rootDoc, $parent = NULL) {
-        $classes = & $rootDoc->classes();
+        $classes =& $rootDoc->classes();
         foreach ($classes as $name => $class) {
             if ($classes[$name]->superclass() == $parent) {
                 $classes[$name]->mergeSuperClassData();
@@ -1127,10 +1042,8 @@ class phpapi {
     public function _mergeArrays($one, $two) {
         foreach ($two as $key => $item) {
             if (isset($one[$key]) && is_array($one[$key]) && is_array($item)) {
-                $one[$key] = $this->_mergeArrays($one[$key], $item);
-            } else {
-                $one[$key] = $item;
-            }
+                   $one[$key] = $this->_mergeArrays($one[$key], $item);
+            } else $one[$key] = $item;
         }
         return $one;
     }
@@ -1145,14 +1058,10 @@ class phpapi {
     public function _getNext(&$tokens, $key, $whatToGet, $maxDist = 0) {
         $start = $key;
         $key++;
-        if (!is_array($whatToGet)) {
-            $whatToGet = [$whatToGet];
-        }
+        if (!is_array($whatToGet)) $whatToGet = [$whatToGet];
         while (!is_array($tokens[$key]) || !in_array($tokens[$key][0], $whatToGet)) {
             $key++;
-            if (!isset($tokens[$key]) || (0 < $maxDist && (($key - $start) > $maxDist))) {
-                return FALSE;
-            }
+            if (!isset($tokens[$key]) || (0 < $maxDist && (($key - $start) > $maxDist))) return FALSE;
         }
         return $tokens[$key][1];
     }
@@ -1165,14 +1074,10 @@ class phpapi {
      */
     public function _getPrev(&$tokens, $key, $whatToGet) {
         $key--;
-        if (!is_array($whatToGet)) {
-            $whatToGet = [$whatToGet];
-        }
+        if (!is_array($whatToGet)) $whatToGet = [$whatToGet];
         while (!is_array($tokens[$key]) || !in_array($tokens[$key][0], $whatToGet)) {
             $key--;
-            if (!isset($tokens[$key])) {
-                return FALSE;
-            }
+            if (!isset($tokens[$key])) return FALSE;
         }
         return $tokens[$key][1];
     }
@@ -1196,9 +1101,7 @@ class phpapi {
                 )
             )
         ) {
-            if (isset($tokens[$key][1])) {
-                $name .= $tokens[$key][1];
-            }
+            if (isset($tokens[$key][1])) $name .= $tokens[$key][1];
             $key++;
         }
         return trim($name);
@@ -1218,7 +1121,8 @@ class phpapi {
             'tags' => []
         ];
         $explodedComment = preg_split('/\n[ \n\t\/]*\*+[ \t]*@/', LF.$comment);
-        preg_match_all('/^[ \t]*[\/*]*\**( ?.*)[ \t\/*]*$/m', array_shift($explodedComment), $matches); # We need the leading whitespace to detect multi-line list entries
+         # We need the leading whitespace to detect multi-line list entries
+        preg_match_all('/^[ \t]*[\/*]*\**( ?.*)[ \t\/*]*$/m', array_shift($explodedComment), $matches);
         if (isset($matches[1])) {
             $txt = implode(LF, $matches[1]).LF;
             $data['tags']['@text'] = $this->createTag('@text', trim($txt, " \n\t\0\x0B*/"), $data, $root);
@@ -1227,7 +1131,8 @@ class phpapi {
         # Process tags
         foreach ($explodedComment as $tag) {
             # Strip whitespace, newlines and asterisks
-            $tag   = preg_replace('/(^[\s\n\*]+|[\s\*]*\*\/$)/m', ' ', $tag); # Fixed: empty comment lines at end of docblock
+            # Fixed: empty comment lines at end of docblock
+            $tag   = preg_replace('/(^[\s\n\*]+|[\s\*]*\*\/$)/m', ' ', $tag);
             $tag   = preg_replace('/\n+/', '', $tag);
             $tag   = trim($tag);
             $parts = preg_split('/\s+/', $tag);
@@ -1236,30 +1141,28 @@ class phpapi {
             if ($name) {
                 switch ($name) {
 
-                    case 'package':                       # Place current element in package
+                    case 'package':
                     case 'namespace':
-                        if (!$this->_ignorePackageTags) { # Unless we're ignoring package tags
-                            $data['package'] = $text;
-                        }
+                        $data['package'] = $text;
                         break;
 
-                    case 'var':      # Set variable type
+                    case 'var':
                         $data['type'] = $text;
                         break;
 
-                    case 'access':   # Set access permission
+                    case 'access':
                         $data['access'] = $text;
                         break;
 
-                    case 'final':    # Element is final
+                    case 'final':
                         $data['final'] = TRUE;
                         break;
 
-                    case 'abstract': # Element is abstract
+                    case 'abstract':
                         $data['abstract'] = TRUE;
                         break;
 
-                    case 'static':   # Element is static
+                    case 'static':
                         $data['static'] = TRUE;
                         break;
 
@@ -1272,7 +1175,7 @@ class phpapi {
                                 $data['tags'][$name] = [$data['tags'][$name], $this->createTag($name, $text, $data, $root)];
                             }
                         } else {
-                            $data['tags'][$name] = & $this->createTag($name, $text, $data, $root);
+                            $data['tags'][$name] =& $this->createTag($name, $text, $data, $root);
                         }
                 }
             }
@@ -1284,6 +1187,7 @@ class phpapi {
      * This method first tries to load a Taglet for the given tag name, upon failing it
      * then tries to load a phpapi specialised tag class (e.g. classes/paramtag.php),
      * if it still has not found a tag class it uses the standard tag class.
+     *
      * @param  string $name    The name of the tag
      * @param  string $text    The contents of the tag
      * @param  array  $data    Reference to doc comment data array
@@ -1293,27 +1197,23 @@ class phpapi {
     function &createTag($name, $text, &$data, &$root) {
         $class = substr($name, 1);
         if ($class) {
-            $tagletFile = $this->makeAbsolutePath($this->fixPath($this->_tagletPath).substr($name, 1).'.php', $this->_path);
+            $tagletFile = $this->makeAbsolutePath($this->fixPath(TAGLETS).substr($name, 1).'.php', $this->_path);
             if (is_file($tagletFile)) {
                 # Load taglet for this tag.
-                if (!class_exists($class)) {
-                    require_once($tagletFile);
-                }
-                $tag = & new $class($text, $data, $root);
+                if (!class_exists($class)) require_once($tagletFile);
+                $tag =& new $class($text, $data, $root);
                 return $tag;
             } else {
-                $tagFile = $this->makeAbsolutePath('classes/'.$class.'Tag.php', $this->_path);
+                $tagFile = $this->makeAbsolutePath(CLASSES.$class.'Tag.php', $this->_path);
                 if (is_file($tagFile)) {
                     # Load class for this tag.
                     $class .= 'Tag';
-                    if (!class_exists($class)) {
-                        require_once($tagFile);
-                    }
-                    $tag = & new $class($text, $data, $root);
+                    if (!class_exists($class)) require_once($tagFile);
+                    $tag =& new $class($text, $data, $root);
                     return $tag;
                 } else {
                     # Create standard tag.
-                    $tag = & new tag($name, $text, $root);
+                    $tag =& new tag($name, $text, $root);
                     return $tag;
                 }
             }
@@ -1322,27 +1222,22 @@ class phpapi {
 
     /** Is an element private and we are including private elements, or element is
      * protected and we are including protected elements.
+     *
      * @param  ProgramElementDoc element The element to check
      * @return boolean
      */
     public function _includeElements(&$element) {
-        if ($element->isGlobal() && !$element->isFinal() && !$this->_globals) {
-            return FALSE;
-        } elseif ($element->isGlobal() && $element->isFinal() && !$this->_constants) {
-            return FALSE;
-        } elseif (!$this->_private && $element->isPrivate()) {
-            return FALSE;
-        } elseif ($this->_private) {
-            return TRUE;
-        } elseif ($this->_protected && ($element->isPublic() || $element->isProtected())) {
-            return TRUE;
-        } elseif ($this->_public && $element->isPublic()) {
-            return TRUE;
-        }
+        if ($element->isGlobal() && !$element->isFinal() && !$this->_globals)           return FALSE;
+        elseif ($element->isGlobal() && $element->isFinal() && !$this->_constants)      return FALSE;
+        elseif (!$this->_private && $element->isPrivate())                              return FALSE;
+        elseif ($this->_private)                                                        return TRUE;
+        elseif ($this->_protected && ($element->isPublic() || $element->isProtected())) return TRUE;
+        elseif ($this->_public && $element->isPublic())                                 return TRUE;
         return FALSE;
     }
 
     /** Does the given element name conform to the format that is used for private elements?
+     *
      * @param  string $name The name to check
      * @return boolean
      */

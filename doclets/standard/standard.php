@@ -16,19 +16,19 @@ require 'globalWriter.php';
 require 'indexWriter.php';
 require 'deprecatedWriter.php';
 require 'todoWriter.php';
-require 'sourceWriter.php';
 
 /** The standard doclet.
  * This doclet generates HTML output similar to that produced by the Javadoc standard doclet.
+ *
  * @file      doclets/standard/standard.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
- * @copyright (c) 2011 - 2015 Victor Nabatov
+ * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
  * @package   Standard
  */
 
-class standard extends Doclet {
+class standard {
 
     /** A reference to the root doc.
      * @var rootDoc
@@ -73,104 +73,63 @@ class standard extends Doclet {
      */
     public $_tree = TRUE;
 
-    /** Whether or not to parse the code with GeSHi and include the formatted files in the documentation.
-     * @var boolean
-     */
-    public $_includeSource = TRUE;
-
     /** Doclet constructor.
-     * @param RootDoc rootDoc
+     * @param rootDoc rootDoc
      * @param TextFormatter formatter
      */
     public function standard(&$rootDoc, $formatter) {
         # set doclet options
-        $this->_rootDoc = & $rootDoc;
-        $phpapi  = & $rootDoc->phpapi();
-        $options = & $rootDoc->options();
+        $this->_rootDoc =& $rootDoc;
+        $phpapi  =& $rootDoc->phpapi();
+        $options =& $rootDoc->options();
 
         $this->formatter = $formatter;
 
-        if (isset($options['destination'])) {
-            $this->_destination = $phpapi->makeAbsolutePath($options['destination'], $phpapi->sourcePath());
-        } elseif (isset($options['output_dir'])) {
-            $this->_destination = $phpapi->makeAbsolutePath($options['output_dir'], $phpapi->sourcePath());
-        } else {
-            $this->_destination = $phpapi->makeAbsolutePath('apidocs', $phpapi->sourcePath());
-        }
+        if (isset($options['destination']))    $this->_destination = $phpapi->makeAbsolutePath($options['destination'], $phpapi->sourcePath());
+        elseif (isset($options['output_dir'])) $this->_destination = $phpapi->makeAbsolutePath($options['output_dir'], $phpapi->sourcePath());
+        else                                   $this->_destination = $phpapi->makeAbsolutePath('apidocs', $phpapi->sourcePath());
+
         $this->_destination = $phpapi->fixPath($this->_destination);
 
-        if (is_dir($this->_destination)) {
-            $phpapi->warning('Output directory already exists, overwriting');
-        } else {
-            mkdir($this->_destination);
-        }
+        if (is_dir($this->_destination))
+             $phpapi->warning('Output directory already exists, overwriting');
+        else mkdir($this->_destination);
+
         $phpapi->verbose('Setting output directory to "'.$this->_destination.'"');
 
-        if (isset($options['windowtitle'])) {
-            $this->_windowTitle = $options['windowtitle'];
-        }
-        if (isset($options['doctitle'])) {
-            $this->_docTitle = $options['doctitle'];
-        }
-        if (isset($options['header'])) {
-            $this->_header = $options['header'];
-        }
-        if (isset($options['footer'])) {
-            $this->_footer = $options['footer'];
-        }
-        if (isset($options['bottom'])) {
-            $this->_bottom = $options['bottom'];
-        }
-        if (isset($options['tree'])) {
-            $this->_tree = $options['tree'];
-        }
-        if (isset($options['include_source'])) {
-            $this->_includeSource = $options['include_source'];
-        }
-        if ($this->_includeSource) {
-            include_once $options['geshi'];
-            if (!class_exists('GeSHi')) {
-                $phpapi->warning('Cannot find GeSHi, not pretty printing source');
-            }
-        }
-        # Write frame
-        $frameOutputWriter = & new frameOutputWriter($this);
+        if (isset($options['windowtitle'])) $this->_windowTitle = $options['windowtitle'];
+        if (isset($options['doctitle']))    $this->_docTitle    = $options['doctitle'];
+        if (isset($options['header']))      $this->_header      = $options['header'];
+        if (isset($options['footer']))      $this->_footer      = $options['footer'];
+        if (isset($options['bottom']))      $this->_bottom      = $options['bottom'];
+        if (isset($options['tree']))        $this->_tree        = $options['tree'];
+
+        $frameOutputWriter =& new frameOutputWriter($this);
         # Write package overview frame
-        $headerFrameWriter = & new headerFrameWriter($this);
-        # Write overview summary
-        $packageIndexWriter = & new packageIndexWriter($this);
-        # Write package overview frame
-        $packageIndexFrameWriter = & new packageIndexFrameWriter($this);
-        # Write package summaries
-        $packageWriter = & new packageWriter($this);
-        # Write package frame
-        $packageFrameWriter = & new packageFrameWriter($this);
-        # Write package overview frame
-        $footerFrameWriter = & new footerFrameWriter($this);
-        # Write classes
-        $classWriter = & new classWriter($this);
-        # Write global functions
-        $functionWriter = & new functionWriter($this);
-        # Write global variables
-        $globalWriter = & new globalWriter($this);
-        # Write index
-        $indexWriter = & new indexWriter($this);
-        # Write deprecated index
-        $deprecatedWriter = & new deprecatedWriter($this);
-        # Write todo index
-        $todoWriter = & new todoWriter($this);
-        # Write source files
-        if ($this->_includeSource) {
-            $sourceWriter = & new sourceWriter($this);
-        }
-        # copy stylesheet
+//        $headerFrameWriter =& new headerFrameWriter($this);
+        echo '<body>';
+        echo '<div id="header"><h1>'.$this->docTitle().'</h1></div>';
+        echo '</body>';
+
+        $packageIndexWriter      =& new packageIndexWriter($this);
+        $packageIndexFrameWriter =& new packageIndexFrameWriter($this);
+        $packageWriter           =& new packageWriter($this);
+        $packageFrameWriter      =& new packageFrameWriter($this);
+        echo '<div id="footer"'.GENERATOR.' '.COPYRIGHT.'</div>';
+        $classWriter             =& new classWriter($this);
+        $functionWriter          =& new functionWriter($this);
+        $globalWriter            =& new globalWriter($this);
+        $indexWriter             =& new indexWriter($this);
+        $deprecatedWriter        =& new deprecatedWriter($this);
+        $todoWriter              =& new todoWriter($this);
+
         $phpapi->message('Copying stylesheet');
         copy($phpapi->docletPath().'stylesheet.css', $this->_destination.'stylesheet.css');
         $this->_bottom = GENERATOR;
     }
 
     /** Return a reference to the root doc.
-     * @return RootDoc
+     * @return rootDoc
      */
     function &rootDoc() {
         return $this->_rootDoc;
@@ -235,16 +194,9 @@ class standard extends Doclet {
         return $this->_tree;
     }
 
-    /** Should we be outputting the source code?
-     * @return bool
-     */
-    public function includeSource() {
-        return $this->_includeSource;
-    }
-
     /** Format a URL link.
-     * @param str url
-     * @param str text
+     * @param string url
+     * @param string text
      */
     public function formatLink($url, $text) {
         return '<a href="'.$url.'">'.$text.'</a>';

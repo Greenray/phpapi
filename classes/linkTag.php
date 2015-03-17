@@ -4,10 +4,11 @@
 require_once 'linkPlainTag.php';
 
 /** Represents an inline link tag.
+ *
  * @file      classes/linkTag.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
- * @copyright (c) 2011 - 2015 Victor Nabatov
+ * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
  * @package   Tags
  */
@@ -15,9 +16,9 @@ require_once 'linkPlainTag.php';
 class linkTag extends LinkPlainTag {
 
     /** Constructor.
-     * @param str text The contents of the tag
+     * @param string text The contents of the tag
      * @param array data Reference to doc comment data array
-     * @param RootDoc root The root object
+     * @param rootDoc root The root object
      */
     public function linkTag($text, &$data, &$root) {
         parent::linkPlainTag($text, $data, $root);

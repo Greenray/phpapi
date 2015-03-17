@@ -1,80 +1,76 @@
 * { margin: 0; padding: 0 }
-html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,
-cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,
-ul,li,fieldset,form,label,legend,figcaption,figure,table,caption,tbody,tfoot,thead,
-tr,th,td,article,aside,canvas,details,footer,header,hgroup,menu,nav,section,summary,
-time,mark,audio,video   { background: transparent; border: 0; font-size: 100%; margin: 0; outline: 0; padding: 0; vertical-align: baseline }
-body                    { line-height: 1 }
-article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section { display: block }
-nav ul                  { list-style: none }
-blockquote, q           { quotes: none }
+html,body,abbr,b,blockquote,caption,code,dd,div,dl,dt,em,fieldset,figcaption,figure,footer,h1,h2,h3,h4,h5,h6,
+header,iframe,img,li,label,legend,nav,ol,p,pre,small,span,strong,sub,sup,table,tbody,tfoot,thead,
+td,th,tr,ul             { background: transparent; border: 0; margin: 0; outline: 0; padding: 0; vertical-align: baseline }
+body                    { background: #fff; color: #000; font-family: Arial, Helvetica, Verdana, sans-serif; font-size: 9pt; line-height: 1; padding: 0 0 0 3px }
+a                       { background: transparent; color: #00f; font-size: 100%; margin: 0; padding: 0; text-decoration: none; vertical-align: baseline }
+abbr[title]             { border-bottom: 1px dotted; cursor: help }
+blockquote              { quotes: none }
 blockquote:before,
-blockquote:after,
-q:before, q:after       { content: ''; content: none }
-a                       { background: transparent; color: #00f; font-size: 100%; margin: 0; padding: 0; vertical-align: baseline }
-a:visited               { color: #518 }
-abbr[title], dfn[title] { border-bottom: 1px dotted; cursor: help }
-table                   { border-collapse: collapse; border-spacing: 0; margin: 1px 0; width: 100% }
-hr                      { border: 0; border-top: 1px solid #000; display: block; height: 1px; margin: 5px 0; padding: 0 }
-input,select            { vertical-align: middle }
-body                    { background: #fff; color: #000; font-family: Arial, Helvetica, Verdana, sans-serif; font-size: 9pt; padding: 0 0 0 3px }
-table, th, td           { border: 1px solid #000 }
-th                      { background: #ccf; font-size: 120%; padding: 2px 15px; text-align: left }
-td                      { padding: 2px 4px }
-td p                    { margin: 0; padding: 0 }
+blockquote:after        { content: ''; content: none }
 caption                 { background: #ecede5; border: 1px solid #ccc; font-weight: bold; font-size: 100%; margin-bottom: 0; padding: 3px 5px; text-align: left }
-p, dl, ul, ol, h1, h2,
-h3, h4, h5, h6          { padding: 5px }
-dt                      { font-weight: bold }
-dd                      { margin-left: 40px }
-ul, ol                  { margin-left: 30px }
-p                       { margin-left: 10px }
-p.list                  { margin-left: 0px }
-h1                      { font-size: 140% }
-h2                      { font-size: 120% }
-div.header              {  background: #cee; font-family: Arial, Helvetica, sans-serif; margin: 0 0 10px; padding: 4px 0; width: 100% }
+div.comment             { margin: 10px 0 }
+div.details             { margin: 10px 20px }
+div.header              { background: #cee; padding: 4px 10px }
 div.header h1           { font-size: 120%; font-style: italic; padding: 0 4px; margin: 0 }
 div.header ul           { list-style: none; margin: 0 }
 div.header ul li        { display: inline; font-size: 100%; font-weight: bold; padding: 0 4px }
 div.header ul li.active { background: #00008c; color: #fff }
 div.small_links         { margin: 8px }
+div.qualifiedName       { font-weight: bold; margin: 10px 0 0 6px }
+div.location,
+a.location              { display: block; float: right; margin: 5px 10px 0 0 }
+figcaption,figure,
+footer,header,nav       { display: block }
+h1,h2,h3,h4,h5,h6,
+ol,p,ul                 { padding: 5px }
+h1                      { font-size: 140% }
+h2                      { font-size: 120% }
+hr                      { border: 0; border-top: 1px solid #000; display: block; height: 1px; margin: 5px 0; padding: 0 }
+input,select            { vertical-align: middle }
+nav ul                  { list-style: none }
+table, th, td           { border: 1px solid #000 }
+td                      { padding: 2px 4px }
+td p                    { margin: 0; padding: 0 }
+th                      { background: #ccf; font-size: 120%; padding: 2px 15px; text-align: left }
+dd                      { margin: 5px 0 0 40px }
+dt                      { font-weight: bold; margin: 10px 0 10px 5px }
+ol, ul                  { margin-left: 30px }
+p                       { margin-left: 10px }
+p.list                  { margin-left: 0px }
+p.signature,
+code.signature          { display: block; margin: 10px 5px }
+pre                     { font-size: 100% }
+pre.tree                { margin: 10px 0 10px 100px }
+table                   { border-collapse: collapse; border-spacing: 0; margin: 1px 0; width: 100% }
+table.hid               { padding: 5px; width: 100% }
+table.inherit th        { background: #eef; font-size: 120% }
+td.type                 { text-align: right; vertical-align: top }
+td p.description        { margin: 2px 0 0 20px }
+#definition h1          { margin: 0 0 10px }
+#definition h2          { background: #ccf; border: 2px solid #999; font-size: 120%; padding: 2px 0 2px 100px; text-align: left }
+#footer                 { background: #cee; font-weight: bold;  padding: 10px 0 20px 0; text-shadow: 1px 1px 1px #fff; text-align: center }
+p#footer                { font-size: 80%; text-align: right }
 #frame h1, #frame h2    { background: #cee; text-align: center }
 #frame h1               { font-size: 120% }
 #frame h2               { font-size: 100% }
 #frame ul               { background: #ffffc5; border: 2px solid black; list-style: disc inside; margin: 0 }
 #frame ul li            { padding: 2px 10px 0 5px }
-div.qualifiedName       { font-weight: bold; margin: 10px 0 0 6px }
-div.location,
-a.location              { display: block; float: right; margin: 5px 10px 0 0 }
-#definition h1          { margin: 0 0 10px }
-#definition h2          { background: #ccf; border: 2px solid #999; font-size: 120%; padding: 2px 0 2px 100px; text-align: left }
-pre                     { font-size: 100% }
-pre.tree                { margin: 10px 0 0 100px }
-table.inherit th        { background: #eef; font-size: 120% }
-p.signature,
-div.comment             { margin: 10px 0 }
-code.signature          { display: block; margin: 10px 5px }
-div.details             { margin: 10px 20px }
-td.type                 { text-align: right; vertical-align: top }
-td p.description        { margin: 2px 0 0 20px }
+#header                 { background: #cee; font-size: 140%; font-weight: bold; height: 30px; padding: 10px 0 20px 0; text-align: center; text-shadow: 1px 1px 1px #fff }
 #tree ul ul             { margin-top: 0; margin-bottom: 0 }
+.black                  { color: black }
+.blue                   { color: blue }
 .center                 { text-align: center }
+.footer                 { background: #cee }
+.finfo                  { background: #ececec; border-radius: 5px; margin: 0 auto; padding:2px; width: 90%; -webkit-border-radius: 5px; -moz-border-radius: 5px }
+.inherit                { margin: 10px 0 }
+.green                  { color: green }
+.hid                    { border: 0 }
 .left                   { text-align: left }
+.lilac                  { color: #cc0099 }
+.name                   { width: 600px }
+.red                    { color: red }
 .right                  { text-align: right }
 .w_100                  { width: 100px }
 .w_200                  { width: 200px }
 .w_300                  { width: 300px }
-.black                  { color: black }
-.blue                   { color: blue }
-.green                  { color: green }
-.lilac                  { color: #cc0099 }
-.red                    { color: red }
-.hid                    { border: 0 }
-table.hid               { padding: 5px; width: 100% }
-.name                   { width: 400px }
-#header                 { background: #cee; font-size: 140%; font-weight: bold; height: 30px; padding: 10px 0 20px 0; text-align: center; text-shadow: 1px 1px 1px #fff }
-#footer                 { background: #cee; font-weight: bold;  padding: 10px 0 20px 0; text-shadow: 1px 1px 1px #fff; text-align: center }
-p#footer                { font-size: 80%; text-align: right }
-.footer                 { background: #cee }
-.finfo                  { background: #ececec; border-radius: 5px; margin: 0 auto; padding:2px; width: 90%; -webkit-border-radius: 5px; -moz-border-radius: 5px }
-.inherit                { margin: 10px 0 }

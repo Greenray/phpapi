@@ -2,10 +2,11 @@
 # phpapi: The PHP Documentation Creator
 
 /** Generate the index.html file used for presenting the frame-formated "cover page" of the API documentation.
+ *
  * @file      doclets/standard/globalWriter.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
- * @copyright (c) 2011 - 2015 Victor Nabatov
+ * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
  * @package   Standard
  */
@@ -37,13 +38,11 @@ class htmlWriter {
      */
     public $_output = '';
 
-    public $_htmlTags = ['<pre>', '<code>'];
-
     /** Writer constructor.
      * @var doclet
      */
     public function htmlWriter(&$doclet) {
-        $this->_doclet = & $doclet;
+        $this->_doclet =& $doclet;
     }
 
     /** Builds the HTML header.
@@ -61,13 +60,11 @@ class htmlWriter {
              <link rel="stylesheet" type="text/css" href="'.str_repeat('../', $this->_depth).'stylesheet.css">
              <link rel="start" href="'.str_repeat('../', $this->_depth).'overview-summary.html">
              <title>';
-        if ($title) {
-            $output .= $title.' ('.$this->_doclet->windowTitle().')';
-        } else {
-            $output .= $this->_doclet->windowTitle();
-        }
+        if ($title)
+             $output .= $title.' ('.$this->_doclet->windowTitle().')';
+        else $output .= $this->_doclet->windowTitle();
         $output .= '</title>
-                    </head>';
+                </head>';
         return $output;
     }
 
@@ -86,6 +83,7 @@ class htmlWriter {
     public function _shellHeader($path) {
         $output  = '<body id="'.$this->_id.'" onload="parent.document.title=document.title;">';
         $output .= $this->_nav($path);
+
         return $output;
     }
 
@@ -115,51 +113,46 @@ class htmlWriter {
                 if (isset($section['selected']) && $section['selected']) {
                     $output .= '<li class="active">'.$section['title'].'</li>';
                 } else {
-                    if (isset($section['url'])) {
-                        $output .= '<li><a href="'.str_repeat('../', $this->_depth).$section['url'].'">'.$section['title'].'</a></li>';
-                    } else {
-                        $output .= '<li>'.$section['title'].'</li>';
-                    }
+                    if (isset($section['url']))
+                         $output .= '<li><a href="'.str_repeat('../', $this->_depth).$section['url'].'">'.$section['title'].'</a></li>';
+                    else $output .= '<li>'.$section['title'].'</li>';
                 }
             }
             $output .= '</ul>';
         }
         $output .= '</div>
                         <div class="small_links">
-                            <a href="'.str_repeat('../', $this->_depth).'index.html" target="_top">Frames</a>
+                            <a href="'.str_repeat('../', $this->_depth).'index.html" target="_top">Frames </a>
+                                < >
                             <a href="'.str_repeat('../', $this->_depth).$path.'" target="_top"> No frames</a>
                         </div>';
-        $thisClass = strtolower(get_class($this));
-        if ($thisClass == 'classwriter') {
-            $output .= '<div class="small_links">';
-                           'Summary: <a href="#summary_field">Field</a> | <a href="#summary_method">Method</a> | <a href="#summary_constr">Constr</a>
-                            Detail: <a href="#detail_field">Field</a> | <a href="#detail_method">Method</a> | <a href="#summary_constr">Constr</a>
-                        </div>';
-        } elseif ($thisClass == 'functionwriter') {
+        $thisClass = get_class($this);
+        if ($thisClass == 'classWriter') {
             $output .= '<div class="small_links">
-                            Summary: <a href="#summary_function">Function</a>
-                            Detail: <a href="#detail_function">Function</a>
+                            Summary: <a href="#summary_fields">Fields</a> | <a href="#summary_methods">Methods</a> | <a href="#summary_constructor">Constructor</a>
+                            Details: <a href="#details_fields">Fields</a> | <a href="#details_methods">Methods</a> | <a href="#details_constructor">Constructor</a>
                         </div>';
-        } elseif ($thisClass == 'globalwriter') {
+        } elseif ($thisClass == 'functionWriter') {
             $output .= '<div class="small_links">
-                            Summary: <a href="#summary_global">Global</a>
-                            Detail: <a href="#detail_global">Global</a>
+                            Summary: <a href="#summary_functions">Functions</a>
+                            Details: <a href="#details_functions">Functions</a>
+                        </div>';
+        } elseif ($thisClass == 'globalWriter') {
+            $output .= '<div class="small_links">
+                            Summary: <a href="#summary_globals">Globals</a>
+                            Details: <a href="#details_globals">Globals</a>
                         </div>';
         }
+
         return $output;
     }
 
     /** Location of the source file.
-     * @param object $doc Object of the current source file
-     * @return void
+     * @param  object $doc Object of the current source file
+     * @return string      Link to the line of the source file
      */
     public function _sourceLocation($doc) {
-        if ($this->_doclet->includeSource()) {
-            $url = strtolower(str_replace(DS, '/', $doc->sourceFilename()));
-            echo '<a href="', str_repeat('../', $this->_depth), 'source/', $url, '.html#line', $doc->sourceLine(), '" class="location">', $doc->location(), '</a>';
-        } else {
-            echo '<div class="location">', $doc->location(), '</div>';
-        }
+        return $doc->location();
     }
 
     /** Writes the HTML page to disk using the given path.
@@ -169,7 +162,7 @@ class htmlWriter {
      * @return void
      */
     public function _write($path, $title, $shell) {
-        $phpapi = & $this->_doclet->phpapi();
+        $phpapi =& $this->_doclet->phpapi();
         # Make directory separators suitable to this platform
         $path = str_replace('/', DS, $path);
         # Make directories if they don't exist
@@ -185,20 +178,21 @@ class htmlWriter {
                 }
             }
         }
+
         # Write file
         $fp = fopen($this->_doclet->destinationPath().$path, 'w');
         if ($fp) {
             $phpapi->message('Writing "'.$path.'"');
+
             fwrite($fp, $this->_htmlHeader($title));
-            if ($shell) {
-                fwrite($fp, $this->_shellHeader($path));
-            }
+            if ($shell) fwrite($fp, $this->_shellHeader($path));
+
             fwrite($fp, $this->_output);
-            if ($shell) {
-                fwrite($fp, $this->_shellFooter($path));
-            }
+            if ($shell) fwrite($fp, $this->_shellFooter($path));
+
             fwrite($fp, $this->_htmlFooter());
             fclose($fp);
+
         } else {
             $phpapi->error('Cannot write "'.$this->_doclet->destinationPath().$path.'"');
             exit;
@@ -210,52 +204,27 @@ class htmlWriter {
      * @return string       The string representation of the elements doc tags
      */
     public function _processTags(&$tags) {
-        $tagString = '';
+        $output = '';
         foreach ($tags as $key => $tag) {
             if ($key != '@text') {
                 if (is_array($tag)) {
                     $hasText = FALSE;
-                    foreach ($tag as $key => $tagFromGroup) {
-                        if ($tagFromGroup->text($this->_doclet) !== '') {
-                            $hasText = TRUE;
-                        }
+                    foreach ($tag as $i => $tagFromGroup) {
+                        if ($tagFromGroup->text($this->_doclet) !== '') $hasText = TRUE;
                     }
                     if ($hasText) {
                         $usedTag = '';
-                        foreach ($tag as $tagFromGroup) {
+                        foreach ($tag as $k => $tagFromGroup) {
                             $variable = explode('+', $tagFromGroup->text($this->_doclet));
-                            $tagString .= '<tr>';
                             if ($tag[0]->displayName() !== $usedTag) {
-                                $tagString .= '<td class="hid left w_100">'.$tag[0]->displayName().'</td>';
-                            } else {
-                                $tagString .= '<td class="hid left w_100">&nbsp;</td>';
-                            }
-                            $tagString .= '<td class="hid right w_100 lilac">'.$tagFromGroup->type().'</td>
-                                           <td class="hid blue w_100">'.trim($variable[0]).'</td>';
-                            if (!empty($variable[1])) {
-                                $quot  = strpos($variable[1], '"');
-                                $dquot = strpos($variable[1], '\'');
-                                $sub   = '';
-                                if ($quot === 1 || $dquot === 1) {
-                                    $quot  = strrpos($variable[1], '"');
-                                    $dquot = strrpos($variable[1], '\'');
-                                    if (!empty($quot)) {
-                                        $sub = substr($variable[1], 1, $quot);
-                                    } else {
-                                        if (!empty($dquot)) {
-                                            $sub = substr($variable[1], 1, $dquot);
-                                        }
-                                    }
-                                    $span    = '<span class="red">'.htmlspecialchars(trim($sub)).'</span>';
-                                    $comment = str_replace($sub, $span, $variable[1]);
-                                } else {
-                                    $comment = htmlspecialchars(trim($variable[1]));
-                                }
-                                $tagString .= '<td class="hid">'.$comment.'</td>';
-                            } else {
-                                $tagString .= '<td class="hid">&nbsp;</td>';
-                            }
-                            $tagString .= '</tr>';
+                                   $output['tags'][$k]['name'] = $tag[0]->displayName();
+                            } else $output['tags'][$k]['name'] = '&nbsp';
+                            $output['tags'][$k]['type'] = $tagFromGroup->type();
+                            $output['tags'][$k]['var']  = trim($variable[0]);
+                            if (!empty($variable[1]))
+                                 $output['tags'][$k]['comment'] = preg_replace("#\'(.*?)\'#is", '<span class="red">\'\\1\'</span>', htmlspecialchars(trim($variable[1])));
+                            else $output['tags'][$k]['comment'] = '&nbsp;';
+
                             $usedTag = $tag[0]->displayName();
                         }
                     }
@@ -263,46 +232,28 @@ class htmlWriter {
                     $text = $tag->text($this->_doclet);
                     if ($text !== '') {
                         $variable = explode('+', $text);
-                        $tagString .= '<tr><td class="hid left w_100">'.$tag->displayName().'</td>';
+                        $output['tags'][$key]['name'] = $tag->displayName();
                         $type = $tag->type();
-                        if (!empty($type)) {
-                            $tagString .= '<td class="hid right w_100 lilac">'.$type.'</td>';
-                        } else {
-                            $tagString .= '<td class="hid w_100">&nbsp;</td>';
-                        }
+                        if (!empty($type))
+                             $output['tags'][$key]['type'] = $type;
+                        else $output['tags'][$key]['type'] = '&nbsp;';
                         if (!empty($variable[1])) {
-                            $tagString .= '<td class="hid blue w_100">'.trim($variable[0]).'</td>';
-                            $quot  = strpos($variable[1], '"');
-                            $dquot = strpos($variable[1], '\'');
-                            if ($quot === 1 || $dquot === 1) {
-                                $quot  = strrpos($variable[1], '"');
-                                $dquot = strrpos($variable[1], '\'');
-                                if (!empty($quot)) {
-                                        $sub = substr($variable[1], 1, $quot);
-                                } else {
-                                    if (!empty($dquot)) {
-                                        $sub = substr($variable[1], 1, $dquot);
-                                    }
-                                }
-                                $span    = '<span class="red">'.htmlspecialchars(trim($sub)).'</span>';
-                                $comment = str_replace($sub, $span, $variable[1]);
-                            } else {
-                                $comment = htmlspecialchars(trim($variable[1]));
-                            }
-                            $tagString .= '<td class="hid">'.$comment.'</td>';
+                            $output['tags'][$key]['var']     = trim($variable[0]);
+                            $output['tags'][$key]['comment'] = preg_replace("#\'(.*?)\'#is", '<span class="red">\'\\1\'</span>', htmlspecialchars(trim($variable[1])));
                         } else {
-                            $tagString .= '<td class="hid" colspan="2">'.$variable[0].'</td>';
+                            $output['tags'][$key]['var']     = '';
+                            $output['tags'][$key]['comment'] =$variable[0];
                         }
-                        $tagString .= '</tr>';
                     }
                 }
             }
         }
-        if ($tagString) {
-            echo '<div class="finfo">
-                    <table class="hid">'.$tagString.'</table>
-                  </div>';
+        if (!empty($output)) {
+            $phpapi =& $this->_doclet->phpapi();
+            $tpl = new template($phpapi->getOption('doclet'), 'tags');
+            $output = $tpl->parse($output);
         }
+        return $output;
     }
 
     /** Converts inline tags into a string for outputting.
@@ -312,37 +263,60 @@ class htmlWriter {
      */
     public function _processInlineTags(&$tag, $first = FALSE) {
         $description = '';
-        if (is_array($tag)) {
-            $tag = $tag[0];
-        }
+        if (is_array($tag)) $tag = $tag[0];
         if (is_object($tag)) {
-            if ($first) {
-                $tags = & $tag->firstSentenceTags($this->_doclet);
-            } else {
-                $tags = & $tag->inlineTags($this->_doclet);
-            }
+            if ($first)
+                 $tags =& $tag->firstSentenceTags($this->_doclet);
+            else $tags =& $tag->inlineTags($this->_doclet);
             if ($tags) {
                 foreach ($tags as $aTag) {
-                    if ($aTag) {
-                        $description .= $aTag->text($this->_doclet);
-                    }
+                    if ($aTag) $description .= $aTag->text($this->_doclet);
                 }
             }
-            return $this->_doclet->formatter->toFormattedText($description);
+            return $this->_doclet->formatter->toPlainText($description);
         }
         return NULL;
     }
 
-    /** Parses html.
-     * @return string HTML div block with highlited html tags
+    /** Preparation of the object for html template.
+     * @param  object $object Object (fields, methods, constants, variables...)
+     * @return array          The result
      */
-    public function parseHtml($text) {
-        $regexp = [
-            "#<pre>(.*?)</pre>#is" => htmlspecialchars('\\1'),
-            "#<code>(.*?)</code>#is" => htmlspecialchars('\\1')
-        ];
-        $text = preg_replace(array_keys($regexp), array_values($regexp), $text);
-        $text = str_replace(["\r\n", "\n\r", "\r", "\n"], "<br />", $text);
-        return $text;
+    public function showObject($object, $modifiers = TRUE) {
+        $string = ["#[\"\'](.*?)[\"\']#is" => '<span class="red">\'\\1\'</span>'];
+        $output = [];
+        foreach ($object as $key => $element) {
+            $output[$key]['modifiers'] = $element->modifiers($modifiers);
+
+            if     (method_exists($element, 'typeAsString'))       $output[$key]['type'] = $element->typeAsString();
+            elseif (method_exists($element, 'returnTypeAsString')) $output[$key]['type'] = $element->returnTypeAsString();
+            $output[$key]['name'] = $element->name();
+
+            if (method_exists($element, 'signature')) $output[$key]['signature'] = $element->signature();
+            if (method_exists($element, 'value') && !is_null($element->value())) {
+                   $value = $element->value();
+                   $output[$key]['value'] = ' = '.preg_replace(array_keys($string), array_values($string), $value);
+            } else $output[$key]['value'] = '';
+
+            $text =& $element->tags('@text');
+            if ($text) {
+                if (!$modifiers)
+                     $output[$key]['description'] = strip_tags($this->_processInlineTags($text, TRUE), '<a><b><strong><u><em>');
+                else $output[$key]['description'] = $this->_processInlineTags($text);
+            } else   $output[$key]['description'] = __('Описания нет');
+
+            if ($modifiers && method_exists($this, '_processTags')) $output[$key]['tags'] = $this->_processTags($element->tags());
+            if (method_exists($this, 'sourceLocation'))             $output[$key]['location'] = $this->sourceLocation($element);
+        }
+        return $output;
+    }
+
+    /** Preparation of a constant or variable for output in html template.
+     * @param  mixed  $value Value of a constant or variable
+     * @return string        he result
+     */
+    public function showValue($value) {
+        $reqexp = ["#[\"\'](.*?)[\"\']#is" => '<span class="red">\'\\1\'</span>'];
+        return ' = '.preg_replace(array_keys($reqexp), array_values($reqexp), $value);
     }
 }

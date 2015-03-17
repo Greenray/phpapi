@@ -2,10 +2,11 @@
 # phpapi: The PHP Documentation Creator
 
 /** Represents a PHP function or method (member function).
+ *
  * @file      classes/methodDoc.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
- * @copyright (c) 2011 - 2015 Victor Nabatov
+ * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
  * @package   phpapi
  */
@@ -23,28 +24,29 @@ class methodDoc extends ExecutableDoc {
     public $_abstract = FALSE;
 
     /** Constructor.
-     * @param str name Name of this element
-     * @param ClassDoc|MethodDoc parent The parent of this element
-     * @param RootDoc root The root element
-     * @param str filename The filename of the source file this element is in
-     * @param int lineNumber The line number of the source file this element is at
-     * @param str sourcePath The source path containing the source file
+     *
+     * @param string name Name of this element
+     * @param classDoc|methodDoc parent The parent of this element
+     * @param rootDoc root The root element
+     * @param string filename The filename of the source file this element is in
+     * @param integer lineNumber The line number of the source file this element is at
+     * @param string sourcePath The source path containing the source file
      */
     public function methodDoc($name, &$parent, &$root, $filename, $lineNumber, $sourcePath) {
         $this->_name       = $name;
-        $this->_parent     = & $parent; # set reference to parent
-        $this->_root       = & $root; # set reference to root
-        $this->_returnType = & new type('void', $root);
+        $this->_parent     =& $parent; # set reference to parent
+        $this->_root       =& $root; # set reference to root
+        $this->_returnType =& new type('void', $root);
         $this->_filename   = $filename;
         $this->_lineNumber = $lineNumber;
         $this->_sourcePath = $sourcePath;
     }
 
     /** Add a parameter to this method.
-     * @param FieldDoc parameter
+     * @param fieldDoc parameter
      */
     public function addParameter(&$parameter) {
-        $this->_parameters[$parameter->name()] = & $parameter;
+        $this->_parameters[$parameter->name()] =& $parameter;
     }
 
     /** Get return type.
@@ -56,28 +58,23 @@ class methodDoc extends ExecutableDoc {
 
     /** Format a return type for outputting.
      * Recognised types are turned into HTML anchor tags to the documentation page for the class defining them.
-     * @return str The string representation of the return type
+     *
+     * @return string The string representation of the return type
      */
     public function returnTypeAsString() {
-        $myPackage = & $this->containingPackage();
-        $classDoc = & $this->_returnType->asClassDoc();
+        $myPackage =& $this->containingPackage();
+        $classDoc =& $this->_returnType->asclassDoc();
         if ($classDoc) {
-            $packageDoc = & $classDoc->containingPackage();
-            return '<a href="'.str_repeat('../', $myPackage->depth() + 1).$classDoc->asPath().'">'.$classDoc->name().$this->_returnType->dimension().'</a>';
-        } else {
-            return $this->_returnType->typeName().$this->_returnType->dimension();
-        }
+               $packageDoc =& $classDoc->containingPackage();
+               return '<a href="'.str_repeat('../', $myPackage->depth() + 1).$classDoc->asPath().'">'.$classDoc->name().$this->_returnType->dimension().'</a>';
+        } else return $this->_returnType->typeName().$this->_returnType->dimension();
     }
 
     /** Is this construct a function.
      * @return bool
      */
     public function isFunction() {
-        if (strtolower(get_class($this->_parent)) == 'rootdoc' && !$this->containingClass()) {
-            return TRUE;
-        } else {
-            return FALSE;
-        }
+        return (get_class($this->_parent) == 'rootDoc' && !$this->containingClass()) ? TRUE : FALSE;
     }
 
     /** Is this construct a method.

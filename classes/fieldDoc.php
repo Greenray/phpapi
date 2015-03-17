@@ -2,10 +2,11 @@
 # phpapi: The PHP Documentation Creator
 
 /** Represents a PHP variable, constant or member variable (field).
+ *
  * @file      classes/fieldDoc.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
- * @copyright (c) 2011 - 2015 Victor Nabatov
+ * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
  * @package   phpapi
  */
@@ -23,20 +24,21 @@ class fieldDoc extends ProgramElementDoc {
     public $_value = NULL;
 
     /** Constructor.
-     * @param str name Name of this element
-     * @param ClassDoc|MethodDoc parent The parent of this element
-     * @param RootDoc root The root element
-     * @param str filename The filename of the source file this element is in
-     * @param int lineNumber The line number of the source file this element is at
-     * @param str sourcePath The source path containing the source file
+     *
+     * @param string name Name of this element
+     * @param classDoc|methodDoc parent The parent of this element
+     * @param rootDoc root   The root element
+     * @param string filename   The filename of the source file this element is in
+     * @param integer lineNumber The line number of the source file this element is at
+     * @param string sourcePath The source path containing the source file
      * @return void
      */
     public function fieldDoc($name, &$parent, &$root, $filename = NULL, $lineNumber = NULL, $sourcePath = NULL) {
-        $this->_name   = trim($name, '$\'"');
-        $this->_parent = & $parent;   # Set reference to parent
-        $this->_root   = & $root;     # Set reference to root
-        $this->_type   = & new type('mixed', $root);
-        $this->_filename = $filename;
+        $this->_name       = trim($name, '$\'"');
+        $this->_parent     =& $parent;                  # Set reference to parent
+        $this->_root       =& $root;                    # Set reference to root
+        $this->_type       =& new type('mixed', $root);
+        $this->_filename   = $filename;
         $this->_lineNumber = $lineNumber;
         $this->_sourcePath = $sourcePath;
     }
@@ -66,22 +68,21 @@ class fieldDoc extends ProgramElementDoc {
      * @return bool
      */
     public function isGlobal() {
-        return (strtolower(get_class($this->_parent)) == 'rootdoc') ? TRUE : FALSE;
+        return (get_class($this->_parent) == 'rootDoc') ? TRUE : FALSE;
     }
 
     /** Format a field type for outputting.
      * Recognised types are turned into HTML anchor tags to the documentation page for the class defining them.
-     * @return str The string representation of the field type
+     *
+     * @return string The string representation of the field type
      */
     public function typeAsString() {
-        $myPackage = & $this->containingPackage();
-        $classDoc  = & $this->_type->asClassDoc();
+        $myPackage =& $this->containingPackage();
+        $classDoc  =& $this->_type->asclassDoc();
         if ($classDoc) {
-            $packageDoc = & $classDoc->containingPackage();
-            return '<a href="'.str_repeat('../', $myPackage->depth() + 1).$classDoc->asPath().'">'.$classDoc->name().$this->_type->dimension().'</a>';
-        } else {
-            return $this->_type->typeName().$this->_type->dimension();
-        }
+               $packageDoc =& $classDoc->containingPackage();
+               return '<a href="'.str_repeat('../', $myPackage->depth() + 1).$classDoc->asPath().'">'.$classDoc->name().$this->_type->dimension().'</a>';
+        } else return $this->_type->typeName().$this->_type->dimension();
     }
 
     /** Returns the value of the constant.

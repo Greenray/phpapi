@@ -2,10 +2,11 @@
 # phpapi: The PHP Documentation Creator
 
 /** This generates the todo elements index.
+ *
  * @file      doclets/standard/todoWriter.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
- * @copyright (c) 2011 - 2015 Victor Nabatov
+ * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
  * @package   Standard
  */
@@ -17,62 +18,49 @@ class todoWriter extends HTMLWriter {
      */
     public function todoWriter(&$doclet) {
         parent::HTMLWriter($doclet);
-        $rootDoc = & $this->_doclet->rootDoc();
+        $rootDoc =& $this->_doclet->rootDoc();
 
         $this->_sections[0] = ['title' => 'Overview',    'url' => 'overview-summary.html'];
         $this->_sections[1] = ['title' => 'Namespace'];
         $this->_sections[2] = ['title' => 'Class'];
-        #$this->_sections[3] = ['title' => 'Use'];
         $this->_sections[4] = ['title' => 'Tree',        'url' => 'overview-tree.html'];
-        if ($doclet->includeSource())
-            $this->_sections[5] = ['title' => 'Files',   'url' => 'overview-files.html'];
         $this->_sections[6] = ['title' => 'Deprecated',  'url' => 'deprecated-list.html'];
         $this->_sections[7] = ['title' => 'Todo',   'selected' => TRUE];
         $this->_sections[8] = ['title' => 'Index',       'url' => 'index-all.html'];
 
         $todoClasses = [];
-        $classes     = & $rootDoc->classes();
+        $classes     =& $rootDoc->classes();
         $todoFields  = [];
         $todoMethods = [];
         if ($classes) {
             foreach ($classes as $class) {
-                if ($class->tags('@todo')) {
-                    $todoClasses[] = $class;
-                }
-                $fields = & $class->fields();
+                if ($class->tags('@todo')) $todoClasses[] = $class;
+                $fields =& $class->fields();
                 if ($fields) {
                     foreach ($fields as $field) {
-                        if ($field->tags('@todo')) {
-                            $todoFields[] = $field;
-                        }
+                        if ($field->tags('@todo')) $todoFields[] = $field;
                     }
                 }
-                $classes = & $class->methods();
+                $classes =& $class->methods();
                 if ($classes) {
                     foreach ($classes as $method) {
-                        if ($method->tags('@todo')) {
-                            $todoMethods[] = $method;
-                        }
+                        if ($method->tags('@todo')) $todoMethods[] = $method;
                     }
                 }
             }
         }
         $todoGlobals = [];
-        $globals     = & $rootDoc->globals();
+        $globals     =& $rootDoc->globals();
         if ($globals) {
             foreach ($globals as $global) {
-                if ($global->tags('@todo')) {
-                    $todoGlobals[] = $global;
-                }
+                if ($global->tags('@todo')) $todoGlobals[] = $global;
             }
         }
         $todoFunctions = [];
-        $functions     = & $rootDoc->functions();
+        $functions     =& $rootDoc->functions();
         if ($functions) {
             foreach ($functions as $function) {
-                if ($function->tags('@todo')) {
-                    $todoFunctions[] = $function;
-                }
+                if ($function->tags('@todo')) $todoFunctions[] = $function;
             }
         }
 
@@ -107,7 +95,7 @@ class todoWriter extends HTMLWriter {
             echo '<table id="todo_class" class="detail">';
             echo '<tr><th colspan="2" class="title">Todo Classes</th></tr>';
             foreach ($todoClasses as $class) {
-                $todoTag = & $class->tags('@todo');
+                $todoTag =& $class->tags('@todo');
                 echo '<tr><td class="name"><a href="', $class->asPath(), '">', $class->qualifiedName(), '</a></td>';
                 echo '<td class="description">';
                 if ($todoTag)
@@ -121,7 +109,7 @@ class todoWriter extends HTMLWriter {
             echo '<table id="todo_field" class="detail">';
             echo '<tr><th colspan="2" class="title">Todo Fields</th></tr>';
             foreach ($todoFields as $field) {
-                $todoTag = & $field->tags('@todo');
+                $todoTag =& $field->tags('@todo');
                 echo '<tr>';
                 echo '<td class="name"><a href="', $field->asPath(), '">', $field->qualifiedName(), '</a></td>';
                 echo '<td class="description">';
@@ -137,7 +125,7 @@ class todoWriter extends HTMLWriter {
             echo '<table id="todo_method" class="detail">';
             echo '<tr><th colspan="2" class="title">Todo Methods</th></tr>';
             foreach ($todoMethods as $method) {
-                $todoTag = & $method->tags('@todo');
+                $todoTag =& $method->tags('@todo');
                 echo '<tr>';
                 echo '<td class="name"><a href="', $method->asPath(), '">', $method->qualifiedName(), '</a></td>';
                 echo '<td class="description">';
@@ -153,7 +141,7 @@ class todoWriter extends HTMLWriter {
             echo '<table id="todo_global" class="detail">';
             echo '<tr><th colspan="2" class="title">Todo Globals</th></tr>';
             foreach ($todoGlobals as $global) {
-                $todoTag = & $global->tags('@todo');
+                $todoTag =& $global->tags('@todo');
                 echo '<tr>';
                 echo '<td class="name"><a href="'.$global->asPath().'">'.$global->qualifiedName().'</a></td>';
                 echo '<td class="description">';
@@ -169,7 +157,7 @@ class todoWriter extends HTMLWriter {
             echo '<table id="todo_function" class="detail">';
             echo '<tr><th colspan="2" class="title">Todo Functions</th></tr>';
             foreach ($todoFunctions as $function) {
-                $todoTag = & $function->tags('@todo');
+                $todoTag =& $function->tags('@todo');
                 echo '<tr>';
                 echo '<td class="name"><a href="', $function->asPath(), '">', $function->qualifiedName(), '</a></td>';
                 echo '<td class="description">';

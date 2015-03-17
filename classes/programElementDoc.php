@@ -4,10 +4,11 @@
 /** Represents a PHP program element: global, function, class, interface,
  * field, constructor, or method. This is an abstract class dealing with
  * information common to these elements.
+ *
  * @file      classes/programElementDoc.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
- * @copyright (c) 2011 - 2015 Victor Nabatov
+ * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
  * @package   phpapi
  * @abstract
@@ -72,18 +73,16 @@ class programElementDoc extends Doc {
 
     /** Gets the containing class of this program element.
      * If the element is in the global scope and does not have a parent class, this will return null.
-     * @return ClassDoc
+     * @return classDoc
      */
     function &containingClass() {
         $return = NULL;
-        if (strtolower(get_class($this->_parent)) == 'classdoc') {
-            $return = & $this->_parent;
-        }
+        if (get_class($this->_parent) == 'classDoc') $return =& $this->_parent;
         return $return;
     }
 
     /** Gets the package that this program element is contained in.
-     * @return PackageDoc
+     * @return packageDoc
      */
     function &containingPackage() {
         return $this->_root->packageNamed($this->_package);
@@ -97,45 +96,40 @@ class programElementDoc extends Doc {
     }
 
     /** Gets the fully qualified name.
+     *
      * <pre>
      * Example:
      * for the method bar() in class Foo in the package Baz, return:
      * Baz\Foo\bar()
      * </pre>
+     *
      * @return str
      */
     public function qualifiedName() {
-        $parent = & $this->containingClass();
-        if ($parent && $parent->name() != '' && $this->_package != $parent->name()) {
-            return $this->_package.'\\'.$parent->name().'\\'.$this->_name;
-        } else {
-            return $this->_package.'\\'.$this->_name;
-        }
+        $parent =& $this->containingClass();
+        if ($parent && $parent->name() != '' && $this->_package != $parent->name())
+             return $this->_package.'\\'.$parent->name().'\\'.$this->_name;
+        else return $this->_package.'\\'.$this->_name;
     }
 
     /** Gets modifiers string.
+     *
      * <pre>
      * Example, for:
-     * public abstract int foo() { ... }
+     * public abstract integer foo() { ... }
      * modifiers() would return:
      * 'public abstract'
      * </pre>
+     *
      * @return str
      */
     public function modifiers($showPublic = TRUE) {
         $modifiers = '';
-        if ($showPublic || $this->_access != 'public') {
-            $modifiers .= $this->_access.' ';
-        }
-        if ($this->_final) {
-            $modifiers .= 'final ';
-        }
-        if (isset($this->_abstract) && $this->_abstract) {
-            $modifiers .= 'abstract ';
-        }
-        if ($this->_static) {
-            $modifiers .= 'static ';
-        }
+        if ($showPublic || $this->_access != 'public') $modifiers .= $this->_access.' ';
+        if ($this->_final)           $modifiers .= 'final ';
+        if (isset($this->_abstract)) $modifiers .= 'abstract ';
+        if ($this->_static)          $modifiers .= 'static ';
+
         return $modifiers;
     }
 
@@ -143,33 +137,21 @@ class programElementDoc extends Doc {
      * @return bool
      */
     public function isPublic() {
-        if ($this->_access == 'public') {
-            return TRUE;
-        } else {
-            return FALSE;
-        }
+        return ($this->_access == 'public') ? TRUE : FALSE;
     }
 
     /** Returns true if this program element is protected.
      * @return bool
      */
     public function isProtected() {
-        if ($this->_access == 'protected') {
-            return TRUE;
-        } else {
-            return FALSE;
-        }
+        return ($this->_access == 'protected') ? TRUE : FALSE;
     }
 
     /** Returns true if this program element is private.
      * @return bool
      */
     public function isPrivate() {
-        if ($this->_access == 'private') {
-            return TRUE;
-        } else {
-            return FALSE;
-        }
+        return ($this->_access == 'private') ? TRUE : FALSE;
     }
 
     /** Returns true if this program element is final.
@@ -208,31 +190,24 @@ class programElementDoc extends Doc {
         return $this->_lineNumber;
     }
 
-    /** Returns the element path.
-     * @return str
+    /** Returns the element path or NULL.
+     * @return string|NULL
      */
     public function asPath() {
         if ($this->isClass() || $this->isInterface() || $this->isTrait() || $this->isException()) {
             return strtolower(str_replace('.', '/', str_replace('\\', '/', $this->_package)).'/'.$this->_name.'.html');
         } elseif ($this->isField()) {
-            $class = & $this->containingClass();
-            if ($class) {
-                return strtolower(str_replace('.', '/', str_replace('\\', '/', $this->_package)).'/'.$class->name().'.html#').$this->_name;
-            } else {
-                return strtolower(str_replace('.', '/', str_replace('\\', '/', $this->_package)).'/package-globals.html#').$this->_name;
-            }
+            $class =& $this->containingClass();
+            if ($class) return strtolower(str_replace('.', '/', str_replace('\\', '/', $this->_package)).'/'.$class->name().'.html#').$this->_name;
+            else        return strtolower(str_replace('.', '/', str_replace('\\', '/', $this->_package)).'/package-globals.html#').$this->_name;
         } elseif ($this->isConstructor() || $this->isMethod()) {
-            $class = & $this->containingClass();
-            if ($class) {
-                return strtolower(str_replace('.', '/', str_replace('\\', '/', $this->_package)).'/'.$class->name().'.html#').$this->_name.'()';
-            } else {
-                return strtolower(str_replace('.', '/', str_replace('\\', '/', $this->_package)).'/package-functions.html#').$this->_name.'()';
-            }
-        } elseif ($this->isGlobal()) {
-            return strtolower(str_replace('.', '/', str_replace('\\', '/', $this->_package)).'/package-globals.html#').$this->_name;
-        } elseif ($this->isFunction()) {
-            return strtolower(str_replace('.', '/', str_replace('\\', '/', $this->_package)).'/package-functions.html#').$this->_name.'()';
-        }
+            $class =& $this->containingClass();
+            if ($class) return strtolower(str_replace('.', '/', str_replace('\\', '/', $this->_package)).'/'.$class->name().'.html#').$this->_name.'()';
+            else        return strtolower(str_replace('.', '/', str_replace('\\', '/', $this->_package)).'/package-functions.html#').$this->_name.'()';
+        } elseif ($this->isGlobal())
+                                     return strtolower(str_replace('.', '/', str_replace('\\', '/', $this->_package)).'/package-globals.html#').$this->_name;
+        elseif ($this->isFunction()) return strtolower(str_replace('.', '/', str_replace('\\', '/', $this->_package)).'/package-functions.html#').$this->_name.'()';
+
         return NULL;
     }
 }
