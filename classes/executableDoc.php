@@ -7,7 +7,7 @@
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * @package   phpapi
  * @abstract
  */
@@ -80,15 +80,17 @@ class executableDoc extends programElementDoc {
         } else return NULL;
     }
 
-    /** Get flat signature.
+    /** Get signature.
      * Return a string which is the flat signiture of this function.
      * It is the parameter list, type is not qualified.
+     *
      * <pre>
      * for a function
      *      mymethod(foo x, integer y)
      * it will return
      *      (foo x, integer y)
      * </pre>
+     *
      * Recognised types are turned into HTML anchor tags to the documentation
      * page for the class defining them.
      * @return str
@@ -98,7 +100,7 @@ class executableDoc extends programElementDoc {
         $myPackage =& $this->containingPackage();
         foreach ($this->_parameters as $param) {
             $type =& $param->type();
-            $classDoc =& $type->asclassDoc();
+            $classDoc =& $type->asClassDoc();
             if ($classDoc) {
                 $packageDoc =& $classDoc->containingPackage();
                 $signature .= '<a href="'.str_repeat('../', $myPackage->depth() + 1).$classDoc->asPath().'">'.$classDoc->name().'</a> '.$param->name().', ';

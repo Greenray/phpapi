@@ -9,7 +9,7 @@
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * @package   phpapi
  * @abstract
  */
@@ -126,9 +126,9 @@ class programElementDoc extends doc {
     public function modifiers($showPublic = TRUE) {
         $modifiers = '';
         if ($showPublic || $this->_access != 'public') $modifiers .= $this->_access.' ';
-        if ($this->_final)           $modifiers .= 'final ';
-        if (isset($this->_abstract)) $modifiers .= 'abstract ';
-        if ($this->_static)          $modifiers .= 'static ';
+        if ($this->_final)            $modifiers .= 'final ';
+        if (!empty($this->_abstract)) $modifiers .= 'abstract ';
+        if ($this->_static)           $modifiers .= 'static ';
 
         return $modifiers;
     }

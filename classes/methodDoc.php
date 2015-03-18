@@ -7,7 +7,7 @@
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * @package   phpapi
  */
 
@@ -18,7 +18,7 @@ class methodDoc extends executableDoc {
      */
     public $_returnType;
 
-    /** Is this class abstract.
+    /** Is this method abstract.
      * @var boolean
      */
     public $_abstract = FALSE;
@@ -34,8 +34,8 @@ class methodDoc extends executableDoc {
      */
     public function methodDoc($name, &$parent, &$root, $filename, $lineNumber, $sourcePath) {
         $this->_name       = $name;
-        $this->_parent     =& $parent; # set reference to parent
-        $this->_root       =& $root; # set reference to root
+        $this->_parent     =& $parent;
+        $this->_root       =& $root;
         $this->_returnType =& new type('void', $root);
         $this->_filename   = $filename;
         $this->_lineNumber = $lineNumber;
@@ -63,7 +63,7 @@ class methodDoc extends executableDoc {
      */
     public function returnTypeAsString() {
         $myPackage =& $this->containingPackage();
-        $classDoc =& $this->_returnType->asclassDoc();
+        $classDoc =& $this->_returnType->asClassDoc();
         if ($classDoc) {
                $packageDoc =& $classDoc->containingPackage();
                return '<a href="'.str_repeat('../', $myPackage->depth() + 1).$classDoc->asPath().'">'.$classDoc->name().$this->_returnType->dimension().'</a>';

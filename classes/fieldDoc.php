@@ -7,7 +7,7 @@
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * @package   phpapi
  */
 
@@ -78,7 +78,7 @@ class fieldDoc extends programElementDoc {
      */
     public function typeAsString() {
         $myPackage =& $this->containingPackage();
-        $classDoc  =& $this->_type->asclassDoc();
+        $classDoc  =& $this->_type->asClassDoc();
         if ($classDoc) {
                $packageDoc =& $classDoc->containingPackage();
                return '<a href="'.str_repeat('../', $myPackage->depth() + 1).$classDoc->asPath().'">'.$classDoc->name().$this->_type->dimension().'</a>';

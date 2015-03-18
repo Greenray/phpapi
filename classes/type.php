@@ -7,7 +7,7 @@
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * @package   phpapi
  */
 
@@ -58,7 +58,7 @@ class type {
     }
 
     /** Gets qualified name of this type.
-     * 
+     *
      * @return string Qualified naame of the type
      * @todo This method is still to be implemented
      */
@@ -76,7 +76,7 @@ class type {
     /** Returns this type as a class.
      * @return classDoc A classDoc if the type is a class, null if it is a primitive type
      */
-    function &asclassDoc() {
+    function &asClassDoc() {
         return $this->_root->classNamed($this->_name);
     }
 }
