@@ -11,13 +11,14 @@
  * @package   Standard
  */
 
-class classWriter extends HTMLWriter {
+class classWriter extends htmlWriter {
 
     /** Build the class definitons.
      * @param Doclet doclet
      */
     public function classWriter(&$doclet) {
-        parent::HTMLWriter($doclet);
+        parent::htmlWriter($doclet);
+
         $this->_id = 'definition';
         $rootDoc   =& $this->_doclet->rootDoc();
         $phpapi    =& $this->_doclet->phpapi();
@@ -25,13 +26,13 @@ class classWriter extends HTMLWriter {
         ksort($packages);
         foreach ($packages as $packageName => $package) {
             $this->_sections[0] = ['title' => 'Overview',   'url' => 'overview-summary.html'];
-            $this->_sections[1] = ['title' => 'Namespace',  'url' => $package->asPath().'/package-summary.html'];
+            $this->_sections[1] = ['title' => 'Namespace',  'url' => $package->asPath().DS.'package-summary.html'];
             $this->_sections[2] = ['title' => 'Class', 'selected' => TRUE];
             if ($phpapi->getOption('tree'))
-                $this->_sections[4] = ['title' => 'Tree',   'url' => $package->asPath().'/package-tree.html'];
-            $this->_sections[6] = ['title' => 'Deprecated', 'url' => 'deprecated-list.html'];
-            $this->_sections[7] = ['title' => 'Todo',       'url' => 'todo-list.html'];
-            $this->_sections[8] = ['title' => 'Index',      'url' => 'index-all.html'];
+                $this->_sections[3] = ['title' => 'Tree',   'url' => $package->asPath().DS.'package-tree.html'];
+            $this->_sections[4] = ['title' => 'Deprecated', 'url' => 'deprecated-list.html'];
+            $this->_sections[5] = ['title' => 'Todo',       'url' => 'todo-list.html'];
+            $this->_sections[6] = ['title' => 'Index',      'url' => 'index-all.html'];
 
             $this->_depth = $package->depth() + 1;
 
@@ -40,9 +41,9 @@ class classWriter extends HTMLWriter {
                 ksort($classes);
                 foreach ($classes as $name => $class) {
 
-                    $output = [];
                     ob_start();
 
+                    $output = [];
                     $output['qualified'] = $class->qualifiedName();
 
                     $this->_sourceLocation($class);
@@ -97,8 +98,8 @@ class classWriter extends HTMLWriter {
                     if ($class->superclass()) {
                         $superclass =& $rootDoc->classNamed($class->superclass());
                         if ($superclass)
-                              $output['extends'] = ' extends <a href="'.str_repeat('../', $this->_depth).$superclass->asPath().'">'.$superclass->name().'</a>';
-                         else $output['extends'] = ' extends '.$class->superclass().LF;
+                             $output['extends'] = ' extends <a href="'.str_repeat('../', $this->_depth).$superclass->asPath().'">'.$superclass->name().'</a>';
+                        else $output['extends'] = ' extends '.$class->superclass().LF;
                     }
 
                     $textTag =& $class->tags('@text');
@@ -151,91 +152,27 @@ class classWriter extends HTMLWriter {
                         }
                     }
 
-                    $tpl = new template($phpapi->getOption('doclet'), 'classes');
-                    echo $tpl->parse($output);
-
-                    if ($constants) {
-
-                        echo '<h2 id="detail_constant">Constants Details</h2>';
-                        foreach ($constants as $field) {
-                            $textTag =& $field->tags('@text');
-                            $this->_sourceLocation($field);
-                            echo '<h3 id="', $field->name(), '">', $field->name(), '</h3>';
-                            echo '<code class="signature">', $field->modifiers(), ' ', $field->typeAsString(), ' <strong>';
-                            echo $field->name(), '</strong>';
-                            if (!is_null($field->value())) {
-                                echo $this->showValue($field->value());
-                            }
-                            echo '</code>';
-                            echo '<div class="details">';
-                            if ($textTag) {
-                                echo $this->_processInlineTags($textTag);
-                            }
-                            $this->_processTags($field->tags());
-                            echo '</div>';
-                            echo '<hr>';
-                        }
-                    }
-
-                    if ($fields) {
-                        echo '<h2 id="detail_field">Fields Details</h2>';
-                        foreach ($fields as $field) {
-                            $this->_sourceLocation($field);
-                            echo '<code class="signature" id="', $field->name(), '">'.$field->modifiers().' '.$field->typeAsString().' ';
-                            if (is_null($field->constantValue())) {
-                                echo '<span class="green">$'.$field->name().'</span>';
-                            } else {
-                                echo '<span class="lilac">'.$field->name().'</span>';
-                            }
-                            echo '</strong>';
-                            if (!is_null($field->value())) {
-                                echo $this->showValue($field->value());
-                            }
-                            echo '</code>';
-                            echo '<div class="details">';
-                            $textTag =& $field->tags('@text');
-                            if ($textTag) {
-                                echo $this->_processInlineTags($textTag);
-                            }
-                            $this->_processTags($field->tags());
-                            echo '</div>';
-                            echo '<hr>';
-                        }
-                    }
+                    if ($constants) $output['constants'] = $this->showObject($constants);
+                    if ($fields)    $output['fields']    = $this->showObject($fields);
 
                     if ($constructor) {
-                        echo '<h2 id="detail_method">Constructor Details</h2>';
+                        $output['constructors'] = TRUE;
+                        $output['location']     = $this->_sourceLocation($constructor);
+                        $output['modifiers']    = $constructor->modifiers();
+                        $output['type']         = $constructor->returnTypeAsString();
+                        $output['name']         = $constructor->name();
+                        $output['signature']    = $constructor->signature();
                         $textTag =& $constructor->tags('@text');
-                        $this->_sourceLocation($constructor);
-                        echo '<code class="signature" id="', $constructor->name(), '">', $constructor->modifiers(), ' ', $constructor->returnTypeAsString(), ' <strong>';
-                        echo $constructor->name(), '</strong>', $constructor->signature();
-                        echo '</code>';
-                        echo '<div class="details">';
-                        if ($textTag) {
-                            echo $this->_processInlineTags($textTag);
-                        }
-                        $this->_processTags($constructor->tags());
-                        echo '</div>';
-                        echo '<hr>';
+                        if ($textTag)
+                             $output['description'] = strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
+                        else $output['description'] = __('Описания нет');
+                        $output['tags'] = $this->_processTags($constructor->tags());
                     }
 
-                    if ($methods) {
-                        echo '<h2 id="detail_method">Methods Details</h2>';
-                        foreach ($methods as $method) {
-                            $textTag =& $method->tags('@text');
-                            $this->_sourceLocation($method);
-                            echo '<code class="signature" id="', $method->name(), '">', $method->modifiers(), ' ', $method->returnTypeAsString(), ' <strong>';
-                            echo $method->name(), '</strong>', $method->signature();
-                            echo '</code>';
-                            echo '<div class="details">';
-                            if ($textTag) {
-                                echo $this->_processInlineTags($textTag);
-                            }
-                            $this->_processTags($method->tags());
-                            echo '</div>';
-                            echo '<hr>';
-                        }
-                    }
+                    if ($methods) $output['methods'] = $this->showObject($methods);
+
+                    $tpl = new template($phpapi->getOption('doclet'), 'classes');
+                    echo $tpl->parse($output);
 
                     $this->_output = ob_get_contents();
                     ob_end_clean();
@@ -247,7 +184,6 @@ class classWriter extends HTMLWriter {
     }
 
     /** Build the class hierarchy tree which is placed at the top of the page.
-     *
      * @param rootDoc rootDoc The root doc
      * @param classDoc class Class to generate tree for
      * @param integer depth Depth of recursion
@@ -288,7 +224,6 @@ class classWriter extends HTMLWriter {
 
     /** Display the inherited fields of an element.
      * This method calls itself recursively if the element has a parent class.
-     *
      * @param ProgramElementDoc element
      * @param rootDoc rootDoc
      * @param packageDoc package
@@ -320,7 +255,6 @@ class classWriter extends HTMLWriter {
 
     /** Display the inherited methods of an element.
      * This method calls itself recursively if the element has a parent class.
-     *
      * @param ProgramElementDoc element
      * @param rootDoc rootDoc
      * @param packageDoc package

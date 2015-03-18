@@ -100,3 +100,46 @@
         </table>
     [endeach.inheritMethods]
 [endif.inheritMethods]
+[if=constants]
+    <h2 id="details_constants">[__Константы: подробно]</h2>
+    [each=constants]
+        <div class="location">{constants[location]}</div>
+        <h3 id="{constants[name]}">{constants[name]}</h3>
+        <code class="signature">{constants[modifiers]} {constants[type]} <strong>{constants[name]}</strong>{constants[value]}</code>
+        [if=constants[description]]<div class="details">{constants[description]}</div>
+        [endif.constants]
+        <hr>
+    [endeach.constants]
+[endif.constants]
+[if=fields]
+    <h2 id="details_fields">[__Поля: подробно]</h2>
+    [each=fields]
+        <div class="location">{fields[location]}</div>
+        <h3 id="{fields[name]}">{fields[name]}</h3>
+        <code class="signature">{fields[modifiers]} {fields[type]} <strong><span class="green">{fields[name]}</span></strong>{fields[value]}</code>
+        [if=fields[description]]<div class="details">{fields[description]}</div>[endif.fields]
+        <hr>
+    [endeach.fields]
+[endif.fields]
+[if=constructors]
+    <h2 id="details_constructor">[__Конструктор: детали]</h2>
+    <div class="location">{location}</div>
+    <code class="signature" id="{name}">{modifiers} {type}<strong>{name}</strong>{signature}</code>
+    <div class="details">
+        {description}
+        {tags}
+    </div>
+    <hr>
+[endif.constructors]
+[if=methods]
+    <h2 id="details_methods">[__Методы: детали]</h2>
+    [each=methods]
+        <div class="location">{methods[location]}</div>
+        <code class="signature" id="{methods[name]}">{methods[modifiers]} {methods[type]} <strong>{methods[name]}</strong> {methods[signature]}</code>
+        <div class="details">
+            {methods[description]}
+            {methods[tags]}
+        </div>
+        <hr>
+    [endeach.methods]
+[endif.methods]
