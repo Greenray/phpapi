@@ -4,6 +4,7 @@
 /** This generates the package-frame.html file that lists the interfaces and
  * classes in a given package for displaying in the lower-left frame of the
  * frame-formatted default output.
+ *
  * @file      doclets/standard/packageFrameWriter.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
@@ -12,15 +13,15 @@
  * @package   Standard
  */
 
-class packageFrameWriter extends HTMLWriter {
+class packageFrameWriter extends htmlWriter {
 
     /** Build the package frame index.
      * @param Doclet doclet
      */
     public function packageFrameWriter(&$doclet) {
-        parent::HTMLWriter($doclet);
-        $rootDoc =& $this->_doclet->rootDoc();
+        parent::htmlWriter($doclet);
 
+        $rootDoc       =& $this->_doclet->rootDoc();
         $this->_output =& $this->_allItems($rootDoc);
         $this->_write('allitems-frame.html', 'All Items', FALSE);
 
@@ -37,6 +38,7 @@ class packageFrameWriter extends HTMLWriter {
      * @return str
      */
     function &_buildFrame(&$package) {
+
         ob_start();
 
         echo '<body id="frame">';
@@ -120,6 +122,7 @@ class packageFrameWriter extends HTMLWriter {
      * @return str
      */
     function &_allItems(&$rootDoc) {
+
         ob_start();
 
         echo '<body id="frame">';

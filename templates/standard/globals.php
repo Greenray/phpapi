@@ -15,10 +15,9 @@
 </table>
 <h2 id="details_globals">[__Детали]</h2>
 [each=globals]
-    [if=globals[location]]<div class="location">{globals[location]}</div>[endif.globals]
+    <div class="location">{globals[location]}</div>
     <h3 id="{globals[name]}">{globals[name]}</h3>
     <code class="signature">{globals[modifiers]} {globals[type]} <strong>{globals[name]}</strong>{globals[value]}</code>
     <div class="details">{globals[description]}</div>
-    {globals[tags]}
     <hr>
 [endeach.globals]

@@ -15,7 +15,7 @@
  * @package   phpapi
  */
 
-class classDoc extends ProgramElementDoc {
+class classDoc extends programElementDoc {
 
     /** The super class.
      * @var string

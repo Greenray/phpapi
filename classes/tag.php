@@ -41,6 +41,7 @@ class tag {
     public $_parent = NULL;
 
     /** Constructor.
+     *
      * @param string name The name of the tag (including @)
      * @param string text The contents of the tag
      * @param rootDoc root The root object
@@ -67,6 +68,7 @@ class tag {
     }
 
     /** Gets the value of the tag as raw data, without any text processing applied.
+     *
      * @param Doclet doclet
      * @return str
      */
@@ -96,6 +98,7 @@ class tag {
      * of tags with first element as tag with comment text "This is an example of
      * inline tags for a documentation comment" and second element as SeeTag with
      * referenced class as "Doc" and the label for the HTML link as "commentlabel".
+     *
      * @return Tag[] Array of tags with inline tags.
      * @todo This method does not act as described but should be altered to do so
      */
@@ -110,6 +113,7 @@ class tag {
      * The sentence ends at the first period that is followed by a space, tab,
      * or a line terminator, at the first tagline, or closing of a HTML block element
      * (<p> <h1> <h2> <h3> <h4> <h5> <h6> <hr> <pre>).
+     *
      * @return Tag[] An array of Tags representing the first sentence of the comment
      * @todo This method does not act as described but should be altered to do so
      */
@@ -125,8 +129,9 @@ class tag {
     }
 
     /** Parses out inline tags from within a text string.
-     * @param string text
-     * @return Tag[]
+     *
+     * @param string $text Text for parse
+     * @return Tag[]       Array of parsed tags
      */
     function &_getInlineTags($text) {
         $return     = NULL;
@@ -146,10 +151,10 @@ class tag {
                     }
                 } else {
                     $name    = '@text';
-                    $strings = explode('.', $tag);
+                    $strings = explode(LF, $tag);
                     if (!empty($strings[1])) {
                         $tag  = array_shift($strings).LF;
-                        $tag .= implode('.', $strings);
+                        $tag .= implode(LF, $strings);
                     }
                     $text = $tag;
                 }

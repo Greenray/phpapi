@@ -11,23 +11,23 @@
  * @package   Standard
  */
 
-class deprecatedWriter extends HTMLWriter {
+class deprecatedWriter extends htmlWriter {
 
     /** Build the deprecated index.
      * @param Doclet doclet
      */
     public function deprecatedWriter(&$doclet) {
-        parent::HTMLWriter($doclet);
-        #$this->_id = 'definition';
+        parent::htmlWriter($doclet);
+
         $rootDoc =& $this->_doclet->rootDoc();
 
         $this->_sections[0] = ['title' => 'Overview',        'url' => 'overview-summary.html'];
         $this->_sections[1] = ['title' => 'Namespace'];
         $this->_sections[2] = ['title' => 'Class'];
-        $this->_sections[4] = ['title' => 'Tree',            'url' => 'overview-tree.html'];
-        $this->_sections[6] = ['title' => 'Deprecated', 'selected' => TRUE];
-        $this->_sections[7] = ['title' => 'Todo',            'url' => 'todo-list.html'];
-        $this->_sections[8] = ['title' => 'Index',           'url' => 'index-all.html'];
+        $this->_sections[3] = ['title' => 'Tree',            'url' => 'overview-tree.html'];
+        $this->_sections[4] = ['title' => 'Deprecated', 'selected' => TRUE];
+        $this->_sections[5] = ['title' => 'Todo',            'url' => 'todo-list.html'];
+        $this->_sections[6] = ['title' => 'Index',           'url' => 'index-all.html'];
 
         $deprecatedClasses = [];
         $classes =& $rootDoc->classes();
@@ -154,6 +154,7 @@ class deprecatedWriter extends HTMLWriter {
             }
             echo '</table>';
         }
+        
         $this->_output = ob_get_contents();
         ob_end_clean();
 

@@ -9,7 +9,7 @@ $lang['Константы: детали'] = 'Constants Details';
 $lang['Константы: общий обзор'] = 'Constants Summary';
 $lang['Конструктор: детали'] = 'Constructor Details';
 $lang['Конструктор: общий обзор'] = 'Constructor Summary';
-$lang['Методы: детали'] = 'Methods Details';$lang['Детали'] = 'Details';
+$lang['Методы: детали'] = 'Methods Details';
 
 $lang['Методы: общий обзор'] = 'Methods Summary';
 $lang['Общий обзор'] = 'Summary';

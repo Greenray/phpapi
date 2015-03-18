@@ -11,13 +11,14 @@
  * @package   Standard
  */
 
-class functionWriter extends HTMLWriter {
+class functionWriter extends htmlWriter {
 
     /** Build the function definitons.
      * @param Doclet doclet
      */
     public function functionWriter(&$doclet) {
-        parent::HTMLWriter($doclet);
+        parent::htmlWriter($doclet);
+
         $this->_id = 'definition';
         $rootDoc   =& $this->_doclet->rootDoc();
         $phpapi    =& $this->_doclet->phpapi();

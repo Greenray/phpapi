@@ -13,7 +13,7 @@ require_once 'linkPlainTag.php';
  * @package   Tags
  */
 
-class linkTag extends LinkPlainTag {
+class linkTag extends linkPlainTag {
 
     /** Constructor.
      * @param string text The contents of the tag

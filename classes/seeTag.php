@@ -11,7 +11,7 @@
  * @package   Tags
  */
 
-class seeTag extends Tag {
+class seeTag extends tag {
 
     /** The link.
      * @var string

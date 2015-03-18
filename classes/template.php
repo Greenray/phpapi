@@ -7,7 +7,7 @@
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * @package   Standard
  */
 
@@ -52,7 +52,7 @@ class template {
     /** Parses control structure FOREACH.
      *
      * The template is:
-     * [foreach=var1.var2.var3]...[endforeach.var1]
+     * - [foreach=var1.var2.var3]...[endforeach.var1]
      *
      * @param  array $matches Matches for control structure "foreach"
      * @return string         Parsed string
@@ -69,7 +69,7 @@ class template {
                     if (!empty($var))
                          $tmp = str_replace($sigs[0], $sigs[4], $matches[4]);
                     else $tmp = str_replace($sigs[0], '', $matches[4]);
-                } else $tmp = $matches[4];
+                } else   $tmp = $matches[4];
                 # [foreach=var1.var2.var3]
                 #     {var3}
                 # [endforeach.var1]
@@ -106,7 +106,7 @@ class template {
                                      $tmpl .= str_replace($ifsigs[0], $ifsigs[4], $tmp);
                                 else $tmpl .= str_replace($ifsigs[0], '', $tmp);
                                 foreach ($values as $k => $value) {
-                                    $tmpl = str_replace('{'.$sigs[1][0].'['.$k.']}', $value, $tmpl);
+                                     $tmpl  = str_replace('{'.$sigs[1][0].'['.$k.']}', $value, $tmpl);
                                 }
                             }
                             $tpl = str_replace($sigs[0][0], $tmpl, $tpl);
@@ -151,7 +151,7 @@ class template {
                         } else $tpl = str_replace($sigs[0][0], $tmpl, $tpl);
                     }
                     # [each=var[index]]
-                    #     [if=var]...[endif]
+                    #     [if=var]...[endif.var]
                     # [endeach.var]
                     preg_match_all($this->patterns['if'], $tpl, $sigs);
                     if (!empty($sigs)) {
@@ -214,9 +214,9 @@ class template {
     /** Parses of a control structure FOR.
      *
      * The template is:
-     * [for=x.var]...[endfor]
+     * - [for=x.var]...[endfor]
      *
-     * @param  array  $matches Matches for control structure "each"
+     * @param  array  $matches Matches for control structure "for"
      * @return string          Parsed string
      */
     private function __for($matches) {
@@ -234,7 +234,7 @@ class template {
     /** Parses of a control structure IF ELSE.
      *
      * The template is:
-     * [ifelse=var]...[else]...[endelse]
+     * - [ifelse=var]...[else]...[endelse.var]
      *
      * @param  array  $matches Matches for control structure "if else"
      * @return string          Parsed string
@@ -251,11 +251,11 @@ class template {
     /** Parses of a control structure IF.
      *
      * The templates are:
-     * [if=var]...[endif.var]
-     * [if=var]
+     * - [if=var]...[endif.var]
+     * - [if=var]
      *      [if=var1]...[endif.var1]
-     * [endif.var]
-     * [if=var[index]]...[endif.var]
+     *   [endif.var]
+     * - [if=var[index]]...[endif.var]
      *
      * Array variable $matches contains:
      * - $matches[0] = part of template between control structures including them;
@@ -301,11 +301,11 @@ class template {
     /** Replaces constants and variables with their values.
      *
      * The templates are:
-     * {var}                     - constant or plain variable
-     * {var[index]}              - array of variables
-     * {var[index[x]][index[y]]} - array of variables
+     * - {var}                     - constant or plain variable
+     * - {var[index]}              - array of variables
+     * - {var[index[x]][index[y]]} - array of variables
      *
-     * @param  array  $matches Matches for control structure "if"
+     * @param  array  $matches Matches for control constants and variables
      * @return string          Parsed string
      */
     private function __value($matches) {
@@ -345,13 +345,13 @@ class template {
     /** Localization.
      *
      * The template is:
-     * [__var]
+     * [__string]
      *
      * Array variable $matches contains:
      * - $matches[0] = part of template between control structures including them;
      * - $matches[1] = part of template between control structures excluding them.
      *
-     * @param  array  $matches Matches for control structure "if"
+     * @param  array  $matches Matches for control structure "__"
      * @return string          Parsed string
      */
     private function __translate($matches) {

@@ -11,7 +11,7 @@
  * @package   phpapi
  */
 
-class methodDoc extends ExecutableDoc {
+class methodDoc extends executableDoc {
 
     /** The type of variable this method returns.
      * @var type

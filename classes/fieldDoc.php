@@ -11,7 +11,7 @@
  * @package   phpapi
  */
 
-class fieldDoc extends ProgramElementDoc {
+class fieldDoc extends programElementDoc {
 
     /** The type of the variable.
      * @var string

@@ -12,7 +12,7 @@
  * @abstract
  */
 
-class executableDoc extends ProgramElementDoc {
+class executableDoc extends programElementDoc {
 
     /** The parameters this function takes.
      * @var fieldDoc[]

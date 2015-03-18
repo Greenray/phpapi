@@ -3,7 +3,7 @@
 
 /** This generates the overview-frame.html file used for displaying the list
  * of package links in the upper-left frame in the frame-formatted default output.
- * 
+ *
  * @file      doclets/standard/packageIndexFrameWriter.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
@@ -12,13 +12,13 @@
  * @package   Standard
  */
 
-class packageIndexFrameWriter extends HTMLWriter {
+class packageIndexFrameWriter extends htmlWriter {
 
     /** Build the package frame index.
      * @param Doclet doclet
      */
     public function packageIndexFrameWriter(&$doclet) {
-        parent::HTMLWriter($doclet);
+        parent::htmlWriter($doclet);
 
         ob_start();
 
@@ -37,8 +37,8 @@ class packageIndexFrameWriter extends HTMLWriter {
         }
         echo '</ul>';
         echo '</body>';
-        $this->_output = ob_get_contents();
 
+        $this->_output = ob_get_contents();
         ob_end_clean();
 
         $this->_write('overview-frame.html', 'Overview', FALSE);

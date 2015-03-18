@@ -29,6 +29,7 @@ class type {
     public $_root = NULL;
 
     /** Constructor.
+     *
      * @param  string  $name The name of the variable type
      * @param  rootDoc $root The rootDoc object to tie this type too
      * @return void
@@ -57,6 +58,7 @@ class type {
     }
 
     /** Gets qualified name of this type.
+     * 
      * @return string Qualified naame of the type
      * @todo This method is still to be implemented
      */

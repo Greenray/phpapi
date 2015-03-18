@@ -10,7 +10,7 @@
  * @package   Tags
  */
 
-class paramTag extends Tag {
+class paramTag extends tag {
 
     /** The variable name of the parameter.
      * @var string

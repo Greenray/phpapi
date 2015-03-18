@@ -11,7 +11,7 @@
  * @package   Tags
  */
 
-class returnTag extends Tag {
+class returnTag extends tag {
 
     /** Constructor.
      * @param string     $text The contents of the tag

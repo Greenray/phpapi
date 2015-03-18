@@ -13,9 +13,10 @@ require_once 'seeTag.php';
  * @package   Tags
  */
 
-class throwsTag extends SeeTag {
+class throwsTag extends seeTag {
 
     /** Constructor.
+     *
      * @param  string  $text The contents of the tag
      * @param  array   $data Reference to doc comment data array
      * @param  rootDoc $root The root object
@@ -36,6 +37,7 @@ class throwsTag extends SeeTag {
     }
 
     /** Get value of this tag.
+     * 
      * @param Doclet doclet
      * @return string
      */

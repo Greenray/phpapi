@@ -40,7 +40,7 @@ p                       { margin-left: 10px }
 p.list                  { margin-left: 0px }
 p.signature,
 code.signature          { display: block; margin: 10px 5px }
-pre                     { font-size: 100% }
+pre                     { font-size: 80%; font-family: monospace }
 pre.tree                { margin: 10px 0 10px 100px }
 table                   { border-collapse: collapse; border-spacing: 0; margin: 1px 0; width: 100% }
 table.hid               { padding: 5px; width: 100% }

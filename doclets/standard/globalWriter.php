@@ -11,13 +11,14 @@
  * @package   Standard
  */
 
-class globalWriter extends HTMLWriter {
+class globalWriter extends htmlWriter {
 
     /** Build the function definitons.
      * @param Doclet doclet
      */
     public function globalWriter(&$doclet) {
-        parent::HTMLWriter($doclet);
+        parent::htmlWriter($doclet);
+
         $this->_id = 'definition';
         $rootDoc  =& $this->_doclet->rootDoc();
         $phpapi   =& $this->_doclet->phpapi();
@@ -27,10 +28,10 @@ class globalWriter extends HTMLWriter {
             $this->_sections[0] = ['title' => 'Overview',    'url' => 'overview-summary.html'];
             $this->_sections[1] = ['title' => 'Namespace',   'url' => $package->asPath().'/package-summary.html'];
             $this->_sections[2] = ['title' => 'Global', 'selected' => TRUE];
-            $this->_sections[4] = ['title' => 'Tree',        'url' => 'overview-tree.html'];
-            $this->_sections[6] = ['title' => 'Deprecated',  'url' => 'deprecated-list.html'];
-            $this->_sections[7] = ['title' => 'Todo',        'url' => 'todo-list.html'];
-            $this->_sections[8] = ['title' => 'Index',       'url' => 'index-all.html'];
+            $this->_sections[3] = ['title' => 'Tree',        'url' => 'overview-tree.html'];
+            $this->_sections[4] = ['title' => 'Deprecated',  'url' => 'deprecated-list.html'];
+            $this->_sections[5] = ['title' => 'Todo',        'url' => 'todo-list.html'];
+            $this->_sections[6] = ['title' => 'Index',       'url' => 'index-all.html'];
 
             $this->_depth = $package->depth() + 1;
 
@@ -40,7 +41,7 @@ class globalWriter extends HTMLWriter {
             $globals =& $package->globals();
             if ($globals) {
                 ksort($globals);
-                $output['global'] = $this->showObject($globals, FALSE);
+                $output['global']  = $this->showObject($globals, FALSE);
                 $output['globals'] = $this->showObject($globals);
             }
 

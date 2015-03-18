@@ -13,7 +13,7 @@
  * @package   phpapi
  */
 
-class rootDoc extends Doc {
+class rootDoc extends doc {
 
     /** Reference to the phpapi application object.
      * @var phpapi

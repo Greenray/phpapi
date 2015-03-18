@@ -12,16 +12,17 @@
  * @package   Standard
  */
 
-class packageWriter extends HTMLWriter {
+class packageWriter extends htmlWriter {
 
     /** Build the package summaries.
      * @param Doclet doclet
      */
     public function packageWriter(&$doclet) {
-        parent::HTMLWriter($doclet);
+        parent::htmlWriter($doclet);
 
-        $rootDoc =& $this->_doclet->rootDoc();
-        $phpapi  =& $this->_doclet->phpapi();
+        $this->_id = 'tree';
+        $rootDoc   =& $this->_doclet->rootDoc();
+        $phpapi    =& $this->_doclet->phpapi();
 
         $displayTree = $phpapi->getOption('tree');
 
@@ -29,12 +30,10 @@ class packageWriter extends HTMLWriter {
             $this->_sections[0] = ['title' => 'Overview',   'url' => 'overview-summary.html'];
             $this->_sections[1] = ['title' => 'Namespace'];
             $this->_sections[2] = ['title' => 'Class'];
-            $this->_sections[4] = ['title' => 'Tree',  'selected' => TRUE];
-            $this->_sections[6] = ['title' => 'Deprecated', 'url' => 'deprecated-list.html'];
-            $this->_sections[7] = ['title' => 'Todo',       'url' => 'todo-list.html'];
-            $this->_sections[8] = ['title' => 'Index',      'url' => 'index-all.html'];
-
-            $this->_id = 'tree';
+            $this->_sections[3] = ['title' => 'Tree',  'selected' => TRUE];
+            $this->_sections[4] = ['title' => 'Deprecated', 'url' => 'deprecated-list.html'];
+            $this->_sections[5] = ['title' => 'Todo',       'url' => 'todo-list.html'];
+            $this->_sections[6] = ['title' => 'Index',      'url' => 'index-all.html'];
 
             $tree = [];
             $classes =& $rootDoc->classes();
@@ -50,12 +49,13 @@ class packageWriter extends HTMLWriter {
             echo '<h1>Class Hierarchy</h1>';
             $this->_displayTree($tree);
             echo '<hr>';
-            $this->_output = ob_get_contents();
 
+            $this->_output = ob_get_contents();
             ob_end_clean();
 
             $this->_write('overview-tree.html', 'Overview', TRUE);
         }
+        
         $this->_id = 'package';
         $packages =& $rootDoc->packages();
         ksort($packages);
@@ -67,10 +67,10 @@ class packageWriter extends HTMLWriter {
             $this->_sections[1] = ['title' => 'Namespace', 'selected' => TRUE];
             $this->_sections[2] = ['title' => 'Class'];
             if ($displayTree)
-                $this->_sections[4] = ['title' => 'Tree',       'url' => $package->asPath().'/package-tree.html'];
-            $this->_sections[6] = ['title' => 'Deprecated',     'url' => 'deprecated-list.html'];
-            $this->_sections[7] = ['title' => 'Todo',           'url' => 'todo-list.html'];
-            $this->_sections[8] = ['title' => 'Index',          'url' => 'index-all.html'];
+                $this->_sections[3] = ['title' => 'Tree',       'url' => $package->asPath().DS.'package-tree.html'];
+            $this->_sections[4] = ['title' => 'Deprecated',     'url' => 'deprecated-list.html'];
+            $this->_sections[5] = ['title' => 'Todo',           'url' => 'todo-list.html'];
+            $this->_sections[6] = ['title' => 'Index',          'url' => 'index-all.html'];
 
             ob_start();
 
@@ -195,12 +195,12 @@ class packageWriter extends HTMLWriter {
             if ($displayTree) {
 
                 $this->_sections[0] = ['title' => 'Overview',   'url' => 'overview-summary.html'];
-                $this->_sections[1] = ['title' => 'Namespace',  'url' => $package->asPath().'/package-summary.html', 'relative' => TRUE];
+                $this->_sections[1] = ['title' => 'Namespace',  'url' => $package->asPath().DS.'package-summary.html', 'relative' => TRUE];
                 $this->_sections[2] = ['title' => 'Class'];
-                $this->_sections[4] = ['title' => 'Tree',       'url' => $package->asPath().'/package-tree.html', 'selected' => TRUE, 'relative' => TRUE];
-                $this->_sections[6] = ['title' => 'Deprecated', 'url' => 'deprecated-list.html'];
-                $this->_sections[7] = ['title' => 'Todo',       'url' => 'todo-list.html'];
-                $this->_sections[8] = ['title' => 'Index',      'url' => 'index-all.html'];
+                $this->_sections[3] = ['title' => 'Tree',       'url' => $package->asPath().DS.'package-tree.html', 'selected' => TRUE, 'relative' => TRUE];
+                $this->_sections[4] = ['title' => 'Deprecated', 'url' => 'deprecated-list.html'];
+                $this->_sections[5] = ['title' => 'Todo',       'url' => 'todo-list.html'];
+                $this->_sections[6] = ['title' => 'Index',      'url' => 'index-all.html'];
 
                 $this->_id = 'tree';
 

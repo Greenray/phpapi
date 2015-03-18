@@ -11,7 +11,7 @@
  * @package   Tags
  */
 
-class inheritDocTag extends Tag {
+class inheritDocTag extends tag {
 
     /** Constructor.
      * @param string text The contents of the tag

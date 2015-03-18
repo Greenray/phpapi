@@ -14,7 +14,7 @@
  * @abstract
  */
 
-class programElementDoc extends Doc {
+class programElementDoc extends doc {
 
     /** Reference to the elements parent.
      * @var doc

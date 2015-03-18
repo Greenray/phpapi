@@ -3,6 +3,7 @@
 
 /** This generates the footer-frame.html file.
  * of the generated documentation.
+ *
  * @file      doclets/standard/footerFrameWriter.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
@@ -11,19 +12,19 @@
  * @package   Standard
  */
 
-class footerFrameWriter extends HTMLWriter {
+class footerFrameWriter extends htmlWriter {
 
     /** Build the header frame index.
      * @param Doclet doclet
      */
     public function footerFrameWriter(&$doclet) {
-        parent::HTMLWriter($doclet);
+        parent::htmlWriter($doclet);
 
         ob_start();
 
         echo '<div id="footer"'.GENERATOR.' '.COPYRIGHT.'</div>';
-        $this->_output = ob_get_contents();
 
+        $this->_output = ob_get_contents();
         ob_end_clean();
 
         $this->_write('footer-frame.html', 'Footer', FALSE);

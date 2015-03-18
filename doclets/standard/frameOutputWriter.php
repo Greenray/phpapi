@@ -12,15 +12,16 @@
  * @package   Standard
  */
 
-class frameOutputWriter extends HTMLWriter {
+class frameOutputWriter extends htmlWriter {
 
     /** Build the HTML frameset.
      * @param Doclet doclet
      */
     public function frameOutputWriter(&$doclet) {
-        parent::HTMLWriter($doclet);
+        parent::htmlWriter($doclet);
 
         ob_start();
+
         echo
 '<frameset rows="7%,88%,5%" framespacing="0">
     <frameset>
@@ -44,6 +45,7 @@ class frameOutputWriter extends HTMLWriter {
             Link to <a href="overview-summary.html">Non-frame version</a>.</p>
         </body>
     </noframes>';
+        
         $this->_output = ob_get_contents();
         ob_end_clean();
 

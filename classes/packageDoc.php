@@ -13,7 +13,7 @@
  * @package   phpapi
  */
 
-class packageDoc extends Doc {
+class packageDoc extends doc {
 
     /** The classes in this package.
      * @var classDoc[]

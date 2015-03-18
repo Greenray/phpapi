@@ -3,6 +3,7 @@
 
 /** This generates the header-frame.html file used for displaying the main header
  * of the generated documentation.
+ *
  * @file      doclets/standard/headerFrameWriter.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
@@ -11,13 +12,13 @@
  * @package   Standard
  */
 
-class headerFrameWriter extends HTMLWriter {
+class headerFrameWriter extends htmlWriter {
 
     /** Build the header frame index.
      * @param Doclet doclet
      */
     public function headerFrameWriter(&$doclet) {
-        parent::HTMLWriter($doclet);
+        parent::htmlWriter($doclet);
 
         ob_start();
 

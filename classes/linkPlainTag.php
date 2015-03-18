@@ -13,7 +13,7 @@ require_once 'seeTag.php';
  * @package   Tags
  */
 
-class linkPlainTag extends SeeTag {
+class linkPlainTag extends seeTag {
 
     /** Constructor.
      * @param string text The contents of the tag
