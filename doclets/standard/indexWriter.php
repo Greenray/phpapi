@@ -11,23 +11,23 @@
  * @package   Standard
  */
 
-class indexWriter extends HTMLWriter {
+class indexWriter extends htmlWriter {
 
     /** Build the element index.
      * @param Doclet doclet
      */
     public function indexWriter(&$doclet) {
-        parent::HTMLWriter($doclet);
-        #$this->_id = 'definition';
+        parent::htmlWriter($doclet);
+
         $rootDoc =& $this->_doclet->rootDoc();
 
         $this->_sections[0] = ['title' => 'Overview',   'url' => 'overview-summary.html'];
         $this->_sections[1] = ['title' => 'Namespace'];
         $this->_sections[2] = ['title' => 'Class'];
-        $this->_sections[4] = ['title' => 'Tree',       'url' => 'overview-tree.html'];
-        $this->_sections[6] = ['title' => 'Deprecated', 'url' => 'deprecated-list.html'];
-        $this->_sections[7] = ['title' => 'Todo',       'url' => 'todo-list.html'];
-        $this->_sections[8] = ['title' => 'Index', 'selected' => TRUE];
+        $this->_sections[3] = ['title' => 'Tree',       'url' => 'overview-tree.html'];
+        $this->_sections[4] = ['title' => 'Deprecated', 'url' => 'deprecated-list.html'];
+        $this->_sections[5] = ['title' => 'Todo',       'url' => 'todo-list.html'];
+        $this->_sections[6] = ['title' => 'Index', 'selected' => TRUE];
 
         $classes =& $rootDoc->classes();
         if ($classes == NULL) $classes = [];
@@ -79,13 +79,13 @@ class indexWriter extends HTMLWriter {
 
                     case 'classDoc':
                         if ($element->isOrdinaryClass()) {
-                            echo '<tr><td class="w_200"><a href="'.$element->asPath(), '">'.$element->name().'()</a></td><td class="w_300">Class in '.$in.'</td>';
+                            echo '<tr><td class="w_200"><a href="'.$element->asPath(), '">'.$element->name().'</a></td><td class="w_300">Class in '.$in.'</td>';
                         } elseif ($element->isInterface()) {
-                            echo '<tr><td class="w_200"><a href="'.$element->asPath(), '">'.$element->name().'()</a></td><td class="w_300">Interface in '.$in.'</td>';
+                            echo '<tr><td class="w_200"><a href="'.$element->asPath(), '">'.$element->name().'</a></td><td class="w_300">Interface in '.$in.'</td>';
                         } elseif ($element->isTrait()) {
-                            echo '<tr><td class="w_200"><a href="'.$element->asPath(), '">'.$element->name().'()</a></td><td class="w_300">Trait in '.$in.'</td>';
+                            echo '<tr><td class="w_200"><a href="'.$element->asPath(), '">'.$element->name().'</a></td><td class="w_300">Trait in '.$in.'</td>';
                         } elseif ($element->isException()) {
-                            echo '<tr><td class="w_200"><a href="'.$element->asPath(), '">'.$element->name().'()</a></td><td class="w_300">Exception in '.$in.'</td>';
+                            echo '<tr><td class="w_200"><a href="'.$element->asPath(), '">'.$element->name().'</a></td><td class="w_300">Exception in '.$in.'</td>';
                         }
                         break;
 
@@ -99,7 +99,7 @@ class indexWriter extends HTMLWriter {
 
                     case 'fieldDoc':
                         if ($element->isGlobal()) {
-                            echo '<tr><td class="w_200"><a href="'.$element->asPath(), '">'.$element->name(), '()</a></td><td class="w_300">Global in '.$in.'</td>';
+                            echo '<tr><td class="w_200"><a href="'.$element->asPath(), '">'.$element->name(), '</a></td><td class="w_300">Global in '.$in.'</td>';
                         }
                         break;
                 }
@@ -114,8 +114,8 @@ class indexWriter extends HTMLWriter {
             }
         }
         echo '</table>';
-        $this->_output = ob_get_contents();
 
+        $this->_output = ob_get_contents();
         ob_end_clean();
 
         $this->_write('index-all.html', 'Index', TRUE);

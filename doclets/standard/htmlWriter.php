@@ -47,6 +47,7 @@ class htmlWriter {
 
     /** Builds the HTML header.
      * Includes doctype definition, <html> and <head> sections, meta data and window title.
+     *
      * @param  string $title HTML page title
      * @return string        YNML page header
      */
@@ -77,6 +78,7 @@ class htmlWriter {
 
     /** Builds the HTML shell header.
      * Includes beginning of the <body> section, and the page header.
+     *
      * @param  string $path The path to write the file to
      * @return string       Menu for page header
      */
@@ -89,6 +91,7 @@ class htmlWriter {
 
     /** Builds the HTML shell footer.
      * Includes the end of the <body> section, and page footer.
+     *
      * @param  string $path The path to write the file to
      * @return string       Menu for page footer
      */
@@ -101,6 +104,7 @@ class htmlWriter {
     }
 
     /** Builds the navigation bar.
+     *
      * @param  string $path The path to write the file to
      * @return string       Navigation for documentation
      */
@@ -148,6 +152,7 @@ class htmlWriter {
     }
 
     /** Location of the source file.
+     *
      * @param  object $doc Object of the current source file
      * @return string      Link to the line of the source file
      */
@@ -156,6 +161,7 @@ class htmlWriter {
     }
 
     /** Writes the HTML page to disk using the given path.
+     *
      * @param  string  $path  The path to write the file to
      * @param  string  $title The title for this page
      * @param  boolean $shell Include the page shell in the output
@@ -200,6 +206,7 @@ class htmlWriter {
     }
 
     /** Formats tags for output.
+     *
      * @param Tag[]   $tags The text tag to process
      * @return string       The string representation of the elements doc tags
      */
@@ -257,6 +264,7 @@ class htmlWriter {
     }
 
     /** Converts inline tags into a string for outputting.
+     *
      * @param  Tag     $tag   The text tag to process
      * @param  boolean $first Process first line of tag only
      * @return string         The string representation of the elements doc tags
@@ -279,6 +287,7 @@ class htmlWriter {
     }
 
     /** Preparation of the object for html template.
+     *
      * @param  object $object Object (fields, methods, constants, variables...)
      * @return array          The result
      */
@@ -286,11 +295,11 @@ class htmlWriter {
         $string = ["#[\"\'](.*?)[\"\']#is" => '<span class="red">\'\\1\'</span>'];
         $output = [];
         foreach ($object as $key => $element) {
+            $output[$key]['name']      = $element->name();
             $output[$key]['modifiers'] = $element->modifiers($modifiers);
 
             if     (method_exists($element, 'typeAsString'))       $output[$key]['type'] = $element->typeAsString();
             elseif (method_exists($element, 'returnTypeAsString')) $output[$key]['type'] = $element->returnTypeAsString();
-            $output[$key]['name'] = $element->name();
 
             if (method_exists($element, 'signature')) $output[$key]['signature'] = $element->signature();
             if (method_exists($element, 'value') && !is_null($element->value())) {
@@ -305,13 +314,14 @@ class htmlWriter {
                 else $output[$key]['description'] = $this->_processInlineTags($text);
             } else   $output[$key]['description'] = __('Описания нет');
 
-            if ($modifiers && method_exists($this, '_processTags')) $output[$key]['tags'] = $this->_processTags($element->tags());
-            if (method_exists($this, 'sourceLocation'))             $output[$key]['location'] = $this->sourceLocation($element);
+            if ($modifiers && method_exists($this, '_processTags')) $output[$key]['tags']     = $this->_processTags($element->tags());
+            if (method_exists($this, '_sourceLocation'))            $output[$key]['location'] = $this->_sourceLocation($element);
         }
         return $output;
     }
 
     /** Preparation of a constant or variable for output in html template.
+     *
      * @param  mixed  $value Value of a constant or variable
      * @return string        he result
      */
