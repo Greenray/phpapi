@@ -1,14 +1,13 @@
 <?php
 # phpapi: The PHP Documentation Creator
 
-/** This generates the package-summary.html files that list the interfaces and
- * classes for a given package.
+/** This generates the list of interfaces and classes for a given package.
  *
  * @file      doclets/standard/packageWriter.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * @package   Standard
  */
 
@@ -31,8 +30,8 @@ class packageWriter extends htmlWriter {
             $this->_sections[1] = ['title' => 'Namespace'];
             $this->_sections[2] = ['title' => 'Class'];
             $this->_sections[3] = ['title' => 'Tree',  'selected' => TRUE];
-            $this->_sections[4] = ['title' => 'Deprecated', 'url' => 'deprecated-list.html'];
-            $this->_sections[5] = ['title' => 'Todo',       'url' => 'todo-list.html'];
+            $this->_sections[4] = ['title' => 'Deprecated', 'url' => 'deprecated.html'];
+            $this->_sections[5] = ['title' => 'Todo',       'url' => 'todo.html'];
             $this->_sections[6] = ['title' => 'Index',      'url' => 'index-all.html'];
 
             $tree = [];
@@ -55,7 +54,7 @@ class packageWriter extends htmlWriter {
 
             $this->_write('overview-tree.html', 'Overview', TRUE);
         }
-        
+
         $this->_id = 'package';
         $packages =& $rootDoc->packages();
         ksort($packages);
@@ -68,8 +67,8 @@ class packageWriter extends htmlWriter {
             $this->_sections[2] = ['title' => 'Class'];
             if ($displayTree)
                 $this->_sections[3] = ['title' => 'Tree',       'url' => $package->asPath().DS.'package-tree.html'];
-            $this->_sections[4] = ['title' => 'Deprecated',     'url' => 'deprecated-list.html'];
-            $this->_sections[5] = ['title' => 'Todo',           'url' => 'todo-list.html'];
+            $this->_sections[4] = ['title' => 'Deprecated',     'url' => 'deprecated.html'];
+            $this->_sections[5] = ['title' => 'Todo',           'url' => 'todo.html'];
             $this->_sections[6] = ['title' => 'Index',          'url' => 'index-all.html'];
 
             ob_start();
@@ -198,8 +197,8 @@ class packageWriter extends htmlWriter {
                 $this->_sections[1] = ['title' => 'Namespace',  'url' => $package->asPath().DS.'package-summary.html', 'relative' => TRUE];
                 $this->_sections[2] = ['title' => 'Class'];
                 $this->_sections[3] = ['title' => 'Tree',       'url' => $package->asPath().DS.'package-tree.html', 'selected' => TRUE, 'relative' => TRUE];
-                $this->_sections[4] = ['title' => 'Deprecated', 'url' => 'deprecated-list.html'];
-                $this->_sections[5] = ['title' => 'Todo',       'url' => 'todo-list.html'];
+                $this->_sections[4] = ['title' => 'Deprecated', 'url' => 'deprecated.html'];
+                $this->_sections[5] = ['title' => 'Todo',       'url' => 'todo.html'];
                 $this->_sections[6] = ['title' => 'Index',      'url' => 'index-all.html'];
 
                 $this->_id = 'tree';

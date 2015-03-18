@@ -7,7 +7,7 @@
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * @package   Standard
  */
 
@@ -26,11 +26,11 @@ class functionWriter extends htmlWriter {
         ksort($packages);
         foreach ($packages as $packageName => $package) {
             $this->_sections[0] = ['title' => 'Overview',      'url' => 'overview-summary.html'];
-            $this->_sections[1] = ['title' => 'Namespace',     'url' => $package->asPath().'/package-summary.html'];
+            $this->_sections[1] = ['title' => 'Namespace',     'url' => $package->asPath().DS.'package-summary.html'];
             $this->_sections[2] = ['title' => 'Function', 'selected' => TRUE];
-            $this->_sections[4] = ['title' => 'Tree',          'url' => $package->asPath().'/package-tree.html'];
-            $this->_sections[6] = ['title' => 'Deprecated',    'url' => 'deprecated-list.html'];
-            $this->_sections[7] = ['title' => 'Todo',          'url' => 'todo-list.html'];
+            $this->_sections[4] = ['title' => 'Tree',          'url' => $package->asPath().DS.'package-tree.html'];
+            $this->_sections[6] = ['title' => 'Deprecated',    'url' => 'deprecated.html'];
+            $this->_sections[7] = ['title' => 'Todo',          'url' => 'todo.html'];
             $this->_sections[8] = ['title' => 'Index',         'url' => 'index-all.html'];
 
             $this->_depth = $package->depth() + 1;

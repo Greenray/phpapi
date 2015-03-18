@@ -9,7 +9,7 @@
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * @package   Standard
  */
 
@@ -23,7 +23,7 @@ class packageFrameWriter extends htmlWriter {
 
         $rootDoc       =& $this->_doclet->rootDoc();
         $this->_output =& $this->_allItems($rootDoc);
-        $this->_write('allitems-frame.html', 'All Items', FALSE);
+        $this->_write('allitems.html', 'All Items', FALSE);
 
         $packages =& $rootDoc->packages();
         ksort($packages);

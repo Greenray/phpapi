@@ -57,7 +57,7 @@ class htmlWriter {
              <html lang="en">
              <head>
              <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-             <meta name="generator" content="phpapi '.VERSION.' (https://github.com/Greenray/phpapi/)">
+             <meta name="generator" content="phpAPI '.VERSION.' (https://github.com/Greenray/phpAPI/)">
              <link rel="stylesheet" type="text/css" href="'.str_repeat('../', $this->_depth).'stylesheet.css">
              <link rel="start" href="'.str_repeat('../', $this->_depth).'overview-summary.html">
              <title>';
@@ -98,7 +98,6 @@ class htmlWriter {
     public function _shellFooter($path) {
         $output = $this->_nav($path);
         $output .= '<hr>
-                    <div class="footer center">'.$this->_doclet->bottom().'</div>
                  </body>';
         return $output;
     }

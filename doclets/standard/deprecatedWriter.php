@@ -1,13 +1,13 @@
 <?php
 # phpapi: The PHP Documentation Creator
 
-/** Generates the deprecated elements index.
+/** Generates the index of deprecated elements.
  *
  * @file      doclets/standard/deprecatedWriter.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * @package   Standard
  */
 
@@ -26,7 +26,7 @@ class deprecatedWriter extends htmlWriter {
         $this->_sections[2] = ['title' => 'Class'];
         $this->_sections[3] = ['title' => 'Tree',            'url' => 'overview-tree.html'];
         $this->_sections[4] = ['title' => 'Deprecated', 'selected' => TRUE];
-        $this->_sections[5] = ['title' => 'Todo',            'url' => 'todo-list.html'];
+        $this->_sections[5] = ['title' => 'Todo',            'url' => 'todo.html'];
         $this->_sections[6] = ['title' => 'Index',           'url' => 'index-all.html'];
 
         $deprecatedClasses = [];
@@ -154,10 +154,10 @@ class deprecatedWriter extends htmlWriter {
             }
             echo '</table>';
         }
-        
+
         $this->_output = ob_get_contents();
         ob_end_clean();
 
-        $this->_write('deprecated-list.html', 'Deprecated', TRUE);
+        $this->_write('deprecated.html', 'Deprecated', TRUE);
     }
 }

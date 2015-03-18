@@ -4,11 +4,9 @@
 # load classes
 require 'htmlWriter.php';
 require 'frameOutputWriter.php';
-require 'headerFrameWriter.php';
 require 'packageIndexWriter.php';
 require 'packageIndexFrameWriter.php';
 require 'packageFrameWriter.php';
-require 'footerFrameWriter.php';
 require 'packageWriter.php';
 require 'classWriter.php';
 require 'functionWriter.php';
@@ -24,7 +22,7 @@ require 'todoWriter.php';
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * @package   Standard
  */
 
@@ -38,7 +36,7 @@ class standard {
     /** The directory to place the generated files.
      * @var string
      */
-    public $_destination;
+    public $_destination = 'api';
 
     /** Specifies the title to be placed in the HTML <title> tag.
      * @var string
@@ -62,12 +60,6 @@ class standard {
      */
     public $_footer = 'Unknown';
 
-    /** Specifies the text to be placed at the bottom of each output file.
-     * The text will be placed at the bottom of the page, below the lower navigation bar.
-     * @var string
-     */
-    public $_bottom = '';
-
     /** Create a class tree?
      * @var string
      */
@@ -85,9 +77,9 @@ class standard {
 
         $this->formatter = $formatter;
 
-        if (isset($options['destination']))    $this->_destination = $phpapi->makeAbsolutePath($options['destination'], $phpapi->sourcePath());
-        elseif (isset($options['output_dir'])) $this->_destination = $phpapi->makeAbsolutePath($options['output_dir'], $phpapi->sourcePath());
-        else                                   $this->_destination = $phpapi->makeAbsolutePath('apidocs', $phpapi->sourcePath());
+        if (isset($options['destination']))
+             $this->_destination = $phpapi->makeAbsolutePath($options['destination'], $phpapi->sourcePath());
+        else $this->_destination = $phpapi->makeAbsolutePath($this->_destination,     $phpapi->sourcePath());
 
         $this->_destination = $phpapi->fixPath($this->_destination);
 
@@ -101,11 +93,10 @@ class standard {
         if (isset($options['doctitle']))    $this->_docTitle    = $options['doctitle'];
         if (isset($options['header']))      $this->_header      = $options['header'];
         if (isset($options['footer']))      $this->_footer      = $options['footer'];
-        if (isset($options['bottom']))      $this->_bottom      = $options['bottom'];
         if (isset($options['tree']))        $this->_tree        = $options['tree'];
 
         $frameOutputWriter =& new frameOutputWriter($this); # Main frame
-        $headerFrameWriter =& new headerFrameWriter($this); # Header frame
+
         echo '<body>';
         echo '<div id="header"><h1>'.$this->docTitle().'</h1></div>';
         echo '</body>';
@@ -114,7 +105,6 @@ class standard {
         $packageIndexFrameWriter =& new packageIndexFrameWriter($this); # Package overview frame
         $packageWriter           =& new packageWriter($this);           # Package summaries
         $packageFrameWriter      =& new packageFrameWriter($this);      # Package frame
-        $footerFrameWriter       =& new footerFrameWriter($this);       # Footer frame
         $classWriter             =& new classWriter($this);             # Classes
         $functionWriter          =& new functionWriter($this);          # Global functions
         $globalWriter            =& new globalWriter($this);            # Global variables
@@ -124,7 +114,6 @@ class standard {
 
         $phpapi->message('Copying stylesheet');
         copy($phpapi->docletPath().'stylesheet.css', $this->_destination.'stylesheet.css');
-        $this->_bottom = GENERATOR;
     }
 
     /** Return a reference to the root doc.
@@ -176,14 +165,6 @@ class standard {
      */
     public function getFooter() {
         return $this->_footer;
-    }
-
-    /** Return the text to be placed at the bottom of each output file.
-     * The text will be placed at the bottom of the page, below the lower navigation bar.
-     * @return str
-     */
-    public function bottom() {
-        return $this->_bottom;
     }
 
     /** Return whether to create a class tree or not.

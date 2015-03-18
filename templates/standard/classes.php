@@ -129,7 +129,6 @@
         {description}
         {tags}
     </div>
-    <hr>
 [endif.constructors]
 [if=methods]
     <h2 id="details_methods">[__Методы: детали]</h2>

@@ -8,7 +8,7 @@
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * @package   Standard
  */
 
@@ -25,7 +25,7 @@ class packageIndexFrameWriter extends htmlWriter {
         echo '<body id="frame">';
         echo '<h1>'.$this->_doclet->getHeader().'</h1>';
         echo '<ul>';
-        echo '<li><a href="allitems-frame.html" target="index">All Items</a></li>';
+        echo '<li><a href="allitems.html" target="index">All Items</a></li>';
         echo '</ul>';
         echo '<h1>Namespaces</h1>';
         $rootDoc =& $this->_doclet->rootDoc();

@@ -1,13 +1,13 @@
 <?php
 # phpapi: The PHP Documentation Creator
 
-/** This generates the todo elements index.
+/** This generates the todo list.
  *
  * @file      doclets/standard/todoWriter.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/
+ * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * @package   Standard
  */
 
@@ -18,7 +18,7 @@ class todoWriter extends htmlWriter {
      */
     public function todoWriter(&$doclet) {
         parent::htmlWriter($doclet);
-        
+
         $rootDoc =& $this->_doclet->rootDoc();
 
         $this->_sections[0] = ['title' => 'Overview',    'url' => 'overview-summary.html'];
@@ -173,6 +173,6 @@ class todoWriter extends htmlWriter {
         $this->_output = ob_get_contents();
         ob_end_clean();
 
-        $this->_write('todo-list.html', 'Todo', TRUE);
+        $this->_write('todo.html', 'Todo', TRUE);
     }
 }
