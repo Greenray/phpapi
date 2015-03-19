@@ -68,7 +68,7 @@ class seeTag extends tag {
     }
 
     /** Turn the objects link text into a link to the element it refers to.
-     * @return ProgramElementDoc
+     * @return elementDoc
      */
     function &_resolveLink() {
         $phpapi = $this->_root->phpapi();

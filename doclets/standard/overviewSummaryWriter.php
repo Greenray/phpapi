@@ -3,7 +3,7 @@
 
 /** This class generates the list of all parsed packages.
  *
- * @file      doclets/standard/packageIndexWriter.php
+ * @file      doclets/standard/overviewSummaryWriter.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
@@ -11,12 +11,12 @@
  * @package   Standard
  */
 
-class packageIndexWriter extends htmlWriter {
+class overviewSummaryWriter extends htmlWriter {
 
     /** Build the package index.
      * @param Doclet doclet
      */
-    public function packageIndexWriter(&$doclet) {
+    public function overviewSummaryWriter(&$doclet) {
         parent::htmlWriter($doclet);
 
         $phpapi =& $this->_doclet->phpapi();
@@ -24,9 +24,7 @@ class packageIndexWriter extends htmlWriter {
         $this->_sections[0] = ['title' => 'Overview', 'selected' => TRUE];
         $this->_sections[1] = ['title' => 'Namespace'];
         $this->_sections[2] = ['title' => 'Class'];
-        if ($phpapi->getOption('tree')) {
-            $this->_sections[3] = ['title' => 'Tree',   'url' => 'overview-tree.html'];
-        }
+        if ($phpapi->getOption('tree')) $this->_sections[3] = ['title' => 'Tree', 'url' => 'tree.html'];
         $this->_sections[4] = ['title' => 'Deprecated', 'url' => 'deprecated.html'];
         $this->_sections[5] = ['title' => 'Todo',       'url' => 'todo.html'];
         $this->_sections[6] = ['title' => 'Index',      'url' => 'index-all.html'];
@@ -50,7 +48,7 @@ class packageIndexWriter extends htmlWriter {
         $packs = [];
         foreach ($packages as $name => $package) {
             $textTag =& $package->tags('@text');
-            $packs[$name]['path'] = $package->asPath();
+            $packs[$name]['path'] = $package->asPath().DS;
             $packs[$name]['name'] = $package->name();
             $packs[$name]['tags'] = strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
         }
@@ -61,7 +59,7 @@ class packageIndexWriter extends htmlWriter {
             if ($description) $output['overview'] = $description;
         }
 
-        $tpl = new template($phpapi->getOption('doclet'), 'package-index');
+        $tpl = new template($phpapi->getOption('doclet'), 'overview-summary');
         echo $tpl->parse($output);
 
         $this->_output = ob_get_contents();

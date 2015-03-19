@@ -28,7 +28,7 @@ class functionWriter extends htmlWriter {
             $this->_sections[0] = ['title' => 'Overview',      'url' => 'overview-summary.html'];
             $this->_sections[1] = ['title' => 'Namespace',     'url' => $package->asPath().DS.'package-summary.html'];
             $this->_sections[2] = ['title' => 'Function', 'selected' => TRUE];
-            $this->_sections[4] = ['title' => 'Tree',          'url' => $package->asPath().DS.'package-tree.html'];
+            $this->_sections[4] = ['title' => $package->name().'\Tree',          'url' => $package->asPath().DS.'package-tree.html'];
             $this->_sections[6] = ['title' => 'Deprecated',    'url' => 'deprecated.html'];
             $this->_sections[7] = ['title' => 'Todo',          'url' => 'todo.html'];
             $this->_sections[8] = ['title' => 'Index',         'url' => 'index-all.html'];

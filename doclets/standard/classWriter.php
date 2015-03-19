@@ -14,7 +14,7 @@
 class classWriter extends htmlWriter {
 
     /** Build the class definitons.
-     * @param Doclet doclet
+     * @param Doclet doclet Link to documentation generator
      */
     public function classWriter(&$doclet) {
         parent::htmlWriter($doclet);
@@ -28,8 +28,7 @@ class classWriter extends htmlWriter {
             $this->_sections[0] = ['title' => 'Overview',   'url' => 'overview-summary.html'];
             $this->_sections[1] = ['title' => 'Namespace',  'url' => $package->asPath().DS.'package-summary.html'];
             $this->_sections[2] = ['title' => 'Class', 'selected' => TRUE];
-            if ($phpapi->getOption('tree'))
-                $this->_sections[3] = ['title' => 'Tree',   'url' => $package->asPath().DS.'package-tree.html'];
+            if ($phpapi->getOption('tree')) $this->_sections[3] = ['title' => $package->name().'\Tree', 'url' => $package->asPath().DS.'package-tree.html'];
             $this->_sections[4] = ['title' => 'Deprecated', 'url' => 'deprecated.html'];
             $this->_sections[5] = ['title' => 'Todo',       'url' => 'todo.html'];
             $this->_sections[6] = ['title' => 'Index',      'url' => 'index-all.html'];
@@ -44,12 +43,12 @@ class classWriter extends htmlWriter {
                     ob_start();
 
                     $output = [];
-                    $output['qualified'] = $class->qualifiedName();
-
-                    $this->_sourceLocation($class);
+                    $output['qualifiedName'] = $class->qualifiedName();
+                    $output['location']  = $this->_sourceLocation($class);
                     if ($class->isInterface())
-                         $output['qualifiedName'] = 'Interface '.$class->name();
-                    else $output['qualifiedName'] = 'Class '.$class->name();
+                         $output['qualified'] = 'Interface '.$class->name();
+                    else $output['qualified'] = 'Class '.$class->name();
+
                     $result = $this->_buildTree($rootDoc, $classes[$name]);
                     $output['tree'] = $result[0];
 
@@ -107,7 +106,7 @@ class classWriter extends htmlWriter {
                          $output['textag'] = $this->_processInlineTags($textTag);
                     else $output['textag'] = _('Описания нет');
 
-                    $output['tags'] = $this->_processTags($class->tags());
+                    $output['main_tags'] = $this->_processTags($class->tags());
 
                     $constants =& $class->constants();
                     ksort($constants);
@@ -177,17 +176,17 @@ class classWriter extends htmlWriter {
                     $this->_output = ob_get_contents();
                     ob_end_clean();
 
-                    $this->_write($package->asPath().'/'.strtolower($class->name()).'.html', $class->name(), TRUE);
+                    $this->_write($package->asPath().DS.strtolower($class->name()).'.html', $class->name(), TRUE);
                 }
             }
         }
     }
 
     /** Build the class hierarchy tree which is placed at the top of the page.
-     * @param rootDoc rootDoc The root doc
-     * @param classDoc class Class to generate tree for
-     * @param integer depth Depth of recursion
-     * @return mixed[]
+     * @param  rootDoc  $rootDoc Link to root doc
+     * @param  classDoc $class   Link to class to generate tree for
+     * @param  integer  $depth   Depth of recursion
+     * @return array             Output string and depth of recursion
      */
     public function _buildTree(&$rootDoc, &$class, $depth = NULL) {
         if ($depth === NULL) {
@@ -224,11 +223,13 @@ class classWriter extends htmlWriter {
 
     /** Display the inherited fields of an element.
      * This method calls itself recursively if the element has a parent class.
-     * @param ProgramElementDoc element
-     * @param rootDoc rootDoc
-     * @param packageDoc package
+     * @param  elementDoc $element Link to class to generate tree for
+     * @param  rootDoc    $rootDoc Link to root document
+     * @param  packageDoc $package Link to current package
+     * @param  string     $output  Link to output array
+     * @return string              Output data about inherit fields
      */
-    public function inheritFields(&$element, &$rootDoc, &$package, &$output, $i) {
+    public function inheritFields(&$element, &$rootDoc, &$package, &$output) {
         $fields =& $element->fields();
         if ($fields) {
             ksort($fields);
@@ -246,8 +247,7 @@ class classWriter extends htmlWriter {
             if ($element->superclass()) {
                 $superclass =& $rootDoc->classNamed($element->superclass());
                 if ($superclass) {
-                    $i++;
-                    $this->inheritFields($superclass, $rootDoc, $package, $output, $i);
+                    $this->inheritFields($superclass, $rootDoc, $package, $output);
                 }
             }
         }
@@ -255,9 +255,12 @@ class classWriter extends htmlWriter {
 
     /** Display the inherited methods of an element.
      * This method calls itself recursively if the element has a parent class.
-     * @param ProgramElementDoc element
-     * @param rootDoc rootDoc
-     * @param packageDoc package
+     * @param  elementDoc $element Link to class to generate tree for
+     * @param  rootDoc    $rootDoc Link to root document
+     * @param  packageDoc $package Link to current package
+     * @param  string     $output  Link to output array
+     * @param  integer    $i       Data index
+     * @return string              Output data about inherit methods
      */
     public function inheritMethods(&$element, &$rootDoc, &$package, &$output, $i) {
         $methods =& $element->methods();

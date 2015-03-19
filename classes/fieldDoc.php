@@ -11,7 +11,7 @@
  * @package   phpapi
  */
 
-class fieldDoc extends programElementDoc {
+class fieldDoc extends elementDoc {
 
     /** The type of the variable.
      * @var string
@@ -24,7 +24,6 @@ class fieldDoc extends programElementDoc {
     public $_value = NULL;
 
     /** Constructor.
-     *
      * @param string             $name       Name of this element
      * @param classDoc|methodDoc $parent     The parent of this element
      * @param rootDoc            $root       The root element
@@ -73,7 +72,6 @@ class fieldDoc extends programElementDoc {
 
     /** Format a field type for outputting.
      * Recognised types are turned into HTML anchor tags to the documentation page for the class defining them.
-     *
      * @return string The string representation of the field type
      */
     public function typeAsString() {

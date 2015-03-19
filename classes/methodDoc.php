@@ -24,7 +24,6 @@ class methodDoc extends executableDoc {
     public $_abstract = FALSE;
 
     /** Constructor.
-     *
      * @param string name Name of this element
      * @param classDoc|methodDoc parent The parent of this element
      * @param rootDoc root The root element
@@ -58,7 +57,6 @@ class methodDoc extends executableDoc {
 
     /** Format a return type for outputting.
      * Recognised types are turned into HTML anchor tags to the documentation page for the class defining them.
-     *
      * @return string The string representation of the return type
      */
     public function returnTypeAsString() {

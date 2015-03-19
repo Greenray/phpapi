@@ -1,10 +1,10 @@
 <?php
 # phpapi: The PHP Documentation Creator
 
-/** This generates the overview-frame.html file used for displaying the list
+/** This generates the package-frame.html file used for displaying the list
  * of package links in the upper-left frame in the frame-formatted default output.
  *
- * @file      doclets/standard/packageIndexFrameWriter.php
+ * @file      doclets/standard/overviewFrameWriter.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
@@ -12,12 +12,12 @@
  * @package   Standard
  */
 
-class packageIndexFrameWriter extends htmlWriter {
+class overviewFrameWriter extends htmlWriter {
 
     /** Build the package frame index.
      * @param Doclet doclet
      */
-    public function packageIndexFrameWriter(&$doclet) {
+    public function overviewFrameWriter(&$doclet) {
         parent::htmlWriter($doclet);
 
         ob_start();
@@ -33,7 +33,7 @@ class packageIndexFrameWriter extends htmlWriter {
         $packages =& $rootDoc->packages();
         ksort($packages);
         foreach ($packages as $name => $package) {
-            echo '<li><a href="'.$package->asPath().'/package-frame.html" target="index">'.$package->name().'</a></li>';
+            echo '<li><a href="'.$package->asPath().DS.'package-frame.html" target="index">'.$package->name().'</a></li>';
         }
         echo '</ul>';
         echo '</body>';

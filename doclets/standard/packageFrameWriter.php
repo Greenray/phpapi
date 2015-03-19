@@ -30,7 +30,7 @@ class packageFrameWriter extends htmlWriter {
         foreach ($packages as $packageName => $package) {
             $this->_depth  = $package->depth() + 1;
             $this->_output =& $this->_buildFrame($package);
-            $this->_write($package->asPath() . '/package-frame.html', $package->name(), FALSE);
+            $this->_write($package->asPath().DS.'package-frame.html', $package->name(), FALSE);
         }
     }
 
@@ -153,7 +153,7 @@ class packageFrameWriter extends htmlWriter {
             echo '<ul>';
             foreach ($functions as $name => $function) {
                 $package =& $functions[$name]->containingPackage();
-                echo '<li><a href="', $package->asPath(), '/package-functions.html#', $functions[$name]->name(), '" title="', $functions[$name]->packageName(), '" target="main">', $functions[$name]->name(), '</a></li>';
+                echo '<li><a href="', $package->asPath(), DS.'package-functions.html#', $functions[$name]->name(), '" title="', $functions[$name]->packageName(), '" target="main">', $functions[$name]->name(), '</a></li>';
             }
             echo '</ul>';
         }
@@ -165,7 +165,7 @@ class packageFrameWriter extends htmlWriter {
             echo '<ul>';
             foreach ($globals as $name => $global) {
                 $package =& $globals[$name]->containingPackage();
-                echo '<li><a href="', $package->asPath(), '/package-globals.html#', $globals[$name]->name(), '" title="', $globals[$name]->packageName(), '" target="main">', $globals[$name]->name(), '</a></li>';
+                echo '<li><a href="', $package->asPath(), DS.'package-globals.html#', $globals[$name]->name(), '" title="', $globals[$name]->packageName(), '" target="main">', $globals[$name]->name(), '</a></li>';
             }
             echo '</ul>';
         }

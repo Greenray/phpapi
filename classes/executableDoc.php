@@ -12,7 +12,7 @@
  * @abstract
  */
 
-class executableDoc extends programElementDoc {
+class executableDoc extends elementDoc {
 
     /** The parameters this function takes.
      * @var fieldDoc[]
@@ -83,14 +83,12 @@ class executableDoc extends programElementDoc {
     /** Get signature.
      * Return a string which is the flat signiture of this function.
      * It is the parameter list, type is not qualified.
-     *
      * <pre>
      * for a function
      *      mymethod(foo x, integer y)
      * it will return
      *      (foo x, integer y)
      * </pre>
-     *
      * Recognised types are turned into HTML anchor tags to the documentation
      * page for the class defining them.
      * @return str

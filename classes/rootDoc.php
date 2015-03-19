@@ -60,7 +60,6 @@ class rootDoc extends doc {
     }
 
     /** Add a source file to this root.
-     *
      * @param string filename
      * @param string source
      * @param array fileData
@@ -153,7 +152,6 @@ class rootDoc extends doc {
     /** Return a reference to a packageDoc for the specified package name.
      * If a package of the requested name does not exist, this method will create the
      * package object, add it to the root and return it.
-     *
      * @param string name Package name
      * @param boolean create Create package if it does not exist
      * @return packageDoc
@@ -171,7 +169,6 @@ class rootDoc extends doc {
     }
 
     /** Return a reference to a classDoc for the specified class/interface name.
-     *
      * @param string name Class name
      * @return classDoc
      */

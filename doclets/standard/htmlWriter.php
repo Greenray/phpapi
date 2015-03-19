@@ -38,7 +38,7 @@ class htmlWriter {
      */
     public $_output = '';
 
-    /** Writer constructor.
+    /** Constructor.
      * @var doclet
      */
     public function htmlWriter(&$doclet) {
@@ -47,7 +47,6 @@ class htmlWriter {
 
     /** Builds the HTML header.
      * Includes doctype definition, <html> and <head> sections, meta data and window title.
-     *
      * @param  string $title HTML page title
      * @return string        YNML page header
      */
@@ -77,81 +76,62 @@ class htmlWriter {
     }
 
     /** Builds the HTML shell header.
-     * Includes beginning of the <body> section, and the page header.
-     *
+     * Includes beginning of the <body> section, and the page header
      * @param  string $path The path to write the file to
      * @return string       Menu for page header
      */
     public function _shellHeader($path) {
         $output  = '<body id="'.$this->_id.'" onload="parent.document.title=document.title;">';
-        $output .= $this->_nav($path);
+        $output .= $this->nav($path);
 
         return $output;
     }
 
     /** Builds the HTML shell footer.
      * Includes the end of the <body> section, and page footer.
-     *
      * @param  string $path The path to write the file to
      * @return string       Menu for page footer
      */
     public function _shellFooter($path) {
-        $output = $this->_nav($path);
-        $output .= '<hr>
-                 </body>';
+        $output = $this->nav($path);
+        $output .= '<hr></body>';
         return $output;
     }
 
     /** Builds the navigation bar.
-     *
      * @param  string $path The path to write the file to
      * @return string       Navigation for documentation
      */
-    public function _nav($path) {
-        $output = '<div class="header">
-                       <span style="float:right">'.$this->_doclet->getHeader().'</span>';
+    public function nav($path) {
+        $output = [];
+        $output['header'] = $this->_doclet->getHeader();
         if ($this->_sections) {
-            $output .= '<ul>';
-            foreach ($this->_sections as $section) {
+            foreach ($this->_sections as $key => $section) {
+                $output['sections'][$key]['title'] = $section['title'];
                 if (isset($section['selected']) && $section['selected']) {
-                    $output .= '<li class="active">'.$section['title'].'</li>';
+                    $output['sections'][$key]['selected'] = $section['selected'];
                 } else {
                     if (isset($section['url']))
-                         $output .= '<li><a href="'.str_repeat('../', $this->_depth).$section['url'].'">'.$section['title'].'</a></li>';
-                    else $output .= '<li>'.$section['title'].'</li>';
+                         $output['sections'][$key]['title'] = '<a href="'.str_repeat('../', $this->_depth).$section['url'].'">'.$section['title'].'</a>';
+                    else $output['sections'][$key]['title'] = $section['title'];
                 }
             }
-            $output .= '</ul>';
         }
-        $output .= '</div>
-                        <div class="small_links">
-                            <a href="'.str_repeat('../', $this->_depth).'index.html" target="_top">Frames </a>
-                                < >
-                            <a href="'.str_repeat('../', $this->_depth).$path.'" target="_top"> No frames</a>
-                        </div>';
-        $thisClass = get_class($this);
-        if ($thisClass == 'classWriter') {
-            $output .= '<div class="small_links">
-                            Summary: <a href="#summary_fields">Fields</a> | <a href="#summary_methods">Methods</a> | <a href="#summary_constructor">Constructor</a>
-                            Details: <a href="#details_fields">Fields</a> | <a href="#details_methods">Methods</a> | <a href="#details_constructor">Constructor</a>
-                        </div>';
-        } elseif ($thisClass == 'functionWriter') {
-            $output .= '<div class="small_links">
-                            Summary: <a href="#summary_functions">Functions</a>
-                            Details: <a href="#details_functions">Functions</a>
-                        </div>';
-        } elseif ($thisClass == 'globalWriter') {
-            $output .= '<div class="small_links">
-                            Summary: <a href="#summary_globals">Globals</a>
-                            Details: <a href="#details_globals">Globals</a>
-                        </div>';
-        }
+        $output['path'] = str_repeat('../', $this->_depth).DS;
+        $output['file'] = $path;
 
-        return $output;
+        $thisClass = get_class($this);
+
+        $output['class']    = ($thisClass == 'classWriter')    ? TRUE : FALSE;
+        $output['function'] = ($thisClass == 'functionWriter') ? TRUE : FALSE;
+        $output['global']   = ($thisClass == 'globalWriter')   ? TRUE : FALSE;
+
+        $phpapi =& $this->_doclet->phpapi();
+        $tpl    = new template($phpapi->getOption('doclet'), 'navigation');
+        return $tpl->parse($output);
     }
 
     /** Location of the source file.
-     *
      * @param  object $doc Object of the current source file
      * @return string      Link to the line of the source file
      */
@@ -160,7 +140,6 @@ class htmlWriter {
     }
 
     /** Writes the HTML page to disk using the given path.
-     *
      * @param  string  $path  The path to write the file to
      * @param  string  $title The title for this page
      * @param  boolean $shell Include the page shell in the output
@@ -168,8 +147,10 @@ class htmlWriter {
      */
     public function _write($path, $title, $shell) {
         $phpapi =& $this->_doclet->phpapi();
+
         # Make directory separators suitable to this platform
         $path = str_replace('/', DS, $path);
+
         # Make directories if they don't exist
         $dirs = explode(DS, $path);
         array_pop($dirs);
@@ -205,7 +186,6 @@ class htmlWriter {
     }
 
     /** Formats tags for output.
-     *
      * @param Tag[]   $tags The text tag to process
      * @return string       The string representation of the elements doc tags
      */
@@ -263,7 +243,6 @@ class htmlWriter {
     }
 
     /** Converts inline tags into a string for outputting.
-     *
      * @param  Tag     $tag   The text tag to process
      * @param  boolean $first Process first line of tag only
      * @return string         The string representation of the elements doc tags
@@ -286,7 +265,6 @@ class htmlWriter {
     }
 
     /** Preparation of the object for html template.
-     *
      * @param  object $object Object (fields, methods, constants, variables...)
      * @return array          The result
      */
@@ -320,7 +298,6 @@ class htmlWriter {
     }
 
     /** Preparation of a constant or variable for output in html template.
-     *
      * @param  mixed  $value Value of a constant or variable
      * @return string        he result
      */

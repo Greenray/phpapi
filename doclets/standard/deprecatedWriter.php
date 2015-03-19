@@ -24,7 +24,7 @@ class deprecatedWriter extends htmlWriter {
         $this->_sections[0] = ['title' => 'Overview',        'url' => 'overview-summary.html'];
         $this->_sections[1] = ['title' => 'Namespace'];
         $this->_sections[2] = ['title' => 'Class'];
-        $this->_sections[3] = ['title' => 'Tree',            'url' => 'overview-tree.html'];
+        $this->_sections[3] = ['title' => 'Tree',            'url' => 'tree.html'];
         $this->_sections[4] = ['title' => 'Deprecated', 'selected' => TRUE];
         $this->_sections[5] = ['title' => 'Todo',            'url' => 'todo.html'];
         $this->_sections[6] = ['title' => 'Index',           'url' => 'index-all.html'];

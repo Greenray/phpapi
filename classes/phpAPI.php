@@ -171,12 +171,12 @@ class phpapi {
             exit;
         }
 
-        if (isset($this->_options['default_package'])) $this->_defaultPackage        = $this->_options['default_package'];
+        if (isset($this->_options['default_package'])) $this->_defaultPackage = $this->_options['default_package'];
 
-        if (isset($this->_options['ignore']))    $this->_ignore  = explode(',', $this->_options['ignore']);
-        if (isset($this->_options['subdirs']))   $this->_subdirs = $this->_options['subdirs'];
-        if (isset($this->_options['verbose']))   $this->_verbose = $this->_options['verbose'];
-        if (isset($this->_options['quiet']))     $this->_quiet   = $this->_options['quiet'];
+        if (isset($this->_options['ignore']))    $this->_ignore    = explode(',', $this->_options['ignore']);
+        if (isset($this->_options['subdirs']))   $this->_subdirs   = $this->_options['subdirs'];
+        if (isset($this->_options['verbose']))   $this->_verbose   = $this->_options['verbose'];
+        if (isset($this->_options['quiet']))     $this->_quiet     = $this->_options['quiet'];
         if (isset($this->_options['overview']))  $this->_overview  = $this->makeAbsolutePath($this->_options['overview'], $this->_sourcePath[0]);
         if (isset($this->_options['globals']))   $this->_globals   = $this->_options['globals'];
         if (isset($this->_options['constants'])) $this->_constants = $this->_options['constants'];
@@ -263,7 +263,6 @@ class phpapi {
     }
 
     /** Write an error message to standard error.
-     *
      * @param string $msg Error message to output
      * @return void
      */
@@ -281,7 +280,6 @@ class phpapi {
     }
 
     /** Turn path into an absolute path using the given prefix?
-     *
      * @param  string $path   Path to make absolute
      * @param  string $prefix Absolute path to append to relative path
      * @return string         Absolute path to needed object
@@ -309,7 +307,6 @@ class phpapi {
     }
 
     /** Add a trailing slash to a path if it does not have one.
-     *
      * @param string $path Path to postfix
      * @return string      Fixed path
      */
@@ -346,7 +343,6 @@ class phpapi {
     }
 
     /** Get a configuration option.
-     *
      * @param  string $option Option name
      * @return mixed          Option value
      */
@@ -400,11 +396,11 @@ class phpapi {
                             if (!$in_parsed_string && is_array($token)) {
                                 $lineNumber += substr_count($token[1], LF);
                                 if ($commentNumber == 1 && (
-                                    $token[0] == T_CLASS        ||
-                                    $token[0] == T_INTERFACE    ||
-                                    $token[0] == T_FUNCTION     ||
+                                    $token[0] == T_CLASS     ||
+                                    $token[0] == T_INTERFACE ||
+                                    $token[0] == T_FUNCTION  ||
                                     $token[0] == T_VARIABLE
-                                     )) { # We have a code block after the 1st comment, so it is not a file level comment
+                                   )) { # We have a code block after the 1st comment, so it is not a file level comment
                                     $defaultPackage = $oldDefaultPackage;
                                     $fileData = [];
                                 }
@@ -613,7 +609,7 @@ class phpapi {
 
                                                 $this->verbose(' is a constructor of '.get_class($ce).' '.$ce->name());
 
-                                                $method->set("name", "__construct");
+                                                $method->set('name', $method->name());
                                                 $ce->addMethod($method);
                                             } else {
                                                 if ($this->_hasPrivateName($method->name()))
@@ -704,7 +700,7 @@ class phpapi {
                                                     $const->set('final', TRUE);
                                                     if (isset($value)) {
                                                         $value = trim($value);
-                                                        if ((strlen($value) > 50) && (substr($value, 0, 5) == 'array') || (substr($value, 0, 1) == '[') && (substr($value, -1, 1) == ']')) {
+                                                        if ((strlen($value) > 100) && (substr($value, 0, 5) == 'array') || (substr($value, 0, 1) == '[') && (substr($value, -1, 1) == ']')) {
                                                             $value = 'array(...)';
                                                         }
                                                         $const->set('value', $value);
@@ -1111,6 +1107,7 @@ class phpapi {
             'tags' => []
         ];
         $explodedComment = preg_split('/\n[ \n\t\/]*\*+[ \t]*@/', LF.$comment);
+
          # We need the leading whitespace to detect multi-line list entries
         preg_match_all('/^[ \t]*[\/*]*\**( ?.*)[ \t\/*]*$/m', array_shift($explodedComment), $matches);
         if (isset($matches[1])) {
@@ -1159,14 +1156,11 @@ class phpapi {
                     default:         # Create tag
                         $name = '@'.$name;
                         if (isset($data['tags'][$name])) {
-                            if (is_array($data['tags'][$name])) {
-                                $data['tags'][$name][] = $this->createTag($name, $text, $data, $root);
-                            } else {
-                                $data['tags'][$name] = [$data['tags'][$name], $this->createTag($name, $text, $data, $root)];
-                            }
-                        } else {
-                            $data['tags'][$name] =& $this->createTag($name, $text, $data, $root);
-                        }
+                            if (is_array($data['tags'][$name]))
+                                 $data['tags'][$name][] = $this->createTag($name, $text, $data, $root);
+                            else $data['tags'][$name]   = [$data['tags'][$name], $this->createTag($name, $text, $data, $root)];
+
+                        } else   $data['tags'][$name]   =& $this->createTag($name, $text, $data, $root);
                 }
             }
         }
@@ -1177,7 +1171,6 @@ class phpapi {
      * This method first tries to load a Taglet for the given tag name, upon failing it
      * then tries to load a phpapi specialised tag class (e.g. classes/paramtag.php),
      * if it still has not found a tag class it uses the standard tag class.
-     *
      * @param  string $name    The name of the tag
      * @param  string $text    The contents of the tag
      * @param  array  $data    Reference to doc comment data array
@@ -1213,7 +1206,7 @@ class phpapi {
     /** Is an element private and we are including private elements, or element is
      * protected and we are including protected elements.
      *
-     * @param  ProgramElementDoc element The element to check
+     * @param  elementDoc element The element to check
      * @return boolean
      */
     public function _includeElements(&$element) {

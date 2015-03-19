@@ -2,10 +2,7 @@
 # phpapi: The PHP Documentation Creator
 
 /** Represents a PHP class and provides access to information about the class,
- * the class' comment and tags, and the members of the class. A classDoc only
- * exists if it was processed in this run of phpapi. References to classes
- * which may or may not have been processed in this run are referred to using
- * type (which can be converted to classDoc, if possible).
+ * class's comment and tags, and the members of the class.
  *
  * @file      classes/classDoc.php
  * @version   1.0
@@ -15,7 +12,7 @@
  * @package   phpapi
  */
 
-class classDoc extends programElementDoc {
+class classDoc extends elementDoc {
 
     /** The super class.
      * @var string
@@ -63,7 +60,6 @@ class classDoc extends programElementDoc {
     public $_abstract = FALSE;
 
     /** Constructor.
-     *
      * @param string name Name of this element
      * @param rootDoc root The root element
      * @param string filename The filename of the source file this element is in
@@ -128,7 +124,6 @@ class classDoc extends programElementDoc {
     }
 
     /** Returns the methods in this class.
-     *
      * @param boolean regularOnly Do not return constructors and destructors
      * @return methodDoc[]
      */

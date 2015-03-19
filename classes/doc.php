@@ -49,7 +49,6 @@ class doc {
     public $_root = NULL;
 
     /** Setter method.
-     *
      * @param  string $member Name of the member to set
      * @param  mixed  $value  The value to set member to
      * @return boolean
@@ -67,7 +66,6 @@ class doc {
     }
 
     /** Setter by reference method.
-     *
      * @param  string $member Name of the member to set
      * @param  mixed  $value  The value to set member to
      * @return boolean
@@ -95,7 +93,6 @@ class doc {
     /** Returns tags of the specified kind in this Doc item.
      * For example, if 'tagName' has value "@serial", all tags in this Doc item of type "@serial" will be returned.
      * If NULL is given for 'tagName', all tags in this Doc item are returned.
-     *
      * @param  string $tagName Name of the tag kind to search for
      * @return Tag[]|NULL      An array of Tag containing all tags of name 'tagname' or a
      *                         singular tag object if only one exists for the given 'tagname'
@@ -111,7 +108,6 @@ class doc {
     }
 
     /** Sets a tag.
-     *
      * @param string $tagName Name of the tag kind to search for
      * @param Tag    $tag     The tag to set
      */

@@ -9,7 +9,7 @@ blockquote              { quotes: none }
 blockquote:before,
 blockquote:after        { content: ''; content: none }
 caption                 { background: #ecede5; border: 1px solid #ccc; font-weight: bold; font-size: 100%; margin-bottom: 0; padding: 3px 5px; text-align: left }
-div.comment             { margin: 10px 0 }
+div.comment             { margin: 10px 0 10px 30px }
 div.details             { margin: 10px 20px }
 div.header              { background: #cee; padding: 4px 10px }
 div.header h1           { font-size: 120%; font-style: italic; padding: 0 4px; margin: 0 }
@@ -62,7 +62,7 @@ p#footer                { font-size: 80%; text-align: right }
 .blue                   { color: blue }
 .center                 { text-align: center }
 .footer                 { background: #cee }
-.finfo                  { background: #ececec; border-radius: 5px; margin: 0 auto; padding:2px; width: 90%; -webkit-border-radius: 5px; -moz-border-radius: 5px }
+.finfo                  { background: #ececec; border-radius: 5px; margin: 10px auto; padding:2px; width: 90%; -webkit-border-radius: 5px; -moz-border-radius: 5px }
 .inherit                { margin: 10px 0 }
 .green                  { color: green }
 .hid                    { border: 0 }

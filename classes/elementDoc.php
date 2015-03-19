@@ -1,11 +1,10 @@
 <?php
 # phpapi: The PHP Documentation Creator
 
-/** Represents a PHP program element: global, function, class, interface,
- * field, constructor, or method. This is an abstract class dealing with
- * information common to these elements.
+/** Represents a PHP program element: global, function, class, interface, field, constructor, or method.
+ * This is an abstract class dealing with information common to these elements.
  *
- * @file      classes/programElementDoc.php
+ * @file      classes/elementDoc.php
  * @version   1.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
@@ -14,9 +13,9 @@
  * @abstract
  */
 
-class programElementDoc extends doc {
+class elementDoc extends doc {
 
-    /** Reference to the elements parent.
+    /** Reference to the parent elements.
      * @var doc
      */
     public $_parent = NULL;
@@ -96,13 +95,11 @@ class programElementDoc extends doc {
     }
 
     /** Gets the fully qualified name.
-     *
      * <pre>
      * Example:
      * for the method bar() in class Foo in the package Baz, return:
      * Baz\Foo\bar()
      * </pre>
-     *
      * @return string
      */
     public function qualifiedName() {
@@ -113,14 +110,12 @@ class programElementDoc extends doc {
     }
 
     /** Gets modifiers string.
-     *
      * <pre>
      * Example, for:
      * public abstract integer foo() { ... }
      * modifiers() would return:
      * 'public abstract'
      * </pre>
-     *
      * @return string Modifiers
      */
     public function modifiers($showPublic = TRUE) {
@@ -195,18 +190,18 @@ class programElementDoc extends doc {
      */
     public function asPath() {
         if ($this->isClass() || $this->isInterface() || $this->isTrait() || $this->isException()) {
-            return strtolower(str_replace('.', '/', str_replace('\\', '/', $this->_package)).'/'.$this->_name.'.html');
+            return strtolower(str_replace('.', DS, str_replace('\\', DS, $this->_package)).DS.$this->_name.'.html');
         } elseif ($this->isField()) {
             $class =& $this->containingClass();
-            if ($class) return strtolower(str_replace('.', '/', str_replace('\\', '/', $this->_package)).'/'.$class->name().'.html#').$this->_name;
-            else        return strtolower(str_replace('.', '/', str_replace('\\', '/', $this->_package)).'/package-globals.html#').$this->_name;
+            if ($class) return strtolower(str_replace('.', DS, str_replace('\\', DS, $this->_package)).DS.$class->name().'.html#').$this->_name;
+            else        return strtolower(str_replace('.', DS, str_replace('\\', DS, $this->_package)).DS.'package-globals.html#').$this->_name;
         } elseif ($this->isConstructor() || $this->isMethod()) {
             $class =& $this->containingClass();
-            if ($class) return strtolower(str_replace('.', '/', str_replace('\\', '/', $this->_package)).'/'.$class->name().'.html#').$this->_name.'()';
-            else        return strtolower(str_replace('.', '/', str_replace('\\', '/', $this->_package)).'/package-functions.html#').$this->_name.'()';
+            if ($class) return strtolower(str_replace('.', DS, str_replace('\\', DS, $this->_package)).DS.$class->name().'.html#').$this->_name.'()';
+            else        return strtolower(str_replace('.', DS, str_replace('\\', DS, $this->_package)).DS.'package-functions.html#').$this->_name.'()';
         } elseif ($this->isGlobal())
-                                     return strtolower(str_replace('.', '/', str_replace('\\', '/', $this->_package)).'/package-globals.html#').$this->_name;
-        elseif ($this->isFunction()) return strtolower(str_replace('.', '/', str_replace('\\', '/', $this->_package)).'/package-functions.html#').$this->_name.'()';
+                                     return strtolower(str_replace('.', DS, str_replace('\\', DS, $this->_package)).DS.'package-globals.html#').$this->_name;
+        elseif ($this->isFunction()) return strtolower(str_replace('.', DS, str_replace('\\', DS, $this->_package)).DS.'package-functions.html#').$this->_name.'()';
 
         return NULL;
     }

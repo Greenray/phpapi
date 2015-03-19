@@ -52,7 +52,7 @@ class packageWriter extends htmlWriter {
             $this->_output = ob_get_contents();
             ob_end_clean();
 
-            $this->_write('overview-tree.html', 'Overview', TRUE);
+            $this->_write('tree.html', 'Overview', TRUE);
         }
 
         $this->_id = 'package';
@@ -65,8 +65,7 @@ class packageWriter extends htmlWriter {
             $this->_sections[0] = ['title' => 'Overview',       'url' => 'overview-summary.html'];
             $this->_sections[1] = ['title' => 'Namespace', 'selected' => TRUE];
             $this->_sections[2] = ['title' => 'Class'];
-            if ($displayTree)
-                $this->_sections[3] = ['title' => 'Tree',       'url' => $package->asPath().DS.'package-tree.html'];
+            if ($displayTree) $this->_sections[3] = ['title' => $package->name().'\Tree', 'url' => $package->asPath().DS.'package-tree.html'];
             $this->_sections[4] = ['title' => 'Deprecated',     'url' => 'deprecated.html'];
             $this->_sections[5] = ['title' => 'Todo',           'url' => 'todo.html'];
             $this->_sections[6] = ['title' => 'Index',          'url' => 'index-all.html'];
@@ -189,14 +188,14 @@ class packageWriter extends htmlWriter {
             $this->_output = ob_get_contents();
             ob_end_clean();
 
-            $this->_write($package->asPath().'/package-summary.html', $package->name(), TRUE);
+            $this->_write($package->asPath().DS.'package-summary.html', $package->name(), TRUE);
 
             if ($displayTree) {
 
                 $this->_sections[0] = ['title' => 'Overview',   'url' => 'overview-summary.html'];
                 $this->_sections[1] = ['title' => 'Namespace',  'url' => $package->asPath().DS.'package-summary.html', 'relative' => TRUE];
                 $this->_sections[2] = ['title' => 'Class'];
-                $this->_sections[3] = ['title' => 'Tree',       'url' => $package->asPath().DS.'package-tree.html', 'selected' => TRUE, 'relative' => TRUE];
+                $this->_sections[3] = ['title' => $package->name().'\Tree', 'url' => $package->asPath().DS.'package-tree.html', 'selected' => TRUE, 'relative' => TRUE];
                 $this->_sections[4] = ['title' => 'Deprecated', 'url' => 'deprecated.html'];
                 $this->_sections[5] = ['title' => 'Todo',       'url' => 'todo.html'];
                 $this->_sections[6] = ['title' => 'Index',      'url' => 'index-all.html'];
@@ -220,14 +219,15 @@ class packageWriter extends htmlWriter {
 
                 ob_end_clean();
 
-                $this->_write($package->asPath().'/package-tree.html', $package->name(), TRUE);
+                $this->_write($package->asPath().DS.'package-tree.html', $package->name(), TRUE);
             }
         }
     }
 
-    /** Build the class tree branch for the given element.
-     * @param classDoc[] tree
-     * @param classDoc element
+    /** Builds the class tree branch for the given element.
+     * This function is recursive.
+     * @param classDoc[] $tree
+     * @param classDoc   $element
      */
     public function _buildTree(&$tree, &$element) {
         $tree[$element->name()] = $element;
@@ -239,22 +239,20 @@ class packageWriter extends htmlWriter {
     }
 
     /** Build the class tree branch for the given element.
-     * @param classDoc[] tree
-     * @param string parent
+     * @param classDoc[] $tree
+     * @param string     $parent
      */
     public function _displayTree($tree, $parent = NULL) {
         $outputList = TRUE;
         foreach ($tree as $name => $element) {
             if ($element->superclass() == $parent) {
-                if ($outputList)
-                    echo '<ul>';
+                if ($outputList) echo '<ul>';
                 echo '<li><a href="', str_repeat('../', $this->_depth), $element->asPath(), '">', $element->qualifiedName(), '</a>';
                 $this->_displayTree($tree, $name);
                 echo '</li>';
                 $outputList = FALSE;
             }
         }
-        if (!$outputList)
-            echo '</ul>';
+        if (!$outputList) echo '</ul>';
     }
 }

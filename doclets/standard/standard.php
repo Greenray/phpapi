@@ -4,8 +4,8 @@
 # load classes
 require 'htmlWriter.php';
 require 'frameOutputWriter.php';
-require 'packageIndexWriter.php';
-require 'packageIndexFrameWriter.php';
+require 'overviewSummaryWriter.php';
+require 'overviewFrameWriter.php';
 require 'packageFrameWriter.php';
 require 'packageWriter.php';
 require 'classWriter.php';
@@ -101,16 +101,16 @@ class standard {
         echo '<div id="header"><h1>'.$this->docTitle().'</h1></div>';
         echo '</body>';
 
-        $packageIndexWriter      =& new packageIndexWriter($this);      # Overview summary
-        $packageIndexFrameWriter =& new packageIndexFrameWriter($this); # Package overview frame
-        $packageWriter           =& new packageWriter($this);           # Package summaries
-        $packageFrameWriter      =& new packageFrameWriter($this);      # Package frame
-        $classWriter             =& new classWriter($this);             # Classes
-        $functionWriter          =& new functionWriter($this);          # Global functions
-        $globalWriter            =& new globalWriter($this);            # Global variables
-        $indexWriter             =& new indexWriter($this);             # Index
-        $deprecatedWriter        =& new deprecatedWriter($this);        # Deprecated index
-        $todoWriter              =& new todoWriter($this);              # Todo index
+        $overviewSummaryWriter =& new overviewSummaryWriter($this);   # Overview summary
+        $overviewFrameWriter   =& new overviewFrameWriter($this);     # Packages overview frame
+        $packageWriter         =& new packageWriter($this);           # Package summaries
+        $packageFrameWriter    =& new packageFrameWriter($this);      # Package frame
+        $classWriter           =& new classWriter($this);             # Classes
+        $functionWriter        =& new functionWriter($this);          # Global functions
+        $globalWriter          =& new globalWriter($this);            # Global variables
+        $indexWriter           =& new indexWriter($this);             # Index
+        $deprecatedWriter      =& new deprecatedWriter($this);        # Deprecated index
+        $todoWriter            =& new todoWriter($this);              # Todo index
 
         $phpapi->message('Copying stylesheet');
         copy($phpapi->docletPath().'stylesheet.css', $this->_destination.'stylesheet.css');

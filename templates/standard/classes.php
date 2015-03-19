@@ -1,6 +1,7 @@
 <hr>
-<div class="qualifiedName">{qualified}</div>
-<h1>{qualifiedName}</h1>
+<div class="qualifiedName">{qualifiedName}</div>
+<div class="location">{location}</div>
+<h1>{qualified}</h1>
 <pre class="tree">{tree}</pre>
 [if=implements]
     <dl>
@@ -23,8 +24,7 @@
 <hr>
 <p class="signature">{ismodifiers} {is} <strong>{isname}</strong>[if=extends]{extends}[endif.extends]</p>
 <div class="comment" id="overview_description">{textag}</div>
-[if=tags]{tags}[endif.tags]
-<hr>
+[if=main_tags]{main_tags}[endif.main_tags]
 [if=constant]
     <table id="summary_constants">
         <tr><th colspan="2">[__Константы: общий обзор]</th></tr>

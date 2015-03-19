@@ -1,7 +1,8 @@
 <?php
 # phpapi: The PHP Documentation Creator
 
-/** Represents a PHP variable type. Type can be a class or primitive data type.
+/** Represents a PHP variable type.
+ * Type can be a class or primitive data type.
  *
  * @file      classes/type.php
  * @version   1.0
@@ -29,7 +30,6 @@ class type {
     public $_root = NULL;
 
     /** Constructor.
-     *
      * @param  string  $name The name of the variable type
      * @param  rootDoc $root The rootDoc object to tie this type too
      * @return void
@@ -58,7 +58,6 @@ class type {
     }
 
     /** Gets qualified name of this type.
-     *
      * @return string Qualified naame of the type
      * @todo This method is still to be implemented
      */

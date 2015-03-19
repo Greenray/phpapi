@@ -38,7 +38,6 @@ class template {
     ];
 
     /** Class initialization.
-     *
      * @param  string $template Path to template
      * @return void
      */
@@ -373,7 +372,6 @@ class template {
     }
 
     /** Recursive search of the value in a multidimensional array.
-     *
      * @param  mixed $needle   The desired value
      * @param  array $haystack Array to search
      * @return mixed           The value of the key
@@ -388,7 +386,6 @@ class template {
     }
 
     /** Parses template with given variables.
-     *
      * @param  array  $params Template variables
      * @return string         Parsed template
      */

@@ -21,13 +21,13 @@ class todoWriter extends htmlWriter {
 
         $rootDoc =& $this->_doclet->rootDoc();
 
-        $this->_sections[0] = ['title' => 'Overview',    'url' => 'overview-summary.html'];
+        $this->_sections[0] = ['title' => 'Overview',   'url' => 'overview-summary.html'];
         $this->_sections[1] = ['title' => 'Namespace'];
         $this->_sections[2] = ['title' => 'Class'];
-        $this->_sections[3] = ['title' => 'Tree',        'url' => 'overview-tree.html'];
-        $this->_sections[4] = ['title' => 'Deprecated',  'url' => 'deprecated-list.html'];
-        $this->_sections[5] = ['title' => 'Todo',   'selected' => TRUE];
-        $this->_sections[6] = ['title' => 'Index',       'url' => 'index-all.html'];
+        $this->_sections[3] = ['title' => 'Tree',       'url' => 'tree.html'];
+        $this->_sections[4] = ['title' => 'Deprecated', 'url' => 'deprecated.html'];
+        $this->_sections[5] = ['title' => 'Todo',  'selected' => TRUE];
+        $this->_sections[6] = ['title' => 'Index',      'url' => 'index-all.html'];
 
         $todoClasses = [];
         $classes     =& $rootDoc->classes();
