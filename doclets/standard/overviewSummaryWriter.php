@@ -29,37 +29,29 @@ class overviewSummaryWriter extends htmlWriter {
         $this->_sections[5] = ['title' => 'Todo',       'url' => 'todo.html'];
         $this->_sections[6] = ['title' => 'Index',      'url' => 'index-all.html'];
 
-        ob_start();
-
         $output = [];
         $output['title'] = $this->_doclet->docTitle();
 
-        $rootDoc =& $this->_doclet->rootDoc();
-        $textTag =& $rootDoc->tags('@text');
-        if ($textTag) {
-            $description = $this->_processInlineTags($textTag, TRUE);
-            if ($description) {
-                $output['description'] = $description;
-            }
-        }
+        $rootDoc  =& $this->_doclet->rootDoc();
+        $overview =& $rootDoc->tags('@text');
+        $output['description']  = $this->_processInlineTags($overview, TRUE);
+        $output['overviewFile'] = basename($phpapi->getOption('overview'));
 
         $packages =& $rootDoc->packages();
         ksort($packages);
-        $packs = [];
         foreach ($packages as $name => $package) {
-            $textTag =& $package->tags('@text');
-            $packs[$name]['path'] = $package->asPath().DS;
-            $packs[$name]['name'] = $package->name();
-            $packs[$name]['tags'] = strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
-        }
-        $output['package'] = $packs;
-        $textTag =& $rootDoc->tags('@text');
-        if ($textTag) {
-            $description = $this->_processInlineTags($textTag);
-            if ($description) $output['overview'] = $description;
+            $description =& $package->tags('@text');
+            $output['package'][$name]['path'] = $package->asPath().DS;
+            $output['package'][$name]['name'] = $package->name();
+            $output['package'][$name]['desc'] = strip_tags($this->_processInlineTags($description, TRUE), '<a><b><strong><u><em>');
         }
 
+        $output['overview'] = $this->_processInlineTags($overview);
+
         $tpl = new template($phpapi->getOption('doclet'), 'overview-summary');
+
+        ob_start();
+
         echo $tpl->parse($output);
 
         $this->_output = ob_get_contents();
