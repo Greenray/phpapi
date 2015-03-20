@@ -54,10 +54,12 @@ INSTALLATION
     Распакуйте архив, отредактируйте конфигурационный файл и запустите
     phpapi.php.
 
+    # ./phpapi
+
 FILES
 
 	phpapi.ini - Default ini file
-	README.md - This file
+	README.md  - This file
 	classes/*.php - Classes used by phpapi
 	doclets/standard/*.php - Standard HTML doclet
     formatters/*.php - Formatters
@@ -77,45 +79,44 @@ CONFIGURATION
 	phpapi supports a number of configuration directives:
     phpapi поддерживает следующие директивы:
 
-	* files - Names of files to parse. This can be a single filename, or a
-	  comma separated list of filenames. Wildcards are allowed.
-    * ignore - Names of files or directories to ignore. This can be a single
-      filename, or a comma separated list of files and direcories. Wildcards are
-      NOT allowed.
 	* source - The directory to look for files in, if not used the phpAPI will
-      look in the current directory (the directory it is run from).
+               look in the current directory (the directory it is run from).
+    * destination - The directory to place generated documentation in. If the
+                    given path is relative to it will be relative to "source".
+    * files  - Names of files to parse. This can be a single filename, or a
+	           comma separated list of filenames. Wildcards are allowed.
+    * ignore - Names of files or directories to ignore. This can be a single
+               filename, or a comma separated list of files and direcories.
+               Wildcards are NOT allowed.
 	* subdirs = on|off - If you do not want phpAPI to look in each sub directory
-	  for files set this option to "off".
-	* quiet = on|off - Quiet mode suppresses	all output other than warnings
-      and errors.
+	                     for files set this option to "off".
+    * doclet - Select the doclet to use for generating output.
+	* quiet = on|off   - Quiet mode suppresses all output other than warnings
+                         and errors.
 	* verbose = on|off - Verbose mode outputs additional messages during
-      execution.
-	* doclet - Select the doclet to use for generating output.
+                         execution.
+
 	* default_package - If the code you are parsing does not use package tags or
-	  not all elements have package tags, use this setting to place unbound
-      elements into a particular package.
+	                    not all elements have package tags, use this setting to
+                        place unbound elements into a particular package.
 	* overview - Specifies the name of a HTML file containing text for the
-	  overview documentation to be placed on the overview page. The	path is
-      relative to "source" unless an absolute path is given.
-	* globals = on|off - Parse out global variables.
+	             overview documentation to be placed on the overview page. The
+                 path is relative to "source" unless an absolute path is given.
+	* globals   = on|off - Parse out global variables.
 	* constants = on|off - Parse out constants.
-	* private = on|off   - Parse out private class members.
+	* private   = on|off - Parse out private class members.
 	* protected = on|off - Parse out protected class members.
-	* public = on|off    - Parse out public class members.
-
-	The following directives are specific for the standard doclet:
-
-	* destination - The directory to place generated documentation in. If the
-      given path is relative to it will be relative to "source".
+	* public    = on|off - Parse out public class members.
 	* windowtitle - Specifies the title to be placed in the HTML <title> tag.
-	* doctitle - Specifies the title to be placed near the top of the overview
-      summary file.
+	* doctitle    - Specifies the title to be placed near the top of the overview
+                    summary file.
 	* header - Specifies the header text to be placed at the top of each output
-      file. The header will be placed to the right of the upper navigation bar.
+               file. The header will be placed to the right of the upper
+               navigation bar.
 	* footer - Specifies the footer text to be placed at the bottom of each
-	  output file. The footer will be placed to the right of the lower
-      navigation bar.
-	* tree - Create a class tree.
+	           output file. The footer will be placed to the right of the lower
+               navigation bar.
+	* tree   - Create a class tree.
 
 DOC COMMENTS
 
@@ -133,20 +134,20 @@ TAGS
 	phpapi supports the following tags:
     phpapi поддерживает следующие теги:
 
-	@abstract - defining a class or method as abstract.
+	@abstract    - defining a class or method as abstract.
 	@access type - the access type of the field or method.
 	@author name - author name, email, web...
-	@deprecated deprecated-text
-	@final - defining a class or method as final.
+	@deprecated  - deprecated
+	@final       - defining a class or method as final.
 	{@link package.class#member label}
 	{@linkplain package.class#member label}
 	@package name - places an item into a specific package and is valid within
                     any doc comment of a top level item.
 	@param type name description - description of method or function parameters.
-	@return type description - description of the return value.
-	@see package.class#member - link to corresponding information.
-	@since since-text.
-	@static - defining a class, method or member variable as static.
+	@return type description     - description of the return value.
+	@see package.class#member    - link to corresponding information.
+	@since   - since-text.
+	@static  - defining a class, method or member variable as static.
 	@var type name description - variable description.
 	@version - version description.
 
