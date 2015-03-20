@@ -14,12 +14,10 @@
 class todoWriter extends htmlWriter {
 
     /** Build the todo index.
-     * @param Doclet doclet
+     * @param Doclet $doclet Link to documentation generator
      */
     public function todoWriter(&$doclet) {
         parent::htmlWriter($doclet);
-
-        $rootDoc =& $this->_doclet->rootDoc();
 
         $this->_sections[0] = ['title' => 'Overview',   'url' => 'overview-summary.html'];
         $this->_sections[1] = ['title' => 'Namespace'];
@@ -29,146 +27,75 @@ class todoWriter extends htmlWriter {
         $this->_sections[5] = ['title' => 'Todo',  'selected' => TRUE];
         $this->_sections[6] = ['title' => 'Index',      'url' => 'index-all.html'];
 
-        $todoClasses = [];
-        $classes     =& $rootDoc->classes();
-        $todoFields  = [];
-        $todoMethods = [];
+        $rootDoc =& $this->_doclet->rootDoc();
+        $phpapi  =& $this->_doclet->phpapi();
+        $classes =& $rootDoc->classes();
+        $output  = [];
+
         if ($classes) {
-            foreach ($classes as $class) {
-                if ($class->tags('@todo')) $todoClasses[] = $class;
+            foreach ($classes as $i => $class) {
+                $todoTag =& $class->tags('@todo');
+                if (!empty($todoTag)) {
+                    $output['classes'][$i]['path'] = $class->asPath();
+                    $output['classes'][$i]['name'] = $class->qualifiedName();
+                    $output['classes'][$i]['desc'] = strip_tags($this->_processInlineTags($todoTag, TRUE), '<a><b><strong><u><em>');
+                }
+
                 $fields =& $class->fields();
                 if ($fields) {
-                    foreach ($fields as $field) {
-                        if ($field->tags('@todo')) $todoFields[] = $field;
+                    foreach ($fields as $k => $field) {
+                        $todoTag =& $field->tags('@todo');
+                        if (!empty($todoTag)) {
+                            $output['fields'][$k]['path'] = $field->asPath();
+                            $output['fields'][$k]['name'] = $field->qualifiedName();
+                            $output['fields'][$k]['desc'] = strip_tags($this->_processInlineTags($todoTag, TRUE), '<a><b><strong><u><em>');
+                        }
                     }
                 }
-                $classes =& $class->methods();
-                if ($classes) {
-                    foreach ($classes as $method) {
-                        if ($method->tags('@todo')) $todoMethods[] = $method;
+
+                $methods =& $class->methods();
+                if ($methods) {
+                    foreach ($methods as $k => $method) {
+                        $todoTag =& $method->tags('@todo');
+                        if (!empty($todoTag)) {
+                            $output['methods'][$k]['path'] = $method->asPath();
+                            $output['methods'][$k]['name'] = $method->qualifiedName();
+                            $output['methods'][$k]['desc'] = strip_tags($this->_processInlineTags($todoTag, TRUE), '<a><b><strong><u><em>');
+                        }
                     }
                 }
             }
         }
-        $todoGlobals = [];
-        $globals     =& $rootDoc->globals();
+
+        $globals =& $rootDoc->globals();
         if ($globals) {
-            foreach ($globals as $global) {
-                if ($global->tags('@todo')) $todoGlobals[] = $global;
+            foreach ($globals as $k => $global) {
+                $todoTag =& $global->tags('@todo');
+                if (!empty($todoTag)) {
+                    $output['globals'][$key]['path'] = $global->asPath();
+                    $output['globals'][$key]['name'] = $global->qualifiedName();
+                    $output['globals'][$key]['desc'] = strip_tags($this->_processInlineTags($todoTag, TRUE), '<a><b><strong><u><em>');
+                }
             }
         }
-        $todoFunctions = [];
-        $functions     =& $rootDoc->functions();
+
+        $functions =& $rootDoc->functions();
         if ($functions) {
-            foreach ($functions as $function) {
-                if ($function->tags('@todo')) $todoFunctions[] = $function;
+            foreach ($functions as $k => $function) {
+                $todoTag =& $function->tags('@todo');
+                if (!empty($todoTag)) {
+                    $output['functions'][$k]['path'] = $function->asPath();
+                    $output['functions'][$k]['name'] = $function->qualifiedName();
+                    $output['functions'][$k]['desc'] = strip_tags($this->_processInlineTags($todoTag, TRUE), '<a><b><strong><u><em>');
+                }
             }
         }
+
+        $tpl = new template($phpapi->getOption('doclet'), 'todo');
 
         ob_start();
 
-        echo '<hr>';
-        echo '<h1>Todo</h1>';
-        echo '<hr>';
-
-        if ($todoClasses || $todoFields || $todoMethods || $todoGlobals || $todoFunctions) {
-            echo '<h2>Contents</h2>';
-            echo '<ul>';
-            if ($todoClasses) {
-                echo '<li><a href="#todo_class">Todo Classes</a></li>';
-            }
-            if ($todoFields) {
-                echo '<li><a href="#todo_field">Todo Fields</a></li>';
-            }
-            if ($todoMethods) {
-                echo '<li><a href="#todo_method">Todo Methods</a></li>';
-            }
-            if ($todoGlobals) {
-                echo '<li><a href="#todo_global">Todo Globals</a></li>';
-            }
-            if ($todoFunctions) {
-                echo '<li><a href="#todo_function">Todo Functions</a></li>';
-            }
-            echo '</ul>';
-        }
-
-        if ($todoClasses) {
-            echo '<table id="todo_class" class="detail">';
-            echo '<tr><th colspan="2" class="title">Todo Classes</th></tr>';
-            foreach ($todoClasses as $class) {
-                $todoTag =& $class->tags('@todo');
-                echo '<tr><td class="name"><a href="', $class->asPath(), '">', $class->qualifiedName(), '</a></td>';
-                echo '<td class="description">';
-                if ($todoTag)
-                    echo strip_tags($this->_processInlineTags($todoTag, TRUE), '<a><b><strong><u><em>');
-                echo '</td></tr>';
-            }
-            echo '</table>';
-        }
-
-        if ($todoFields) {
-            echo '<table id="todo_field" class="detail">';
-            echo '<tr><th colspan="2" class="title">Todo Fields</th></tr>';
-            foreach ($todoFields as $field) {
-                $todoTag =& $field->tags('@todo');
-                echo '<tr>';
-                echo '<td class="name"><a href="', $field->asPath(), '">', $field->qualifiedName(), '</a></td>';
-                echo '<td class="description">';
-                if ($todoTag)
-                    echo strip_tags($this->_processInlineTags($todoTag, TRUE), '<a><b><strong><u><em>');
-                echo '</td>';
-                echo '</tr>';
-            }
-            echo '</table>';
-        }
-
-        if ($todoMethods) {
-            echo '<table id="todo_method" class="detail">';
-            echo '<tr><th colspan="2" class="title">Todo Methods</th></tr>';
-            foreach ($todoMethods as $method) {
-                $todoTag =& $method->tags('@todo');
-                echo '<tr>';
-                echo '<td class="name"><a href="', $method->asPath(), '">', $method->qualifiedName(), '</a></td>';
-                echo '<td class="description">';
-                if ($todoTag)
-                    echo strip_tags($this->_processInlineTags($todoTag, TRUE), '<a><b><strong><u><em>');
-                echo '</td>';
-                echo '</tr>';
-            }
-            echo '</table>';
-        }
-
-        if ($todoGlobals) {
-            echo '<table id="todo_global" class="detail">';
-            echo '<tr><th colspan="2" class="title">Todo Globals</th></tr>';
-            foreach ($todoGlobals as $global) {
-                $todoTag =& $global->tags('@todo');
-                echo '<tr>';
-                echo '<td class="name"><a href="'.$global->asPath().'">'.$global->qualifiedName().'</a></td>';
-                echo '<td class="description">';
-                if ($todoTag)
-                    echo strip_tags($this->_processInlineTags($todoTag, TRUE), '<a><b><strong><u><em>');
-                echo '</td>';
-                echo '</tr>';
-            }
-            echo '</table>';
-        }
-
-        if ($todoFunctions) {
-            echo '<table id="todo_function" class="detail">';
-            echo '<tr><th colspan="2" class="title">Todo Functions</th></tr>';
-            foreach ($todoFunctions as $function) {
-                $todoTag =& $function->tags('@todo');
-                echo '<tr>';
-                echo '<td class="name"><a href="', $function->asPath(), '">', $function->qualifiedName(), '</a></td>';
-                echo '<td class="description">';
-                if ($todoTag)
-                    echo strip_tags($this->_processInlineTags($todoTag, TRUE), '<a><b><strong><u><em>');
-                echo '</td>';
-                echo '</tr>';
-            }
-            echo '</table>';
-        }
+        echo $tpl->parse($output);
 
         $this->_output = ob_get_contents();
         ob_end_clean();

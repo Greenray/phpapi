@@ -117,7 +117,7 @@ class htmlWriter {
                 }
             }
         }
-        $output['path'] = str_repeat('../', $this->_depth).DS;
+        $output['path'] = str_repeat('../', $this->_depth);
         $output['file'] = $path;
 
         $thisClass = get_class($this);
@@ -236,7 +236,7 @@ class htmlWriter {
         }
         if (!empty($output)) {
             $phpapi =& $this->_doclet->phpapi();
-            $tpl = new template($phpapi->getOption('doclet'), 'tags');
+            $tpl    = new template($phpapi->getOption('doclet'), 'tags');
             $output = $tpl->parse($output);
         }
         return $output;
@@ -261,7 +261,7 @@ class htmlWriter {
             }
             return $this->_doclet->formatter->toPlainText($description);
         }
-        return NULL;
+        return '';
     }
 
     /** Preparation of the object for html template.
