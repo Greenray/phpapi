@@ -51,7 +51,7 @@ class globalWriter extends htmlWriter {
             $this->_output = ob_get_contents();
             ob_end_clean();
 
-            $this->_write($package->asPath().'/package-globals.html', 'Globals', TRUE);
+            $this->_write($package->asPath().DS.'package-globals.html', 'Globals', TRUE);
         }
     }
 }

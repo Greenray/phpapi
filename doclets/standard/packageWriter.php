@@ -38,15 +38,19 @@ class packageWriter extends htmlWriter {
             $classes =& $rootDoc->classes();
             if ($classes) {
                 foreach ($classes as $class) {
-                    $this->_buildTree($tree, $class);
+                    $this->buildTree($tree, $class);
                 }
             }
+
+            $output['tree'] = [];
+            $tpl = new template($phpapi->getOption('doclet'), 'tree');
 
             ob_start();
 
             echo '<hr>';
             echo '<h1>Class Hierarchy</h1>';
-            $this->_displayTree($tree);
+            $this->displayTree($tree, $output['tree']);
+//            echo $tpl->parse($output);
             echo '<hr>';
 
             $this->_output = ob_get_contents();
@@ -206,17 +210,21 @@ class packageWriter extends htmlWriter {
                 $classes =& $package->ordinaryClasses();
                 if ($classes) {
                     ksort($classes);
-                    foreach ($classes as $class) $this->_buildTree($tree, $class);
+                    foreach ($classes as $class) $this->buildTree($tree, $class);
                 }
+
+                $output['tree'] = [];
+                $tpl = new template($phpapi->getOption('doclet'), 'tree');
 
                 ob_start();
 
                 echo '<hr>';
                 echo '<h1>Class Hierarchy for Package '.$package->name().'</h1>';
-                $this->_displayTree($tree);
+                $this->displayTree($tree, $output['tree']);
+//                echo $tpl->parse($output);
                 echo '<hr>';
-                $this->_output = ob_get_contents();
 
+                $this->_output = ob_get_contents();
                 ob_end_clean();
 
                 $this->_write($package->asPath().DS.'package-tree.html', $package->name(), TRUE);
@@ -226,29 +234,30 @@ class packageWriter extends htmlWriter {
 
     /** Builds the class tree branch for the given element.
      * This function is recursive.
-     * @param classDoc[] $tree
-     * @param classDoc   $element
+     * @param classDoc[] $tree    Link to class tree
+     * @param classDoc   $element Link to element
      */
-    public function _buildTree(&$tree, &$element) {
+    public function buildTree(&$tree, &$element) {
         $tree[$element->name()] = $element;
         if ($element->superclass()) {
             $rootDoc =& $this->_doclet->rootDoc();
             $superclass =& $rootDoc->classNamed($element->superclass());
-            if ($superclass) $this->_buildTree($tree, $superclass);
+            if ($superclass) $this->buildTree($tree, $superclass);
         }
     }
 
     /** Build the class tree branch for the given element.
-     * @param classDoc[] $tree
-     * @param string     $parent
+     * This function is recursive.
+     * @param classDoc[] $tree   Tree data
+     * @param string     $parent Parent element (Default = NULL)
      */
-    public function _displayTree($tree, $parent = NULL) {
+    public function displayTree($tree, &$output, $parent = NULL) {
         $outputList = TRUE;
         foreach ($tree as $name => $element) {
             if ($element->superclass() == $parent) {
                 if ($outputList) echo '<ul>';
                 echo '<li><a href="', str_repeat('../', $this->_depth), $element->asPath(), '">', $element->qualifiedName(), '</a>';
-                $this->_displayTree($tree, $name);
+                $this->displayTree($tree, $output, $name);
                 echo '</li>';
                 $outputList = FALSE;
             }

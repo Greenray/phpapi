@@ -45,59 +45,6 @@ class htmlWriter {
         $this->_doclet =& $doclet;
     }
 
-    /** Builds the HTML header.
-     * Includes doctype definition, <html> and <head> sections, meta data and window title.
-     * @param  string $title HTML page title
-     * @return string        YNML page header
-     */
-    public function _htmlHeader($title) {
-        $output  =
-            '<!doctype html>
-             <html lang="en">
-             <head>
-             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-             <meta name="generator" content="phpAPI '.VERSION.' (https://github.com/Greenray/phpAPI/)">
-             <link rel="stylesheet" type="text/css" href="'.str_repeat('../', $this->_depth).'stylesheet.css">
-             <link rel="start" href="'.str_repeat('../', $this->_depth).'overview-summary.html">
-             <title>';
-        if ($title)
-             $output .= $title.' ('.$this->_doclet->windowTitle().')';
-        else $output .= $this->_doclet->windowTitle();
-        $output .= '</title>
-                </head>';
-        return $output;
-    }
-
-    /** Builds the HTML footer.
-     * @return string Closes html page
-     */
-    public function _htmlFooter() {
-        return '</html>';
-    }
-
-    /** Builds the HTML shell header.
-     * Includes beginning of the <body> section, and the page header
-     * @param  string $path The path to write the file to
-     * @return string       Menu for page header
-     */
-    public function _shellHeader($path) {
-        $output  = '<body id="'.$this->_id.'" onload="parent.document.title=document.title;">';
-        $output .= $this->nav($path);
-
-        return $output;
-    }
-
-    /** Builds the HTML shell footer.
-     * Includes the end of the <body> section, and page footer.
-     * @param  string $path The path to write the file to
-     * @return string       Menu for page footer
-     */
-    public function _shellFooter($path) {
-        $output = $this->nav($path);
-        $output .= '<hr></body>';
-        return $output;
-    }
-
     /** Builds the navigation bar.
      * @param  string $path The path to write the file to
      * @return string       Navigation for documentation
@@ -131,14 +78,6 @@ class htmlWriter {
         return $tpl->parse($output);
     }
 
-    /** Location of the source file.
-     * @param  object $doc Object of the current source file
-     * @return string      Link to the line of the source file
-     */
-    public function _sourceLocation($doc) {
-        return $doc->location();
-    }
-
     /** Writes the HTML page to disk using the given path.
      * @param  string  $path  The path to write the file to
      * @param  string  $title The title for this page
@@ -169,16 +108,19 @@ class htmlWriter {
         $fp = fopen($this->_doclet->destinationPath().$path, 'w');
         if ($fp) {
             $phpapi->message('Writing "'.$path.'"');
+            if ($shell) {
+                $output['headerNav'] = $this->nav($path);
+                $output['footerNav'] = $output['headerNav'];
+            }
+            if ($title)
+                 $output['title'] = $title.' ('.$this->_doclet->windowTitle().')';
+            else $output['title'] = $this->_doclet->windowTitle();
+            $output['path'] = str_repeat('../', $this->_depth);
+            $output['page'] = $this->_output;
 
-            fwrite($fp, $this->_htmlHeader($title));
-            if ($shell) fwrite($fp, $this->_shellHeader($path));
-
-            fwrite($fp, $this->_output);
-            if ($shell) fwrite($fp, $this->_shellFooter($path));
-
-            fwrite($fp, $this->_htmlFooter());
+            $tpl = new template($phpapi->getOption('doclet'), 'main');
+            fwrite($fp, $tpl->parse($output));
             fclose($fp);
-
         } else {
             $phpapi->error('Cannot write "'.$this->_doclet->destinationPath().$path.'"');
             exit;
@@ -292,7 +234,7 @@ class htmlWriter {
             } else   $output[$key]['description'] = __('Описания нет');
 
             if ($modifiers && method_exists($this, '_processTags')) $output[$key]['tags']     = $this->_processTags($element->tags());
-            if (method_exists($this, '_sourceLocation'))            $output[$key]['location'] = $this->_sourceLocation($element);
+            if (method_exists($element, 'location'))                $output[$key]['location'] = $element->location();
         }
         return $output;
     }

@@ -24,7 +24,7 @@ class classWriter extends htmlWriter {
         $phpapi    =& $this->_doclet->phpapi();
         $packages  =& $rootDoc->packages();
         ksort($packages);
-        foreach ($packages as $packageName => $package) {
+        foreach ($packages as $key => $package) {
             $this->_sections[0] = ['title' => 'Overview',   'url' => 'overview-summary.html'];
             $this->_sections[1] = ['title' => 'Namespace',  'url' => $package->asPath().DS.'package-summary.html'];
             $this->_sections[2] = ['title' => 'Class', 'selected' => TRUE];
@@ -40,16 +40,14 @@ class classWriter extends htmlWriter {
                 ksort($classes);
                 foreach ($classes as $name => $class) {
 
-                    ob_start();
-
                     $output = [];
                     $output['qualifiedName'] = $class->qualifiedName();
-                    $output['location']  = $this->_sourceLocation($class);
+                    $output['location']      = $class->location();
                     if ($class->isInterface())
                          $output['qualified'] = 'Interface '.$class->name();
                     else $output['qualified'] = 'Class '.$class->name();
 
-                    $result = $this->_buildTree($rootDoc, $classes[$name]);
+                    $result = $this->buildTree($rootDoc, $classes[$name]);
                     $output['tree'] = $result[0];
 
                     $implements =& $class->interfaces();
@@ -94,13 +92,6 @@ class classWriter extends htmlWriter {
                     $output['ismodifiers'] = $class->modifiers();
                     $output['isname'] = $class->name();
 
-                    if ($class->superclass()) {
-                        $superclass =& $rootDoc->classNamed($class->superclass());
-                        if ($superclass)
-                             $output['extends'] = ' extends <a href="'.str_repeat('../', $this->_depth).$superclass->asPath().'">'.$superclass->name().'</a>';
-                        else $output['extends'] = ' extends '.$class->superclass().LF;
-                    }
-
                     $textTag =& $class->tags('@text');
                     if ($textTag)
                          $output['textag'] = $this->_processInlineTags($textTag);
@@ -116,61 +107,54 @@ class classWriter extends htmlWriter {
                     $methods =& $class->methods(TRUE);
                     ksort($methods);
 
-                    if ($constants) $output['constant'] = $this->showObject($constants, FALSE);
-                    if ($fields)    $output['field']    = $this->showObject($fields, FALSE);
-
+                    if ($constants) {
+                        $output['constant']  = $this->showObject($constants, FALSE);
+                        $output['constants'] = $this->showObject($constants);
+                    }
+                    if ($fields) {
+                        $output['field']  = $this->showObject($fields, FALSE);
+                        $output['fields'] = $this->showObject($fields);
+                    }
                     if ($class->superclass()) {
                         $superclass =& $rootDoc->classNamed($class->superclass());
                         if ($superclass) {
                             $i = 0;
-                            $output['inheritFields'] = [];
-                            $this->inheritFields($superclass, $rootDoc, $package, $output['inheritFields'], $i);
+                            $output['inheritFields']  = [];
+                            $output['inheritMethods'] = [];
+                            $this->inherits($superclass, $rootDoc, $package, 'fields',  $output['inheritFields'],  $i);
+                            $this->inherits($superclass, $rootDoc, $package, 'methods', $output['inheritMethods'], $i);
+                            $output['extends'] = ' extends <a href="'.str_repeat('../', $this->_depth).$superclass->asPath().'">'.$superclass->name().'</a>';
+                        } else {
+                            $output['extends'] = ' extends '.$class->superclass().LF;
                         }
                     }
-
                     if ($constructor) {
                         $output['constructor'] = TRUE;
+                        $output['location']    = $constructor->location();
                         $output['modifiers']   = $constructor->modifiers(FALSE);
+                        $output['modifiers']   = $constructor->modifiers();
                         $output['type']        = $constructor->returnTypeAsString();
                         $output['name']        = $constructor->name();
                         $output['signature']   = $constructor->signature();
                         $textTag =& $constructor->tags('@text');
-                        if ($textTag)
-                             $output['description'] = strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
-                        else $output['description'] = __('Описания нет');
-                    }
-
-                    if ($methods) $output['method'] = $this->showObject($methods, FALSE);
-
-                    if ($class->superclass()) {
-                        $superclass =& $rootDoc->classNamed($class->superclass());
-                        if ($superclass) {
-                            $i = 0;
-                            $output['inheritMethods'] = [];
-                            $this->inheritMethods($superclass, $rootDoc, $package, $output['inheritMethods'], $i);
+                        if ($textTag) {
+                             $output['shortDesc'] = strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
+                             $output['fullDesc']  = $this->_processInlineTags($textTag);
+                        } else {
+                            $output['shortDesc'] = __('Описания нет');
+                            $output['fullDesc']  = __('Описания нет');
                         }
-                    }
-
-                    if ($constants) $output['constants'] = $this->showObject($constants);
-                    if ($fields)    $output['fields']    = $this->showObject($fields);
-
-                    if ($constructor) {
-                        $output['constructors'] = TRUE;
-                        $output['location']     = $this->_sourceLocation($constructor);
-                        $output['modifiers']    = $constructor->modifiers();
-                        $output['type']         = $constructor->returnTypeAsString();
-                        $output['name']         = $constructor->name();
-                        $output['signature']    = $constructor->signature();
-                        $textTag =& $constructor->tags('@text');
-                        if ($textTag)
-                             $output['description'] = strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
-                        else $output['description'] = __('Описания нет');
                         $output['tags'] = $this->_processTags($constructor->tags());
                     }
-
-                    if ($methods) $output['methods'] = $this->showObject($methods);
+                    if ($methods) {
+                        $output['method'] = $this->showObject($methods, FALSE);
+                        $output['methods'] = $this->showObject($methods);
+                    }
 
                     $tpl = new template($phpapi->getOption('doclet'), 'classes');
+
+                    ob_start();
+
                     echo $tpl->parse($output);
 
                     $this->_output = ob_get_contents();
@@ -185,10 +169,10 @@ class classWriter extends htmlWriter {
     /** Build the class hierarchy tree which is placed at the top of the page.
      * @param  rootDoc  $rootDoc Link to root doc
      * @param  classDoc $class   Link to class to generate tree for
-     * @param  integer  $depth   Depth of recursion
+     * @param  integer  $depth   Depth of recursion (Default = NULL)
      * @return array             Output string and depth of recursion
      */
-    public function _buildTree(&$rootDoc, &$class, $depth = NULL) {
+    public function buildTree(&$rootDoc, &$class, $depth = NULL) {
         if ($depth === NULL) {
             $start = TRUE;
             $depth = 0;
@@ -201,7 +185,7 @@ class classWriter extends htmlWriter {
         if ($class->superclass()) {
             $superclass =& $rootDoc->classNamed($class->superclass());
             if ($superclass) {
-                $result  = $this->_buildTree($rootDoc, $superclass, $depth);
+                $result  = $this->buildTree($rootDoc, $superclass, $depth);
                 $output .= $result[0];
                 $depth = ++$result[1];
             } else {
@@ -221,64 +205,35 @@ class classWriter extends htmlWriter {
         return [$output, $depth];
     }
 
-    /** Display the inherited fields of an element.
+    /** Display the inherited fields or methods of an element.
      * This method calls itself recursively if the element has a parent class.
      * @param  elementDoc $element Link to class to generate tree for
      * @param  rootDoc    $rootDoc Link to root document
      * @param  packageDoc $package Link to current package
+     * @param  string     $type    Field or method
      * @param  string     $output  Link to output array
-     * @return string              Output data about inherit fields
+     * @return string              Output data about inherit fields or methods
      */
-    public function inheritFields(&$element, &$rootDoc, &$package, &$output) {
-        $fields =& $element->fields();
-        if ($fields) {
-            ksort($fields);
-            $class = $element->qualifiedName();
-            $pos   = strrpos($class, '\\');
-            if ($pos != FALSE) $class = substr($class, $pos + 1);
-            $num = count($fields);
-            $foo = 0;
-            $output[$class]['qualifiedName'] = $element->qualifiedName();
-            $output[$class]['field'] = '';
-            foreach ($fields as $field) {
-                $output[$class]['field'] .= '<a href="'.str_repeat('../', $this->_depth).$field->asPath().'">'.$field->name().'</a>';
-                if (++$foo < $num) $output[$class]['field'] .= ', ';
-            }
-            if ($element->superclass()) {
-                $superclass =& $rootDoc->classNamed($element->superclass());
-                if ($superclass) {
-                    $this->inheritFields($superclass, $rootDoc, $package, $output);
-                }
-            }
-        }
-    }
-
-    /** Display the inherited methods of an element.
-     * This method calls itself recursively if the element has a parent class.
-     * @param  elementDoc $element Link to class to generate tree for
-     * @param  rootDoc    $rootDoc Link to root document
-     * @param  packageDoc $package Link to current package
-     * @param  string     $output  Link to output array
-     * @param  integer    $i       Data index
-     * @return string              Output data about inherit methods
-     */
-    public function inheritMethods(&$element, &$rootDoc, &$package, &$output, $i) {
-        $methods =& $element->methods();
-        if ($methods) {
-            ksort($methods);
-            $num = count($methods);
+    public function inherits(&$element, &$rootDoc, &$package, $type, &$output, $i) {
+        $items =& $element->$type();
+        if ($items) {
+            ksort($items);
+            $num = count($items);
             $foo = 0;
             $output[$i]['qualifiedName'] = $element->qualifiedName();
-            $output[$i]['method'] = '';
-            foreach ($methods as $method) {
-                $output[$i]['method'] .= '<a href="'.str_repeat('../', $this->_depth).$method->asPath().'">'.$method->name().'</a>';
-                if (++$foo < $num) $output[$i]['method'] .= ', ';
+            $output[$i]['path']  = '';
+            $output[$i]['name']  = '';
+            $output[$i]['comma'] = '';
+            foreach ($items as $item) {
+                $output[$i]['path'] .= str_repeat('../', $this->_depth).$item->asPath();
+                $output[$i]['name'] .= $item->name();
+                if (++$foo < $num) $output[$i]['name'] .= ', ';
             }
             if ($element->superclass()) {
                 $superclass =& $rootDoc->classNamed($element->superclass());
                 if ($superclass) {
                     $i++;
-                    $this->inheritMethods($superclass, $rootDoc, $package, $output, $i);
+                    $this->inherits($superclass, $rootDoc, $package, $type, $output, $i);
                 }
             }
         }

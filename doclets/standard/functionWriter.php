@@ -52,7 +52,7 @@ class functionWriter extends htmlWriter {
             $this->_output = ob_get_contents();
             ob_end_clean();
 
-            $this->_write($package->asPath().'/package-functions.html', 'Functions', TRUE);
+            $this->_write($package->asPath().DS.'package-functions.html', 'Functions', TRUE);
         }
     }
 }

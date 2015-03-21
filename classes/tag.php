@@ -129,7 +129,7 @@ class tag {
      * @return Tag[]       Array of parsed tags
      */
     function &_getInlineTags($text) {
-        $return     = NULL;
+        $return     = [];
         $tagStrings = preg_split('/{(@.+)}/sU', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
         if ($tagStrings) {
             $inlineTags = NULL;

@@ -62,7 +62,7 @@
     [each=inheritFields]
         <table class="inherit">
             <tr><th colspan="2">[__Поля, унаследованные из] {inheritFields[qualifiedName]}</th></tr>
-            <tr><td>{inheritFields[field]}</td></tr>
+            <tr><td><a href="{inheritFields[path]}">{inheritFields[name]}</a></td></tr>
         </table>
     [endeach.inheritFields]
 [endif.inheritFields]
@@ -73,7 +73,7 @@
             <td class="type w_200">{modifiers} {type}</td>
             <td class="description">
                 <code><p><a href="#{name}"><strong><span class="black">{name}</span></strong></a>{signature}</p></code>
-                <p class="description">{description}</p>
+                <p class="description">{shortDesc}</p>
             </td>
         </tr>
     </table>
@@ -96,7 +96,7 @@
     [each=inheritMethods]
         <table class="inherit">
             <tr><th colspan="2">[__Методы, унаследованные из] {inheritMethods[qualifiedName]}</th></tr>
-            <tr><td>{inheritMethods[method]}</td></tr>
+            <tr><td><a href="{inheritMethods[path]}">{inheritMethods[name]}</a></td></tr>
         </table>
     [endeach.inheritMethods]
 [endif.inheritMethods]
@@ -121,15 +121,15 @@
         <hr>
     [endeach.fields]
 [endif.fields]
-[if=constructors]
+[if=constructor]
     <h2 id="details_constructor">[__Конструктор: детали]</h2>
     <div class="location">{location}</div>
     <code class="signature" id="{name}">{modifiers} {type}<strong>{name}</strong>{signature}</code>
     <div class="details">
-        {description}
+        {fullDesc}
         {tags}
     </div>
-[endif.constructors]
+[endif.constructor]
 [if=methods]
     <h2 id="details_methods">[__Методы: детали]</h2>
     [each=methods]

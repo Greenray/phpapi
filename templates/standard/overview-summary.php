@@ -5,7 +5,7 @@
     <div class="comment"><strong>[__Смотри]: <a href="#overview_description">{overviewFile}</a></strong></div>
 [endif.description]
 <table class="title">
-    <tr><th colspan="2" class="title">Namespaces</th></tr>
+    <tr><th colspan="2" class="title">[__Пространства имен]</th></tr>
     [each=package]
         <tr>
             <td class="name"><a href="{package[path]}package-summary.html">{package[name]}</a></td>
