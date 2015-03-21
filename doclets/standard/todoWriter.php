@@ -39,6 +39,7 @@ class todoWriter extends htmlWriter {
                     $output['classes'][$i]['path'] = $class->asPath();
                     $output['classes'][$i]['name'] = $class->qualifiedName();
                     $output['classes'][$i]['desc'] = strip_tags($this->_processInlineTags($todoTag, TRUE), '<a><b><strong><u><em>');
+                    $output['menu'][0]['classes'] = TRUE;
                 }
 
                 $fields =& $class->fields();
@@ -49,6 +50,7 @@ class todoWriter extends htmlWriter {
                             $output['fields'][$k]['path'] = $field->asPath();
                             $output['fields'][$k]['name'] = $field->qualifiedName();
                             $output['fields'][$k]['desc'] = strip_tags($this->_processInlineTags($todoTag, TRUE), '<a><b><strong><u><em>');
+                            $output['menu'][0]['fields'] = TRUE;
                         }
                     }
                 }
@@ -61,6 +63,7 @@ class todoWriter extends htmlWriter {
                             $output['methods'][$k]['path'] = $method->asPath();
                             $output['methods'][$k]['name'] = $method->qualifiedName();
                             $output['methods'][$k]['desc'] = strip_tags($this->_processInlineTags($todoTag, TRUE), '<a><b><strong><u><em>');
+                            $output['menu'][0]['methods'] = TRUE;
                         }
                     }
                 }
@@ -72,9 +75,10 @@ class todoWriter extends htmlWriter {
             foreach ($globals as $k => $global) {
                 $todoTag =& $global->tags('@todo');
                 if (!empty($todoTag)) {
-                    $output['globals'][$key]['path'] = $global->asPath();
-                    $output['globals'][$key]['name'] = $global->qualifiedName();
-                    $output['globals'][$key]['desc'] = strip_tags($this->_processInlineTags($todoTag, TRUE), '<a><b><strong><u><em>');
+                    $output['globals'][$k]['path'] = $global->asPath();
+                    $output['globals'][$k]['name'] = $global->qualifiedName();
+                    $output['globals'][$k]['desc'] = strip_tags($this->_processInlineTags($todoTag, TRUE), '<a><b><strong><u><em>');
+                    $output['menu'][0]['globals'] = TRUE;
                 }
             }
         }
@@ -87,6 +91,7 @@ class todoWriter extends htmlWriter {
                     $output['functions'][$k]['path'] = $function->asPath();
                     $output['functions'][$k]['name'] = $function->qualifiedName();
                     $output['functions'][$k]['desc'] = strip_tags($this->_processInlineTags($todoTag, TRUE), '<a><b><strong><u><em>');
+                    $output['menu'][0]['functions'] = TRUE;
                 }
             }
         }

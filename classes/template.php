@@ -30,7 +30,7 @@ class template {
         'each'      => "#\[each=(.*?)\](.*?)\[endeach.\\1\]#is",
         'foreach'   => "#\[foreach=([\w\_\-]*).([\w\_\-]*).([\w\_\-]*)\](.*?)\[endforeach.\\1\]#is",
         'for'       => "#\[for=(.*?)\](.*?)\[endfor\]#is",
-        'if'        => "#\[if=(.*?)(|\[(.*?)\])\](.*)\[endif.\\1\]#is",
+        'if'        => "#\[if=(.*?)(|\[(.*?)\])\](.*?)\[endif.\\1\]#is",
         'ifelse'    => "#\[ifelse=(.*?)(|\[(.*?)\])\](.*?)\[else\](.*?)\[endelse\]#is",
         'translate' => "#\[__(.*?)\]#is",
         'value'     => "#\{([\-\#\w]+)(|\[(.*?)\])\}#is",
@@ -274,7 +274,7 @@ class template {
         preg_match($this->patterns['if'], $matches[4], $ifsigs);
         if (!empty($ifsigs[1])) $matches[4] = str_replace($ifsigs[0], $ifsigs[4], $ifsigs[0]);
         if (!empty($matches[3])) {
-            $var = SearchValueInArray($matches[3], $this->vars[$matches[1]]);
+            $var = $this->searchValueInArray($matches[3], $this->vars[$matches[1]]);
             if (empty($var)) return str_replace($matches[0], '', $matches[0]);
         }
         if (is_array($this->vars[$matches[1]])) {

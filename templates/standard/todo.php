@@ -1,5 +1,17 @@
 <hr>
 <h1>Todo</h1>
+<hr>
+[if=menu]
+    <ul>
+        [each=menu]
+            [if=menu[classes]]   <li><a href="#todo_classes">[__Классы]</a></li>[endif.menu]
+            [if=menu[fields]]    <li><a href="#todo_fields">[__Поля]</a></li>[endif.menu]
+            [if=menu[methods]]   <li><a href="#todo_methods">[__Методы]</a></li>[endif.menu]
+            [if=menu[globals]]   <li><a href="#todo_globals">[__Глобальгые элементы]</a></li>[endif.menu]
+            [if=menu[functions]] <li><a href="#todo_functions">[__Функции]</a></li>[endif.menu]
+        [endeach.menu]
+    </ul>
+[endif.menu]
 [if=classes]
     <table id="todo_classes">
         <tr><th colspan="2" class="title">[__Классы]</th></tr>
