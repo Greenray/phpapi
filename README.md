@@ -5,7 +5,7 @@ NAME
 
 VERSION
 
-	1.0
+	2.0
 
 DESCRIPTION
 
@@ -45,6 +45,7 @@ FEATURES
       and constants.
 	* Minimal changes to Sun's Javadoc specification.
 	* Javadoc extensions compatible with other PHPDoc programs.
+    * Original template system for output.
 
 INSTALLATION
 
@@ -53,8 +54,6 @@ INSTALLATION
 
     Распакуйте архив, отредактируйте конфигурационный файл и запустите
     phpapi.php.
-
-    # ./phpapi
 
 FILES
 
@@ -66,13 +65,18 @@ FILES
 
 USAGE
 
-	phpapi.php <config_file>
+	# ./phpapi <config.ini>
 
-	To create a config file for your project, copy the default.ini file and
-	edit it to your needs, it's fully commented.
+    or
 
-    Для созданияя конфигурационного файла вашего проекта, скопируйте phpapi.ini
-    и отредактируйте его в соответствие с имеющемися комментариями.
+    # ./phpapi <config.ini> > result.txt (To save output mesages)
+
+	To create a config file for your project, copy, rename the phpini.ini file
+    and edit it to your needs, it's fully commented.
+
+    Для созданияя конфигурационного файла вашего проекта, скопируйте,
+    переименуйте phpapi.ini и отредактируйте его в соответствие с имеющемися
+    комментариями.
 
 CONFIGURATION
 
