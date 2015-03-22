@@ -101,7 +101,7 @@
     [endeach.inheritMethods]
 [endif.inheritMethods]
 [if=constants]
-    <h2 id="details_constants">[__Константы: подробно]</h2>
+    <h2 id="details_constants">[__Константы: детали]</h2>
     [each=constants]
         <div class="location">{constants[location]}</div>
         <h3 id="{constants[name]}">{constants[name]}</h3>
@@ -112,7 +112,7 @@
     [endeach.constants]
 [endif.constants]
 [if=fields]
-    <h2 id="details_fields">[__Поля: подробно]</h2>
+    <h2 id="details_fields">[__Поля: детали]</h2>
     [each=fields]
         <div class="location">{fields[location]}</div>
         <h3 id="{fields[name]}">{fields[name]}</h3>

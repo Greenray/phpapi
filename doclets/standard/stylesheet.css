@@ -32,7 +32,9 @@ nav ul                  { list-style: none }
 table, th, td           { border: 1px solid #000 }
 td                      { padding: 2px 4px }
 td p                    { margin: 0; padding: 0 }
-th                      { background: #ccf; font-size: 120%; padding: 2px 15px; text-align: left }
+th,
+#details_globals, #details_functions, #details_fields, #details_constructor,
+#details_methods        { background: #ccf; font-size: 120%; padding: 2px 15px; text-align: left }
 dd                      { margin: 5px 0 0 40px }
 dt                      { font-weight: bold; margin: 10px 0 10px 5px }
 ol, ul                  { margin-left: 30px }
@@ -58,6 +60,7 @@ p#footer                { font-size: 80%; text-align: right }
 #frame ul li            { padding: 2px 10px 0 5px }
 #header                 { background: #cee; font-size: 140%; font-weight: bold; height: 30px; padding: 10px 0 20px 0; text-align: center; text-shadow: 1px 1px 1px #fff }
 #tree ul ul             { margin-top: 0; margin-bottom: 0 }
+   { background: #ccf; font-size: 120%; padding: 2px 15px; text-align: left }
 .black                  { color: black }
 .blue                   { color: blue }
 .center                 { text-align: center }

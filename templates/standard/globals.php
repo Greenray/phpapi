@@ -2,7 +2,7 @@
 <h1>[__Глобальные элементы]</h1>
 <hr>
 <table id="summary_globals">
-    <tr><th colspan="2">[__Общий обзор]</th></tr>
+    <tr><th colspan="2">[__Глобальные элементы: общий обзор]</th></tr>
     [each=global]
         <tr>
             <td class="type w_200">{global[modifiers]} {global[type]}</td>
@@ -13,7 +13,7 @@
         </tr>
     [endeach.global]
 </table>
-<h2 id="details_globals">[__Детали]</h2>
+<h2 id="details_globals">[__Глобальные элементы: детали]</h2>
 [each=globals]
     <div class="location">{globals[location]}</div>
     <h3 id="{globals[name]}">{globals[name]}</h3>

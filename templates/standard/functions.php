@@ -14,7 +14,7 @@
             </tr>
         [endeach.function]
     </table>
-    <h2 id="details_functions">[__Функции: подробно]</h2>
+    <h2 id="details_functions">[__Функции: детали]</h2>
     [each=functions]
         <div class="location">{functions[location]}</div>
         <h3 id="{functions[name]}">{functions[name]}</h3>
