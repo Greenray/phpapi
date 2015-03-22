@@ -39,7 +39,6 @@ class classWriter extends htmlWriter {
             if ($classes) {
                 ksort($classes);
                 foreach ($classes as $name => $class) {
-
                     $output = [];
                     $output['qualifiedName'] = $class->qualifiedName();
                     $output['location']      = $class->location();
@@ -86,11 +85,11 @@ class classWriter extends htmlWriter {
                         }
                     }
 
-                    if ($class->isInterface()) $output['is'] = 'interface';
-                    elseif ($class->isTrait()) $output['is'] = 'trait';
-                    else                       $output['is'] = 'class';
+                    if     ($class->isInterface()) $output['is'] = 'interface';
+                    elseif ($class->isTrait())     $output['is'] = 'trait';
+                    else                           $output['is'] = 'class';
                     $output['ismodifiers'] = $class->modifiers();
-                    $output['isname'] = $class->name();
+                    $output['isname']      = $class->name();
 
                     $textTag =& $class->tags('@text');
                     if ($textTag)
@@ -147,19 +146,17 @@ class classWriter extends htmlWriter {
                         $output['tags'] = $this->_processTags($constructor->tags());
                     }
                     if ($methods) {
-                        $output['method'] = $this->showObject($methods, FALSE);
+                        $output['method']  = $this->showObject($methods, FALSE);
                         $output['methods'] = $this->showObject($methods);
                     }
 
                     $tpl = new template($phpapi->getOption('doclet'), 'classes');
-
                     ob_start();
 
                     echo $tpl->parse($output);
 
                     $this->_output = ob_get_contents();
                     ob_end_clean();
-
                     $this->_write($package->asPath().DS.strtolower($class->name()).'.html', $class->name(), TRUE);
                 }
             }

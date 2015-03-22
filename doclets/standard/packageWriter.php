@@ -19,10 +19,9 @@ class packageWriter extends htmlWriter {
     public function packageWriter(&$doclet) {
         parent::htmlWriter($doclet);
 
-        $this->_id = 'tree';
-        $rootDoc   =& $this->_doclet->rootDoc();
-        $phpapi    =& $this->_doclet->phpapi();
-
+        $this->_id   = 'tree';
+        $rootDoc     =& $this->_doclet->rootDoc();
+        $phpapi      =& $this->_doclet->phpapi();
         $displayTree = $phpapi->getOption('tree');
 
         if ($displayTree) {
@@ -44,26 +43,21 @@ class packageWriter extends htmlWriter {
 
             $output['tree'] = [];
             $tpl = new template($phpapi->getOption('doclet'), 'tree');
-
+            $this->displayTree($tree, $output['tree'], 0);
             ob_start();
 
-            echo '<hr>';
-            echo '<h1>Class Hierarchy</h1>';
-            $this->displayTree($tree, $output['tree']);
-//            echo $tpl->parse($output);
-            echo '<hr>';
+            echo $tpl->parse($output);
 
             $this->_output = ob_get_contents();
             ob_end_clean();
-
             $this->_write('tree.html', 'Overview', TRUE);
         }
 
         $this->_id = 'package';
         $packages =& $rootDoc->packages();
         ksort($packages);
+        $output = [] ;
         foreach ($packages as $packageName => $package) {
-
             $this->_depth = $package->depth() + 1;
 
             $this->_sections[0] = ['title' => 'Overview',       'url' => 'overview-summary.html'];
@@ -74,128 +68,99 @@ class packageWriter extends htmlWriter {
             $this->_sections[5] = ['title' => 'Todo',           'url' => 'todo.html'];
             $this->_sections[6] = ['title' => 'Index',          'url' => 'index-all.html'];
 
-            ob_start();
-
-            echo '<hr>';
-            echo '<h1>Namespace '.$package->name().'</h1>';
+            $output['name'] = $package->name();
             $textTag =& $package->tags('@text');
             if ($textTag) {
-                echo '<div class="comment">', $this->_processInlineTags($textTag, TRUE), '</div>';
-                echo '<dl><dt>See:</dt><dd><b><a href="#overview_description">Description</a></b></dd></dl>';
+                $output['shortOverview'] = $this->_processInlineTags($textTag, TRUE);
             }
             $classes =& $package->ordinaryClasses();
             if ($classes) {
                 ksort($classes);
-                echo '<table class="title">';
-                echo '<tr><th colspan="2" class="title">Class Summary</th></tr>';
                 foreach ($classes as $name => $class) {
+                    $output['classes'][$name]['path'] = str_repeat('../', $this->_depth).$classes[$name]->asPath();
+                    $output['classes'][$name]['name'] = $classes[$name]->name();
                     $textTag =& $classes[$name]->tags('@text');
-                    echo '<tr><td class="name"><a href="'.str_repeat('../', $this->_depth).$classes[$name]->asPath().'">'.$classes[$name]->name().'</a></td>';
-                    echo '<td class="description">';
                     if ($textTag) {
-                        echo strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
+                        $output['classes'][$name]['description'] = strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
                     }
-                    echo '</td></tr>';
                 }
-                echo '</table>';
             }
             $interfaces =& $package->interfaces();
             if ($interfaces) {
                 ksort($interfaces);
-                echo '<table class="title">';
-                echo '<tr><th colspan="2" class="title">Interface Summary</th></tr>';
                 foreach ($interfaces as $name => $interface) {
+                    $output['interfaces'][$name]['path'] = str_repeat('../', $this->_depth).$interfaces[$name]->asPath();
+                    $output['interfaces'][$name]['name'] = $interfaces[$name]->name();
                     $textTag =& $interfaces[$name]->tags('@text');
-                    echo '<tr><td class="name"><a href="', str_repeat('../', $this->_depth), $interfaces[$name]->asPath(), '">', $interfaces[$name]->name(), '</a></td>';
-                    echo '<td class="description">';
                     if ($textTag) {
-                        echo strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
+                        $output['interfaces'][$name]['description'] = strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
                     }
-                    echo '</td></tr>';
                 }
-                echo '</table>';
             }
             $traits =& $package->traits();
             if ($traits) {
                 ksort($traits);
-                echo '<table class="title">';
-                echo '<tr><th colspan="2" class="title">Trait Summary</th></tr>';
                 foreach ($traits as $name => $trait) {
+                    $output['traits'][$name]['path'] = str_repeat('../', $this->_depth).$traits[$name]->asPath();
+                    $output['traits'][$name]['name'] = $traits[$name]->name();
                     $textTag =& $traits[$name]->tags('@text');
-                    echo '<tr><td class="name"><a href="'.str_repeat('../', $this->_depth).$traits[$name]->asPath().'">'.$traits[$name]->name().'</a></td>';
-                    echo '<td class="description">';
                     if ($textTag) {
-                        echo strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
+                        $output['traits'][$name]['description'] = strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
                     }
-                    echo '</td></tr>';
                 }
-                echo '</table>';
             }
             $exceptions =& $package->exceptions();
             if ($exceptions) {
                 ksort($exceptions);
-                echo '<table class="title">'.LF;
-                echo '<tr><th colspan="2" class="title">Exception Summary</th></tr>';
                 foreach ($exceptions as $name => $exception) {
+                    $output['exceptions'][$name]['path'] = str_repeat('../', $this->_depth).$exceptions[$name]->asPath();
+                    $output['exceptions'][$name]['name'] = $exceptions[$name]->name();
                     $textTag =& $exceptions[$name]->tags('@text');
-                    echo '<tr><td class="name"><a href="'.str_repeat('../', $this->_depth).$exceptions[$name]->asPath().'">', $exceptions[$name]->name().'</a></td>';
-                    echo '<td class="description">';
                     if ($textTag) {
-                        echo strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
+                        $output['exceptions'][$name]['description'] = strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
                     }
-                    echo '</td></tr>';
                 }
-                echo '</table>';
             }
             $functions =& $package->functions();
             if ($functions) {
                 ksort($functions);
-                echo '<table class="title">';
-                echo '<tr><th colspan="2" class="title">Function Summary</th></tr>';
                 foreach ($functions as $name => $function) {
+                    $output['functions'][$name]['path'] = str_repeat('../', $this->_depth).$functions[$name]->asPath();
+                    $output['functions'][$name]['name'] = $functions[$name]->name();
                     $textTag =& $functions[$name]->tags('@text');
-                    echo '<tr><td class="name"><a href="package-functions.html#'.$functions[$name]->name().'">'.$functions[$name]->name().'</a></td>';
-                    echo '<td class="description">';
                     if ($textTag) {
-                        echo strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
+                        $output['functions'][$name]['description'] = strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
                     }
-                    echo '</td></tr>';
                 }
-                echo '</table>';
             }
 
             $globals =& $package->globals();
             if ($globals) {
                 ksort($globals);
-                echo '<table class="title">'.LF;
-                echo '<tr><th colspan="2" class="title">Global Summary</th></tr>';
                 foreach ($globals as $name => $global) {
+                    $output['globals'][$name]['path'] = str_repeat('../', $this->_depth).$globals[$name]->asPath();
+                    $output['globals'][$name]['name'] = $globals[$name]->name();
                     $textTag =& $globals[$name]->tags('@text');
-                    echo '<tr><td class="name"><a href="package-globals.html#'.$globals[$name]->name().'">'.$globals[$name]->name().'</a></td>';
-                    echo '<td class="description">';
                     if ($textTag) {
-                        echo strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
+                        $output['globals'][$name]['description'] = strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
                     }
-                    echo '</td></tr>';
                 }
-                echo '</table>';
             }
 
             $textTag =& $package->tags('@text');
             if ($textTag) {
-                echo '<h1>Namespace '.$package->name().' Description</h1>';
-                echo '<div class="comment" id="overview_description">'.$this->_processInlineTags($textTag), '</div>';
+                $output['verview'] = $this->_processInlineTags($textTag);
             }
+            $tpl = new template($phpapi->getOption('doclet'), 'package-summary');
+            ob_start();
 
-            echo '<hr>';
+            echo $tpl->parse($output);
 
             $this->_output = ob_get_contents();
             ob_end_clean();
-
             $this->_write($package->asPath().DS.'package-summary.html', $package->name(), TRUE);
 
             if ($displayTree) {
-
                 $this->_sections[0] = ['title' => 'Overview',   'url' => 'overview-summary.html'];
                 $this->_sections[1] = ['title' => 'Namespace',  'url' => $package->asPath().DS.'package-summary.html', 'relative' => TRUE];
                 $this->_sections[2] = ['title' => 'Class'];
@@ -214,19 +179,15 @@ class packageWriter extends htmlWriter {
                 }
 
                 $output['tree'] = [];
+                $output['name'] = $package->name();
+                $this->displayTree($tree, $output['tree'], 0);
                 $tpl = new template($phpapi->getOption('doclet'), 'tree');
-
                 ob_start();
 
-                echo '<hr>';
-                echo '<h1>Class Hierarchy for Package '.$package->name().'</h1>';
-                $this->displayTree($tree, $output['tree']);
-//                echo $tpl->parse($output);
-                echo '<hr>';
+                echo $tpl->parse($output);
 
                 $this->_output = ob_get_contents();
                 ob_end_clean();
-
                 $this->_write($package->asPath().DS.'package-tree.html', $package->name(), TRUE);
             }
         }
@@ -251,17 +212,17 @@ class packageWriter extends htmlWriter {
      * @param classDoc[] $tree   Tree data
      * @param string     $parent Parent element (Default = NULL)
      */
-    public function displayTree($tree, &$output, $parent = NULL) {
+    public function displayTree($tree, &$output, $i, $parent = NULL) {
         $outputList = TRUE;
         foreach ($tree as $name => $element) {
             if ($element->superclass() == $parent) {
-                if ($outputList) echo '<ul>';
-                echo '<li><a href="', str_repeat('../', $this->_depth), $element->asPath(), '">', $element->qualifiedName(), '</a>';
-                $this->displayTree($tree, $output, $name);
-                echo '</li>';
+                if ($outputList) $output[]['item'] = '<ul>';
+                $output[]['item'] = '<li><a href="'.str_repeat('../', $this->_depth).$element->asPath().'">'.$element->qualifiedName().'</a>';
+                $this->displayTree($tree, $output, $i, $name);
+                $output[]['item'] = '</li>';
                 $outputList = FALSE;
             }
         }
-        if (!$outputList) echo '</ul>';
+        if (!$outputList) $output[]['item'] = '</ul>';
     }
 }

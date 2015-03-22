@@ -19,28 +19,24 @@ class overviewFrameWriter extends htmlWriter {
      */
     public function overviewFrameWriter(&$doclet) {
         parent::htmlWriter($doclet);
-
-        ob_start();
-
-        echo '<body id="frame">';
-        echo '<h1>'.$this->_doclet->getHeader().'</h1>';
-        echo '<ul>';
-        echo '<li><a href="allitems.html" target="index">All Items</a></li>';
-        echo '</ul>';
-        echo '<h1>Namespaces</h1>';
+        $phpapi =& $this->_doclet->phpapi();
+        $output = [];
+        $output['header'] = $this->_doclet->getHeader();
         $rootDoc =& $this->_doclet->rootDoc();
-        echo '<ul>';
         $packages =& $rootDoc->packages();
         ksort($packages);
         foreach ($packages as $name => $package) {
-            echo '<li><a href="'.$package->asPath().DS.'package-frame.html" target="index">'.$package->name().'</a></li>';
+            $output['package'][$name]['path'] = $package->asPath().DS;
+            $output['package'][$name]['name'] = $package->name();
         }
-        echo '</ul>';
-        echo '</body>';
+
+        $tpl = new template($phpapi->getOption('doclet'), 'overview-frame');
+        ob_start();
+
+        echo $tpl->parse($output);
 
         $this->_output = ob_get_contents();
         ob_end_clean();
-
         $this->_write('overview-frame.html', 'Overview', FALSE);
     }
 }

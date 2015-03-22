@@ -74,7 +74,7 @@ class htmlWriter {
         $output['global']   = ($thisClass == 'globalWriter')   ? TRUE : FALSE;
 
         $phpapi =& $this->_doclet->phpapi();
-        $tpl    = new template($phpapi->getOption('doclet'), 'navigation');
+        $tpl = new template($phpapi->getOption('doclet'), 'navigation');
         return $tpl->parse($output);
     }
 
@@ -144,15 +144,14 @@ class htmlWriter {
                         $usedTag = '';
                         foreach ($tag as $k => $tagFromGroup) {
                             $variable = explode('+', $tagFromGroup->text($this->_doclet));
-                            if ($tag[0]->displayName() !== $usedTag) {
-                                   $output['tags'][$k]['name'] = $tag[0]->displayName();
-                            } else $output['tags'][$k]['name'] = '&nbsp';
+                            if ($tag[0]->displayName() !== $usedTag)
+                                 $output['tags'][$k]['name'] = $tag[0]->displayName();
+                            else $output['tags'][$k]['name'] = '&nbsp';
                             $output['tags'][$k]['type'] = $tagFromGroup->type();
                             $output['tags'][$k]['var']  = trim($variable[0]);
                             if (!empty($variable[1]))
                                  $output['tags'][$k]['comment'] = preg_replace("#\'(.*?)\'#is", '<span class="red">\'\\1\'</span>', htmlspecialchars(trim($variable[1])));
                             else $output['tags'][$k]['comment'] = '&nbsp;';
-
                             $usedTag = $tag[0]->displayName();
                         }
                     }
@@ -166,11 +165,11 @@ class htmlWriter {
                              $output['tags'][$key]['type'] = $type;
                         else $output['tags'][$key]['type'] = '&nbsp;';
                         if (!empty($variable[1])) {
-                            $output['tags'][$key]['var']     = trim($variable[0]);
-                            $output['tags'][$key]['comment'] = preg_replace("#\'(.*?)\'#is", '<span class="red">\'\\1\'</span>', htmlspecialchars(trim($variable[1])));
+                             $output['tags'][$key]['var']     = trim($variable[0]);
+                             $output['tags'][$key]['comment'] = preg_replace("#\'(.*?)\'#is", '<span class="red">\'\\1\'</span>', htmlspecialchars(trim($variable[1])));
                         } else {
-                            $output['tags'][$key]['var']     = '';
-                            $output['tags'][$key]['comment'] =$variable[0];
+                             $output['tags'][$key]['var']     = '';
+                             $output['tags'][$key]['comment'] =$variable[0];
                         }
                     }
                 }

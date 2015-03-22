@@ -12,7 +12,7 @@
         </ul>
     [endif.sections]
 </div>
-<div class="small_links">[__Фреймы]: <a href="{path}index.html" target="_top"> [__включить]</a> | <a href="{path}{file}" target="_top"> [__выключить]</a></div>
+<div class="small_links">[__Фреймы]: <a href="{path}index.html" target="_top"> [__Включить]</a> | <a href="{path}{file}" target="_top"> [__Выключить]</a></div>
 [if=class]
     <div class="small_links">
         [__Общий обзор]: <a href="#summary_fields">[__Поля]</a> | <a href="#summary_methods">[__Методы]</a> | <a href="#summary_constructor">[__Конструктор]</a>

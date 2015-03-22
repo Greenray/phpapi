@@ -45,18 +45,15 @@ class overviewSummaryWriter extends htmlWriter {
             $output['package'][$name]['name'] = $package->name();
             $output['package'][$name]['desc'] = strip_tags($this->_processInlineTags($description, TRUE), '<a><b><strong><u><em>');
         }
-
         $output['overview'] = $this->_processInlineTags($overview);
 
         $tpl = new template($phpapi->getOption('doclet'), 'overview-summary');
-
         ob_start();
 
         echo $tpl->parse($output);
 
         $this->_output = ob_get_contents();
         ob_end_clean();
-
         $this->_write('overview-summary.html', 'Overview', TRUE);
     }
 }

@@ -22,14 +22,15 @@ class packageFrameWriter extends htmlWriter {
         parent::htmlWriter($doclet);
 
         $rootDoc       =& $this->_doclet->rootDoc();
-        $this->_output =& $this->_allItems($rootDoc);
-        $this->_write('allitems.html', 'All Items', FALSE);
+        $phpapi        =& $this->_doclet->phpapi();
+        $this->_output =& $this->_allItems($rootDoc, $phpapi);
+        $this->_write('allitems.html', __('Полный список'), FALSE);
 
         $packages =& $rootDoc->packages();
         ksort($packages);
         foreach ($packages as $packageName => $package) {
             $this->_depth  = $package->depth() + 1;
-            $this->_output =& $this->_buildFrame($package);
+            $this->_output =& $this->_buildFrame($package, $phpapi);
             $this->_write($package->asPath().DS.'package-frame.html', $package->name(), FALSE);
         }
     }
@@ -37,144 +38,144 @@ class packageFrameWriter extends htmlWriter {
     /** Build package frame
      * @return str
      */
-    function &_buildFrame(&$package) {
-
-        ob_start();
-
-        echo '<body id="frame">';
-        echo '<h1><a href="package-summary.html" target="main">', $package->name(), '</a></h1>';
-
+    function &_buildFrame(&$package, $phpapi) {
+        $output = [];
+//        echo '<body id="frame">';
+//        echo '<h1><a href="package-summary.html" target="main">', $package->name(), '</a></h1>';
+        $output['name'] = $package->name();
         $classes =& $package->ordinaryClasses();
         if ($classes && is_array($classes)) {
             ksort($classes);
-            echo '<h2>Classes</h2>';
-            echo '<ul>';
+//            echo '<h2>Classes</h2>';
+//            echo '<ul>';
             foreach ($classes as $name => $class) {
-                echo '<li><a href="', str_repeat('../', $package->depth() + 1), $classes[$name]->asPath(), '" target="main">', $classes[$name]->name(), '</a></li>';
+                $output['classes'][$name]['path'] = str_repeat('../', $package->depth() + 1).$classes[$name]->asPath();
+                $output['classes'][$name]['name'] = $classes[$name]->name();
+//                echo '<li><a href="', str_repeat('../', $package->depth() + 1), $classes[$name]->asPath(), '" target="main">', $classes[$name]->name(), '</a></li>';
             }
-            echo '</ul>';
+//            echo '</ul>';
         }
 
         $interfaces =& $package->interfaces();
         if ($interfaces && is_array($interfaces)) {
             ksort($interfaces);
-            echo '<h2>Interfaces</h2>';
-            echo '<ul>';
+//            echo '<h2>Interfaces</h2>';
+//            echo '<ul>';
             foreach ($interfaces as $name => $interface) {
-                echo '<li><a href="', str_repeat('../', $package->depth() + 1), $interfaces[$name]->asPath(), '" target="main">', $interfaces[$name]->name(), '</a></li>';
+                $output['interfaces'][$name]['path'] = str_repeat('../', $package->depth() + 1).$interfaces[$name]->asPath();
+                $output['interfaces'][$name]['name'] = $interfaces[$name]->name();
+//                echo '<li><a href="', str_repeat('../', $package->depth() + 1), $interfaces[$name]->asPath(), '" target="main">', $interfaces[$name]->name(), '</a></li>';
             }
-            echo '</ul>';
+//            echo '</ul>';
         }
 
         $traits =& $package->traits();
         if ($traits && is_array($traits)) {
             ksort($traits);
-            echo '<h2>Traits</h2>';
-            echo '<ul>';
+//            echo '<h2>Traits</h2>';
+//            echo '<ul>';
             foreach ($traits as $name => $trait) {
-                echo '<li><a href="', str_repeat('../', $package->depth() + 1), $traits[$name]->asPath(), '" target="main">', $traits[$name]->name(), '</a></li>';
+                $output['traits'][$name]['path'] = str_repeat('../', $package->depth() + 1).$traits[$name]->asPath();
+                $output['traits'][$name]['name'] = $traits[$name]->name();
+//                echo '<li><a href="', str_repeat('../', $package->depth() + 1), $traits[$name]->asPath(), '" target="main">', $traits[$name]->name(), '</a></li>';
             }
-            echo '</ul>';
+//            echo '</ul>';
         }
 
         $exceptions =& $package->exceptions();
         if ($exceptions && is_array($exceptions)) {
             ksort($exceptions);
-            echo '<h2>Exceptions</h2>';
-            echo '<ul>';
+//            echo '<h2>Exceptions</h2>';
+//            echo '<ul>';
             foreach ($exceptions as $name => $exception) {
-                echo '<li><a href="', str_repeat('../', $package->depth() + 1), $exceptions[$name]->asPath(), '" target="main">', $exceptions[$name]->name(), '</a></li>';
+                $output['exceptions'][$name]['path'] = str_repeat('../', $package->depth() + 1).$exceptions[$name]->asPath();
+                $output['exceptions'][$name]['name'] = $exceptions[$name]->name();
+//                echo '<li><a href="', str_repeat('../', $package->depth() + 1), $exceptions[$name]->asPath(), '" target="main">', $exceptions[$name]->name(), '</a></li>';
             }
-            echo '</ul>';
+//            echo '</ul>';
         }
 
         $functions =& $package->functions();
         if ($functions && is_array($functions)) {
             ksort($functions);
-            echo '<h2>Functions</h2>';
-            echo '<ul>';
+//            echo '<h2>Functions</h2>';
+//            echo '<ul>';
             foreach ($functions as $name => $function) {
-                echo '<li><a href="', str_repeat('../', $package->depth() + 1), $functions[$name]->asPath(), '" target="main">', $functions[$name]->name(), '</a></li>';
+                $output['functions'][$name]['path'] = str_repeat('../', $package->depth() + 1).$functions[$name]->asPath();
+                $output['functions'][$name]['name'] = $functions[$name]->name();
+//                echo '<li><a href="', str_repeat('../', $package->depth() + 1), $functions[$name]->asPath(), '" target="main">', $functions[$name]->name(), '</a></li>';
             }
-            echo '</ul>';
+//            echo '</ul>';
         }
 
         $globals =& $package->globals();
         if ($globals && is_array($globals)) {
             ksort($globals);
-            echo '<h2>Globals</h2>';
-            echo '<ul>';
+//            echo '<h2>Globals</h2>';
+//            echo '<ul>';
             foreach ($globals as $name => $global) {
-                echo '<li><a href="', str_repeat('../', $package->depth() + 1), $globals[$name]->asPath(), '" target="main">', $globals[$name]->name(), '</a></li>';
+                $output['globals'][$name]['path'] = str_repeat('../', $package->depth() + 1).$globals[$name]->asPath();
+                $output['globals'][$name]['name'] = $globals[$name]->name();
+//                echo '<li><a href="', str_repeat('../', $package->depth() + 1), $globals[$name]->asPath(), '" target="main">', $globals[$name]->name(), '</a></li>';
             }
-            echo '</ul>';
+//            echo '</ul>';
         }
 
-        echo '</body>';
+//        echo '</body>';
+        $tpl = new template($phpapi->getOption('doclet'), 'package-frame');
+        ob_start();
 
-        $output = ob_get_contents();
+        echo $tpl->parse($output);
+
+        $result = ob_get_contents();
         ob_end_clean();
-
-        return $output;
+        return $result;
     }
 
     /** Build all items frame
      * @return str
      */
-    function &_allItems(&$rootDoc) {
-
-        ob_start();
-
-        echo '<body id="frame">';
-        echo '<h1>All Items</h1>';
-
+    function &_allItems(&$rootDoc, $phpapi) {
+        $output = [];
         $classes =& $rootDoc->classes();
         if ($classes) {
             ksort($classes);
-            echo '<h2>Classes</h2>';
-            echo '<ul>';
             foreach ($classes as $name => $class) {
                 $package =& $classes[$name]->containingPackage();
-                if ($class->isInterface()) {
-                    echo '<li><em><a href="', $classes[$name]->asPath(), '" title="', $classes[$name]->packageName(), '" target="main">', $classes[$name]->name(), '</a></em></li>';
-                } elseif ($class->isTrait()) {
-                    echo '<li><em><a href="', $classes[$name]->asPath(), '" title="', $classes[$name]->packageName(), '" target="main">', $classes[$name]->name(), '</a></em></li>';
-                } else {
-                    echo '<li><a href="', $classes[$name]->asPath(), '" title="', $classes[$name]->packageName(), '" target="main">', $classes[$name]->name(), '</a></li>';
-                }
+                $output['classes'][$name]['path']    = $classes[$name]->asPath();
+                $output['classes'][$name]['name']    = $classes[$name]->name();
+                $output['classes'][$name]['package'] = $classes[$name]->packageName();
             }
-            echo '</ul>';
         }
 
         $functions =& $rootDoc->functions();
         if ($functions) {
             ksort($functions);
-            echo '<h2>Functions</h2>';
-            echo '<ul>';
             foreach ($functions as $name => $function) {
                 $package =& $functions[$name]->containingPackage();
-                echo '<li><a href="', $package->asPath(), DS.'package-functions.html#', $functions[$name]->name(), '" title="', $functions[$name]->packageName(), '" target="main">', $functions[$name]->name(), '</a></li>';
+                $output['functions'][$name]['path']    = $functions[$name]->asPath();
+                $output['functions'][$name]['name']    = $functions[$name]->name();
+                $output['functions'][$name]['package'] = $functions[$name]->packageName();
             }
-            echo '</ul>';
         }
 
         $globals =& $rootDoc->globals();
         if ($globals) {
             ksort($globals);
-            echo '<h2>Globals</h2>';
-            echo '<ul>';
             foreach ($globals as $name => $global) {
                 $package =& $globals[$name]->containingPackage();
-                echo '<li><a href="', $package->asPath(), DS.'package-globals.html#', $globals[$name]->name(), '" title="', $globals[$name]->packageName(), '" target="main">', $globals[$name]->name(), '</a></li>';
+                $output['globals'][$name]['path']    = $globals[$name]->asPath();
+                $output['globals'][$name]['name']    = $globals[$name]->name();
+                $output['globals'][$name]['package'] = $globals[$name]->packageName();
             }
-            echo '</ul>';
         }
 
-        echo '</body>';
+        $tpl = new template($phpapi->getOption('doclet'), 'allitems');
+        ob_start();
 
+        echo $tpl->parse($output);
         $output = ob_get_contents();
         ob_end_clean();
-
         return $output;
     }
 }
