@@ -6,7 +6,7 @@
  * It is  the root of the parsed tokens and is passed to the doclet to be formatted into output.
  *
  * @file      classes/rootDoc.php
- * @version   1.0
+ * @version   2.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -31,7 +31,8 @@ class rootDoc extends doc {
     public $_sources = [];
 
     /** Constructor.
-     * @param phpapi phpapi Application object
+     * @param  phpapi $phpapi Reference to application object
+     * @return void
      */
     public function rootDoc(&$phpapi) {
         # Set a reference to application object
@@ -52,14 +53,14 @@ class rootDoc extends doc {
         }
     }
 
-    /** Add a package to this root.
+    /** Adds a package to this root.
      * @param packageDoc package
      */
     public function addPackage(&$package) {
         $this->_packages[$package->name()] =& $package;
     }
 
-    /** Add a source file to this root.
+    /** Adds a source file to this root.
      * @param string filename
      * @param string source
      * @param array fileData
@@ -68,35 +69,35 @@ class rootDoc extends doc {
         $this->_sources[substr($filename, strlen($this->_phpapi->sourcePath()) + 1)] = [$source, $fileData];
     }
 
-    /** Return a reference to the phpapi application object.
+    /** Returns a reference to the phpapi application object.
      * @return phpapi.
      */
     function &phpapi() {
         return $this->_phpapi;
     }
 
-    /** Return a reference to the set options.
+    /** Returns a reference to the set options.
      * @return str[] An array of strings
      */
     function &options() {
         return $this->_phpapi->options();
     }
 
-    /** Return a reference to the packages to be documented.
+    /** Returns a reference to the packages to be documented.
      * @return packageDoc[]
      */
     function &packages() {
         return $this->_packages;
     }
 
-    /** Return a reference to the source files to be documented.
+    /** Returns a reference to the source files to be documented.
      * @return str[]
      */
     function &sources() {
         return $this->_sources;
     }
 
-    /** Return a reference to the classes and interfaces to be documented.
+    /** Returns a reference to the classes and interfaces to be documented.
      * @return classDoc[]
      */
     function &classes() {
@@ -114,7 +115,7 @@ class rootDoc extends doc {
         return $classes;
     }
 
-    /** Return a reference to the functions to be documented.
+    /** Returns a reference to the functions to be documented.
      * @return methodDoc[]
      */
     function &functions() {
@@ -131,7 +132,7 @@ class rootDoc extends doc {
         return $functions;
     }
 
-    /** Return a reference to the globals to be documented.
+    /** Returns a reference to the globals to be documented.
      * @return fieldDoc[]
      */
     function &globals() {
@@ -149,7 +150,7 @@ class rootDoc extends doc {
         return $globals;
     }
 
-    /** Return a reference to a packageDoc for the specified package name.
+    /** Returns a reference to a packageDoc for the specified package name.
      * If a package of the requested name does not exist, this method will create the
      * package object, add it to the root and return it.
      * @param string name Package name
@@ -168,7 +169,7 @@ class rootDoc extends doc {
         return $return;
     }
 
-    /** Return a reference to a classDoc for the specified class/interface name.
+    /** Returns a reference to a classDoc for the specified class/interface name.
      * @param string name Class name
      * @return classDoc
      */

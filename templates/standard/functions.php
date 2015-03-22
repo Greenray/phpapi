@@ -1,30 +1,28 @@
 <hr>
 <h1>[__Функции]</h1>
 <hr>
-[if=function]
+[if=functions]
     <table id="summary_functions" class="title">
         <tr><th colspan="2" class="title">[__Функции: общий обзор]</th></tr>
-        [each=function]
+        [each=functions]
             <tr>
-                <td class="type w_200">{function[modifiers]} {function[type]}</td>
+                <td class="type w_200">{functions[modifiers]} {functions[type]}</td>
                 <td class="description">
-                    <p class="name"><a href="#{function[name]}"><span class="lilac">{function[name]}</span></a>{function[signature]}</p>
-                    [if=function[description]]<p class="description">{function[description]}</p>[endif.function]
+                    <p class="name"><a href="#{functions[name]}"><span class="lilac">{functions[name]}</span></a>{functions[signature]}</p>
+                    <p class="description">{functions[shortDesc]}</p>
                 </td>
             </tr>
-        [endeach.function]
+        [endeach.functions]
     </table>
     <h2 id="details_functions">[__Функции: детали]</h2>
     [each=functions]
         <div class="location">{functions[location]}</div>
         <h3 id="{functions[name]}">{functions[name]}</h3>
         <code class="signature">{functions[modifiers]} {functions[type]} <strong>{functions[name]}</strong> {functions[signature]}</code>
-        [if=functions[description]]
-            <div class="details">
-                {functions[description]}
-                {functions[tags]}
-            </div>
-        [endif.functions]
+        <div class="details">
+            {functions[fullDesc]}
+            {functions[tags]}
+        </div>
         <hr>
     [endeach.functions]
-[endif.function]
+[endif.functions]

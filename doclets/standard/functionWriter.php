@@ -4,7 +4,7 @@
 /** This generates the HTML API documentation for each global function.
  *
  * @file      doclets/standard/functionWriter.php
- * @version   1.0
+ * @version   2.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -35,23 +35,19 @@ class functionWriter extends htmlWriter {
 
             $this->_depth = $package->depth() + 1;
 
-            ob_start();
-
-            $output = [];
-
+            $output    = [];
             $functions =& $package->functions();
             if ($functions) {
                 ksort($functions);
-                $output['function']  = $this->showObject($functions, FALSE);
                 $output['functions'] = $this->showObject($functions);
             }
-
             $tpl = new template($phpapi->getOption('doclet'), 'functions');
+            ob_start();
+
             echo $tpl->parse($output);
 
             $this->_output = ob_get_contents();
             ob_end_clean();
-
             $this->_write($package->asPath().DS.'package-functions.html', 'Functions', TRUE);
         }
     }

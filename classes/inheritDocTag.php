@@ -4,7 +4,7 @@
 /** Represents a see tag.
  *
  * @file      classes/inheritDocTag.php
- * @version   1.0
+ * @version   2.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -14,15 +14,16 @@
 class inheritDocTag extends tag {
 
     /** Constructor.
-     * @param string text The contents of the tag
-     * @param array data Reference to doc comment data array
-     * @param rootDoc root The root object
+     * @param  string  $text The contents of the tag
+     * @param  array   $data Reference to doc comment data array
+     * @param  rootDoc $root The root object
+     * @return void
      */
     public function inheritDocTag($text, &$data, &$root) {
         parent::tag('@inheritDoc', $text, $root);
     }
 
-    /** Get text from super element
+    /** Gets text from super element
      * @param TextFormatter formatter
      * @return str
      */
@@ -122,49 +123,49 @@ class inheritDocTag extends tag {
         }
     }
 
-    /** Return true if this Taglet is used in constructor documentation.
+    /** Returns true if this Taglet is used in constructor documentation.
      * @return bool
      */
     public function inConstructor() {
         return TRUE;
     }
 
-    /** Return true if this Taglet is used in field documentation.
+    /** Returns true if this Taglet is used in field documentation.
      * @return bool
      */
     public function inField() {
         return TRUE;
     }
 
-    /** Return true if this Taglet is used in method documentation.
+    /** Returns true if this Taglet is used in method documentation.
      * @return bool
      */
     public function inMethod() {
         return TRUE;
     }
 
-    /** Return true if this Taglet is used in overview documentation.
+    /** Returns true if this Taglet is used in overview documentation.
      * @return bool
      */
     public function inOverview() {
         return TRUE;
     }
 
-    /** Return true if this Taglet is used in package documentation.
+    /** Returns true if this Taglet is used in package documentation.
      * @return bool
      */
     public function inPackage() {
         return TRUE;
     }
 
-    /** Return true if this Taglet is used in class or interface documentation.
+    /** Returns true if this Taglet is used in class or interface documentation.
      * @return bool
      */
     public function inType() {
         return TRUE;
     }
 
-    /** Return true if this Taglet is an inline tag.
+    /** Returns true if this Taglet is an inline tag.
      * @return bool
      */
     public function isInlineTag() {

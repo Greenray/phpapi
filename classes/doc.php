@@ -6,7 +6,7 @@
  * which have comments and have been processed by this run of phpapi.
  *
  * @file      classes/doc.php
- * @version   1.0
+ * @version   2.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -73,7 +73,6 @@ class doc {
     public function setByRef($member, &$value) {
         $member  = '_'.$member;
         $members = get_object_vars($this);
-
         if (array_key_exists($member, $members)) {
             if (is_array($this->$member))
                  $this->{$member}[] =& $value;
@@ -93,17 +92,14 @@ class doc {
     /** Returns tags of the specified kind in this Doc item.
      * For example, if 'tagName' has value "@serial", all tags in this Doc item of type "@serial" will be returned.
      * If NULL is given for 'tagName', all tags in this Doc item are returned.
-     * @param  string $tagName Name of the tag kind to search for
-     * @return Tag[]|NULL      An array of Tag containing all tags of name 'tagname' or a
-     *                         singular tag object if only one exists for the given 'tagname'
+     * @param  string     $tagName Name of the tag kind to search for
+     * @return Tag[]|NULL          An array of Tag containing all tags of name 'tagname' or a
+     *                             singular tag object if only one exists for the given 'tagname'
      */
     function &tags($tagName = NULL) {
         $return = NULL;
-        if ($tagName == NULL) {
-            $return =& $this->_tags;
-        } elseif (isset($this->_tags[$tagName])) {
-            $return =& $this->_tags[$tagName];
-        }
+        if     ($tagName == NULL)              $return =& $this->_tags;
+        elseif (isset($this->_tags[$tagName])) $return =& $this->_tags[$tagName];
         return $return;
     }
 
@@ -252,11 +248,15 @@ class doc {
                     if (substr($name, 0, 9) == '__unknown') {
                         $index = substr($name, 9);
                         $parameters = array_values($this->_parameters);
-                        if (isset($parameters[$index])) $parameters[$index]->set('type', new type($param['type'], $this->_root));
+                        if (isset($parameters[$index])) {
+                            $parameters[$index]->set('type', new type($param['type'], $this->_root));
+                        }
                     } else {
                         if (!isset($this->_parameters[$name])) {
                             $this->_parameters[$name] =& new fieldDoc($name, $this, $this->_root);
-                            if (isset($this->_package)) $this->_parameters[$name]->set('package', $this->_package);
+                            if (isset($this->_package)) {
+                                $this->_parameters[$name]->set('package', $this->_package);
+                            }
                         }
                         $this->_parameters[$name]->set('type', new type($param['type'], $this->_root));
                     }

@@ -4,7 +4,7 @@
 /** Represents a PHP function, method (member function) or constructor.
  *
  * @file      classes/executableDoc.php
- * @version   1.0
+ * @version   2.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -36,7 +36,7 @@ class executableDoc extends elementDoc {
         $this->_functions[$function->name()] =& $function;
     }
 
-    /** Get argument information.
+    /** Gets argument information.
      * @return fieldDoc[] An array of parameter, one element per argument in the
      * order the arguments are present
      */
@@ -44,21 +44,21 @@ class executableDoc extends elementDoc {
         return $this->_parameters;
     }
 
-    /** Get subfunctions.
+    /** Gets subfunctions.
      * @return methodDoc[] An array of subfunctions.
      */
     function &functions() {
         return $this->_functions;
     }
 
-    /** Return exceptions this function throws.
+    /** Returns exceptions this function throws.
      * @return classDoc[]
      */
     function &thrownExceptions() {
         return $this->_throws;
     }
 
-    /** Return the param tags in this function.
+    /** Returns the param tags in this function.
      * @return NULL|Tag[]
      */
     public function paramTags() {
@@ -69,7 +69,7 @@ class executableDoc extends elementDoc {
         } else return NULL;
     }
 
-    /** Return the throws tags in this function.
+    /** Returns the throws tags in this function.
      * @return Type
      */
     public function throwsTags() {
@@ -80,7 +80,7 @@ class executableDoc extends elementDoc {
         } else return NULL;
     }
 
-    /** Get signature.
+    /** Gets signature.
      * Return a string which is the flat signiture of this function.
      * It is the parameter list, type is not qualified.
      * <pre>

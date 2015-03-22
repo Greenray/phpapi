@@ -6,7 +6,7 @@
  * It is the root of the parsed tokens and is passed to the doclet to be formatted into output.
  *
  * @file      classes/phpapi.php
- * @version   1.0
+ * @version   2.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -68,7 +68,7 @@ class phpapi {
     /** Package to use for elements not in a package.
      * @var string
      */
-    public $_defaultPackage = 'The Unknown Package';
+    public $_defaultPackage = 'No Package';
 
     /** Overview file.
      * The "source" file that contains the overview documentation.
@@ -119,7 +119,7 @@ class phpapi {
     /** The path and filename of the current file being parsed.
      * @var string
      */
-    public $_currentFilename = NULL;
+//    public $_currentFilename = NULL;
 
     /** Language for interface.
      * @var string
@@ -271,7 +271,7 @@ class phpapi {
         fwrite(STDERR, 'ERROR: '.$msg.LF);
     }
 
-    /** Get the current time in microseconds.
+    /** Gets the current time in microseconds.
      * @return integer Current time
      */
     public function _getTime() {
@@ -314,35 +314,35 @@ class phpapi {
         return (substr($path, -1, 1) != '/' && substr($path, -1, 1) != '\\') ? $path.'/' : $path;
     }
 
-    /** Return the path phpapi is running from.
+    /** Returns the path phpapi is running from.
      * @return string Path to doclet
      */
     public function docletPath() {
         return realpath($this->fixPath(DOCLETS).$this->fixPath($this->_doclet)).DS;
     }
 
-    /** Return the source path.
+    /** Returns the source path.
      * @return string Path to processing source file
      */
     public function sourcePath() {
         return realpath($this->_sourcePath[$this->_sourceIndex]);
     }
 
-    /** Return the default package.
+    /** Returns the default package.
      * @return string The name of the default package
      */
     public function defaultPackage() {
         return $this->_defaultPackage;
     }
 
-    /** Return a reference to the set options.
+    /** Returns a reference to the set options.
      * @return array An array of options
      */
     function &options() {
         return $this->_options;
     }
 
-    /** Get a configuration option.
+    /** Gets a configuration option.
      * @param  string $option Option name
      * @return mixed          Option value
      */
@@ -365,14 +365,12 @@ class phpapi {
 
             foreach ($files as $filename) {
                 if ($filename) {
-                    $this->message('Reading file "'.$filename.'"');
+                    $this->message('Reading and parsing file "'.$filename.'"');
                     $fileString = file_get_contents($filename);
                     if ($fileString != FALSE) {
                         $fileString  = str_replace(["\r\n", "\r"], LF, $fileString);   # Fix line endings
-                        $this->_currentFilename = $filename;
+//                        $this->_currentFilename = $filename;
                         $tokens = token_get_all($fileString);
-
-                        if ($this->_verbose) echo 'Parsing tokens';
 
                         # This array holds data gathered before the type of element is discovered and an object is created for it, including doc comment data.
                         # This data is stored in the object once it has been created and then merged into the objects data fields upon object completion.
@@ -581,16 +579,14 @@ class phpapi {
 
                                         $name   = $this->_getProgramElementName($tokens, $key);
                                         $method =& new methodDoc($name, $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath());
-
-                                        $this->verbose('+ Entering '.get_class($method).': '.$method->name());
+                                        $msg    = '+ Entering '.get_class($method).': '.$method->name();
 
                                         if (isset($currentData['docComment']))
                                             $method->set('docComment', $currentData['docComment']);
                                         $method->set('data', $currentData);
                                         $ceClass = get_class($ce);
                                         if ($ceClass == 'rootDoc') {
-
-                                            $this->verbose(' is a global function');
+                                            $this->verbose($msg.' is a global function');
 
                                             if (isset($currentData['access']) && $currentData['access'] == 'private')
                                                    $method->makePrivate();
@@ -606,8 +602,7 @@ class phpapi {
                                         } elseif ($ceClass == 'classDoc' || $ceClass == 'methodDoc') {
                                             $method->set('package', $ce->packageName()); # Set package
                                             if ($method->name() == '__construct' || $method->name() == $ce->name()) {
-
-                                                $this->verbose(' is a constructor of '.get_class($ce).' '.$ce->name());
+                                                $this->verbose($msg.' is a constructor of '.get_class($ce).' '.$ce->name());
 
                                                 $method->set('name', $method->name());
                                                 $ce->addMethod($method);
@@ -616,8 +611,7 @@ class phpapi {
                                                     $method->makePrivate();
                                                 if (isset($currentData['access']) && $currentData['access'] == 'private')
                                                     $method->makePrivate();
-
-                                                $this->verbose(' is a method of '.get_class($ce).' '.$ce->name());
+                                                $this->verbose($msg.' is a method of '.get_class($ce).' '.$ce->name());
 
                                                 if ($this->_includeElements($method)) {
                                                     $method->mergeData();
@@ -634,7 +628,6 @@ class phpapi {
 
                                         if ($token[1] == 'define') {
                                             $const =& new fieldDoc($this->_getNext($tokens, $key, T_CONSTANT_ENCAPSED_STRING), $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath());
-
                                             $this->verbose('Found '.get_class($const).': global constant '.$const->name());
 
                                             $const->set('final', TRUE);
@@ -693,8 +686,7 @@ class phpapi {
                                                 } elseif ($tokens[$key] == ',' || $tokens[$key] == ';') {
                                                     if (!isset($name)) $name = $this->_getPrev($tokens, $key, [T_VARIABLE, T_STRING]);
                                                     $const =& new fieldDoc($name, $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath());
-
-                                                    $this->verbose('Found '.get_class($const).': '.$const->name());
+                                                    $msg   = 'Found '.get_class($const).': '.$const->name();
 
                                                     if ($this->_hasPrivateName($const->name())) $const->makePrivate();
                                                     $const->set('final', TRUE);
@@ -720,7 +712,7 @@ class phpapi {
                                                     $const->set('package', $ce->packageName());
                                                     $const->set('static', TRUE);
 
-                                                    $this->verbose(' is a member constant of '.get_class($ce).' '.$ce->name());
+                                                    $this->verbose($msg.' is a member constant of '.get_class($ce).' '.$ce->name());
 
                                                     $const->mergeData();
                                                     if ($this->_includeElements($const)) $ce->addConstant($const);
@@ -747,20 +739,19 @@ class phpapi {
                                                         $typehint = $tokens[$key][1];
                                                     } elseif ($tokens[$key][0] == T_VARIABLE && !isset($param)) {
                                                         $param =& new fieldDoc($tokens[$key][1], $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath());
-
-                                                        $this->verbose('Found '.get_class($param).': '.$param->name());
+                                                        $msg = 'Found '.get_class($param).': '.$param->name();
 
                                                         if (isset($currentData['docComment'])) {
                                                             $param->set('docComment', $currentData['docComment']);
                                                         }
                                                         if ($typehint) {
                                                             $param->set('type', new type($typehint, $rootDoc));
-                                                            $this->verbose(' has a typehint of '.$typehint);
+                                                            $msg .= ' has a typehint of '.$typehint;
                                                         }
                                                         $param->set('data', $currentData);
                                                         $param->set('package', $ce->packageName());
 
-                                                        $this->verbose(' is a parameter of '.get_class($ce).' '.$ce->name());
+                                                        $this->verbose($msg.' is a parameter of '.get_class($ce).' '.$ce->name());
 
                                                         $param->mergeData();
                                                         $ce->addParameter($param);
@@ -801,7 +792,6 @@ class phpapi {
                                                 unset ($global);
                                                 break;
                                             }
-
                                             $this->verbose('Found '.get_class($global).': global variable '.$global->name());
 
                                             if (isset($tokens[$key - 1][0]) && isset($tokens[$key - 2][0]) && $tokens[$key - 2][0] == T_STRING && $tokens[$key - 1][0] == T_WHITESPACE) {
@@ -865,8 +855,7 @@ class phpapi {
                                                 } elseif ($tokens[$key] == ',' || $tokens[$key] == ';') {
                                                     if (!isset($name)) $name = $this->_getPrev($tokens, $key, T_VARIABLE);
                                                     $field =& new fieldDoc($name, $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath());
-
-                                                    $this->verbose('Found '.get_class($field).': '.$field->name());
+                                                    $msg = 'Found '.get_class($field).': '.$field->name();
 
                                                     if ($this->_hasPrivateName($field->name())) $field->makePrivate();
                                                     if (isset($value)) {
@@ -880,7 +869,7 @@ class phpapi {
                                                     $field->set('data', $currentData);
                                                     $field->set('package', $ce->packageName());
 
-                                                    $this->verbose(' is a member variable of '.get_class($ce).' '.$ce->name());
+                                                    $this->verbose($msg.' is a member variable of '.get_class($ce).' '.$ce->name());
 
                                                     $field->mergeData();
                                                     if ($this->_includeElements($field)) $ce->addField($field);
@@ -915,9 +904,6 @@ class phpapi {
                                                 $ce->inBody--;
                                                 if ($ce->inBody == 0 && count($currentElement) > 0) {
                                                     $ce->mergeData();
-
-                                                    $this->verbose('- Leaving '.get_class($ce).': '.$ce->name());
-
                                                     array_pop($currentElement); # Re-assign current element
                                                     if (count($currentElement) > 0) {
                                                         $ce =& $currentElement[count($currentElement) - 1];
@@ -936,9 +922,6 @@ class phpapi {
                                         # Case for closing abstract functions
                                         if (!$in_parsed_string && $ce->inBody == 0 && count($currentElement) > 0) {
                                             $ce->mergeData();
-
-                                            $this->verbose('- Leaving empty '.get_class($ce).': '.$ce->name());
-
                                             array_pop($currentElement); # Re-assign current element
                                             if (count($currentElement) > 0) {
                                                 $ce =& $currentElement[count($currentElement) - 1];
@@ -1034,7 +1017,7 @@ class phpapi {
         return $one;
     }
 
-    /** Get next token of a certain type from token array.
+    /** Gets next token of a certain type from token array.
      * @param  array   $tokens    Token array to search
      * @param  integer $key       Key to start searching from
      * @param  integer $whatToGet Type of token to look for
@@ -1047,12 +1030,14 @@ class phpapi {
         if (!is_array($whatToGet)) $whatToGet = [$whatToGet];
         while (!is_array($tokens[$key]) || !in_array($tokens[$key][0], $whatToGet)) {
             $key++;
-            if (!isset($tokens[$key]) || (0 < $maxDist && (($key - $start) > $maxDist))) return FALSE;
+            if (!isset($tokens[$key]) || (0 < $maxDist && (($key - $start) > $maxDist))) {
+                return FALSE;
+            }
         }
         return $tokens[$key][1];
     }
 
-    /** Get previous token of a certain type from token array.
+    /** Gets previous token of a certain type from token array.
      * @param  array   $tokens    Token array to search
      * @param  integer $key       Key to start searching from
      * @param  integer $whatToGet Type of token to look for
@@ -1068,7 +1053,7 @@ class phpapi {
         return $tokens[$key][1];
     }
 
-    /** Get the next program element name from the token list.
+    /** Gets the next program element name from the token list.
      * @param  array   $tokens Token array
      * @param  integer $key    Key to start searching from
      * @return string          Name of the program element
@@ -1182,18 +1167,22 @@ class phpapi {
         if ($class) {
             $tagletFile = $this->makeAbsolutePath($this->fixPath(TAGLETS).substr($name, 1).'.php', $this->_path);
             if (is_file($tagletFile)) {
+
                 # Load taglet for this tag.
                 if (!class_exists($class)) require_once($tagletFile);
                 $tag =& new $class($text, $data, $root);
                 return $tag;
+
             } else {
                 $tagFile = $this->makeAbsolutePath(CLASSES.$class.'Tag.php', $this->_path);
                 if (is_file($tagFile)) {
+
                     # Load class for this tag.
                     $class .= 'Tag';
                     if (!class_exists($class)) require_once($tagFile);
                     $tag =& new $class($text, $data, $root);
                     return $tag;
+
                 } else {
                     # Create standard tag.
                     $tag =& new tag($name, $text, $root);
@@ -1210,7 +1199,7 @@ class phpapi {
      * @return boolean
      */
     public function _includeElements(&$element) {
-        if ($element->isGlobal() && !$element->isFinal() && !$this->_globals)           return FALSE;
+        if     ($element->isGlobal() && !$element->isFinal() && !$this->_globals)       return FALSE;
         elseif ($element->isGlobal() && $element->isFinal() && !$this->_constants)      return FALSE;
         elseif (!$this->_private && $element->isPrivate())                              return FALSE;
         elseif ($this->_private)                                                        return TRUE;

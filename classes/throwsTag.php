@@ -6,7 +6,7 @@ require_once 'seeTag.php';
 /** Represents a throws tag.
  *
  * @file      classes/throwsTag.php
- * @version   1.0
+ * @version   2.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -28,14 +28,14 @@ class throwsTag extends seeTag {
         parent::tag('@throws', join(' ', $explode), $root);
     }
 
-    /** Get display name of this tag.
+    /** Gets display name of this tag.
      * @return string 'Throws'
      */
     public function displayName() {
         return 'Throws';
     }
 
-    /** Get value of this tag.
+    /** Gets value of this tag.
      * @param Doclet doclet
      * @return string
      */
@@ -43,49 +43,49 @@ class throwsTag extends seeTag {
         return $this->_linkText($this->_link, $doclet).($this->_text ? ' + '.$this->_text : '');
     }
 
-    /** Return true if this Taglet is used in constructor documentation.
+    /** Returns true if this Taglet is used in constructor documentation.
      * @return boolean TRUE
      */
     public function inConstructor() {
         return TRUE;
     }
 
-    /** Return true if this Taglet is used in field documentation.
+    /** Returns true if this Taglet is used in field documentation.
      * @return boolean FALSE
      */
     public function inField() {
         return FALSE;
     }
 
-    /** Return true if this Taglet is used in method documentation.
+    /** Returns true if this Taglet is used in method documentation.
      * @return boolean TRUE
      */
     public function inMethod() {
         return TRUE;
     }
 
-    /** Return true if this Taglet is used in overview documentation.
+    /** Returns true if this Taglet is used in overview documentation.
      * @return boolean FALSE
      */
     public function inOverview() {
         return FALSE;
     }
 
-    /** Return true if this Taglet is used in package documentation.
+    /** Returns true if this Taglet is used in package documentation.
      * @return boolean FALSE
      */
     public function inPackage() {
         return FALSE;
     }
 
-    /** Return true if this Taglet is used in class or interface documentation.
+    /** Returns true if this Taglet is used in class or interface documentation.
      * @return bool
      */
     public function inType() {
         return FALSE;
     }
 
-    /** Return true if this Taglet is an inline tag.
+    /** Returns true if this Taglet is an inline tag.
      * @return bool
      */
     public function isInlineTag() {

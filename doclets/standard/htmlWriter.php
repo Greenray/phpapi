@@ -4,7 +4,7 @@
 /** Generate the index.html file used for presenting the frame-formated "cover page" of the API documentation.
  *
  * @file      doclets/standard/globalWriter.php
- * @version   1.0
+ * @version   2.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -209,12 +209,12 @@ class htmlWriter {
      * @param  object $object Object (fields, methods, constants, variables...)
      * @return array          The result
      */
-    public function showObject($object, $modifiers = TRUE) {
+    public function showObject($object) {
         $string = ["#[\"\'](.*?)[\"\']#is" => '<span class="red">\'\\1\'</span>'];
         $output = [];
         foreach ($object as $key => $element) {
             $output[$key]['name']      = $element->name();
-            $output[$key]['modifiers'] = $element->modifiers($modifiers);
+            $output[$key]['modifiers'] = $element->modifiers();
 
             if     (method_exists($element, 'typeAsString'))       $output[$key]['type'] = $element->typeAsString();
             elseif (method_exists($element, 'returnTypeAsString')) $output[$key]['type'] = $element->returnTypeAsString();
@@ -227,20 +227,21 @@ class htmlWriter {
 
             $text =& $element->tags('@text');
             if ($text) {
-                if (!$modifiers)
-                     $output[$key]['description'] = strip_tags($this->_processInlineTags($text, TRUE), '<a><b><strong><u><em>');
-                else $output[$key]['description'] = $this->_processInlineTags($text);
-            } else   $output[$key]['description'] = __('Описания нет');
-
-            if ($modifiers && method_exists($this, '_processTags')) $output[$key]['tags']     = $this->_processTags($element->tags());
-            if (method_exists($element, 'location'))                $output[$key]['location'] = $element->location();
+                $output[$key]['shortDesc'] = strip_tags($this->_processInlineTags($text, TRUE), '<a><b><strong><u><em>');
+                $output[$key]['fullDesc']  = $this->_processInlineTags($text);
+            } else {
+                $output[$key]['shortDesc'] = __('Описания нет');
+                $output[$key]['fullDesc']  = __('Описания нет');
+            }
+            if (method_exists($this, '_processTags')) $output[$key]['tags']     = $this->_processTags($element->tags());
+            if (method_exists($element, 'location'))  $output[$key]['location'] = $element->location();
         }
         return $output;
     }
 
     /** Preparation of a constant or variable for output in html template.
-     * @param  mixed  $value Value of a constant or variable
-     * @return string        he result
+     * @param  mixed  $value The value of a constant or variable
+     * @return mixed         The result. The string value will be colored red.
      */
     public function showValue($value) {
         $reqexp = ["#[\"\'](.*?)[\"\']#is" => '<span class="red">\'\\1\'</span>'];

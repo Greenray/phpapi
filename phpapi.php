@@ -22,7 +22,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  * @file      phpapi.php
- * @version   1.0
+ * @version   2.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -86,7 +86,7 @@ define('CLASSES',    ROOT.'classes'.DS);
 /** System locales */
 define('LOCALES',    ROOT.'locales'.DS);
 /** Version of the system */
-define('VERSION', '1.0');
+define('VERSION', '2.0');
 /** Copyright */
 define('COPYRIGHT', '&copy; 2015 Greenray');
 /** System generator */

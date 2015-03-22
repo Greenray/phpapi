@@ -5,7 +5,7 @@
  * class's comment and tags, and the members of the class.
  *
  * @file      classes/classDoc.php
- * @version   1.0
+ * @version   2.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -60,11 +60,11 @@ class classDoc extends elementDoc {
     public $_abstract = FALSE;
 
     /** Constructor.
-     * @param string name Name of this element
-     * @param rootDoc root The root element
-     * @param string filename The filename of the source file this element is in
-     * @param integer lineNumber The line number of the source file this element is at
-     * @param string sourcePath The source path containing the source file
+     * @param  string  $name       The name of this element
+     * @param  rootDoc $filename   The filename of the source file this element is in
+     * @param  integer $lineNumber The line number of the source file this element is at
+     * @param  string  $sourcePath The source path containing the source file
+     * @return void
      */
     public function classDoc($name, &$root, $filename, $lineNumber, $sourcePath) {
         $this->_name       = $name;
@@ -75,21 +75,24 @@ class classDoc extends elementDoc {
     }
 
     /** Adds a constant to this class.
-     * @param fieldDoc field
+     * @param  fieldDoc[] $constant Link to a constant
+     * @return void
      */
     public function addConstant(&$constant) {
         if (!isset($this->_constants[$constant->name()])) $this->_constants[$constant->name()] =& $constant;
     }
 
     /** Adds a field to this class.
-     * @param fieldDoc field
+     * @param  fieldDoc[] $field Link to a field
+     * @return void
      */
     public function addField(&$field) {
         if (!isset($this->_fields[$field->name()])) $this->_fields[$field->name()] =& $field;
     }
 
     /** Adds a method to this class.
-     * @param methodDoc method
+     * @param  methodDoc[] $method Link to a method
+     * @return void
      */
     public function addMethod(&$method) {
         if (isset($this->_methods[$method->name()])) {
@@ -101,33 +104,33 @@ class classDoc extends elementDoc {
     }
 
     /** Returns constants in this class.
-     * @return fieldDoc[]
+     * @return fieldDoc[] List of constants
      */
-    function &constants() {
+    public function &constants() {
         return $this->_constants;
     }
 
     /** Returns fields in this class.
-     * @return fieldDoc[]
+     * @return fieldDoc[] List of fields
      */
-    function &fields() {
+    public function &fields() {
         return $this->_fields;
     }
 
     /** Returns a field in this class.
-     * @return fieldDoc
+     * @return fieldDoc[] Field from current class
      */
-    function &fieldNamed($fieldName) {
+    public function &fieldNamed($fieldName) {
         $return = NULL;
         if (isset($this->_fields[$fieldName])) $return =& $this->_fields[$fieldName];
         return $return;
     }
 
     /** Returns the methods in this class.
-     * @param boolean regularOnly Do not return constructors and destructors
-     * @return methodDoc[]
+     * @param  boolean     $regularOnly Do not return constructors and destructors
+     * @return methodDoc[]              List of class methods
      */
-    function &methods($regularOnly = FALSE) {
+    public function &methods($regularOnly = FALSE) {
         if ($regularOnly) {
             $return = [];
             foreach ($this->_methods as $method) {
@@ -138,18 +141,18 @@ class classDoc extends elementDoc {
     }
 
     /** Returns a method in this class.
-     * @return methodDoc
+     * @return methodDoc[] Method from current class
      */
-    function &methodNamed($methodName) {
+    public function &methodNamed($methodName) {
         $return = NULL;
         if (isset($this->_methods[$methodName])) $return =& $this->_methods[$methodName];
         return $return;
     }
 
     /** Returns constructor for this class.
-     * @return methodDoc
+     * @return methodDoc[] Constructor
      */
-    function &constructor() {
+    public function &constructor() {
         $return = NULL;
         foreach ($this->_methods as $method) {
             if ($method->isConstructor()) {
@@ -161,9 +164,9 @@ class classDoc extends elementDoc {
     }
 
     /** Returns destructor for this class.
-     * @return methodDoc
+     * @return methodDoc[] Destructor
      */
-    function &destructor() {
+    public function &destructor() {
         $return = NULL;
         foreach ($this->_methods as $method) {
             if ($method->isDestructor()) {
@@ -175,16 +178,16 @@ class classDoc extends elementDoc {
     }
 
     /** Returns interfaces implemented by this class or interfaces extended by this interface.
-     * @return classDoc[]
+     * @return classDoc[] List of interfaces
      */
-    function &interfaces() {
+    public function &interfaces() {
         return $this->_interfaces;
     }
 
     /** Returns an interface in this class.
-     * @return classDoc
+     * @return classDoc[] Interface from current class
      */
-    function &interfaceNamed($interfaceName) {
+    public function &interfaceNamed($interfaceName) {
         $return = NULL;
         if (isset($this->_interfaces[$interfaceName])) $return =& $this->_interfaces[$interfaceName];
         return $return;
@@ -193,14 +196,14 @@ class classDoc extends elementDoc {
     /** Returns traits used by this class
      * @return classDoc[]
      */
-    function &traits() {
+    public function &traits() {
         return $this->_traits;
     }
 
-    /** Returns an interface in this class.
-     * @return classDoc
+    /** Returns an trait in this class.
+     * @return classDoc[] Trait from current class
      */
-    function &traitNamed($traitName) {
+    public function &traitNamed($traitName) {
         $return = NULL;
         if (isset($this->_traits[$traitName])) $return =& $this->_traits[$traitName];
         return $return;
@@ -228,15 +231,15 @@ class classDoc extends elementDoc {
     }
 
     /** Tests whether this class is a subclass of the specified class.
-     * @param classDoc cd
-     * @return boolean
+     * @param  classDoc $cd Specified class
+     * @return boolean      The result of the validation
      */
     public function subclassOf($cd) {
         return ($this->_superclass == $cd->name()) ? TRUE : FALSE;
     }
 
     /** Returns the superclass of this class.
-     * @return classDoc
+     * @return classDoc[]
      */
     public function superclass() {
         return $this->_superclass;
@@ -244,7 +247,7 @@ class classDoc extends elementDoc {
 
     /** Constructs a class.
      * @note interfaces are not classes.
-     * @return boolean
+     * @return boolean TRUE if object is a class
      */
     public function isClass() {
         return !$this->_interface && !$this->_trait;
@@ -258,7 +261,7 @@ class classDoc extends elementDoc {
     }
 
     /** Constructs an exception.
-     * @return boolean
+     * @return boolean TRUE if object is an exception
      */
     public function isException() {
         return (strtolower($this->_superclass) == 'exception') ? TRUE : FALSE;
@@ -276,7 +279,7 @@ class classDoc extends elementDoc {
     }
 
     /** Merges the details of the superclass with this class.
-     * @param string superClassName
+     * @param string $superClassName The name of the root class
      */
     public function mergeSuperClassData($superClassName = NULL) {
         if (!$superClassName) {

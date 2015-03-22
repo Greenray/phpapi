@@ -6,7 +6,7 @@
  * Tags with structure or which require special processing are handled by subclasses.
  *
  * @file      classes/Tag.php
- * @version   1.0
+ * @version   2.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -41,9 +41,10 @@ class tag {
     public $_parent = NULL;
 
     /** Constructor.
-     * @param string name The name of the tag (including @)
-     * @param string text The contents of the tag
-     * @param rootDoc root The root object
+     * @param  string  $name The name of the tag (including @)
+     * @param  string  $text The contents of the tag
+     * @param  rootDoc $root The root object
+     * @return void
      */
     public function tag($name, $text, &$root, $type = '') {
         $this->_name = $name;
@@ -53,7 +54,7 @@ class tag {
     }
 
     /** Gets name of this tag.
-     * @return str
+     * @return string Tag name
      */
     public function name() {
         return $this->_name;
@@ -82,7 +83,7 @@ class tag {
     }
 
     /** Sets this tags parent
-     * @param elementDoc element The parent element
+     * @param elementDoc $element The parent element
      */
     public function setParent(&$element) {
         $this->_parent =& $element;

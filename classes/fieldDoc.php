@@ -4,7 +4,7 @@
 /** Represents a PHP variable, constant or member variable (field).
  *
  * @file      classes/fieldDoc.php
- * @version   1.0
+ * @version   2.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -24,12 +24,12 @@ class fieldDoc extends elementDoc {
     public $_value = NULL;
 
     /** Constructor.
-     * @param string             $name       Name of this element
-     * @param classDoc|methodDoc $parent     The parent of this element
-     * @param rootDoc            $root       The root element
-     * @param string             $filename   The filename of the source file this element is in
-     * @param integer            $lineNumber The line number of the source file this element is at
-     * @param string             $sourcePath The source path containing the source file
+     * @param  string             $name       Name of this element
+     * @param  classDoc|methodDoc $parent     The parent of this element
+     * @param  rootDoc            $root       The root element
+     * @param  string             $filename   The filename of the source file this element is in
+     * @param  integer            $lineNumber The line number of the source file this element is at
+     * @param  string             $sourcePath The source path containing the source file
      * @return void
      */
     public function fieldDoc($name, &$parent, &$root, $filename = NULL, $lineNumber = NULL, $sourcePath = NULL) {
@@ -42,7 +42,7 @@ class fieldDoc extends elementDoc {
         $this->_sourcePath = $sourcePath;
     }
 
-    /** Get type of this variable.
+    /** Gets type of this variable.
      * @return type The type of the variable
      */
     function &type() {

@@ -4,7 +4,7 @@
 /** This generates the index of elements.
  *
  * @file      doclets/standard/indexWriter.php
- * @version   1.0
+ * @version   2.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License

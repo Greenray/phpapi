@@ -19,7 +19,7 @@ require 'todoWriter.php';
  * This doclet generates HTML output similar to that produced by the Javadoc standard doclet.
  *
  * @file      doclets/standard/standard.php
- * @version   1.0
+ * @version   2.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -116,42 +116,42 @@ class standard {
         copy($phpapi->docletPath().'stylesheet.css', $this->_destination.'stylesheet.css');
     }
 
-    /** Return a reference to the root doc.
+    /** Returns a reference to the root doc.
      * @return rootDoc
      */
     function &rootDoc() {
         return $this->_rootDoc;
     }
 
-    /** Return a reference to the application object.
+    /** Returns a reference to the application object.
      * @return phpapi
      */
     function &phpapi() {
         return $this->_rootDoc->phpapi();
     }
 
-    /** Get the destination path to write the doclet output to.
+    /** Gets the destination path to write the doclet output to.
      * @return str
      */
     public function destinationPath() {
         return $this->_destination;
     }
 
-    /** Return the title to be placed in the HTML <title> tag.
+    /** Returns the title to be placed in the HTML <title> tag.
      * @return str
      */
     public function windowTitle() {
         return $this->_windowTitle;
     }
 
-    /** Return the title to be placed near the top of the overview summary file.
+    /** Returns the title to be placed near the top of the overview summary file.
      * @return str
      */
     public function docTitle() {
         return $this->_docTitle;
     }
 
-    /** Return the header text to be placed at the top of each output file.
+    /** Returns the header text to be placed at the top of each output file.
      * The header will be placed to the right of the upper navigation bar.
      * @return str
      */
@@ -159,7 +159,7 @@ class standard {
         return $this->_header;
     }
 
-    /** Return the footer text to be placed at the bottom of each output file.
+    /** Returns the footer text to be placed at the bottom of each output file.
      * The footer will be placed to the right of the lower navigation bar.
      * @return str
      */
@@ -167,7 +167,7 @@ class standard {
         return $this->_footer;
     }
 
-    /** Return whether to create a class tree or not.
+    /** Returns whether to create a class tree or not.
      * @return bool
      */
     public function tree() {

@@ -4,7 +4,7 @@
 /** This generates the HTML API documentation for each individual interface and class.
  *
  * @file      doclets/standard/classWriter.php
- * @version   1.0
+ * @version   2.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -103,17 +103,13 @@ class classWriter extends htmlWriter {
                     $fields =& $class->fields();
                     ksort($fields);
                     $constructor =& $class->constructor();
-                    $methods =& $class->methods(TRUE);
+                    $destructor  =& $class->destructor();
+                    $methods     =& $class->methods(TRUE);
                     ksort($methods);
 
-                    if ($constants) {
-                        $output['constant']  = $this->showObject($constants, FALSE);
-                        $output['constants'] = $this->showObject($constants);
-                    }
-                    if ($fields) {
-                        $output['field']  = $this->showObject($fields, FALSE);
-                        $output['fields'] = $this->showObject($fields);
-                    }
+                    if ($constants) $output['constants'] = $this->showObject($constants);
+                    if ($fields)    $output['fields']    = $this->showObject($fields);
+
                     if ($class->superclass()) {
                         $superclass =& $rootDoc->classNamed($class->superclass());
                         if ($superclass) {
@@ -130,7 +126,6 @@ class classWriter extends htmlWriter {
                     if ($constructor) {
                         $output['constructor'] = TRUE;
                         $output['location']    = $constructor->location();
-                        $output['modifiers']   = $constructor->modifiers(FALSE);
                         $output['modifiers']   = $constructor->modifiers();
                         $output['type']        = $constructor->returnTypeAsString();
                         $output['name']        = $constructor->name();
@@ -145,10 +140,24 @@ class classWriter extends htmlWriter {
                         }
                         $output['tags'] = $this->_processTags($constructor->tags());
                     }
-                    if ($methods) {
-                        $output['method']  = $this->showObject($methods, FALSE);
-                        $output['methods'] = $this->showObject($methods);
+                    if ($destructor) {
+                        $output['destructor'] = TRUE;
+                        $output['location']    = $destructor->location();
+                        $output['modifiers']   = $destructor->modifiers();
+                        $output['type']        = $destructor->returnTypeAsString();
+                        $output['name']        = $destructor->name();
+                        $output['signature']   = $destructor->signature();
+                        $textTag =& $destructor->tags('@text');
+                        if ($textTag) {
+                             $output['shortDesc'] = strip_tags($this->_processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
+                             $output['fullDesc']  = $this->_processInlineTags($textTag);
+                        } else {
+                            $output['shortDesc'] = __('Описания нет');
+                            $output['fullDesc']  = __('Описания нет');
+                        }
+                        $output['tags'] = $this->_processTags($destructor->tags());
                     }
+                    if ($methods) $output['methods'] = $this->showObject($methods);
 
                     $tpl = new template($phpapi->getOption('doclet'), 'classes');
                     ob_start();

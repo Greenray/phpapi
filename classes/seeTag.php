@@ -4,7 +4,7 @@
 /** Represents a see tag.
  *
  * @file      classes/seeTag.php
- * @version   1.0
+ * @version   2.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -34,14 +34,14 @@ class seeTag extends tag {
         parent::tag('@see', $text, $root);
     }
 
-    /** Get display name of this tag.
-     * @return str
+    /** Gets display name of this tag.
+     * @return string "See also"
      */
     public function displayName() {
         return 'See also';
     }
 
-    /** Get value of this tag.
+    /** Gets value of this tag.
      * @param Doclet doclet
      * @return str
      */
@@ -53,8 +53,9 @@ class seeTag extends tag {
     }
 
     /** Generate the text to go into the seeTag link
-     * @param string link
-     * @param Doclet doclet
+     * @param  string $link
+     * @param  Doclet $doclet
+     * @return string
      */
     public function _linkText($link, $doclet) {
         $element =& $this->_resolveLink();
@@ -231,49 +232,49 @@ class seeTag extends tag {
         return $return;
     }
 
-    /** Return true if this Taglet is used in constructor documentation.
+    /** Returns true if this Taglet is used in constructor documentation.
      * @return bool
      */
     public function inConstructor() {
         return TRUE;
     }
 
-    /** Return true if this Taglet is used in field documentation.
+    /** Returns true if this Taglet is used in field documentation.
      * @return bool
      */
     public function inField() {
         return TRUE;
     }
 
-    /** Return true if this Taglet is used in method documentation.
+    /** Returns true if this Taglet is used in method documentation.
      * @return bool
      */
     public function inMethod() {
         return TRUE;
     }
 
-    /** Return true if this Taglet is used in overview documentation.
+    /** Returns true if this Taglet is used in overview documentation.
      * @return bool
      */
     public function inOverview() {
         return TRUE;
     }
 
-    /** Return true if this Taglet is used in package documentation.
+    /** Returns true if this Taglet is used in package documentation.
      * @return bool
      */
     public function inPackage() {
         return TRUE;
     }
 
-    /** Return true if this Taglet is used in class or interface documentation.
+    /** Returns true if this Taglet is used in class or interface documentation.
      * @return bool
      */
     public function inType() {
         return TRUE;
     }
 
-    /** Return true if this Taglet is an inline tag.
+    /** Returns true if this Taglet is an inline tag.
      * @return bool
      */
     public function isInlineTag() {

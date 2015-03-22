@@ -5,7 +5,7 @@
  * This is an abstract class dealing with information common to these elements.
  *
  * @file      classes/elementDoc.php
- * @version   1.0
+ * @version   2.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -118,9 +118,8 @@ class elementDoc extends doc {
      * </pre>
      * @return string Modifiers
      */
-    public function modifiers($showPublic = TRUE) {
-        $modifiers = '';
-        if ($showPublic || $this->_access != 'public') $modifiers .= $this->_access.' ';
+    public function modifiers() {
+        $modifiers = $this->_access.' ';
         if ($this->_final)            $modifiers .= 'final ';
         if (!empty($this->_abstract)) $modifiers .= 'abstract ';
         if ($this->_static)           $modifiers .= 'static ';

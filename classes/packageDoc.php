@@ -6,7 +6,7 @@
  * the package's comment and tags, and the classes in the package.
  *
  * @file      classes/packageDoc.php
- * @version   1.0
+ * @version   2.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -31,23 +31,24 @@ class packageDoc extends doc {
     public $_functions = [];
 
     /** Constructor.
-     * @param string name
-     * @param rootDoc root
+     * @param  string  $name Packqge name
+     * @param  rootDoc $root Reference to rootDoc
+     * @return void
      */
     public function packageDoc($name, &$root) {
         $this->_name =  $name;
         $this->_root =& $root;
     }
 
-    /** Return the package path.
-     * @return str
+    /** Returns the package path.
+     * @return string Path to package
      */
     public function asPath() {
         return strtolower(str_replace('.', '/', str_replace('\\', '/', $this->_name)));
     }
 
-    /** Calculate the depth of this package from the root.
-     * @return int
+    /** Calculates the depth of this package from the root.
+     * @return integer The value of the depth of this package from the root
      */
     public function depth() {
         $depth  = substr_count($this->_name, '.');
@@ -56,8 +57,8 @@ class packageDoc extends doc {
         return $depth;
     }
 
-    /** Add a class to this package.
-     * @param classDoc class
+    /** Adds a class to this package.
+     * @param classDoc $class Reference to class
      */
     public function addClass(&$class) {
         if (isset($this->_classes[$class->name()])) {
@@ -68,15 +69,15 @@ class packageDoc extends doc {
         $this->_classes[$class->name()] =& $class;
     }
 
-    /** Add a global to this package.
-     * @param fieldDoc global
+    /** Adds a global to this package.
+     * @param fieldDoc $global Reference to global element
      */
     public function addGlobal(&$global) {
         if (!isset($this->_globals[$global->name()])) $this->_globals[$global->name()] =& $global;
     }
 
-    /** Add a function to this package.
-     * @param methodDoc function
+    /** Adds a function to this package.
+     * @param methodDoc $function Reference to function
      */
     public function addFunction(&$function) {
         if (isset($this->_functions[$function->name()])) {
@@ -87,14 +88,14 @@ class packageDoc extends doc {
         $this->_functions[$function->name()] =& $function;
     }
 
-    /** Get all included classes (including exceptions and interfaces).
+    /** Gets all included classes (including exceptions and interfaces).
      * @return classDoc[] An array of classes
      */
     function &allClasses() {
         return $this->_classes;
     }
 
-    /** Get exceptions in this package.
+    /** Gets exceptions in this package.
      * @return classDoc[] An array of exceptions
      */
     function &exceptions() {
@@ -105,7 +106,7 @@ class packageDoc extends doc {
         return $exceptions;
     }
 
-    /** Get interfaces in this package.
+    /** Gets interfaces in this package.
      * @return classDoc[] An array of interfaces
      */
     function &interfaces() {
@@ -116,7 +117,7 @@ class packageDoc extends doc {
         return $interfaces;
     }
 
-    /** Get traits in this package.
+    /** Gets traits in this package.
      * @return classDoc[] An array of traits
      */
     function &traits() {
@@ -127,7 +128,7 @@ class packageDoc extends doc {
         return $traits;
     }
 
-    /** Get ordinary classes (excluding exceptions and interfaces) in this package.
+    /** Gets ordinary classes (excluding exceptions and interfaces) in this package.
      * @return classDoc[] An array of classes
      */
     function &ordinaryClasses() {
@@ -138,23 +139,23 @@ class packageDoc extends doc {
         return $classes;
     }
 
-    /** Get globals in this package.
+    /** Gets globals in this package.
      * @return fieldDoc[] An array of globals
      */
     function &globals() {
         return $this->_globals;
     }
 
-    /** Get functions in this package.
+    /** Gets functions in this package.
      * @return methodDoc[] An array of functions
      */
     function &functions() {
         return $this->_functions;
     }
 
-    /** Lookup for a class within this package.
-     * @param string className Name of the class to lookup
-     * @return classDoc A class
+    /** Lookups for a class within this package.
+     * @param  string   $className Name of the class to lookup
+     * @return classDoc            A class
      */
     function &findClass($className) {
         $return = NULL;

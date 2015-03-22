@@ -25,39 +25,34 @@
 <p class="signature">{ismodifiers} {is} <strong>{isname}</strong>[if=extends]{extends}[endif.extends]</p>
 <div class="comment" id="overview_description">{textag}</div>
 [if=main_tags]{main_tags}[endif.main_tags]
-[if=constant]
+[if=constants]
     <table id="summary_constants">
         <tr><th colspan="2">[__Константы: общий обзор]</th></tr>
-        [each=constant]
+        [each=constants]
             <tr>
-                <td class="type w_200">{constant[modifiers]} {constant[type]}</td>
+                <td class="type w_200">{constants[modifiers]} {constants[type]}</td>
                 <td class="description">
-                    <code><p><a href="#{constant[name]}"><span class="lilac">{constant[name]}</span></a>{constant[value]}</p></code>
-                    <p class="description">{constant[description]}</p>
+                    <code><p><a href="#{constants[name]}"><span class="lilac">{constants[name]}</span></a>{constants[value]}</p></code>
+                    <p class="description">{constants[shortDesc]}</p>
                 </td>
             </tr>
-        [endeach.constant]
+        [endeach.constants]
     </table>
-[endif.constant]
-[if=field]
+[endif.constants]
+[if=fields]
     <table id="summary_fields">
         <tr><th colspan="2">[__Поля: общий обзор]</th></tr>
-        [each=field]
+        [each=fields]
             <tr>
-                <td class="type w_200">{field[modifiers]} {field[type]}</td>
+                <td class="type w_200">{fields[modifiers]} {fields[type]}</td>
                 <td class="description">
-                    <code>
-                        <p>
-                            <a href="#{field[name]}"><span class="green">${field[name]}</span></a>
-                            [if=field[value]]{field[value]}[endif.field]
-                        </p>
-                        </code>
-                    <p class="description">{field[description]}</p>
+                    <code><p><a href="#{fields[name]}"><span class="green">${fields[name]}</span></a>[if=fields[value]]{fields[value]}[endif.fields]</p></code>
+                    <p class="description">{fields[shortDesc]}</p>
                 </td>
             </tr>
-        [endeach.field]
+        [endeach.fields]
     </table>
-[endif.field]
+[endif.fields]
 [if=inheritFields]
     [each=inheritFields]
         <table class="inherit">
@@ -78,20 +73,32 @@
         </tr>
     </table>
 [endif.constructor]
-[if=method]
+[if=destructor]
+    <table id="summary_destructor">
+        <tr><th colspan="2">[__Деструктор: общий обзор]</th></tr>
+        <tr>
+            <td class="type w_200">{modifiers} {type}</td>
+            <td class="description">
+                <code><p><a href="#{name}"><strong><span class="black">{name}</span></strong></a>{signature}</p></code>
+                <p class="description">{shortDesc}</p>
+            </td>
+        </tr>
+    </table>
+[endif.destructor]
+[if=methods]
     <table id="summary_methods">
         <tr><th colspan="2">[__Методы: общий обзор]</th></tr>
-        [each=method]
+        [each=methods]
             <tr>
-                <td class="type w_200">{method[modifiers]} {method[type]}</td>
+                <td class="type w_200">{methods[modifiers]} {methods[type]}</td>
                 <td class="description">
-                    <code><p><a href="#{method[name]}"><strong><span class="black">{method[name]}</span></strong></a>{method[signature]}</p></code>
-                    <p class="description">{method[description]}</p>
+                    <code><p><a href="#{methods[name]}"><strong><span class="black">{methods[name]}</span></strong></a>{methods[signature]}</p></code>
+                    <p class="description">{methods[shortDesc]}</p>
                 </td>
             </tr>
-        [endeach.method]
+        [endeach.methods]
     </table>
-[endif.method]
+[endif.methods]
 [if=inheritMethods]
     [each=inheritMethods]
         <table class="inherit">
@@ -106,8 +113,7 @@
         <div class="location">{constants[location]}</div>
         <h3 id="{constants[name]}">{constants[name]}</h3>
         <code class="signature">{constants[modifiers]} {constants[type]} <strong>{constants[name]}</strong>{constants[value]}</code>
-        [if=constants[description]]<div class="details">{constants[description]}</div>
-        [endif.constants]
+        <div class="details">{constants[fullDesc]}</div>
         <hr>
     [endeach.constants]
 [endif.constants]
@@ -117,26 +123,35 @@
         <div class="location">{fields[location]}</div>
         <h3 id="{fields[name]}">{fields[name]}</h3>
         <code class="signature">{fields[modifiers]} {fields[type]} <strong><span class="green">{fields[name]}</span></strong>{fields[value]}</code>
-        [if=fields[description]]<div class="details">{fields[description]}</div>[endif.fields]
+        <div class="details">{fields[fullDesc]}</div>
         <hr>
     [endeach.fields]
 [endif.fields]
 [if=constructor]
     <h2 id="details_constructor">[__Конструктор: детали]</h2>
     <div class="location">{location}</div>
-    <code class="signature" id="{name}">{modifiers} {type}<strong>{name}</strong>{signature}</code>
+    <code class="signature" id="{name}">{modifiers} {type} <strong>{name}</strong>{signature}</code>
     <div class="details">
         {fullDesc}
         {tags}
     </div>
 [endif.constructor]
+[if=destructor]
+    <h2 id="details_destructor">[__Деструктор: детали]</h2>
+    <div class="location">{location}</div>
+    <code class="signature" id="{name}">{modifiers} {type} <strong>{name}</strong>{signature}</code>
+    <div class="details">
+        {fullDesc}
+        {tags}
+    </div>
+[endif.destructor]
 [if=methods]
     <h2 id="details_methods">[__Методы: детали]</h2>
     [each=methods]
         <div class="location">{methods[location]}</div>
         <code class="signature" id="{methods[name]}">{methods[modifiers]} {methods[type]} <strong>{methods[name]}</strong> {methods[signature]}</code>
         <div class="details">
-            {methods[description]}
+            {methods[fullDesc]}
             {methods[tags]}
         </div>
         <hr>
