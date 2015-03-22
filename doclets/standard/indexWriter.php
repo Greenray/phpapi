@@ -19,8 +19,6 @@ class indexWriter extends htmlWriter {
     public function indexWriter(&$doclet) {
         parent::htmlWriter($doclet);
 
-        $rootDoc =& $this->_doclet->rootDoc();
-
         $this->_sections[0] = ['title' => 'Overview',   'url' => 'overview-summary.html'];
         $this->_sections[1] = ['title' => 'Namespace'];
         $this->_sections[2] = ['title' => 'Class'];
@@ -29,6 +27,8 @@ class indexWriter extends htmlWriter {
         $this->_sections[5] = ['title' => 'Todo',       'url' => 'todo.html'];
         $this->_sections[6] = ['title' => 'Index', 'selected' => TRUE];
 
+        $rootDoc =& $this->_doclet->rootDoc();
+        $phpapi  =& $this->_doclet->phpapi();
         $classes =& $rootDoc->classes();
         if ($classes == NULL) $classes = [];
         $methods = [];
@@ -46,74 +46,60 @@ class indexWriter extends htmlWriter {
         $elements = array_merge($classes, $methods, $functions, $globals);
         uasort($elements, [$this, 'compareElements']);
 
-        ob_start();
-
-        $letter = 64;
-        foreach ($elements as $name => $element) {
-            $firstChar = strtoupper(substr($element->name(), 0, 1));
-            if (is_object($element) && $firstChar != chr($letter)) {
-                $letter = ord($firstChar);
-                echo '<a href="#letter', chr($letter), '"> ', chr($letter), '</a>';
-            }
-        }
-        echo '<hr>';
-
-        $first = TRUE;
-        foreach ($elements as $element) {
+        $output = [];
+        $letter = '';
+        foreach ($elements as $i => $element) {
             if (is_object($element)) {
-                if (strtoupper(substr($element->name(), 0, 1)) != chr($letter)) {
-                    $letter = ord(strtoupper(substr($element->name(), 0, 1)));
-                    if (!$first) echo '</dl>';
-                    $first = FALSE;
-                    echo '<table>';
-                    echo '<caption id="letter'.chr($letter).'">'.chr($letter).'</caption>';
+                $firstChar = strtoupper(substr($element->name(), 0, 1));
+                if ($firstChar != $letter) {
+                    $letter = $firstChar;
+                    $output['letters'][$i]['letter'] = $letter;
+                    $output['elements'][$letter]['char'] = $letter;
                 }
                 $parent =& $element->containingClass();
                 if ($parent && get_class($parent) != 'rootDoc') {
-                    $in = 'class <a href="'.$parent->asPath().'">'.$parent->qualifiedName().'</a>';
+                    $output['elements'][$letter]['letter'][$i]['in']     = __('класса');
+                    $output['elements'][$letter]['letter'][$i]['inPath'] = $parent->asPath();
+                    $output['elements'][$letter]['letter'][$i]['inName'] = $parent->qualifiedName();
                 } else {
                     $package =& $element->containingPackage();
-                    $in = 'namespace <a href="'.$package->asPath().'/package-summary.html">'.$package->name().'</a>';
+                    $output['elements'][$letter]['letter'][$i]['in']     = __('в пространстве имен');
+                    $output['elements'][$letter]['letter'][$i]['inPath'] = $package->asPath().DS;
+                    $output['elements'][$letter]['letter'][$i]['inName'] = $package->name();
                 }
                 switch (get_class($element)) {
 
                     case 'classDoc':
-                        if ($element->isOrdinaryClass()) {
-                            echo '<tr><td class="w_200"><a href="'.$element->asPath(), '">'.$element->name().'</a></td><td class="w_300">Class in '.$in.'</td>';
-                        } elseif ($element->isInterface()) {
-                            echo '<tr><td class="w_200"><a href="'.$element->asPath(), '">'.$element->name().'</a></td><td class="w_300">Interface in '.$in.'</td>';
-                        } elseif ($element->isTrait()) {
-                            echo '<tr><td class="w_200"><a href="'.$element->asPath(), '">'.$element->name().'</a></td><td class="w_300">Trait in '.$in.'</td>';
-                        } elseif ($element->isException()) {
-                            echo '<tr><td class="w_200"><a href="'.$element->asPath(), '">'.$element->name().'</a></td><td class="w_300">Exception in '.$in.'</td>';
-                        }
+                        if     ($element->isOrdinaryClass()) $output['elements'][$letter]['letter'][$i]['element'] = __('Класс');
+                        elseif ($element->isInterface())     $output['elements'][$letter]['letter'][$i]['element'] = __('Интерфейс');
+                        elseif ($element->isTrait())         $output['elements'][$letter]['letter'][$i]['element'] = __('Типаж');
+                        elseif ($element->isException())     $output['elements'][$letter]['letter'][$i]['element'] = __('Исключение');
                         break;
 
                     case 'methodDoc':
-                        if ($element->isMethod()) {
-                            echo '<tr><td class="w_200"><a href="'.$element->asPath(), '">'.$element->name(), '()</a></td><td class="w_300">Method in '.$in.'</td>';
-                        } elseif ($element->isFunction()) {
-                            echo '<tr><td class="w_200"><a href="'.$element->asPath(), '">'.$element->name(), '()</a></td><td class="w_300">Function in '.$in.'</td>';
-                        }
+                        if     ($element->isMethod())   $output['elements'][$letter]['letter'][$i]['element'] = __('Метод');
+                        elseif ($element->isFunction()) $output['elements'][$letter]['letter'][$i]['element'] = __('Функция');
                         break;
 
                     case 'fieldDoc':
-                        if ($element->isGlobal()) {
-                            echo '<tr><td class="w_200"><a href="'.$element->asPath(), '">'.$element->name(), '</a></td><td class="w_300">Global in '.$in.'</td>';
-                        }
+                        if ($element->isGlobal()) $output['elements'][$letter]['letter'][$i]['element'] = __('Глобальный элемент');
                         break;
                 }
+                $output['elements'][$letter]['letter'][$i]['path'] = $element->asPath();
+                $output['elements'][$letter]['letter'][$i]['name'] = $element->name();
                 if ($textTag =& $element->tags('@text') && $firstSentenceTags =& $textTag->firstSentenceTags($this->_doclet)) {
                     foreach ($firstSentenceTags as $firstSentenceTag) {
-                        echo '<td>'.$firstSentenceTag->text($this->_doclet).'</td>';
+                        $output['elements'][$letter]['letter'][$i]['description'] = $firstSentenceTag->text($this->_doclet);
                     }
-                    echo '</tr>';
-                } else {
-                    echo '<td></td></tr>';
-                }
+                } else  $output['elements'][$letter]['letter'][$i]['description'] = __('Описания нет');
             }
         }
-        echo '</table>';
+
+        $tpl = new template($phpapi->getOption('doclet'), 'index-all');
+
+        ob_start();
+
+        echo $tpl->parse($output);
 
         $this->_output = ob_get_contents();
         ob_end_clean();

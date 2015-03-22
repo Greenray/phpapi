@@ -19,31 +19,12 @@ class frameOutputWriter extends htmlWriter {
     public function frameOutputWriter(&$doclet) {
         parent::htmlWriter($doclet);
 
+        $phpapi =& $this->_doclet->phpapi();
+        $tpl    = new template($phpapi->getOption('doclet'), 'frame-output');
+
         ob_start();
 
-        echo
-'<frameset rows="7%,88%,5%" framespacing="0">
-    <frameset>
-        <frame src="header.html" name="header" noresize scrolling="no">
-    </frameset>
-    <frameset cols="250,*" framespacing="0">
-        <frameset rows="30%,70%" framespacing="0">
-            <frame src="overview-frame.html" name="packagelist">
-            <frame src="allitems.html" name="index">
-        </frameset>
-        <frame src="overview-summary.html" name="main">
-    </frameset>
-    <frameset>
-        <frame src="footer.html" name="footer" noresize scrolling="no">
-    </frameset>
-</frameset>
-<noframes>
-    <body>
-        <h2>Frame Alert</h2>
-        <p>This document is designed to be viewed using frames. If you see this message, you are using a non-frame-capable browser.<br>
-        Link to <a href="overview-summary.html">Non-frame version</a>.</p>
-    </body>
-</noframes>';
+        echo $tpl->parse();
 
         $this->_output = ob_get_contents();
         ob_end_clean();
@@ -51,11 +32,12 @@ class frameOutputWriter extends htmlWriter {
         $this->_write('index.html', FALSE, FALSE);
 
         # Builds the header frame
+        $tpl = new template($phpapi->getOption('doclet'), 'header');
+        $output['title'] = $this->_doclet->docTitle();
+
         ob_start();
 
-        echo '<body>';
-        echo '<div id="header"><h1>'.$this->_doclet->docTitle().'</h1></div>';
-        echo '</body>';
+        echo $tpl->parse($output);
 
         $this->_output = ob_get_contents();
         ob_end_clean();
@@ -63,9 +45,10 @@ class frameOutputWriter extends htmlWriter {
         $this->_write('header.html', 'Header', FALSE);
 
         # Builds the footer frame
+        $tpl = new template($phpapi->getOption('doclet'), 'footer');
         ob_start();
 
-        echo '<div id="footer">'.GENERATOR.' '.COPYRIGHT.'</div>';
+        echo $tpl->parse();
 
         $this->_output = ob_get_contents();
         ob_end_clean();
