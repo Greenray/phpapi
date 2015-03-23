@@ -160,17 +160,6 @@ class phpapi {
              $files = explode(',', $this->_options['files']);
         else $files = '*.php';
 
-        $this->verbose('Searching for files to parse...');
-
-        $this->_files = [];
-        foreach ($this->_sourcePath as $path) {
-            $this->_files[$path] = array_unique($this->_buildFileList($files, $path));
-        }
-        if (count($this->_files) == 0) {
-            $this->error('Cannot find any files to parse');
-            exit;
-        }
-
         if (isset($this->_options['default_package'])) $this->_defaultPackage = $this->_options['default_package'];
 
         if (isset($this->_options['ignore']))    $this->_ignore    = explode(',', $this->_options['ignore']);
@@ -188,6 +177,17 @@ class phpapi {
         if (isset($this->_options['private'])   && $this->_options['private'])   $this->_private   = TRUE;
         if (isset($this->_options['protected']) && $this->_options['protected']) $this->_protected = TRUE;
         if (isset($this->_options['public'])    && $this->_options['public'])    $this->_public    = TRUE;
+
+        $this->verbose('Searching for files to parse...');
+
+        $this->_files = [];
+        foreach ($this->_sourcePath as $path) {
+            $this->_files[$path] = array_unique($this->_buildFileList($files, $path));
+        }
+        if (count($this->_files) == 0) {
+            $this->error('Cannot find any files to parse');
+            exit;
+        }
     }
 
     /** Build a complete list of file to parse.

@@ -125,13 +125,10 @@ function __($string) {
 
 # Get name of config file to use
 if (!isset($argv[1])) {
-    if (isset($_ENV['phpapi'])) {
-        $argv[1] = $_ENV['phpapi'];
-    } elseif (is_file(getcwd().DS.'phpapi.ini')) {
-        $argv[1] = getcwd().DS.'phpapi.ini';
-    } elseif (is_file(dirname(__FILE__).DS.'phpapi.ini')) {
-        $argv[1] = dirname(__FILE__).DS.'phpapi.ini';
-    } else {
+    if     (isset($_ENV['phpapi']))                     $argv[1] = $_ENV['phpapi'];
+    elseif (is_file(getcwd().DS.'phpapi.ini'))          $argv[1] = getcwd().DS.'phpapi.ini';
+    elseif (is_file(dirname(__FILE__).DS.'phpapi.ini')) $argv[1] = dirname(__FILE__).DS.'phpapi.ini';
+    else {
         die("Usage: phpapi [config_file]".LF);
     }
 }
