@@ -8,7 +8,7 @@
             <tr>
                 <td class="type w_200">{functions[modifiers]} {functions[type]}</td>
                 <td class="description">
-                    <p class="name"><a href="#{functions[name]}"><span class="lilac">{functions[name]}</span></a>{functions[signature]}</p>
+                    <p><a href="#{functions[name]}"><span class="lilac">{functions[name]}</span></a>{functions[signature]}</p>
                     <p class="description">{functions[shortDesc]}</p>
                 </td>
             </tr>
