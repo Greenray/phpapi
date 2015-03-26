@@ -9,8 +9,9 @@ VERSION
 
 DESCRIPTION
 
-	phpapi is a Javadoc style comment parser for PHP, written with an emphasis on speed
-    and simplicity. It is designed to be as close a clone to Javadoc as possible.
+	phpapi is a Javadoc style comment parser for PHP, written with an emphasis on
+    speed and simplicity. It is designed to be as close a clone to Javadoc as
+    possible.
 
     phpapi - это парсер комментариев в стиле Javadoc для PHP, написан с акцентом на
     скорость и простоту и как можно ближе к клону Javadoc.
@@ -22,16 +23,16 @@ REQUIREMENTS
 ABOUT
 
 	phpapi uses the PHP tokenizer extension, this means that it lets PHP do the parsing
-    of your source code. phpAPI just takes the tokens PHP parses out and turns them into
-    API documentation.
+    of your source code. phpAPI just takes the tokens PHP parses out and turns them
+    into API documentation.
 
     phpapi использует PHP-расширение tokenizer, анализирует токены PHP и транслирует их
     в документацию по API.
 
 FEATURES
 
-	* Fast running speed, uses PHP tokenizer function to take advantage of PHPs internal
-      parsing functionality.
+	* Fast running speed, uses PHP tokenizer function to take advantage of PHPs
+      internal parsing functionality.
 	* Parsing of any valid PHP file, with multiple classes and functions in the same
       file.
 	* Simple output template layer, allowing easy changing of the output format by
@@ -66,8 +67,9 @@ USAGE
 	# ./phpapi.php config.ini
     or
     # ./phpapi.php config.ini > result.txt (To save output mesages)
-	To create a config file for your project, copy, rename the phpini.ini file and edit
-    it to your needs, it's fully commented.
+
+	To create a config file for your project, copy, rename the phpini.ini file and
+    edit it to your needs, it's fully commented.
 
     Для созданияя конфигурационного файла вашего проекта, скопируйте, переименуйте
     phpapi.ini и отредактируйте его в соответствие с имеющемися комментариями.
@@ -96,8 +98,8 @@ CONFIGURATION
                         elements have package tags, use this setting to place unbound
                         elements into a particular package.
 	* overview - Specifies the name of a HTML file containing text for the overview
-                 documentation to be placed on the overview page. The path is relative to
-                 "source" unless an absolute path is given.
+                 documentation to be placed on the overview page. The path is relative
+                 to "source" unless an absolute path is given.
 	* globals   = on|off - Parse out global variables.
 	* constants = on|off - Parse out constants.
 	* private   = on|off - Parse out private class members.
