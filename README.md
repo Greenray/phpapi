@@ -9,10 +9,10 @@ VERSION
 
 DESCRIPTION
 -----------
-    phpapi is a Javadoc style comment parser for PHP, written with an emphasis on speed
-    and simplicity. It is designed to be as close a clone to Javadoc as possible.
-    phpapi - это парсер комментариев в стиле Javadoc для PHP, написан с акцентом на скорость
-    и простоту и как можно ближе к клону Javadoc.
+    phpapi is a Javadoc style comment parser for PHP, written with an emphasis on speed and simplicity.
+    It is designed to be as close a clone to Javadoc as possible.
+    phpapi - это парсер комментариев в стиле Javadoc для PHP, написан с акцентом на скорость и простоту и как
+    можно ближе к клону Javadoc.
 
 REQUIREMENTS
 ------------
@@ -20,11 +20,9 @@ REQUIREMENTS
 
 ABOUT
 -----
-    phpapi uses the PHP tokenizer extension, this means that it lets PHP do the parsing of
-    your source code. phpAPI just takes the tokens PHP parses out and turns them into API
-    documentation.
-    phpapi использует PHP-расширение tokenizer, анализирует токены PHP и транслирует их в
-    документацию по API.
+    phpapi uses the PHP tokenizer extension, this means that it lets PHP do the parsing of your source code.
+    phpAPI just takes the tokens PHP parses out and turns them into API documentation.
+    phpapi использует PHP-расширение tokenizer, анализирует токены PHP и транслирует их в документацию по API.
 
 FEATURES
 --------
