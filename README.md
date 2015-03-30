@@ -1,10 +1,10 @@
 NAME
-
+====
 	phpapi: The PHP Documentation Creator.
     This is the fork of the Peej's Quick & Dirty PHPDoc Clone.
 
 VERSION
-
+=======
 	3.0
 
 DESCRIPTION
@@ -14,17 +14,14 @@ DESCRIPTION
     phpapi - это парсер комментариев в стиле Javadoc для PHP, написан с акцентом на скорость и простоту и как можно ближе к клону Javadoc.
 
 REQUIREMENTS
-
+============
 	PHP 5.3+ is required.
 
 ABOUT
 
-	phpapi uses the PHP tokenizer extension, this means that it lets PHP do the
-    parsing of your source code. phpAPI just takes the tokens PHP parses out and
-    turns them into API documentation.
+	phpapi uses the PHP tokenizer extension, this means that it lets PHP do the parsing of your source code. phpAPI just takes the tokens PHP parses out and turns them into API documentation.
 
-    phpapi использует PHP-расширение tokenizer, анализирует токены PHP и транслирует
-    их в документацию по API.
+    phpapi использует PHP-расширение tokenizer, анализирует токены PHP и транслирует их в документацию по API.
 
 FEATURES
 
