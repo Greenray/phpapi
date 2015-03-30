@@ -1,30 +1,28 @@
 NAME
-====
+----
 	phpapi: The PHP Documentation Creator.
     This is the fork of the Peej's Quick & Dirty PHPDoc Clone.
 
 VERSION
-=======
+-------
 	3.0
 
 DESCRIPTION
-
+-----------
     phpapi is a Javadoc style comment parser for PHP, written with an emphasis on speed and simplicity. It is designed to be as close a clone to Javadoc as possible.
-
     phpapi - это парсер комментариев в стиле Javadoc для PHP, написан с акцентом на скорость и простоту и как можно ближе к клону Javadoc.
 
 REQUIREMENTS
-============
+------------
 	PHP 5.3+ is required.
 
 ABOUT
-
+-----
 	phpapi uses the PHP tokenizer extension, this means that it lets PHP do the parsing of your source code. phpAPI just takes the tokens PHP parses out and turns them into API documentation.
-
     phpapi использует PHP-расширение tokenizer, анализирует токены PHP и транслирует их в документацию по API.
 
 FEATURES
-
+--------
 	* Fast running speed, uses PHP tokenizer function to take advantage of PHPs
       internal parsing functionality.
 	* Parsing of any valid PHP file, with multiple classes and functions in the same
@@ -40,14 +38,14 @@ FEATURES
     * Original template system for output.
 
 INSTALLATION
-
+------------
 	Unzip the archive somewhere, edit the default config file and then run phpapi.php
     with your CLI version of PHP.
 
     Распакуйте архив, отредактируйте конфигурационный файл и запустите phpapi.php.
 
 FILES
-
+-----
 	phpapi.ini - Default ini file
 	README.md  - This file
 	classes/*.php - Classes used by phpapi
@@ -55,7 +53,7 @@ FILES
     formatters/*.php - Formatters
 
 USAGE
-
+-----
     # ./phpapi.php (if your config file is phpapi.ini)
     or
 	# ./phpapi.php config.ini
@@ -69,7 +67,7 @@ USAGE
     phpapi.ini и отредактируйте его в соответствие с имеющемися комментариями.
 
 CONFIGURATION
-
+-------------
     phpapi supports a number of configuration directives:
     phpapi поддерживает следующие директивы:
 
@@ -110,16 +108,19 @@ CONFIGURATION
 	* tree   - Create a class tree.
 
 DOC COMMENTS
+------------
 	A full description of the format of doc comments can be found on the Sun Javadoc
     web site (http://java.sun.com/j2se/javadoc/). Doc comments look like this:
 
 	/**
 	 * This is the typical format of a simple documentation comment
 	 * that spans two lines.
+	 * 
+	 * @param string $var Description
 	 */
 
 TAGS
-
+----
 	phpapi supports the following tags:
     phpapi поддерживает следующие теги:
 
@@ -144,7 +145,7 @@ TAGS
     slightly changed due to PHPs loose typing.
 
 COPYRIGHT AND LICENSE
-
+---------------------
 	This program is a fork of the PHPDoctor: The PHP Documentation Creator v2.0.5
     Copyright (C) 2005 Paul James <paul@peej.co.uk>
     Copyright (C) 2015 Victor Nabatov <greenray.spb@gmail.com>
