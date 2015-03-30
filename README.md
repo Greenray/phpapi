@@ -1,6 +1,6 @@
 NAME
 ----
-	phpapi: The PHP Documentation Creator.
+    phpapi: The PHP Documentation Creator.
     This is the fork of the Peej's Quick & Dirty PHPDoc Clone.
 
 VERSION
@@ -9,8 +9,10 @@ VERSION
 
 DESCRIPTION
 -----------
-    phpapi is a Javadoc style comment parser for PHP, written with an emphasis on speed and simplicity. It is designed to be as close a clone to Javadoc as possible.
-    phpapi - это парсер комментариев в стиле Javadoc для PHP, написан с акцентом на скорость и простоту и как можно ближе к клону Javadoc.
+    phpapi is a Javadoc style comment parser for PHP, written with an emphasis on speed
+    and simplicity. It is designed to be as close a clone to Javadoc as possible.
+    phpapi - это парсер комментариев в стиле Javadoc для PHP, написан с акцентом на скорость
+    и простоту и как можно ближе к клону Javadoc.
 
 REQUIREMENTS
 ------------
@@ -18,8 +20,11 @@ REQUIREMENTS
 
 ABOUT
 -----
-    phpapi uses the PHP tokenizer extension, this means that it lets PHP do the parsing of your source code. phpAPI just takes the tokens PHP parses out and turns them into API documentation.
-    phpapi использует PHP-расширение tokenizer, анализирует токены PHP и транслирует их в документацию по API.
+    phpapi uses the PHP tokenizer extension, this means that it lets PHP do the parsing of
+    your source code. phpAPI just takes the tokens PHP parses out and turns them into API
+    documentation.
+    phpapi использует PHP-расширение tokenizer, анализирует токены PHP и транслирует их в
+    документацию по API.
 
 FEATURES
 --------
@@ -39,7 +44,8 @@ FEATURES
 
 INSTALLATION
 ------------
-    Unzip the archive somewhere, edit the default config file and then run phpapi.php with your CLI version of PHP.
+    Unzip the archive somewhere, edit the default config file and then run phpapi.php with
+    your CLI version of PHP.
 
     Распакуйте архив, отредактируйте конфигурационный файл и запустите phpapi.php.
 
@@ -64,8 +70,8 @@ USAGE
     or
     # ./phpapi.php config.ini > result.txt (To save output mesages)
 
-    To create a config file for your project, copy, rename the phpini.ini file and
-    edit it to your needs, it's fully commented.
+    To create a config file for your project, copy, rename the phpini.ini file and edit it
+    to your needs, it's fully commented.
 
     Для созданияя конфигурационного файла вашего проекта, скопируйте, переименуйте
     phpapi.ini и отредактируйте его в соответствие с имеющемися комментариями.
@@ -75,8 +81,8 @@ CONFIGURATION
     phpapi supports a number of configuration directives:
     phpapi поддерживает следующие директивы:
 
-    * source  - The directory to look for files in, if not used the phpAPI will look
-                in the current directory (the directory it is run from).
+    * source  - The directory to look for files in, if not used the phpAPI will look in
+                the current directory (the directory it is run from).
     * destination - The directory to place generated documentation in. If the given
                     path is relative to it will be relative to "source".
     * files   - Names of files to parse. This can be a single filename, or a comma
@@ -90,12 +96,12 @@ CONFIGURATION
     * quiet   = on|off   - Quiet mode suppresses all output other than warnings and
                            errors.
     * verbose = on|off - Verbose mode outputs additional messages during execution.
-    * default_package - If the code you are parsing does not use package tags or not
-                        all elements have package tags, use this setting to place
-                        unbound elements into a particular package.
+    * default_package  - If the code you are parsing does not use package tags or not all
+                         elements have package tags, use this setting to place unbound
+                         elements into a particular package.
     * overview - Specifies the name of a HTML file containing text for the overview
-                 documentation to be placed on the overview page. The path is
-                 relative to "source" unless an absolute path is given.
+                 documentation to be placed on the overview page. The path isrelative to
+                 "source" unless an absolute path is given.
     * globals   = on|off - Parse out global variables.
     * constants = on|off - Parse out constants.
     * private   = on|off - Parse out private class members.
@@ -136,7 +142,7 @@ TAGS
 	{@link package.class#member label}
 	{@linkplain package.class#member label}
 	@package name - places an item into a specific package and is valid within any doc
-                    comment of a top level item.
+                        comment of a top level item.
 	@param type name description - description of method or function parameters.
 	@return type description     - description of the return value.
 	@see package.class#member    - link to corresponding information.
@@ -145,7 +151,7 @@ TAGS
 	@var type name description - variable description.
 	@version - version description.
 
-	Some Javadoc tags are not relevant to PHP and so are ignored, others are added or
+    Some Javadoc tags are not relevant to PHP and so are ignored, others are added or
     slightly changed due to PHPs loose typing.
 
 COPYRIGHT AND LICENSE
@@ -154,10 +160,17 @@ COPYRIGHT AND LICENSE
     Copyright (C) 2005 Paul James <paul@peej.co.uk>
     Copyright (C) 2015 Victor Nabatov <greenray.spb@gmail.com>
 
-    This program is free software; you can redistribute it and/or modify it under the terms of the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License <http://creativecommons.org/licenses/by-nc-sa/3.0/>
+    This program is free software; you can redistribute it and/or modify it under the terms
+    of the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+    <http://creativecommons.org/licenses/by-nc-sa/3.0/>
 
-    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+    without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-    Эта программа является свободной; вы можете распространять и/или модифицировать ее в соответствии с условиями Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License <http://creativecommons.org/licenses/by-nc-sa/3.0/>
+    Эта программа является свободной; вы можете распространять и/или модифицировать ее в
+    соответствии с условиями Creative Commons Attribution-NonCommercial-ShareAlike 3.0
+    Unported License <http://creativecommons.org/licenses/by-nc-sa/3.0/>
 
-    Эта программа распространяется в надежде что она будет полезной, но БЕЗ КАКИХ-ЛИБО ГАРАНТИЙ; даже без подразумеваемых гарантий КОММЕРЧЕСКОЙ ЦЕННОСТИ или ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ.
+    Эта программа распространяется в надежде что она будет полезной, но БЕЗ КАКИХ-ЛИБО
+    ГАРАНТИЙ; даже без подразумеваемых гарантий КОММЕРЧЕСКОЙ ЦЕННОСТИ или ПРИГОДНОСТИ ДЛЯ
+    КОНКРЕТНОЙ ЦЕЛИ.
