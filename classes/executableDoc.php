@@ -4,7 +4,7 @@
 /** Represents a PHP function, method (member function) or constructor.
  *
  * @file      classes/executableDoc.php
- * @version   2.0
+ * @version   3.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License

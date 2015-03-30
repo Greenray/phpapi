@@ -5,7 +5,7 @@
  * This is an abstract class dealing with information common to these elements.
  *
  * @file      classes/elementDoc.php
- * @version   2.0
+ * @version   3.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -122,7 +122,7 @@ class elementDoc extends doc {
         $modifiers = $this->_access.' ';
         if ($this->_final)            $modifiers .= 'final ';
         if (!empty($this->_abstract)) $modifiers .= 'abstract ';
-        if ($this->_static)           $modifiers .= 'static ';
+        if ($this->_static)           $modifiers .= 'static';
 
         return $modifiers;
     }
@@ -190,17 +190,20 @@ class elementDoc extends doc {
     public function asPath() {
         if ($this->isClass() || $this->isInterface() || $this->isTrait() || $this->isException()) {
             return strtolower(str_replace('.', DS, str_replace('\\', DS, $this->_package)).DS.$this->_name.'.html');
+
         } elseif ($this->isField()) {
             $class =& $this->containingClass();
             if ($class) return strtolower(str_replace('.', DS, str_replace('\\', DS, $this->_package)).DS.$class->name().'.html#').$this->_name;
             else        return strtolower(str_replace('.', DS, str_replace('\\', DS, $this->_package)).DS.'package-globals.html#').$this->_name;
+
         } elseif ($this->isConstructor() || $this->isMethod()) {
             $class =& $this->containingClass();
-            if ($class) return strtolower(str_replace('.', DS, str_replace('\\', DS, $this->_package)).DS.$class->name().'.html#').$this->_name.'()';
-            else        return strtolower(str_replace('.', DS, str_replace('\\', DS, $this->_package)).DS.'package-functions.html#').$this->_name.'()';
+            if ($class) return strtolower(str_replace('.', DS, str_replace('\\', DS, $this->_package)).DS.$class->name().'.html#').$this->_name;
+            else        return strtolower(str_replace('.', DS, str_replace('\\', DS, $this->_package)).DS.'package-functions.html#').$this->_name;
+
         } elseif ($this->isGlobal())
                                      return strtolower(str_replace('.', DS, str_replace('\\', DS, $this->_package)).DS.'package-globals.html#').$this->_name;
-        elseif ($this->isFunction()) return strtolower(str_replace('.', DS, str_replace('\\', DS, $this->_package)).DS.'package-functions.html#').$this->_name.'()';
+        elseif ($this->isFunction()) return strtolower(str_replace('.', DS, str_replace('\\', DS, $this->_package)).DS.'package-functions.html#').$this->_name;
 
         return NULL;
     }

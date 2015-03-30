@@ -2,11 +2,12 @@
 # idxCMS Flat Files Content Management Sysytem
 
 /** Нolds the information from one run of phpapi.
+ *
  * Particularly the packages, classes and options specified by the user.
  * It is  the root of the parsed tokens and is passed to the doclet to be formatted into output.
  *
  * @file      classes/rootDoc.php
- * @version   2.0
+ * @version   3.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -45,7 +46,7 @@ class rootDoc extends doc {
                 $phpapi->message('Reading overview file "'.$overview.'".');
                 $text = file_get_contents($overview);
                 if (!empty($text)) {
-                    $text = str_replace(["\r\n", "\n\r", "\r", "\n"], '<br>', $text);
+                    $text = str_replace(["\r\n", "\n\r", "\r", "\n"], '<br />', $text);
                     $this->_data = $phpapi->processDocComment('/** '.$text.' */', $this);
                     $this->mergeData();
                 }

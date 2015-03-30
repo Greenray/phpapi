@@ -34,6 +34,7 @@ $lang['Поля'] = 'Fields';
 $lang['Поля: детали'] = 'Fields Details';
 $lang['Поля: общий обзор'] = 'Fields Summary';
 $lang['Поля, унаследованные из'] = 'Fields inherited from';
+$lang['Пространство имен'] = 'Namespace';
 $lang['Пространства имен'] = 'Namespaces';
 $lang['Смотри'] = 'See';
 $lang['Типаж'] = 'Trait';
