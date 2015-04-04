@@ -1,12 +1,11 @@
 <?php
-# phpapi: The PHP Documentation Creator
-
 require_once 'seeTag.php';
 
 /** Represents an inline link tag.
  *
+ * @program   phpapi: The PHP Documentation Creator
  * @file      classes/linkPlainTag.php
- * @version   3.0
+ * @version   3.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -25,10 +24,10 @@ class linkPlainTag extends seeTag {
         $explode = preg_split('/[ \t]+/', $text);
         $link = array_shift($explode);
         if ($link) {
-            $this->_link = $link;
+            $this->link = $link;
             $text = join(' ', $explode);
         } else {
-            $this->_link = NULL;
+            $this->link = NULL;
         }
         parent::tag('@linkplain', $text, $root);
     }

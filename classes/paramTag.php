@@ -1,9 +1,9 @@
 <?php
-# phpapi: The PHP Documentation Creator
-
 /** Represents a parameter tag.
+ *
+ * @program   phpapi: The PHP Documentation Creator
  * @file      classes/paramTag.php
- * @version   3.0
+ * @version   3.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -15,7 +15,7 @@ class paramTag extends tag {
     /** The variable name of the parameter.
      * @var string
      */
-    public $_var = NULL;
+    public $var = NULL;
 
     /** Constructor.
      * @param  string  $text The contents of the tag
@@ -27,9 +27,9 @@ class paramTag extends tag {
         $explode = preg_split('/[ \t]+/', $text);
         $type = array_shift($explode);
         if ($type) {
-            $this->_var = trim(array_shift($explode), '$');
-            if ($this->_var) {
-                $data['parameters'][$this->_var]['type'] = $type;
+            $this->var = trim(array_shift($explode), '$');
+            if ($this->var) {
+                $data['parameters'][$this->var]['type'] = $type;
             } else {
                 $count = isset($data['parameters']) ? count($data['parameters']) : 0;
                 $data['parameters']['__unknown'.$count]['type'] = $type;
@@ -37,7 +37,7 @@ class paramTag extends tag {
             $text = join(' ', $explode);
         }
         if ($text !== '') {
-               parent::tag('@param', '$'.$this->_var.'+'.$text, $root, $type);
+               parent::tag('@param', '$'.$this->var.'+'.$text, $root, $type);
         } else parent::tag('@param', NULL, $root);
     }
 

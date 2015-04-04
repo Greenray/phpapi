@@ -9,7 +9,7 @@ html, body  { height: 100%; width: 100% }
 
 #page   { height: auto !important; overflow: hidden }
 caption { background: #ecede5; border: 1px solid #ccc; font-weight: bold; font-size: 100%; margin-bottom: 0; padding: 3px 5px; text-align: left }
-.header { background-color: #cee; display: block; font: bold 14pt arial, helvetica, verdana, sans-serif; padding: 10px 0; width: 100% }
+.header { background-color: #cee; display: block; font: bold 14pt georgia, arial, helvetica, verdana, sans-serif; padding: 10px 0; width: 100% }
 .panel  { background: #cee; display: block; float: left; height: auto; width: 20% }
 .main   { background: #cee; display: block; height: auto; width: auto }
 .footer { background-color: #999966; bottom: 0; display: block; height: 30px; width: 100% }
@@ -67,9 +67,9 @@ td p.description { margin: 2px 0 0 20px }
 #definition h2   { background: #ccf; border: 2px solid #999; font-size: 120%; padding: 2px 0 2px 100px; text-align: left }
 
 #list       { margin: 5px 0 15px }
-#list ul    { list-style: inside none none }
+#list ul    { list-style: inside none none; padding: 0 }
 #list ul li { padding: 0 0 0 20px }
-#list ul ul { list-style-image: url("./resources/nested.png") }
+#list ul ul { list-style-image: url("./resources/nested.png"); padding: 5px }
 #tree ul ul { margin-top: 0; margin-bottom: 0 }
 
 .active  { color: white }

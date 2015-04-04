@@ -1,11 +1,11 @@
 <div class="menu">
-    [if=sections]
+    [if=section]
         <ul>
-        [each=sections]
-            <li [if=sections[selected]]class="active"[/if.sections]>{sections[title]}</li>
-        [/each.sections]
+        [each=section]
+            <li [if=section[selected]]class="active"[/if.section]>{section[title]}</li>
+        [/each.section]
         </ul>
-    [/if.sections]
+    [/if.section]
 </div>
 [if=class]
     <div class="small_links">

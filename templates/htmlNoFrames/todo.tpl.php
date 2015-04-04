@@ -4,66 +4,66 @@
 [if=menu]
     <ul>
         [each=menu]
-            [if=menu[classes]]   <li><a href="#todo_classes">[__Классы]</a></li>[/if.menu]
-            [if=menu[fields]]    <li><a href="#todo_fields">[__Поля]</a></li>[/if.menu]
-            [if=menu[methods]]   <li><a href="#todo_methods">[__Методы]</a></li>[/if.menu]
-            [if=menu[globals]]   <li><a href="#todo_globals">[__Глобальгые элементы]</a></li>[/if.menu]
-            [if=menu[functions]] <li><a href="#todo_functions">[__Функции]</a></li>[/if.menu]
+            [if=menu[class]]    <li><a href="#todo_classes">[__Классы]</a></li>[/if.menu]
+            [if=menu[field]]    <li><a href="#todo_fields">[__Поля]</a></li>[/if.menu]
+            [if=menu[method]]   <li><a href="#todo_methods">[__Методы]</a></li>[/if.menu]
+            [if=menu[global]]   <li><a href="#todo_globals">[__Глобальгые элементы]</a></li>[/if.menu]
+            [if=menu[function]] <li><a href="#todo_functions">[__Функции]</a></li>[/if.menu]
         [/each.menu]
     </ul>
 [/if.menu]
-[if=classes]
+[if=class]
     <table id="todo_classes">
         <tr><th colspan="2" class="title">[__Классы]</th></tr>
-        [each=classes]
+        [each=class]
             <tr>
-                <td class="name"><a href="{classes[path]}">{classes[name]}</a></td>
-                <td class="description">{classes[desc]}</td>
+                <td class="name"><a href="{class[path]}">{class[name]}</a></td>
+                <td class="description">{class[desc]}</td>
             </tr>
-        [/each.classes]
+        [/each.class]
     </table>
-[/if.classes]
-[if=fields]
+[/if.class]
+[if=field]
     <table id="todo_fields">
         <tr><th colspan="2" class="title">[__Поля]</th></tr>
-        [each=fields]
+        [each=field]
             <tr>
-                <td class="name"><a href="{fields[path]}">{fields[name]}</a></td>
-                <td class="description">{fields[desc]}</td>
+                <td class="name"><a href="{field[path]}">{field[name]}</a></td>
+                <td class="description">{field[desc]}</td>
             </tr>
-        [/each.fields]
+        [/each.field]
     </table>
-[/if.fields]
-[if=methods]
+[/if.field]
+[if=method]
     <table id="todo_methods">
         <tr><th colspan="2" class="title">[__Методы]</th></tr>
-        [each=methods]
+        [each=method]
             <tr>
-                <td class="name"><a href="{methods[path]}">{methods[name]}</a></td>
-                <td class="description">{methods[desc]}</td>
+                <td class="name"><a href="{method[path]}">{method[name]}</a></td>
+                <td class="description">{method[desc]}</td>
             </tr>
-        [/each.methods]
+        [/each.method]
     </table>
-[/if.methods]
-[if=globals]
-    <table id="todo_globals">
-        <tr><th colspan="2" class="title">[__Глобальные элементы]</th></tr>
-        [each=globals]
-            <tr>
-                <td class="name"><a href="{globals[path]}">{globals[name]}</a></td>
-                <td class="description">{globals[desc]}</td>
-            </tr>
-        [/each.globals]
-    </table>
-[/if.globals]
-[if=functions]
+[/if.method]
+[if=function]
     <table id="todo_functions"">
         <tr><th colspan="2" class="title">[__Функции]</th></tr>
-        [each=functions]
+        [each=function]
             <tr>
-                <td class="name"><a href="{functions[path]}">{functions[name]}</a></td>
-                <td class="description">{functions[desc]}</td>
+                <td class="name"><a href="{function[path]}">{function[name]}</a></td>
+                <td class="description">{function[desc]}</td>
             </tr>
-        [/each.functions]
+        [/each.function]
     </table>
-[/if.functions]
+[/if.function]
+[if=global]
+    <table id="todo_globals">
+        <tr><th colspan="2" class="title">[__Глобальные элементы]</th></tr>
+        [each=global]
+            <tr>
+                <td class="name"><a href="{global[path]}">{global[name]}</a></td>
+                <td class="description">{global[desc]}</td>
+            </tr>
+        [/each.global]
+    </table>
+[/if.global]

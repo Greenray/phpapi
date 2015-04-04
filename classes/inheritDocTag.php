@@ -1,10 +1,9 @@
 <?php
-# phpapi: The PHP Documentation Creator
-
-/** Represents a see tag.
+/** Represents an inheritDoc tag.
  *
+ * @program   phpapi: The PHP Documentation Creator
  * @file      classes/inheritDocTag.php
- * @version   3.0
+ * @version   3.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -14,9 +13,10 @@
 class inheritDocTag extends tag {
 
     /** Constructor.
+     *
      * @param  string  $text The contents of the tag
      * @param  array   $data Reference to doc comment data array
-     * @param  rootDoc $root The root object
+     * @param  rootDoc $root Reference to the root object
      * @return void
      */
     public function inheritDocTag($text, &$data, &$root) {
@@ -24,15 +24,16 @@ class inheritDocTag extends tag {
     }
 
     /** Gets text from super element
+     *
      * @param TextFormatter formatter
      * @return str
      */
     public function text($formatter) {
-        if ($this->_parent) {
-            if ($this->_parent->isClass()) {
-                $superClassname = $this->_parent->superclass();
+        if ($this->parent) {
+            if ($this->parent->isClass()) {
+                $superClassname = $this->parent->superclass();
                 if ($superClassname) {
-                    $superClass =& $this->_root->classNamed($superClassname);
+                    $superClass = &$this->root->classNamed($superClassname);
                     if ($superClass) {
                         $textTag = $superClass->tags('@text');
                         if ($textTag) {
@@ -43,7 +44,7 @@ class inheritDocTag extends tag {
                         }
                     }
                 }
-                $interfaces = $this->_parent->interfaces();
+                $interfaces = $this->parent->interfaces();
                 foreach ($interfaces as $interface) {
                     $textTag = $interface->tags('@text');
                     if ($textTag) {
@@ -53,14 +54,14 @@ class inheritDocTag extends tag {
                         }
                     }
                 }
-            } elseif ($this->_parent->isConstructor() || $this->_parent->isMethod()) {
-                $parentClass =& $this->_parent->containingClass();
+            } elseif ($this->parent->isConstructor() || $this->parent->isMethod()) {
+                $parentClass = &$this->parent->containingClass();
                 if ($parentClass) {
                     $superClassname = $parentClass->superclass();
                     if ($superClassname) {
-                        $superClass =& $this->_root->classNamed($superClassname);
+                        $superClass = &$this->root->classNamed($superClassname);
                         if ($superClass) {
-                            $superMethod =& $superClass->methodNamed($this->_parent->name());
+                            $superMethod = &$superClass->methodNamed($this->parent->name());
                             if ($superMethod) {
                                 $textTag = $superMethod->tags('@text');
                                 if ($textTag) {
@@ -74,7 +75,7 @@ class inheritDocTag extends tag {
                     }
                     $interfaces = $parentClass->interfaces();
                     foreach ($interfaces as $interface) {
-                        $superMethod =& $interface->methodNamed($this->_parent->name());
+                        $superMethod = &$interface->methodNamed($this->parent->name());
                         if ($superMethod) {
                             $textTag = $superMethod->tags('@text');
                             if ($textTag) {
@@ -86,14 +87,14 @@ class inheritDocTag extends tag {
                         }
                     }
                 }
-            } elseif ($this->_parent->isField()) {
-                $parentClass =& $this->_parent->containingClass();
+            } elseif ($this->parent->isField()) {
+                $parentClass = &$this->parent->containingClass();
                 if ($parentClass) {
                     $superClassname = $parentClass->superclass();
                     if ($superClassname) {
-                        $superClass =& $this->_root->classNamed($superClassname);
+                        $superClass = &$this->root->classNamed($superClassname);
                         if ($superClass) {
-                            $superField =& $superClass->fieldNamed($this->_parent->name());
+                            $superField = &$superClass->fieldNamed($this->parent->name());
                             if ($superField) {
                                 $textTag = $superField->tags('@text');
                                 if ($textTag) {
@@ -107,7 +108,7 @@ class inheritDocTag extends tag {
                     }
                     $interfaces = $parentClass->interfaces();
                     foreach ($interfaces as $interface) {
-                        $superField =& $interface->fieldNamed($this->_parent->name());
+                        $superField = &$interface->fieldNamed($this->parent->name());
                         if ($superField) {
                             $textTag = $superField->tags('@text');
                             if ($textTag) {

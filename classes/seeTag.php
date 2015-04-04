@@ -1,10 +1,9 @@
 <?php
-# phpapi: The PHP Documentation Creator
-
 /** Represents a see tag.
  *
+ * @program   phpapi: The PHP Documentation Creator
  * @file      classes/seeTag.php
- * @version   3.0
+ * @version   3.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -16,21 +15,22 @@ class seeTag extends tag {
     /** The link.
      * @var string
      */
-    public $_link = NULL;
+    public $link = NULL;
 
     /** Constructor.
+     *
      * @param string text The contents of the tag
      * @param array data Reference to doc comment data array
      * @param rootDoc root The root object
      */
     public function seeTag($text, &$data, &$root) {
         if (preg_match('/^<a href="(.+)">(.+)<\/a>$/', $text, $matches)) {
-            $this->_link = $matches[1];
+            $this->link = $matches[1];
             $text = $matches[2];
         } elseif (preg_match('/^([^ ]+)([ \t](.*))?$/', $text, $matches)) {
-            $this->_link = $matches[1];
+            $this->link = $matches[1];
             if (isset($matches[3])) $text = $matches[3];
-        } else $this->_link = NULL;
+        } else $this->link = NULL;
         parent::tag('@see', $text, $root);
     }
 
@@ -42,109 +42,112 @@ class seeTag extends tag {
     }
 
     /** Gets value of this tag.
+     *
      * @param Doclet doclet
      * @return str
      */
     public function text($doclet) {
         $link = parent::text($doclet);
-        if (!$link || $link == "\n") $link = $this->_link;
+        if (!$link || $link == LF) $link = $this->link;
 
-        return $this->_linkText($link, $doclet);
+        return $this->linkText($link, $doclet);
     }
 
-    /** Generate the text to go into the seeTag link
+    /** Generate the text to go into the seeTag link.
+     *
      * @param  string $link
      * @param  Doclet $doclet
      * @return string
      */
-    public function _linkText($link, $doclet) {
-        $element =& $this->_resolveLink();
-        if ($element && $this->_parent) {
-            $package =& $this->_parent->containingPackage();
+    public function linkText($link, $doclet) {
+        $element = &$this->resolveLink();
+        if ($element && $this->parent) {
+            $package = &$this->parent->containingPackage();
             $path    = str_repeat('../', $package->depth() + 1).$element->asPath();
             return $doclet->formatLink($path, $link);
-        } elseif (preg_match('/^(https?|ftp):\/\//', $this->_link) === 1)
-             return $doclet->formatLink($this->_link, $link);
+        } elseif (preg_match('/^(https?|ftp):\/\//', $this->link) === 1)
+             return $doclet->formatLink($this->link, $link);
         else return $link;
     }
 
     /** Turn the objects link text into a link to the element it refers to.
+     *
      * @return elementDoc
      */
-    function &_resolveLink() {
-        $phpapi = $this->_root->phpapi();
+    function &resolveLink() {
+        $phpapi = $this->root->phpapi();
         $matches = [];
         $return = NULL;
         $packageRegex = '[a-zA-Z0-9_\x7f-\xff .\\\\-]+';
         $labelRegex   = '[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*';
         $regex = '/^\\\\?(?:('.$packageRegex.')[.\\\\])?(?:('.$labelRegex.')(?:#|::))?\$?('.$labelRegex.')(?:\(\))?$/';
-        if (preg_match($regex, $this->_link, $matches)) {
+        if (preg_match($regex, $this->link, $matches)) {
             $packageName = $matches[1];
             $className   = $matches[2];
             $elementName = $matches[3];
             if ($packageName) { # Get package
-                $package =& $this->_root->packageNamed($packageName);
+                $package = &$this->root->packageNamed($packageName);
                 if (!$package) {
                     return $return;
                 }
             }
             if ($className) { # Get class
                 if (isset($package))
-                     $classes =& $package->allClasses();
-                else $classes =& $this->_root->classes();
+                     $classes = &$package->allClasses();
+                else $classes = &$this->root->classes();
                 if ($classes) {
                     foreach ($classes as $key => $class) {
                         if ($class->name() == $className) {
                             break;
                         }
                     }
-                    $class =& $classes[$key];
+                    $class = &$classes[$key];
                 }
             }
             if ($elementName) {      # Get element
                 if (isset($class)) { # From class
-                    $methods =& $class->methods();
+                    $methods = &$class->methods();
                     if ($methods) {
                         foreach ($methods as $key => $method) {
                             if ($method->name() == $elementName) {
-                                $element =& $methods[$key];
+                                $element = &$methods[$key];
                                 break;
                             }
                         }
                     }
                     if (!isset($element)) {
-                        $fields =& $class->fields();
+                        $fields = &$class->fields();
                         if ($fields) {
                             foreach ($fields as $key => $field) {
                                 if ($field->name() == $elementName) {
-                                    $element =& $fields[$key];
+                                    $element = &$fields[$key];
                                     break;
                                 }
                             }
                         }
                     }
                 } elseif (isset($package)) { # From package
-                    $classes =& $package->allClasses();
+                    $classes = &$package->allClasses();
                     foreach ($classes as $key => $class) {
                         if ($class->name() == $elementName) {
-                            $element =& $classes[$key];
+                            $element = &$classes[$key];
                             break;
                         }
-                        $methods =& $class->methods();
+                        $methods = &$class->methods();
                         if ($methods) {
                             foreach ($methods as $key => $method) {
                                 if ($method->name() == $elementName) {
-                                    $element =& $methods[$key];
+                                    $element = &$methods[$key];
                                     break 2;
                                 }
                             }
                         }
                         if (!isset($element)) {
-                            $fields =& $class->fields();
+                            $fields = &$class->fields();
                             if ($fields) {
                                 foreach ($fields as $key => $field) {
                                     if ($field->name() == $elementName) {
-                                        $element =& $fields[$key];
+                                        $element = &$fields[$key];
                                         break 2;
                                     }
                                 }
@@ -152,21 +155,21 @@ class seeTag extends tag {
                         }
                     }
                     if (!isset($element)) {
-                        $functions =& $package->functions();
+                        $functions = &$package->functions();
                         if ($functions) {
                             foreach ($functions as $key => $function) {
                                 if ($function->name() == $elementName) {
-                                    $element =& $functions[$key];
+                                    $element = &$functions[$key];
                                     break;
                                 }
                             }
                         }
                         if (!isset($element)) {
-                            $globals =& $package->globals();
+                            $globals = &$package->globals();
                             if ($globals) {
                                 foreach ($globals as $key => $global) {
                                     if ($global->name() == $elementName) {
-                                        $element =& $globals[$key];
+                                        $element = &$globals[$key];
                                         break;
                                     }
                                 }
@@ -174,28 +177,28 @@ class seeTag extends tag {
                         }
                     }
                 } else { # From anywhere
-                    $classes =& $this->_root->classes();
+                    $classes = &$this->root->classes();
                     if ($classes) {
                         foreach ($classes as $key => $class) {
                             if ($class->name() == $elementName) {
-                                $element =& $classes[$key];
+                                $element = &$classes[$key];
                                 break;
                             }
-                            $methods =& $class->methods();
+                            $methods = &$class->methods();
                             if ($methods) {
                                 foreach ($methods as $key => $method) {
                                     if ($method->name() == $elementName) {
-                                        $element =& $methods[$key];
+                                        $element = &$methods[$key];
                                         break 2;
                                     }
                                 }
                             }
                             if (!isset($element)) {
-                                $fields =& $class->fields();
+                                $fields = &$class->fields();
                                 if ($fields) {
                                     foreach ($fields as $key => $field) {
                                         if ($field->name() == $elementName) {
-                                            $element =& $fields[$key];
+                                            $element = &$fields[$key];
                                             break 2;
                                         }
                                     }
@@ -204,21 +207,21 @@ class seeTag extends tag {
                         }
                     }
                     if (!isset($element)) {
-                        $functions =& $this->_root->functions();
+                        $functions = &$this->root->functions();
                         if ($functions) {
                             foreach ($functions as $key => $function) {
                                 if ($function->name() == $elementName) {
-                                    $element =& $functions[$key];
+                                    $element = &$functions[$key];
                                     break;
                                 }
                             }
                         }
                         if (!isset($element)) {
-                            $globals =& $this->_root->globals();
+                            $globals = &$this->root->globals();
                             if ($globals) {
                                 foreach ($globals as $key => $global) {
                                     if ($global->name() == $elementName) {
-                                        $element =& $globals[$key];
+                                        $element = &$globals[$key];
                                         break;
                                     }
                                 }
@@ -227,7 +230,7 @@ class seeTag extends tag {
                     }
                 }
             }
-            $return =& $element;
+            $return = &$element;
         }
         return $return;
     }

@@ -1,12 +1,11 @@
 <?php
-# phpapi: The PHP Documentation Creator
-
 /** Represents a documentation tag, e.g. @since, @author, @version.
  * Given a tag (e.g. "@since 1.2"), holds tag name (e.g. "@since") and tag text (e.g. "1.2").
  * Tags with structure or which require special processing are handled by subclasses.
  *
+ * @program   phpapi: The PHP Documentation Creator
  * @file      classes/Tag.php
- * @version   3.0
+ * @version   3.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -18,53 +17,54 @@ class tag {
     /** The name of the tag.
      * @var string
      */
-    public $_name = NULL;
-
-    /** The value of the tag as raw data, without any text processing applied.
-     * @var string
-     */
-    public $_text = NULL;
-
-    /** Reference to the root element.
-     * @var rootDoc
-     */
-    public $_root = NULL;
-
-    /** Type of parameter.
-     * @var string
-     */
-    public $_type = NULL;
+    public $name = NULL;
 
     /** Reference to the elements parent.
      * @var elementDoc
      */
-    public $_parent = NULL;
+    public $parent = NULL;
+
+    /** Reference to the root element.
+     * @var rootDoc
+     */
+    public $root = NULL;
+
+    /** The value of the tag as raw data, without any text processing applied.
+     * @var string
+     */
+    public $text = NULL;
+
+    /** Type of parameter.
+     * @var string
+     */
+    public $type = NULL;
 
     /** Constructor.
+     *
      * @param  string  $name The name of the tag (including @)
      * @param  string  $text The contents of the tag
      * @param  rootDoc $root The root object
      * @return void
      */
     public function tag($name, $text, &$root, $type = '') {
-        $this->_name = $name;
-        $this->_root =& $root;
-        $this->_text = $text;
-        $this->_type = $type;
+        $this->name = $name;
+        $this->root = &$root;
+        $this->text = $text;
+        $this->type = $type;
     }
 
     /** Gets name of this tag.
      * @return string Tag name
      */
     public function name() {
-        return $this->_name;
+        return $this->name;
     }
 
     /** Gets display name of this tag.
      * @return str
      */
     public function displayName() {
-        return ucfirst(substr($this->_name, 1));
+        return ucfirst(substr($this->name, 1));
     }
 
     /** Gets the value of the tag as raw data, without any text processing applied.
@@ -72,21 +72,14 @@ class tag {
      * @return str
      */
     public function text($doclet) {
-        return $this->_text;
-    }
-
-    /** Gets type of this tag.
-     * @return str
-     */
-    public function type() {
-        return $this->_type;
+        return $this->text;
     }
 
     /** Sets this tags parent
      * @param elementDoc $element The parent element
      */
     public function setParent(&$element) {
-        $this->_parent =& $element;
+        $this->parent = &$element;
     }
 
     /** For documentation comment with embedded @link tags, return the array of tags.
@@ -97,11 +90,12 @@ class tag {
      * of tags with first element as tag with comment text "This is an example of
      * inline tags for a documentation comment" and second element as SeeTag with
      * referenced class as "Doc" and the label for the HTML link as "commentlabel".
+     *
      * @return Tag[] Array of tags with inline tags.
      * @todo This method does not act as described but should be altered to do so
      */
     function &inlineTags($formatter) {
-        return $this->_getInlineTags($this->text($formatter));
+        return $this->getInlineTags($this->text($formatter));
     }
 
     /** Returns the first sentence of the comment as tags.
@@ -111,30 +105,32 @@ class tag {
      * The sentence ends at the first period that is followed by a space, tab,
      * or a line terminator, at the first tagline, or closing of a HTML block element
      * (<p> <h1> <h2> <h3> <h4> <h5> <h6> <hr> <pre>).
+     *
      * @return Tag[] An array of Tags representing the first sentence of the comment
      * @todo This method does not act as described but should be altered to do so
      */
     function &firstSentenceTags($formatter) {
-        $phpapi     = $this->_root->phpapi();
+        $phpapi     = $this->root->phpapi();
         $matches    = [];
         $expression = '/^(.+)(\.(?: |\t|\n|<\/p>|<\/?h[1-6]>|<hr)|$)/sU';
         if (preg_match($expression, $this->text($formatter), $matches))
-              $return =& $this->_getInlineTags($matches[1].$matches[2]);
+              $return = &$this->getInlineTags($matches[1].$matches[2]);
         else  $return = [&$this];
 
         return $return;
     }
 
     /** Parses out inline tags from within a text string.
+     *
      * @param string $text Text for parse
      * @return Tag[]       Array of parsed tags
      */
-    function &_getInlineTags($text) {
+    function &getInlineTags($text) {
         $return     = [];
         $tagStrings = preg_split('/{(@.+)}/sU', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
         if ($tagStrings) {
             $inlineTags = NULL;
-            $phpapi =& $this->_root->phpapi();
+            $phpapi = &$this->root->phpapi();
             foreach ($tagStrings as $tag) {
                 if (substr($tag, 0, 1) === '@') {
                     $pos = strpos($tag, ' ');
@@ -155,11 +151,11 @@ class tag {
                     $text = $tag;
                 }
                 $data = NULL;
-                $inlineTag =& $phpapi->createTag($name, $text, $data, $this->_root);
-                $inlineTag->setParent($this->_parent);
+                $inlineTag = &$phpapi->createTag($name, $text, $data, $this->root);
+                $inlineTag->setParent($this->parent);
                 $inlineTags[] = $inlineTag;
             }
-            $return =& $inlineTags;
+            $return = &$inlineTags;
         }
         return $return;
     }

@@ -1,10 +1,9 @@
 <?php
-# phpapi: The PHP Documentation Creator
-
 /** Represents a return tag.
  *
+ * @program   phpapi: The PHP Documentation Creator
  * @file      classes/returnTag.php
- * @version   3.0
+ * @version   3.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -14,6 +13,7 @@
 class returnTag extends tag {
 
     /** Constructor.
+     *
      * @param  string  $text The contents of the tag
      * @param  array   $data Reference to doc comment data array
      * @param  rootDoc $root The root object
@@ -26,6 +26,7 @@ class returnTag extends tag {
     }
 
     /** Gets display name of this tag.
+     *
      * @return str
      */
     public function displayName() {

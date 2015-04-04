@@ -16,7 +16,7 @@
         </div>
         <div class="panel">
             <div class="content">
-                {allitems}
+                {items}
             </div>
         </div>
         <div class="main">

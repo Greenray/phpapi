@@ -1,12 +1,12 @@
 <div class="header">
     <span style="float:right">{header}</span>
-    [if=sections]
+    [if=section]
         <ul>
-        [each=sections]
-            <li[if=sections[selected]] class="active"[/if.sections]>{sections[title]}</li>
-        [/each.sections]
+        [each=section]
+            <li[if=section[selected]] class="active"[/if.section]>{section[title]}</li>
+        [/each.section]
         </ul>
-    [/if.sections]
+    [/if.section]
 </div>
 <div class="small_links">[__Фреймы]: <a href="{path}index.html" target="_top"> [__Включить]</a> | <a href="{path}{file}" target="_top"> [__Выключить]</a></div>
 [if=class]

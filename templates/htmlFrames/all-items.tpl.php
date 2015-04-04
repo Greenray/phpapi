@@ -12,7 +12,7 @@
     <h2>[__Функции]</h2>
     <ul>
     [each=function]
-        <li><a href="{function[path]}" title="{function[package]}" target="main">{function[name]}</a></li>
+        <li><a href="{function[path]}" title="{function[package]}" target="main">{function[package]} -> {function[name]}</a></li>
     [/each.function]
     </ul>
 [/if.function]
@@ -20,7 +20,7 @@
     <h2>[__Глобальные элементы]</h2>
     <ul>
     [each=global]
-        <li><a href="{global[path]}" title="{global[package]}" target="main">{global[name]}</a></li>
+        <li><a href="{global[path]}" title="{global[package]}" target="main">{global[package]} -> {global[name]}</a></li>
     [/each.global]
     </ul>
 [/if.global]

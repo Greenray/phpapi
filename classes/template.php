@@ -1,10 +1,9 @@
 <?php
-# phpapi: The PHP Documentation Creator
-
 /** Generate the index.html file used for presenting the frame-formated "cover page" of the API documentation.
  *
+ * @program   phpapi: The PHP Documentation Creator
  * @file      classes/template.php
- * @version   3.0
+ * @version   3.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License

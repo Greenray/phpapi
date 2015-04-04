@@ -1,10 +1,9 @@
 <?php
-# phpapi: The PHP Documentation Creator
-
 /** Represents a PHP function, method (member function) or constructor.
  *
+ * @program   phpapi: The PHP Documentation Creator
  * @file      classes/executableDoc.php
- * @version   3.0
+ * @version   3.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -17,23 +16,23 @@ class executableDoc extends elementDoc {
     /** The parameters this function takes.
      * @var fieldDoc[]
      */
-    public $_parameters = [];
+    public $parameters = [];
 
     /** The subfunctions this function has.
      * @var methodDoc[]
      */
-    public $_functions = [];
+    public $functions = [];
 
     /** The exceptions this function throws.
      * @var classDoc[]
      */
-    public $_throws = [];
+    public $throws = [];
 
     /** Add a subfunction to this function.
      * @param methodDoc function
      */
     public function addMethod(&$function) {
-        $this->_functions[$function->name()] =& $function;
+        $this->functions[$function->name()] = &$function;
     }
 
     /** Gets argument information.
@@ -41,31 +40,31 @@ class executableDoc extends elementDoc {
      * order the arguments are present
      */
     function &parameters() {
-        return $this->_parameters;
+        return $this->parameters;
     }
 
     /** Gets subfunctions.
      * @return methodDoc[] An array of subfunctions.
      */
     function &functions() {
-        return $this->_functions;
+        return $this->functions;
     }
 
     /** Returns exceptions this function throws.
      * @return classDoc[]
      */
     function &thrownExceptions() {
-        return $this->_throws;
+        return $this->throws;
     }
 
     /** Returns the param tags in this function.
      * @return NULL|Tag[]
      */
     public function paramTags() {
-        if (isset($this->_tags['@param'])) {
-            if (is_array($this->_tags['@param']))
-                 return $this->_tags['@param'];
-            else return array($this->_tags['@param']);
+        if (isset($this->tags['@param'])) {
+            if (is_array($this->tags['@param']))
+                 return $this->tags['@param'];
+            else return array($this->tags['@param']);
         } else return NULL;
     }
 
@@ -73,10 +72,10 @@ class executableDoc extends elementDoc {
      * @return Type
      */
     public function throwsTags() {
-        if (isset($this->_tags['@throws'])) {
-            if (is_array($this->_tags['@throws']))
-                 return $this->_tags['@throws'];
-            else return array($this->_tags['@throws']);
+        if (isset($this->tags['@throws'])) {
+            if (is_array($this->tags['@throws']))
+                 return $this->tags['@throws'];
+            else return array($this->tags['@throws']);
         } else return NULL;
     }
 
@@ -95,12 +94,12 @@ class executableDoc extends elementDoc {
      */
     public function signature() {
         $signature = '';
-        $myPackage =& $this->containingPackage();
-        foreach ($this->_parameters as $param) {
-            $type =& $param->type();
-            $classDoc =& $type->asClassDoc();
+        $myPackage = &$this->containingPackage();
+        foreach ($this->parameters as $param) {
+            $type = &$param->type();
+            $classDoc = &$type->asClassDoc();
             if ($classDoc) {
-                $packageDoc =& $classDoc->containingPackage();
+                $packageDoc = &$classDoc->containingPackage();
                 $signature .= '<a href="'.str_repeat('../', $myPackage->depth() + 1).$classDoc->asPath().'">'.$classDoc->name().'</a> '.$param->name().', ';
             } else {
                 $signature .= '<span class="lilac">'.$type->typeName().'</span> <span class="blue">$'.$param->name().'</span>, ';

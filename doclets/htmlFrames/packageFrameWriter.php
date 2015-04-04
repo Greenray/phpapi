@@ -1,12 +1,11 @@
 <?php
-# phpapi: The PHP Documentation Creator
-
 /** This generates the package-frame.html file that lists the interfaces and
  * classes in a given package for displaying in the lower-left frame of the
  * frame-formatted default output.
  *
+ * @program   phpapi: The PHP Documentation Creator
  * @file      doclets/htmlFrames/packageFrameWriter.php
- * @version   3.0
+ * @version   3.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -21,27 +20,27 @@ class packageFrameWriter extends htmlWriter {
     public function packageFrameWriter(&$doclet) {
         parent::htmlWriter($doclet);
 
-        $rootDoc       =& $this->_doclet->rootDoc();
-        $phpapi        =& $this->_doclet->phpapi();
-        $this->_output =& $this->_allItems($rootDoc, $phpapi);
-        $this->_write('all-items.html', __('Полный список'), FALSE);
+        $rootDoc       = &$this->doclet->rootDoc();
+        $phpapi        = &$this->doclet->phpapi();
+        $this->output = &$this->allItems($rootDoc, $phpapi);
+        $this->write('all-items.html', __('Полный список'), FALSE);
 
-        $packages =& $rootDoc->packages();
+        $packages = &$rootDoc->packages;
         ksort($packages);
         foreach ($packages as $packageName => $package) {
-            $this->_depth  = $package->depth() + 1;
-            $this->_output =& $this->_buildFrame($package, $phpapi);
-            $this->_write($package->asPath().DS.'package-frame.html', $package->name(), FALSE);
+            $this->depth  = $package->depth() + 1;
+            $this->output = &$this->buildFrame($package, $phpapi);
+            $this->write($package->asPath().DS.'package-frame.html', $package->name(), FALSE);
         }
     }
 
     /** Build package frame
      * @return str
      */
-    function &_buildFrame(&$package, $phpapi) {
+    private function &buildFrame(&$package, $phpapi) {
         $output = [];
         $output['name'] = $package->name();
-        $classes =& $package->ordinaryClasses();
+        $classes = &$package->ordinaryClasses();
         if ($classes && is_array($classes)) {
             ksort($classes);
             foreach ($classes as $name => $class) {
@@ -50,7 +49,7 @@ class packageFrameWriter extends htmlWriter {
             }
         }
 
-        $interfaces =& $package->interfaces();
+        $interfaces = &$package->interfaces();
         if ($interfaces && is_array($interfaces)) {
             ksort($interfaces);
             foreach ($interfaces as $name => $interface) {
@@ -59,7 +58,7 @@ class packageFrameWriter extends htmlWriter {
             }
         }
 
-        $traits =& $package->traits();
+        $traits = &$package->traits();
         if ($traits && is_array($traits)) {
             ksort($traits);
             foreach ($traits as $name => $trait) {
@@ -68,7 +67,7 @@ class packageFrameWriter extends htmlWriter {
             }
         }
 
-        $exceptions =& $package->exceptions();
+        $exceptions = &$package->exceptions();
         if ($exceptions && is_array($exceptions)) {
             ksort($exceptions);
             foreach ($exceptions as $name => $exception) {
@@ -77,7 +76,7 @@ class packageFrameWriter extends htmlWriter {
             }
         }
 
-        $functions =& $package->functions();
+        $functions = &$package->functions();
         if ($functions && is_array($functions)) {
             ksort($functions);
             foreach ($functions as $name => $function) {
@@ -86,7 +85,7 @@ class packageFrameWriter extends htmlWriter {
             }
         }
 
-        $globals =& $package->globals();
+        $globals = &$package->globals();
         if ($globals && is_array($globals)) {
             ksort($globals);
             foreach ($globals as $name => $global) {
@@ -95,7 +94,7 @@ class packageFrameWriter extends htmlWriter {
             }
         }
 
-        $tpl = new template($phpapi->getOption('doclet'), 'package-frame.tpl');
+        $tpl = new template($phpapi->options['doclet'], 'package-frame.tpl');
         ob_start();
 
         echo $tpl->parse($output);
@@ -105,45 +104,42 @@ class packageFrameWriter extends htmlWriter {
         return $result;
     }
 
-    /** Build all items frame
-     * @return str
+    /** Builds all items frame.
+     *
+     * @param  rootDoc $rootDoc Reference to rootDoc
+     * @param  object  $phpapi  phpapi object
+     * @return string           Parsed template "all-items"
      */
-    function &_allItems(&$rootDoc, $phpapi) {
+    private function &allItems(&$rootDoc, $phpapi) {
         $output = [];
-        $classes =& $rootDoc->classes();
+        $classes = &$rootDoc->classes();
         if ($classes) {
             ksort($classes);
             foreach ($classes as $name => $class) {
-                $package =& $classes[$name]->containingPackage();
                 $output['class'][$name]['path']    = $class->asPath();
                 $output['class'][$name]['name']    = $class->name();
                 $output['class'][$name]['package'] = $class->packageName();
             }
         }
-
-        $functions =& $rootDoc->functions();
+        $functions = &$rootDoc->functions();
         if ($functions) {
             ksort($functions);
             foreach ($functions as $name => $function) {
-                $package =& $functions[$name]->containingPackage();
                 $output['function'][$name]['path']    = $function->asPath();
                 $output['function'][$name]['name']    = $function->name();
                 $output['function'][$name]['package'] = $function->packageName();
             }
         }
-
-        $globals =& $rootDoc->globals();
+        $globals = &$rootDoc->globals();
         if ($globals) {
             ksort($globals);
             foreach ($globals as $name => $global) {
-                $package =& $globals[$name]->containingPackage();
                 $output['global'][$name]['path']    = $global->asPath();
                 $output['global'][$name]['name']    = $global->name();
                 $output['global'][$name]['package'] = $global->packageName();
             }
         }
-
-        $tpl = new template($phpapi->getOption('doclet'), 'all-items.tpl');
+        $tpl = new template($phpapi->options['doclet'], 'all-items.tpl');
         ob_start();
 
         echo $tpl->parse($output);

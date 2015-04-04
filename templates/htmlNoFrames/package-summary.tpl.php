@@ -27,7 +27,7 @@
 [/if.interface]
 [if=trait]
     <table class="title">
-        <tr><th colspan="2" class="title">[__Типажи: общий обзор]</th></tr>
+        <tr><th colspan="2" class="title">[__Трейты: общий обзор]</th></tr>
         [each=trait]
             <tr>
                 <td class="name"><a href="{trait[path]}">{trait[name]}</a></td>

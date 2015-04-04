@@ -1,10 +1,9 @@
 <?php
-# phpapi: The PHP Documentation Creator
-
 /** This generates the file used for presenting the frame-formated "cover page" of the API documentation.
  *
+ * @program   phpapi: The PHP Documentation Creator
  * @file      doclets/htmlFrames/frameOutputWriter.php
- * @version   3.0
+ * @version   3.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -14,45 +13,41 @@
 class frameOutputWriter extends htmlWriter {
 
     /** Builds the HTML frameset.
+     *
      * @param Doclet doclet
      */
     public function frameOutputWriter(&$doclet) {
         parent::htmlWriter($doclet);
 
-        $phpapi =& $this->_doclet->phpapi();
-        $tpl    = new template($phpapi->getOption('doclet'), 'frame-output.tpl');
-
+        $phpapi = &$this->doclet->phpapi();
+        $tpl    = new template($phpapi->options['doclet'], 'frame-output.tpl');
         ob_start();
 
         echo $tpl->parse();
 
-        $this->_output = ob_get_contents();
+        $this->output = ob_get_contents();
         ob_end_clean();
-
-        $this->_write('index.html', FALSE, FALSE);
+        $this->write('index.html', FALSE, FALSE);
 
         # Builds the header frame
-        $tpl = new template($phpapi->getOption('doclet'), 'header.tpl');
-        $output['title'] = $this->_doclet->docTitle();
-
+        $tpl = new template($phpapi->options['doclet'], 'header.tpl');
+        $output['title'] = $phpapi->options['docTitle'];
         ob_start();
 
         echo $tpl->parse($output);
 
-        $this->_output = ob_get_contents();
+        $this->output = ob_get_contents();
         ob_end_clean();
-
-        $this->_write('header.html', 'Header', FALSE);
+        $this->write('header.html', 'Header', FALSE);
 
         # Builds the footer frame
-        $tpl = new template($phpapi->getOption('doclet'), 'footer.tpl');
+        $tpl = new template($phpapi->options['doclet'], 'footer.tpl');
         ob_start();
 
         echo $tpl->parse();
 
-        $this->_output = ob_get_contents();
+        $this->output = ob_get_contents();
         ob_end_clean();
-
-        $this->_write('footer.html', 'Footer', FALSE);
+        $this->write('footer.html', 'Footer', FALSE);
     }
 }

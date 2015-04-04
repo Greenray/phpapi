@@ -1,6 +1,5 @@
 <hr>
 <div class="package">[__Пространство имен] {package}</div>
-<div class="location">{location}</div>
 <h1>{qualified}</h1>
 <div id="list">
     <ul>
@@ -13,18 +12,18 @@
         <dd>{implements}</dd>
     </dl>
 [/if.implements]
-[if=traits]
+[if=trait]
     <dl>
         <dt>Traits:</dt>
-        <dd>{traits}</dd>
+        <dd>{trait}</dd>
     </dl>
-[/if.traits]
-[if=subclasses]
+[/if.trait]
+[if=subclass]
     <dl>
         <dt>Subclasses:</dt>
-        <dd>{subclasses}</dd>
+        <dd>{subclass}</dd>
     </dl>
-[/if.subclasses]
+[/if.subclass]
 <hr>
 <p class="signature">{ismodifiers} {is} <strong>{isname}</strong>[if=extends]{extends}[/if.extends]</p>
 <div class="comment" id="overview_description">{textag}</div>

@@ -1,10 +1,9 @@
 <?php
-# phpapi: The PHP Documentation Creator
-
 /** This generates the index of elements.
  *
+ * @program   phpapi: The PHP Documentation Creator
  * @file      doclets/htmlFrames/indexWriter.php
- * @version   3.0
+ * @version   3.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -14,22 +13,23 @@
 class indexWriter extends htmlWriter {
 
     /** Build the element index.
+     *
      * @param Doclet doclet
      */
     public function indexWriter(&$doclet) {
         parent::htmlWriter($doclet);
 
-        $this->_sections[0] = ['title' => 'Overview',   'url' => 'overview-summary.html'];
-        $this->_sections[1] = ['title' => 'Namespace'];
-        $this->_sections[2] = ['title' => 'Class'];
-        $this->_sections[3] = ['title' => 'Tree',       'url' => 'tree.html'];
-        $this->_sections[4] = ['title' => 'Deprecated', 'url' => 'deprecated.html'];
-        $this->_sections[5] = ['title' => 'Todo',       'url' => 'todo.html'];
-        $this->_sections[6] = ['title' => 'Index', 'selected' => TRUE];
+        $this->sections[0] = ['title' => 'Overview',   'url' => 'overview-summary.html'];
+        $this->sections[1] = ['title' => 'Namespace'];
+        $this->sections[2] = ['title' => 'Class'];
+        $this->sections[3] = ['title' => 'Tree',       'url' => 'tree.html'];
+        $this->sections[4] = ['title' => 'Deprecated', 'url' => 'deprecated.html'];
+        $this->sections[5] = ['title' => 'Todo',       'url' => 'todo.html'];
+        $this->sections[6] = ['title' => 'Index', 'selected' => TRUE];
 
-        $rootDoc =& $this->_doclet->rootDoc();
-        $phpapi  =& $this->_doclet->phpapi();
-        $classes =& $rootDoc->classes();
+        $rootDoc = &$this->doclet->rootDoc();
+        $phpapi  = &$this->doclet->phpapi();
+        $classes = &$rootDoc->classes();
         if ($classes == NULL) $classes = [];
         $methods = [];
         foreach ($classes as $class) {
@@ -38,9 +38,9 @@ class indexWriter extends htmlWriter {
             }
         }
         if ($methods == NULL)   $methods   = [];
-        $functions =& $rootDoc->functions();
+        $functions = &$rootDoc->functions();
         if ($functions == NULL) $functions = [];
-        $globals =& $rootDoc->globals();
+        $globals = &$rootDoc->globals();
         if ($globals == NULL)   $globals   = [];
 
         $elements = array_merge($classes, $methods, $functions, $globals);
@@ -56,23 +56,25 @@ class indexWriter extends htmlWriter {
                     $output['letters'][$i]['letter'] = $letter;
                     $output['elements'][$letter]['char'] = $letter;
                 }
-                $parent =& $element->containingClass();
+
+                $parent = &$element->containingClass();
                 if ($parent && get_class($parent) != 'rootDoc') {
                     $output['elements'][$letter]['letter'][$i]['in']     = __('класса');
                     $output['elements'][$letter]['letter'][$i]['inPath'] = $parent->asPath();
                     $output['elements'][$letter]['letter'][$i]['inName'] = $parent->qualifiedName();
                 } else {
-                    $package =& $element->containingPackage();
+                    $package = &$element->containingPackage();
                     $output['elements'][$letter]['letter'][$i]['in']     = __('в пространстве имен');
                     $output['elements'][$letter]['letter'][$i]['inPath'] = $package->asPath().DS.'package-summary.html';
                     $output['elements'][$letter]['letter'][$i]['inName'] = $package->name();
                 }
+
                 switch (get_class($element)) {
 
                     case 'classDoc':
                         if     ($element->isOrdinaryClass()) $output['elements'][$letter]['letter'][$i]['element'] = __('Класс');
                         elseif ($element->isInterface())     $output['elements'][$letter]['letter'][$i]['element'] = __('Интерфейс');
-                        elseif ($element->isTrait())         $output['elements'][$letter]['letter'][$i]['element'] = __('Типаж');
+                        elseif ($element->isTrait())         $output['elements'][$letter]['letter'][$i]['element'] = __('Трейт');
                         elseif ($element->isException())     $output['elements'][$letter]['letter'][$i]['element'] = __('Исключение');
                         break;
 
@@ -87,24 +89,22 @@ class indexWriter extends htmlWriter {
                 }
                 $output['elements'][$letter]['letter'][$i]['path'] = $element->asPath();
                 $output['elements'][$letter]['letter'][$i]['name'] = $element->name();
-                if ($textTag =& $element->tags('@text') && $firstSentenceTags =& $textTag->firstSentenceTags($this->_doclet)) {
+                if ($textTag = &$element->tags('@text') && $firstSentenceTags = &$textTag->firstSentenceTags($this->doclet)) {
                     foreach ($firstSentenceTags as $firstSentenceTag) {
-                        $output['elements'][$letter]['letter'][$i]['description'] = $firstSentenceTag->text($this->_doclet);
+                       $output['elements'][$letter]['letter'][$i]['description'] = $firstSentenceTag->text($this->doclet);
                     }
-                } else  $output['elements'][$letter]['letter'][$i]['description'] = __('Описания нет');
+                } else $output['elements'][$letter]['letter'][$i]['description'] = __('Описания нет');
             }
         }
 
-        $tpl = new template($phpapi->getOption('doclet'), 'index-all.tpl');
-
+        $tpl = new template($phpapi->options['doclet'], 'index-all.tpl');
         ob_start();
 
         echo $tpl->parse($output);
 
-        $this->_output = ob_get_contents();
+        $this->output = ob_get_contents();
         ob_end_clean();
-
-        $this->_write('index-all.html', 'Index');
+        $this->write('index-all.html', 'Index');
     }
 
     public function compareElements($element1, $element2) {

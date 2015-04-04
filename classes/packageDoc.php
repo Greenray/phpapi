@@ -1,12 +1,11 @@
 <?php
-# phpapi: The PHP Documentation Creator
-
 /** Represents a PHP package.
  * Provides access to information about the package,
  * the package's comment and tags, and the classes in the package.
  *
+ * @program   phpapi: The PHP Documentation Creator
  * @file      classes/packageDoc.php
- * @version   3.0
+ * @version   3.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -18,17 +17,17 @@ class packageDoc extends doc {
     /** The classes in this package.
      * @var classDoc[]
      */
-    public $_classes = [];
+    public $classes = [];
 
     /** The globals in this package.
      * @var fieldDoc[]
      */
-    public $_globals = [];
+    public $globals = [];
 
     /** The functions in this package.
      * @var methodDoc[]
      */
-    public $_functions = [];
+    public $functions = [];
 
     /** Constructor.
      * @param  string  $name Packqge name
@@ -36,24 +35,24 @@ class packageDoc extends doc {
      * @return void
      */
     public function packageDoc($name, &$root) {
-        $this->_name =  $name;
-        $this->_root =& $root;
+        $this->name =  $name;
+        $this->root = &$root;
     }
 
     /** Returns the package path.
      * @return string Path to package
      */
     public function asPath() {
-        return strtolower(str_replace('.', '/', str_replace('\\', '/', $this->_name)));
+        return strtolower(str_replace('.', '/', str_replace('\\', '/', $this->name)));
     }
 
     /** Calculates the depth of this package from the root.
      * @return integer The value of the depth of this package from the root
      */
     public function depth() {
-        $depth  = substr_count($this->_name, '.');
-        $depth += substr_count($this->_name, '\\');
-        $depth += substr_count($this->_name, '/');
+        $depth  = substr_count($this->name, '.');
+        $depth += substr_count($this->name, '\\');
+        $depth += substr_count($this->name, '/');
         return $depth;
     }
 
@@ -61,38 +60,38 @@ class packageDoc extends doc {
      * @param classDoc $class Reference to class
      */
     public function addClass(&$class) {
-        if (isset($this->_classes[$class->name()])) {
-            $phpapi =& $this->_root->phpapi();
+        if (isset($this->classes[$class->name()])) {
+            $phpapi = &$this->root->phpapi();
             echo LF;
             $phpapi->warning('Found class '.$class->name().' again, overwriting previous version');
         }
-        $this->_classes[$class->name()] =& $class;
+        $this->classes[$class->name()] = &$class;
     }
 
     /** Adds a global to this package.
      * @param fieldDoc $global Reference to global element
      */
     public function addGlobal(&$global) {
-        if (!isset($this->_globals[$global->name()])) $this->_globals[$global->name()] =& $global;
+        if (!isset($this->globals[$global->name()])) $this->globals[$global->name()] = &$global;
     }
 
     /** Adds a function to this package.
      * @param methodDoc $function Reference to function
      */
     public function addFunction(&$function) {
-        if (isset($this->_functions[$function->name()])) {
-            $phpapi =& $this->_root->phpapi();
+        if (isset($this->functions[$function->name()])) {
+            $phpapi = &$this->root->phpapi();
             echo LF;
             $phpapi->warning('Found function '.$function->name().' again, overwriting previous version');
         }
-        $this->_functions[$function->name()] =& $function;
+        $this->functions[$function->name()] = &$function;
     }
 
     /** Gets all included classes (including exceptions and interfaces).
      * @return classDoc[] An array of classes
      */
     function &allClasses() {
-        return $this->_classes;
+        return $this->classes;
     }
 
     /** Gets exceptions in this package.
@@ -100,8 +99,8 @@ class packageDoc extends doc {
      */
     function &exceptions() {
         $exceptions = NULL;
-        foreach ($this->_classes as $name => $exception) {
-            if ($exception->isException()) $exceptions[$name] =& $this->_classes[$name];
+        foreach ($this->classes as $name => $exception) {
+            if ($exception->isException()) $exceptions[$name] = &$this->classes[$name];
         }
         return $exceptions;
     }
@@ -111,8 +110,8 @@ class packageDoc extends doc {
      */
     function &interfaces() {
         $interfaces = NULL;
-        foreach ($this->_classes as $name => $interface) {
-            if ($interface->isInterface()) $interfaces[$name] =& $this->_classes[$name];
+        foreach ($this->classes as $name => $interface) {
+            if ($interface->isInterface()) $interfaces[$name] = &$this->classes[$name];
         }
         return $interfaces;
     }
@@ -122,8 +121,8 @@ class packageDoc extends doc {
      */
     function &traits() {
         $traits = NULL;
-        foreach ($this->_classes as $name => $trait) {
-            if ($trait->isTrait()) $traits[$name] =& $this->_classes[$name];
+        foreach ($this->classes as $name => $trait) {
+            if ($trait->isTrait()) $traits[$name] = &$this->classes[$name];
         }
         return $traits;
     }
@@ -133,8 +132,8 @@ class packageDoc extends doc {
      */
     function &ordinaryClasses() {
         $classes = NULL;
-        foreach ($this->_classes as $name => $class) {
-            if ($class->isOrdinaryClass()) $classes[$name] =& $this->_classes[$name];
+        foreach ($this->classes as $name => $class) {
+            if ($class->isOrdinaryClass()) $classes[$name] = &$this->classes[$name];
         }
         return $classes;
     }
@@ -143,14 +142,14 @@ class packageDoc extends doc {
      * @return fieldDoc[] An array of globals
      */
     function &globals() {
-        return $this->_globals;
+        return $this->globals;
     }
 
     /** Gets functions in this package.
      * @return methodDoc[] An array of functions
      */
     function &functions() {
-        return $this->_functions;
+        return $this->functions;
     }
 
     /** Lookups for a class within this package.
@@ -159,7 +158,7 @@ class packageDoc extends doc {
      */
     function &findClass($className) {
         $return = NULL;
-        if (isset($this->_classes[$className])) $return =& $this->_classes[$className];
+        if (isset($this->classes[$className])) $return = &$this->classes[$className];
         return $return;
     }
 }

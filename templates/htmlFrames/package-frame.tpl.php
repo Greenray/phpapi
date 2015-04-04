@@ -17,7 +17,7 @@
     </ul>
 [/if.interface]
 [if=trait]
-    <h2>[__Типажи]</h2>
+    <h2>[__Трейты]</h2>
     <ul>
     [each=trait]
         <li><a href="{trait[path]}" target="main">{trait[name]}</a></li>

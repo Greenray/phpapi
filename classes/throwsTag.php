@@ -1,12 +1,11 @@
 <?php
-# phpapi: The PHP Documentation Creator
-
 require_once 'seeTag.php';
 
 /** Represents a throws tag.
  *
+ * @program   phpapi: The PHP Documentation Creator
  * @file      classes/throwsTag.php
- * @version   3.0
+ * @version   3.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -16,6 +15,7 @@ require_once 'seeTag.php';
 class throwsTag extends seeTag {
 
     /** Constructor.
+     *
      * @param  string  $text The contents of the tag
      * @param  array   $data Reference to doc comment data array
      * @param  rootDoc $root The root object
@@ -23,8 +23,8 @@ class throwsTag extends seeTag {
      */
     public function throwsTag($text, &$data, &$root) {
         $explode     = preg_split('/[ \t]+/', $text);
-        $this->_link = array_shift($explode);
-        $data['throws'][$this->_link] = $this->_link;
+        $this->link = array_shift($explode);
+        $data['throws'][$this->link] = $this->link;
         parent::tag('@throws', join(' ', $explode), $root);
     }
 
@@ -36,11 +36,12 @@ class throwsTag extends seeTag {
     }
 
     /** Gets value of this tag.
+     *
      * @param Doclet doclet
      * @return string
      */
     public function text($doclet) {
-        return $this->_linkText($this->_link, $doclet).($this->_text ? ' + '.$this->_text : '');
+        return $this->linkText($this->link, $doclet).($this->text ? ' + '.$this->text : '');
     }
 
     /** Returns true if this Taglet is used in constructor documentation.

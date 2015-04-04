@@ -1,12 +1,11 @@
 <?php
-# phpapi: The PHP Documentation Creator
-
 require_once 'linkPlainTag.php';
 
 /** Represents an inline link tag.
  *
+ * @program   phpapi: The PHP Documentation Creator
  * @file      classes/linkTag.php
- * @version   3.0
+ * @version   3.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -23,7 +22,7 @@ class linkTag extends linkPlainTag {
      */
     public function linkTag($text, &$data, &$root) {
         parent::linkPlainTag($text, $data, $root);
-        $this->_name = '@link';
+        $this->name = '@link';
     }
 
     /** Gets the value of the tag as raw data, without any text processing applied.

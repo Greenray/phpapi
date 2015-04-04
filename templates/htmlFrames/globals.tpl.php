@@ -1,5 +1,6 @@
 <hr>
-<h1>[__Пространство имен] {package}: [__Глобальные элементы]</h1>
+<div class="package">[__Пространство имен] {package}</div>
+<h1>[__Глобальные элементы]</h1>
 <table id="summary_globals">
     <tr><th colspan="2">[__Глобальные элементы: общий обзор]</th></tr>
     [each=global]
@@ -15,8 +16,7 @@
 <h2 id="details_globals">[__Глобальные элементы: детали]</h2>
 [each=global]
     <div class="location">{global[location]}</div>
-    <h3 id="{global[name]}">{global[name]}</h3>
-    <code class="signature"><pre>{global[modifiers]} {global[type]} <strong>{global[name]}</strong>{global[value]}</pre></code>
+    <code id="{global[name]}" class="signature"><pre>{global[modifiers]} {global[type]} <strong>{global[name]}</strong>{global[value]}</pre></code>
     <div class="details">{global[fullDesc]}</div>
     <hr>
 [/each.global]

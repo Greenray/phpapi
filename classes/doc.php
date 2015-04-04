@@ -1,12 +1,11 @@
 <?php
-# phpapi: The PHP Documentation Creator
-
 /** Abstract base class of all Doc classes.
  * Doc item's are representations of PHP language constructs (class, package, method,...)
  * which have comments and have been processed by this run of phpapi.
  *
+ * @program   phpapi: The PHP Documentation Creator
  * @file      classes/doc.php
- * @version   3.0
+ * @version   3.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -16,45 +15,45 @@
 
 class doc {
 
-    /** The name of this construct.
-     * @var string
-     */
-    public $_name = NULL;
-
     /** Data about the element creamed from the token stream before the object for this element was created.
      * This array contains extra data about the element that occurs before the element definition in the token
      * stream (including doc comment data), it is merged with the objects fields upon object completion.
      * @var mixed[]
      */
-    public $_data = NULL; # This must be NULL so set does not nest the arrays when $currentData is assigned
+    public $data = NULL; # This must be NULL so set does not nest the arrays when $currentData is assigned
 
     /** The unprocessed doc comment.
      * @var string
      */
-    public $_docComment = '';
-
-    /** Array of doc tags.
-     * @var tag[]
-     */
-    public $_tags = [];
+    public $docComment = '';
 
     /** Whether parsing is inside this elements curly braces.
      * @var integer
      */
     public $inBody = 0;
 
+    /** The name of this construct.
+     * @var string
+     */
+    public $name = NULL;
+
     /** Reference to the root element.
      * @var rootDoc
      */
-    public $_root = NULL;
+    public $root = NULL;
+
+    /** Array of doc tags.
+     * @var tag[]
+     */
+    public $tags = [];
 
     /** Setter method.
+     *
      * @param  string $member Name of the member to set
      * @param  mixed  $value  The value to set member to
      * @return boolean
      */
     public function set($member, $value) {
-        $member  = '_'.$member;
         $members = get_object_vars($this);
         if (array_key_exists($member, $members)) {
             if (is_array($this->$member))
@@ -66,12 +65,12 @@ class doc {
     }
 
     /** Setter by reference method.
+     *
      * @param  string $member Name of the member to set
      * @param  mixed  $value  The value to set member to
      * @return boolean
      */
     public function setByRef($member, &$value) {
-        $member  = '_'.$member;
         $members = get_object_vars($this);
         if (array_key_exists($member, $members)) {
             if (is_array($this->$member))
@@ -83,39 +82,35 @@ class doc {
     }
 
     /** Returns the name of this doc item.
+     *
      * @return string
      */
     public function name() {
-        return $this->_name;
+        return $this->name;
     }
 
     /** Returns tags of the specified kind in this Doc item.
      * For example, if 'tagName' has value "@serial", all tags in this Doc item of type "@serial" will be returned.
      * If NULL is given for 'tagName', all tags in this Doc item are returned.
+     *
      * @param  string     $tagName Name of the tag kind to search for
      * @return Tag[]|NULL          An array of Tag containing all tags of name 'tagname' or a
      *                             singular tag object if only one exists for the given 'tagname'
      */
     function &tags($tagName = NULL) {
         $return = NULL;
-        if     ($tagName == NULL)              $return =& $this->_tags;
-        elseif (isset($this->_tags[$tagName])) $return =& $this->_tags[$tagName];
+        if     ($tagName == NULL)             $return = &$this->tags;
+        elseif (isset($this->tags[$tagName])) $return = &$this->tags[$tagName];
         return $return;
     }
 
     /** Sets a tag.
+     *
      * @param string $tagName Name of the tag kind to search for
      * @param Tag    $tag     The tag to set
      */
     public function setTag($tagName, $tag) {
-        $this->_tags[$tagName] =& $tag;
-    }
-
-    /** Returns the full unprocessed text of the comment.
-     * @return string Raw comment
-     */
-    public function getRawCommentText() {
-        return $this->_docComment;
+        $this->tags[$tagName] = &$tag;
     }
 
     /** Constructs a class.
@@ -196,80 +191,81 @@ class doc {
     }
 
     /** Merges the contents of the doc comment into the element object.
+     *
      * @return void
      */
     public function mergeData() {
-        if (isset($this->_data) && is_array($this->_data)) {
+        if (isset($this->data) && is_array($this->data)) {
 
             # Merge primitive types
-            foreach ($this->_data as $member => $value) {
+            foreach ($this->data as $member => $value) {
                 if (!is_array($value)) {
                     if ($member == 'type')
-                         $this->set('type', new type($value, $this->_root));
+                         $this->set('type', new type($value, $this->root));
                     else $this->set($member, $value);
                 }
             }
 
             # Merge tags array
-            if (isset($this->_data['tags']) && is_array($this->_data['tags'])) {
+            if (isset($this->data['tags']) && is_array($this->data['tags'])) {
                 $thisClass = get_class($this);
-                foreach ($this->_data['tags'] as $name => $tag) {
+                foreach ($this->data['tags'] as $name => $tag) {
                     if (is_array($tag)) {
-                        foreach ($this->_data['tags'][$name] as $key => $tag) {
+                        foreach ($this->data['tags'][$name] as $key => $tag) {
                             if (
-                                ($thisClass == 'rootDoc'    && $this->_data['tags'][$name][$key]->inOverview()) ||
-                                ($thisClass == 'packageDoc' && $this->_data['tags'][$name][$key]->inPackage())  ||
-                                ($thisClass == 'classDoc'   && $this->_data['tags'][$name][$key]->inType())     ||
-                                ($thisClass == 'methodDoc'  && $this->_data['tags'][$name][$key]->inMethod())   ||
-                                ($thisClass == 'fieldDoc'   && $this->_data['tags'][$name][$key]->inField())
+                                ($thisClass == 'rootDoc'    && $this->data['tags'][$name][$key]->inOverview()) ||
+                                ($thisClass == 'packageDoc' && $this->data['tags'][$name][$key]->inPackage())  ||
+                                ($thisClass == 'classDoc'   && $this->data['tags'][$name][$key]->inType())     ||
+                                ($thisClass == 'methodDoc'  && $this->data['tags'][$name][$key]->inMethod())   ||
+                                ($thisClass == 'fieldDoc'   && $this->data['tags'][$name][$key]->inField())
                             ) {
-                                $this->_tags[$name][$key] =& $this->_data['tags'][$name][$key];
-                                $this->_tags[$name][$key]->setParent($this);
+                                $this->tags[$name][$key] = &$this->data['tags'][$name][$key];
+                                $this->tags[$name][$key]->setParent($this);
                             }
                         }
                     } else {
                         if (
-                            ($thisClass == 'rootDoc'    && $this->_data['tags'][$name]->inOverview()) ||
-                            ($thisClass == 'packageDoc' && $this->_data['tags'][$name]->inPackage())  ||
-                            ($thisClass == 'classDoc'   && $this->_data['tags'][$name]->inType())     ||
-                            ($thisClass == 'methodDoc'  && $this->_data['tags'][$name]->inMethod())   ||
-                            ($thisClass == 'fieldDoc'   && $this->_data['tags'][$name]->inField())
+                            ($thisClass == 'rootDoc'    && $this->data['tags'][$name]->inOverview()) ||
+                            ($thisClass == 'packageDoc' && $this->data['tags'][$name]->inPackage())  ||
+                            ($thisClass == 'classDoc'   && $this->data['tags'][$name]->inType())     ||
+                            ($thisClass == 'methodDoc'  && $this->data['tags'][$name]->inMethod())   ||
+                            ($thisClass == 'fieldDoc'   && $this->data['tags'][$name]->inField())
                         ) {
-                            $this->_tags[$name] =& $this->_data['tags'][$name];
-                            $this->_tags[$name]->setParent($this);
+                            $this->tags[$name] = &$this->data['tags'][$name];
+                            $this->tags[$name]->setParent($this);
                         }
                     }
                 }
             }
 
             # Merge parameter types
-            if (isset($this->_parameters) && isset($this->_data['parameters'])) {
-                foreach ($this->_data['parameters'] as $name => $param) {
+            if (isset($this->parameters) && isset($this->data['parameters'])) {
+                foreach ($this->data['parameters'] as $name => $param) {
                     if (substr($name, 0, 9) == '__unknown') {
                         $index = substr($name, 9);
-                        $parameters = array_values($this->_parameters);
+                        $parameters = array_values($this->parameters);
                         if (isset($parameters[$index])) {
-                            $parameters[$index]->set('type', new type($param['type'], $this->_root));
+                            $parameters[$index]->set('type', new type($param['type'], $this->root));
                         }
                     } else {
-                        if (!isset($this->_parameters[$name])) {
-                            $this->_parameters[$name] =& new fieldDoc($name, $this, $this->_root);
-                            if (isset($this->_package)) {
-                                $this->_parameters[$name]->set('package', $this->_package);
+                        if (!isset($this->parameters[$name])) {
+                            $this->parameters[$name] = &new fieldDoc($name, $this, $this->root);
+                            if (isset($this->package)) {
+                                $this->parameters[$name]->set('package', $this->package);
                             }
                         }
-                        $this->_parameters[$name]->set('type', new type($param['type'], $this->_root));
+                        $this->parameters[$name]->set('type', new type($param['type'], $this->root));
                     }
                 }
             }
 
             # Merge return type
-            if (isset($this->_returnType) && isset($this->_data['return'])) $this->_returnType =& new type($this->_data['return'], $this->_root);
+            if (isset($this->returnType) && isset($this->data['return'])) $this->returnType = &new type($this->data['return'], $this->root);
 
             # Merge exceptions
-            if (isset($this->_throws) && isset($this->_data['throws'])) {
-                foreach ($this->_data['throws'] as $name => $exception) {
-                    $this->_throws[$name] =& $this->_data['throws'][$name];
+            if (isset($this->throws) && isset($this->data['throws'])) {
+                foreach ($this->data['throws'] as $name => $exception) {
+                    $this->throws[$name] = &$this->data['throws'][$name];
                 }
             }
         }

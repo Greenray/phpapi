@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 /** phpapi: The PHP Documentation Creator
- * Copyright (C) 2014 - 2015 Victor Nabatov <greenray.spb@gmail.com>
+ * Copyright (C) 2015 Victor Nabatov <greenray.spb@gmail.com>
  *
  * This program is a fork of the
  * PHPDoctor: The PHP Documentation Creator version 2.0.5
@@ -21,55 +21,37 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
+ * @program   phpapi: The PHP Documentation Creator
  * @file      phpapi.php
- * @version   3.0
+ * @version   3.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * @package   phpapi
  */
 
-ini_set('display_errors', 1);
-mb_internal_encoding('UTF-8');
-setlocale(LC_CTYPE, ['ru_RU.UTF-8', 'ru_UA.UTF-8', 'by_BY.UTF-8', 'en_US.UTF-8', 'en_GB.UTF-8']);
-setlocale(LC_ALL,   ['ru_RU.UTF-8', 'ru_UA.UTF-8', 'by_BY.UTF-8', 'en_US.UTF-8', 'en_GB.UTF-8']);
-if (date_default_timezone_set(date_default_timezone_get()) === FALSE) {
-    date_default_timezone_set('UTC');
-}
-error_reporting(E_ALL & ~E_DEPRECATED);
-
 # Check we are running from the command line
 if (!isset($argv[0])) {
-    die('This program must be run from the command line using the CLI version of PHP');
+    die('This program must be run from the command line using the CLI version of PHP.');
 
 # Check we are using the correct version of PHP
-} elseif (!defined('T_COMMENT') || !extension_loaded('tokenizer') || version_compare(phpversion(), '5', '<')) {
-    die('You need PHP version 5 or greater with the "tokenizer" extension to run this script, please upgrade');
+} elseif (!extension_loaded('tokenizer') || version_compare(phpversion(), '5.4.0', '<')) {
+    die('You need PHP version 5.4 or greater with the "tokenizer" extension to run this script, please upgrade.');
 }
+
+ini_set('display_errors', 1);
+mb_internal_encoding('UTF-8');
+setlocale(LC_CTYPE, ['ru_RU.UTF-8', 'en_US.UTF-8', 'en_GB.UTF-8']);
+setlocale(LC_ALL,   ['ru_RU.UTF-8', 'en_US.UTF-8', 'en_GB.UTF-8']);
+if (date_default_timezone_set(date_default_timezone_get()) === FALSE) {
+    date_default_timezone_set('Europe/Moscow');
+}
+error_reporting(E_ALL & ~E_DEPRECATED);
 
 /** Alias for DIRECTORY_SEPARATOR */
 define('DS', DIRECTORY_SEPARATOR);
 /** Alias for line feed */
 define('LF', PHP_EOL);
-
-# Undefined internal constants so we don't throw undefined constant errors later on
-if (!defined('T_ABSTRACT'))     define('T_ABSTRACT',     0);
-if (!defined('T_CONST'))        define('T_CONST',        0);
-if (!defined('T_DOC_COMMENT'))  define('T_DOC_COMMENT',  0);
-if (!defined('T_FINAL'))        define('T_FINAL',        0);
-if (!defined('T_IMPLEMENTS'))   define('T_IMPLEMENTS',   0);
-if (!defined('T_INTERFACE'))    define('T_INTERFACE',    0);
-if (!defined('T_ML_COMMENT'))   define('T_ML_COMMENT',   0);
-if (!defined('T_NAMESPACE'))    define('T_NAMESPACE',    0);
-if (!defined('T_NS_C'))         define('T_NS_C',         0);
-if (!defined('T_NS_SEPARATOR')) define('T_NS_SEPARATOR', 0);
-if (!defined('T_PRIVATE'))      define('T_PRIVATE',      0);
-if (!defined('T_PROTECTED'))    define('T_PROTECTED',    0);
-if (!defined('T_PUBLIC'))       define('T_PUBLIC',       0);
-if (!defined('T_THROW'))        define('T_THROW',        0);
-if (!defined('T_TRAIT'))        define('T_TRAIT',        0);
-if (!defined('T_USE'))          define('T_USE',          0);
-if (!defined('GLOB_ONLYDIR'))   define('GLOB_ONLYDIR', FALSE);
 
 /** System root */
 define('ROOT', '.'.DS);
@@ -87,6 +69,9 @@ define('CLASSES',    ROOT.'classes'.DS);
 define('LOCALES',    ROOT.'locales'.DS);
 /** Images, javascripts and other resources */
 define('RESOURCES',  ROOT.'resources'.DS);
+/** Standard error output. */
+if (!defined('STDERR')) define('STDERR', fopen("php://stderr", "wb"));
+
 /** Version of the system */
 define('VERSION', '3.0');
 /** Copyright */
@@ -112,15 +97,17 @@ set_include_path(get_include_path().PATH_SEPARATOR.dirname(__FILE__));
 
 require CLASSES.'phpAPI.php';
 
+/** Website localization. */
+global $lang;
+
 /** String localization.
  * Currently, the system supports two languages: English and Russian.
  *
- * @global array  $lang   Array of language strings
- * @param  string $string String to be translated
- * @return string         Translated string
+ * @global  array  $lang   Array of language strings
+ * @param   string $string String to be translated
+ * @return  string         Translated string
  * @package phpapi
  */
-global $lang;
 function __($string) {
     global $lang;
     return empty($lang[$string]) ? $string : $lang[$string];
@@ -138,8 +125,8 @@ if (!isset($argv[1])) {
 
 $phpdoc = new phpapi($argv[1]);
 
-if ($phpdoc->getOption('lang') !== 'russian') {
-    include 'locales'.DS.$phpdoc->getOption('lang').'.php';
+if ($phpdoc->options['lang'] !== 'russian') {
+    include 'locales'.DS.$phpdoc->options['lang'].'.php';
 }
 
 $rootDoc = $phpdoc->parse();

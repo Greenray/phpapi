@@ -1,13 +1,11 @@
 <?php
-# idxCMS Flat Files Content Management Sysytem
-
 /** Нolds the information from one run of phpapi.
- *
  * Particularly the packages, classes and options specified by the user.
  * It is  the root of the parsed tokens and is passed to the doclet to be formatted into output.
  *
+ * @program   phpapi: The PHP Documentation Creator
  * @file      classes/rootDoc.php
- * @version   3.0
+ * @version   3.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -16,38 +14,35 @@
 
 class rootDoc extends doc {
 
-    /** Reference to the phpapi application object.
-     * @var phpapi
-     */
-    public $_phpapi = NULL;
-
     /** The parsed packages.
      * @var packageDoc[]
      */
-    public $_packages = [];
+    public $packages = [];
 
-    /** The parsed contents of the source files.
-     * @var array
+    /** Reference to the phpapi application object.
+     * @var phpapi
      */
-    public $_sources = [];
+    public $phpapi = NULL;
 
     /** Constructor.
+     * Sets the reference to application object and parses the main overview file.
+     *
      * @param  phpapi $phpapi Reference to application object
      * @return void
      */
     public function rootDoc(&$phpapi) {
         # Set a reference to application object
-        $this->_phpapi =& $phpapi;
-        $overview = $phpapi->getOption('overview');
+        $this->phpapi = &$phpapi;
+        $overview = $phpapi->options['overview'];
 
         # Parse overview file
         if (isset($overview)) {
             if (is_file($overview)) {
-                $phpapi->message('Reading overview file "'.$overview.'".');
+                $phpapi->verbose('Reading overview file "'.$overview.'".');
                 $text = file_get_contents($overview);
                 if (!empty($text)) {
                     $text = str_replace(["\r\n", "\n\r", "\r", "\n"], '<br />', $text);
-                    $this->_data = $phpapi->processDocComment('/** '.$text.' */', $this);
+                    $this->data = $phpapi->processDocComment('/** '.$text.' */', $this);
                     $this->mergeData();
                 }
             } else $phpapi->warning('Cannot find overview file "'.$overview.'".');
@@ -55,60 +50,39 @@ class rootDoc extends doc {
     }
 
     /** Adds a package to this root.
+     *
      * @param packageDoc package
      */
     public function addPackage(&$package) {
-        $this->_packages[$package->name()] =& $package;
-    }
-
-    /** Adds a source file to this root.
-     * @param string filename
-     * @param string source
-     * @param array fileData
-     */
-    public function addSource($filename, $source, $fileData) {
-        $this->_sources[substr($filename, strlen($this->_phpapi->sourcePath()) + 1)] = [$source, $fileData];
+        $this->packages[$package->name()] = &$package;
     }
 
     /** Returns a reference to the phpapi application object.
      * @return phpapi.
      */
     function &phpapi() {
-        return $this->_phpapi;
+        return $this->phpapi;
     }
 
     /** Returns a reference to the set options.
      * @return str[] An array of strings
      */
     function &options() {
-        return $this->_phpapi->options();
-    }
-
-    /** Returns a reference to the packages to be documented.
-     * @return packageDoc[]
-     */
-    function &packages() {
-        return $this->_packages;
-    }
-
-    /** Returns a reference to the source files to be documented.
-     * @return str[]
-     */
-    function &sources() {
-        return $this->_sources;
+        return $this->phpapi->options();
     }
 
     /** Returns a reference to the classes and interfaces to be documented.
+     *
      * @return classDoc[]
      */
     function &classes() {
         $classes  = [];
-        $packages = $this->packages(); # Not by reference so as not to move the internal array pointer
+        $packages = $this->packages; # Not by reference so as not to move the internal array pointer
         foreach ($packages as $name => $package) {
-            $packageClasses = $this->_packages[$name]->allClasses(); # Not by reference so as not to move the internal array pointer
+            $packageClasses = $this->packages[$name]->allClasses(); # Not by reference so as not to move the internal array pointer
             if ($packageClasses) {
                 foreach ($packageClasses as $key => $pack) {
-                    $classes[$key.'.'.$name] =& $packageClasses[$key];
+                    $classes[$key.'.'.$name] = &$packageClasses[$key];
                 }
             }
         }
@@ -117,16 +91,17 @@ class rootDoc extends doc {
     }
 
     /** Returns a reference to the functions to be documented.
+     *
      * @return methodDoc[]
      */
     function &functions() {
         $functions = [];
-        $packages  = $this->packages(); # Not by reference so as not to move the internal array pointer
+        $packages  = $this->packages; # Not by reference so as not to move the internal array pointer
         foreach ($packages as $name => $package) {
-            $packageFunctions = $this->_packages[$name]->functions(); # Not by reference so as not to move the internal array pointer
+            $packageFunctions = $this->packages[$name]->functions(); # Not by reference so as not to move the internal array pointer
             if ($packageFunctions) {
                 foreach ($packageFunctions as $key => $pack) {
-                    $functions[$name.'.'.$key] =& $packageFunctions[$key];
+                    $functions[$name.'.'.$key] = &$packageFunctions[$key];
                 }
             }
         }
@@ -134,16 +109,17 @@ class rootDoc extends doc {
     }
 
     /** Returns a reference to the globals to be documented.
+     *
      * @return fieldDoc[]
      */
     function &globals() {
         $globals  = [];
-        $packages = $this->packages(); # Not by reference so as not to move the internal array pointer
+        $packages = $this->packages; # Not by reference so as not to move the internal array pointer
         foreach ($packages as $name => $package) {
-            $packageGlobals = $this->_packages[$name]->globals(); # Not by reference so as not to move the internal array pointer
+            $packageGlobals = $this->packages[$name]->globals(); # Not by reference so as not to move the internal array pointer
             if ($packageGlobals) {
                 foreach ($packageGlobals as $key => $pack) {
-                    $globals[$name.'.'.$key] =& $packageGlobals[$key];
+                    $globals[$name.'.'.$key] = &$packageGlobals[$key];
                 }
             }
         }
@@ -154,23 +130,25 @@ class rootDoc extends doc {
     /** Returns a reference to a packageDoc for the specified package name.
      * If a package of the requested name does not exist, this method will create the
      * package object, add it to the root and return it.
+     *
      * @param string name Package name
      * @param boolean create Create package if it does not exist
      * @return packageDoc
      */
     function &packageNamed($name, $create = FALSE) {
         $return = NULL;
-        if (isset($this->_packages[$name])) {
-            $return =& $this->_packages[$name];
+        if (isset($this->packages[$name])) {
+            $return = &$this->packages[$name];
         } elseif ($create) {
-            $newPackage =& new packageDoc($name, $this);
+            $newPackage = &new packageDoc($name, $this);
             $this->addPackage($newPackage);
-            $return =& $newPackage;
+            $return = &$newPackage;
         }
         return $return;
     }
 
     /** Returns a reference to a classDoc for the specified class/interface name.
+     *
      * @param string name Class name
      * @return classDoc
      */
@@ -182,11 +160,11 @@ class rootDoc extends doc {
             $name    = substr($name, $pos + 1);
         }
         if (isset($package)) {
-            if (isset($this->_packages[$package])) $class =& $this->_packages[$package]->findClass($name);
+            if (isset($this->packages[$package])) $class = &$this->packages[$package]->findClass($name);
         } else {
-            $packages = $this->_packages; # We do this copy so as not to upset the internal pointer of the array outside this scope
+            $packages = $this->packages; # We do this copy so as not to upset the internal pointer of the array outside this scope
             foreach ($packages as $packageName => $package) {
-                $class =& $package->findClass($name);
+                $class = &$package->findClass($name);
                 if ($class != NULL) {
                     break;
                 }
