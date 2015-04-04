@@ -10,7 +10,7 @@
         [each=class]
             <tr>
                 <td class="name"><a href="{class[path]}">{class[name]}</a></td>
-                <td class="description">{class[description]}</td>
+                [if=description]<td class="description">{class[description]}</td>[/if.description]
             </tr>
         [/each.class]
     </table>
@@ -21,7 +21,7 @@
         [each=interface]
             <tr>
                 <td class="name"><a href="{interface[path]}">{interface[name]}</a></td>
-                <td class="description">{interface[description]}</td>
+                [if=description]<td class="description">{interface[description]}</td>[/if.description]
             </tr>
         [/each.interface]
     </table>
@@ -32,7 +32,7 @@
         [each=trait]
             <tr>
                 <td class="name"><a href="{trait[path]}">{trait[name]}</a></td>
-                <td class="description">{trait[description]}</td>
+                [if=description]<td class="description">{trait[description]}</td>
             </tr>
         [/each.trait]
     </table>
@@ -43,7 +43,7 @@
         [each=exception]
             <tr>
                 <td class="name"><a href="{exception[path]}">{exception[name]}</a></td>
-                <td class="description">{exception[description]}</td>
+                [if=description]<td class="description">{exception[description]}</td>[/if.description]
             </tr>
         [/each.exception]
     </table>
@@ -54,7 +54,7 @@
         [each=function]
             <tr>
                 <td class="name"><a href="{function[path]}">{function[name]}</a></td>
-                <td class="description">{function[description]}</td>
+                [if=description]<td class="description">{function[description]}</td>[/if.description]
             </tr>
         [/each.function]
     </table>
@@ -65,7 +65,7 @@
         [each=global]
             <tr>
                 <td class="name"><a href="{global[path]}">{global[name]}</a></td>
-                <td class="description">{global[description]}</td>
+                [if=description]<td class="description">{global[description]}</td>[/if.description]
             </tr>
         [/each.global]
     </table>

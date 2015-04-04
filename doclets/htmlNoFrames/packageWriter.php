@@ -49,7 +49,6 @@ class packageWriter extends htmlWriter {
                     $output['class'][$name]['path'] = str_repeat('../', $this->depth).$class->asPath();
                     $output['class'][$name]['name'] = $class->name();
                     $textTag = &$class->tags('@text');
-                    $output['class'][$name]['description'] = __('Нет описания');
                     if ($textTag) {
                         $output['class'][$name]['description'] = strip_tags($this->processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
                     }
@@ -63,7 +62,6 @@ class packageWriter extends htmlWriter {
                     $output['interface'][$name]['path'] = str_repeat('../', $this->depth).$interface->asPath();
                     $output['interface'][$name]['name'] = $interface->name();
                     $textTag = &$interface->tags('@text');
-                    $output['interface'][$name]['description'] = __('Нет описания');
                     if ($textTag) {
                         $output['interface'][$name]['description'] = strip_tags($this->processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
                     }
@@ -77,7 +75,6 @@ class packageWriter extends htmlWriter {
                     $output['trait'][$name]['path'] = str_repeat('../', $this->depth).$trait->asPath();
                     $output['trait'][$name]['name'] = $trait->name();
                     $textTag = &$trait->tags('@text');
-                    $output['trait'][$name]['description'] = __('Нет описания');
                     if ($textTag) {
                         $output['trait'][$name]['description'] = strip_tags($this->processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
                     }
@@ -91,7 +88,6 @@ class packageWriter extends htmlWriter {
                     $output['exception'][$name]['path'] = str_repeat('../', $this->depth).$exception->asPath();
                     $output['exception'][$name]['name'] = $exception->name();
                     $textTag = &$exception->tags('@text');
-                    $output['exeption'][$name]['description'] = __('Нет описания');
                     if ($textTag) {
                         $output['exception'][$name]['description'] = strip_tags($this->processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
                     }
@@ -105,7 +101,6 @@ class packageWriter extends htmlWriter {
                     $output['function'][$name]['path'] = str_repeat('../', $this->depth).$function->asPath();
                     $output['function'][$name]['name'] = $function->name();
                     $textTag = &$function->tags('@text');
-                    $output['function'][$name]['description'] = __('Нет описания');
                     if ($textTag) {
                         $output['function'][$name]['description'] = strip_tags($this->processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
                     }
@@ -119,7 +114,6 @@ class packageWriter extends htmlWriter {
                     $output['global'][$name]['path'] = str_repeat('../', $this->depth).$global->asPath();
                     $output['global'][$name]['name'] = $global->name();
                     $textTag = &$global->tags('@text');
-                    $output['global'][$name]['description'] = __('Нет описания');
                     if ($textTag) {
                         $output['global'][$name]['description'] = strip_tags($this->processInlineTags($textTag, TRUE), '<a><b><strong><u><em>');
                     }
