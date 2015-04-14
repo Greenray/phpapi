@@ -200,9 +200,13 @@ class htmlWriter {
                             $output['tag'][$k]['type'] = $tagFromGroup->type;
 
                             if ($obj) {
-                                $classDoc = &$obj->parameters[$param[0]]->type->asClassDoc();
-                                if ($classDoc) {
-                                    $output['tag'][$k]['type'] = '<a href="'.str_repeat('../', $this->depth).$classDoc->asPath().'">'.$tagFromGroup->type.'</a>';
+                                if (!empty($obj->parameters[$param[0]]->type->typeName)) {
+                                    if (class_exists($obj->parameters[$param[0]]->type->typeName)) {
+                                        $classDoc = &$obj->parameters[$param[0]]->type->asClassDoc();
+                                        if ($classDoc) {
+                                            $output['tag'][$k]['type'] = '<a href="'.str_repeat('../', $this->depth).$classDoc->asPath().'">'.$tagFromGroup->type.'</a>';
+                                        }
+                                    }
                                 }
                             }
                             $output['tag'][$k]['var'] = $param[0];
@@ -224,7 +228,9 @@ class htmlWriter {
                                 if (!empty($obj->parameters[$param[0]]->type->typeName)) {
                                     if (class_exists($obj->parameters[$param[0]]->type->typeName)) {
                                         $classDoc = &$obj->parameters[$param[0]]->type->asClassDoc();
-                                        $output['tag'][$key]['type'] = '<a href="'.str_repeat('../', $this->depth).$classDoc->asPath().'">'.$tag->type.'</a>';
+                                        if ($classDoc) {
+                                            $output['tag'][$key]['type'] = '<a href="'.str_repeat('../', $this->depth).$classDoc->asPath().'">'.$tag->type.'</a>';
+                                        }
                                     }
                                 }
                             }

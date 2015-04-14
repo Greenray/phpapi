@@ -154,21 +154,23 @@ class packageWriter extends htmlWriter {
         else $classes = &$this->doclet->rootDoc->classes();
 
         $output['tree'] = [];
-        $this->displayTree($classes, $output['tree']);
+        if ($classes) {
+            $this->displayTree($classes, $output['tree']);
 
-        if ($package) {
-            $output['package'] = $name;
-            $tpl = new template($this->doclet->rootDoc->phpapi->options['doclet'], 'package-tree.tpl');
-        } else {
-            $tpl = new template($this->doclet->rootDoc->phpapi->options['doclet'], 'tree.tpl');
+            if ($package) {
+                $output['package'] = $name;
+                $tpl = new template($this->doclet->rootDoc->phpapi->options['doclet'], 'package-tree.tpl');
+            } else {
+                $tpl = new template($this->doclet->rootDoc->phpapi->options['doclet'], 'tree.tpl');
+            }
+            ob_start();
+
+            echo $tpl->parse($output);
+
+            $this->output = ob_get_contents();
+            ob_end_clean();
+            $this->write($dest.'.html', $name);
         }
-        ob_start();
-
-        echo $tpl->parse($output);
-
-        $this->output = ob_get_contents();
-        ob_end_clean();
-        $this->write($dest.'.html', $name);
     }
 
     /** Build the package tree branch for the given element.
