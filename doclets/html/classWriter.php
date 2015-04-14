@@ -50,7 +50,7 @@ class classWriter extends htmlWriter {
                         $i = 0;
                         foreach ($class->interfaces as $interface) {
                             $output['implements'][$i]['name'] = '<a href="'.str_repeat('../', $this->depth).$interface->asPath().'">';
-                            if ($interface->package != $class->package) {
+                            if ($interface->package !==$class->package) {
                                 $output['implements'][$i]['name'] .= $interface->package.'\\';
                             }
                             $output['implements'][$i]['name'] .= $interface->name.'</a> ';
@@ -63,7 +63,7 @@ class classWriter extends htmlWriter {
                         $i = 0;
                         foreach ($traits as $trait) {
                             $output['trait'][$i]['name'] = '<a href="'.str_repeat('../', $this->depth).$trait->asPath().'">';
-                            if ($trait->package != $class->package) {
+                            if ($trait->package !==$class->package) {
                                 $output['trait'][$i]['name'] .= $trait->package.'\\';
                             }
                             $output['trait'][$i]['name'] .= $trait->name.'</a> ';
@@ -76,7 +76,7 @@ class classWriter extends htmlWriter {
                         $i = 0;
                         foreach ($subclasses as $i => $subclass) {
                             $output['subclass'][$i]['name'] = '<a href="'.str_repeat('../', $this->depth).$subclass->asPath().'">';
-                            if ($subclass->package != $class->package) {
+                            if ($subclass->package !==$class->package) {
                                 $output['subclass'][$i]['name'] .= $subclass->package.'\\';
                             }
                             $output['subclass'][$i]['name'] .= $subclass->name.'</a> ';

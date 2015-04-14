@@ -641,7 +641,7 @@ class Markdown implements MarkdownInterface {
 		// if the URL was of the form <s p a c e s> it got caught by the HTML
 		// tag parser and hashed. Need to reverse the process before using the URL.
 		$unhashed = $this->unhash($url);
-		if ($unhashed != $url)
+		if ($unhashed !==$url)
 			$url = preg_replace('/^<(.*)>$/', '\1', $unhashed);
 
 		$url = $this->encodeURLAttribute($url);
@@ -1500,7 +1500,7 @@ class Markdown implements MarkdownInterface {
 			$parts = preg_split($span_re, $str, 2, PREG_SPLIT_DELIM_CAPTURE);
 
 			# Create token from text preceding tag.
-			if ($parts[0] != "") {
+			if ($parts[0] !=="") {
 				$output .= $parts[0];
 			}
 

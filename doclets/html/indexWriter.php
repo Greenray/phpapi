@@ -55,7 +55,7 @@ class indexWriter extends htmlWriter {
                 }
 
                 $parent = &$element->containingClass();
-                if ($parent && get_class($parent) != 'rootDoc') {
+                if ($parent && get_class($parent) !=='rootDoc') {
                     $output['elements'][$letter]['letter'][$i]['in']     = __('класса');
                     $output['elements'][$letter]['letter'][$i]['inPath'] = $parent->asPath();
                     $output['elements'][$letter]['letter'][$i]['inName'] = $parent->qualifiedName();

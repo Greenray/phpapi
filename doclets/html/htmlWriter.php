@@ -182,7 +182,7 @@ class htmlWriter {
     protected function processTags(&$tags, $obj = NULL) {
         $output  = '';
         foreach ($tags as $key => $tag) {
-            if ($key != '@text') {
+            if ($key !=='@text') {
                 if (is_array($tag)) {
                     $hasText = FALSE;
                     foreach ($tag as $i => $tagFromGroup) {
@@ -193,12 +193,11 @@ class htmlWriter {
                         foreach ($tag as $k => $tagFromGroup) {
                             $param = explode('+', $tagFromGroup->text);
 
-                            if ($tag[0]->displayName() != $usedTag)
+                            if ($tag[0]->displayName() !== $usedTag)
                                  $output['tag'][$k]['name'] = $tag[0]->displayName();
                             else $output['tag'][$k]['name'] = '&nbsp';
 
                             $output['tag'][$k]['type'] = $tagFromGroup->type;
-
                             if ($obj) {
                                 if (!empty($obj->parameters[$param[0]]->type->typeName)) {
                                     if (class_exists($obj->parameters[$param[0]]->type->typeName)) {
@@ -209,11 +208,13 @@ class htmlWriter {
                                     }
                                 }
                             }
-                            $output['tag'][$k]['var'] = $param[0];
-
-                            if (!empty($param[1]))
-                                 $output['tag'][$k]['comment'] = preg_replace("#[\'\"](.*?)[\'\"]#is", '<span class="red">\'\\1\'</span>', htmlspecialchars(trim($param[1])));
-                            else $output['tag'][$k]['comment'] = '&nbsp;';
+                            if (!empty($param[1])) {
+                                $output['tag'][$k]['var']     = $param[0];
+                                $output['tag'][$k]['comment'] = preg_replace("#[\'\"](.*?)[\'\"]#is", '<span class="red">\'\\1\'</span>', htmlspecialchars(trim($param[1])));
+                            } else {
+                                $output['tag'][$k]['var']     = '';
+                                $output['tag'][$k]['comment'] = preg_replace("#[\'\"](.*?)[\'\"]#is", '<span class="red">\'\\1\'</span>', htmlspecialchars(trim($param[0])));
+                            }
                             $usedTag = $tag[0]->displayName();
                         }
                     }
@@ -241,7 +242,7 @@ class htmlWriter {
                              $output['tag'][$key]['comment'] = preg_replace("#[\'\"](.*?)[\'\"]#is", '<span class="red">\'\\1\'</span>', htmlspecialchars(trim($param[1])));
                         } else {
                              $output['tag'][$key]['var']     = '';
-                             $output['tag'][$key]['comment'] = $param[0];
+                             $output['tag'][$key]['comment'] = preg_replace("#[\'\"](.*?)[\'\"]#is", '<span class="red">\'\\1\'</span>', htmlspecialchars(trim($param[0])));
                         }
                     }
                 }

@@ -497,7 +497,7 @@ class MarkdownExtra extends Markdown {
 				# Increase/decrease nested tag count.
 				#
 				if ($tag{1} === '/')						$depth--;
-				else if ($tag{strlen($tag)-2} != '/')	$depth++;
+				else if ($tag{strlen($tag)-2} !=='/')	$depth++;
 
 				if ($depth < 0) {
 					#
@@ -625,7 +625,7 @@ class MarkdownExtra extends Markdown {
 				#
 				if (preg_match('{^</?'.$base_tag_name_re.'\b}', $tag)) {
 					if ($tag{1} === '/')						$depth--;
-					else if ($tag{strlen($tag)-2} != '/')	$depth++;
+					else if ($tag{strlen($tag)-2} !=='/')	$depth++;
 				}
 
 				#
@@ -640,7 +640,7 @@ class MarkdownExtra extends Markdown {
 
 					# Check if text inside this tag must be parsed in span mode.
 					$this->mode = $attr_m[2] . $attr_m[3];
-					$span_mode = $this->mode === 'span' || $this->mode != 'block' &&
+					$span_mode = $this->mode === 'span' || $this->mode !=='block' &&
 						preg_match('{^<(?:'.$this->contain_span_tags_re.')\b}', $tag);
 
 					# Calculate indent before tag.
@@ -819,7 +819,7 @@ class MarkdownExtra extends Markdown {
 		// if the URL was of the form <s p a c e s> it got caught by the HTML
 		// tag parser and hashed. Need to reverse the process before using the URL.
 		$unhashed = $this->unhash($url);
-		if ($unhashed != $url)
+		if ($unhashed !==$url)
 			$url = preg_replace('/^<(.*)>$/', '\1', $unhashed);
 
 		$url = $this->encodeURLAttribute($url);
@@ -1323,7 +1323,7 @@ class MarkdownExtra extends Markdown {
 		$codeblock = preg_replace_callback('/^\n+/',
 			array($this, '_doFencedCodeBlocks_newlines'), $codeblock);
 
-		if ($classname != "") {
+		if ($classname !=="") {
 			if ($classname{0} === '.')
 				$classname = substr($classname, 1);
 			$attr_str = ' class="'.$this->code_class_prefix.$classname.'"';
@@ -1461,12 +1461,12 @@ class MarkdownExtra extends Markdown {
 			$text .= "<ol>\n\n";
 
 			$attr = "";
-			if ($this->fn_backlink_class != "") {
+			if ($this->fn_backlink_class !=="") {
 				$class = $this->fn_backlink_class;
 				$class = $this->encodeAttribute($class);
 				$attr .= " class=\"$class\"";
 			}
-			if ($this->fn_backlink_title != "") {
+			if ($this->fn_backlink_title !=="") {
 				$title = $this->fn_backlink_title;
 				$title = $this->encodeAttribute($title);
 				$attr .= " title=\"$title\"";
@@ -1530,12 +1530,12 @@ class MarkdownExtra extends Markdown {
 			}
 
 			$attr = "";
-			if ($this->fn_link_class != "") {
+			if ($this->fn_link_class !=="") {
 				$class = $this->fn_link_class;
 				$class = $this->encodeAttribute($class);
 				$attr .= " class=\"$class\"";
 			}
-			if ($this->fn_link_title != "") {
+			if ($this->fn_link_title !=="") {
 				$title = $this->fn_link_title;
 				$title = $this->encodeAttribute($title);
 				$attr .= " title=\"$title\"";

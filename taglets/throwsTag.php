@@ -20,10 +20,10 @@ class throwsTag extends seeTag {
      * @param  rootDoc &$root The reference to the root object
      */
     public function __construct($text, &$data, &$root) {
-        $explode     = preg_split('/[ \t]+/', $text);
+        $explode    = preg_split('/[ \t]+/', $text);
         $this->link = array_shift($explode);
         $data['throws'][$this->link] = $this->link;
-        parent::tag('@throws', join(' ', $explode), $root);
+        parent::tag('@throws', join(' ', $explode), $root, 'Exception');
     }
 
     /** Gets display name of this tag.

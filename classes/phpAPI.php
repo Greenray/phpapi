@@ -267,7 +267,7 @@ class phpapi {
      * @return string       Fixed path
      */
     public function fixPath($path) {
-        return (substr($path, -1, 1) != DS && substr($path, -1, 1) != '\\') ? $path.DS : $path;
+        return (substr($path, -1, 1) !== DS && substr($path, -1, 1) !== '\\') ? $path.DS : $path;
     }
 
     /** Does the given element name conform to the format that is used for private elements?
@@ -605,10 +605,10 @@ class phpapi {
 
                                             do {
                                                 $key++;
-                                            } while (isset($tokens[$key]) && $tokens[$key] != ',');
+                                            } while (isset($tokens[$key]) && $tokens[$key] !== ',');
                                             $key++;
 
-                                            while (isset($tokens[$key]) && $tokens[$key] != ')') {
+                                            while (isset($tokens[$key]) && $tokens[$key] !== ')') {
                                                 if (is_array($tokens[$key]))
                                                      $value .= $tokens[$key][1];
                                                 else $value .= $tokens[$key];
@@ -648,7 +648,7 @@ class phpapi {
                                                 if ($tokens[$key] === '=') {
                                                     $name  = $this->getPrev($tokens, $key, [T_VARIABLE, T_STRING]);
 
-                                                } elseif (isset($value) && $tokens[$key] != ',' && $tokens[$key] != ';') {
+                                                } elseif (isset($value) && $tokens[$key] !== ',' && $tokens[$key] !== ';') {
 
                                                     # Set value
                                                     if (is_array($tokens[$key]))
@@ -678,7 +678,7 @@ class phpapi {
                                                     $ce->constants[$const->name] = &$const;
                                                     unset($const);
                                                  }
-                                            } while (isset($tokens[$key]) && $tokens[$key] != ';');
+                                            } while (isset($tokens[$key]) && $tokens[$key] !==';');
                                             $currentData = [];
 
                                         } elseif (get_class($ce) === 'methodDoc' && $ce->inBody === 0) {
@@ -729,7 +729,7 @@ class phpapi {
                                                         }
                                                     }
                                                 }
-                                            } while (isset($tokens[$key]) && $tokens[$key] != ')');
+                                            } while (isset($tokens[$key]) && $tokens[$key] !==')');
 
                                             $currentData = [];
                                             unset($value);
@@ -756,17 +756,17 @@ class phpapi {
                                                 unset ($global);
                                                 break;
                                             }
-                                            while (isset($tokens[$key]) && $tokens[$key] != '=' && $tokens[$key] != ';') {
+                                            while (isset($tokens[$key]) && $tokens[$key] !=='=' && $tokens[$key] !==';') {
                                                 $key++;
                                             }
                                             if (isset($tokens[$key]) && $tokens[$key] === '=') {
                                                 $key2  = $key + 1;
                                                 do {
                                                     if (is_array($tokens[$key2]))
-                                                        if ($tokens[$key2][1] != '=') $value .= $tokens[$key2][1];
-                                                    elseif ($tokens[$key2]    != '=') $value .= $tokens[$key2];
+                                                        if ($tokens[$key2][1] !=='=') $value .= $tokens[$key2][1];
+                                                    elseif ($tokens[$key2]    !=='=') $value .= $tokens[$key2];
                                                     $key2++;
-                                                } while (isset($tokens[$key2]) && $tokens[$key2] != ';' && $tokens[$key2] != ',' && $tokens[$key2] != ')');
+                                                } while (isset($tokens[$key2]) && $tokens[$key2] !==';' && $tokens[$key2] !==',' && $tokens[$key2] !==')');
 
                                                 $value = trim($value);
                                                 if (!empty($value)) {
@@ -804,7 +804,7 @@ class phpapi {
                                                     # Start value
                                                     $name  = $this->getPrev($tokens, $key, T_VARIABLE);
                                                     $bracketCount = 0;
-                                                } elseif (isset($value) && ($tokens[$key] != ',' || $bracketCount > 0) && $tokens[$key] != ';') {
+                                                } elseif (isset($value) && ($tokens[$key] !==',' || $bracketCount > 0) && $tokens[$key] !==';') {
 
                                                     # Set value
                                                     if     (($tokens[$key] === '(') || ($tokens[$key] === '[')) $bracketCount++;
@@ -834,7 +834,7 @@ class phpapi {
                                                     $ce->fields[$field->name] = &$field;
                                                     unset($field);
                                                 }
-                                            } while (isset($tokens[$key]) && $tokens[$key] != ';');
+                                            } while (isset($tokens[$key]) && $tokens[$key] !==';');
                                             $currentData = [];
                                             unset($value);
                                         }
