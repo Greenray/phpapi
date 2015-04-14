@@ -115,6 +115,7 @@ phpapi поддерживает следующие теги:
     @final                       - defining a class or method as final
     { @link package.class#member label }      - link to element
     { @linkplain package.class#member label } - plain link to element
+    @overview                    - detailed description of a package
     @package name                - package name
     @param type name description - description of method or function parameters
     @private                     - element is private
