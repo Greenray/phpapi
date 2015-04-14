@@ -86,7 +86,7 @@ phpapi поддерживает следующие директивы:
 A full description of the format of doc comments can be found on the Sun Javadoc web site [javadoc](http://java.sun.com/j2se/javadoc/) .
 Doc comments look like this:
 
-/**<br />
+/**
  \* This is the typical format of a simple documentation comment<br />
  \* that spans two lines.<br />
  \*<br />
