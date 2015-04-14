@@ -87,17 +87,17 @@ A full description of the format of doc comments can be found on the Sun Javadoc
 Doc comments look like this:
 
 /**
- * This is the typical format of a simple documentation comment
- * that spans two lines.
- *
- * __@param__ string $var Description
- */
+ \* This is the typical format of a simple documentation comment
+ \* that spans two lines.
+ \*
+ \* __@param__ string $var Description
+ \*/
 
 Class fields may be commented as:
 
 /** Comment
- * __@var__ integer
- */
+ \* __@var__ integer
+ \*/
 
 or
 
