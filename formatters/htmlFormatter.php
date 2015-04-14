@@ -1,14 +1,16 @@
 <?php
-/** The html htmlFrames formatter.
+/** The html formatter.
  * Basic implementation, just deals with unordered lists for now.
  *
  * @program   phpapi: The PHP Documentation Creator
  * @file      doclets/formatters/htmlFormatter.php
- * @version   3.1
+ * @version   4.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
- * @package   Formatters
+ * @package   formatters
+ * @overview  Formatts output for doclets.
+ *            At present time it works only with HTML.
  */
 
 class htmlFormatter {

@@ -5,7 +5,7 @@
  *
  * @program   phpapi: The PHP Documentation Creator
  * @file      classes/packageDoc.php
- * @version   3.1
+ * @version   4.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -14,40 +14,50 @@
 
 class packageDoc extends doc {
 
-    /** The classes in this package.
-     * @var classDoc[]
-     */
+    /** @var classDoc The classes in this package */
     public $classes = [];
 
-    /** The globals in this package.
-     * @var fieldDoc[]
-     */
+    /** @var fieldDoc The globals in this package */
     public $globals = [];
 
-    /** The functions in this package.
-     * @var methodDoc[]
-     */
+    /** @var methodDoc The functions in this package */
     public $functions = [];
 
     /** Constructor.
-     * @param  string  $name Packqge name
-     * @param  rootDoc $root Reference to rootDoc
-     * @return void
+     * @param string  $name     Package name
+     * @param rootDoc &$root    The reference to the root element
      */
-    public function packageDoc($name, &$root) {
+    public function __construct($name, &$root) {
         $this->name =  $name;
         $this->root = &$root;
     }
 
+    /** Adds a class to this package.
+     * @param classDoc &$class The reference to the class
+     */
+    public function addClass(&$class) {
+        if (isset($this->classes[$class->name])) {
+            $this->root->phpapi->warning(LF.'Found class '.$class->name.' again, overwriting previous version');
+        }
+        $this->classes[$class->name] = &$class;
+    }
+
+    /** Adds a global to this package.
+     * @param fieldDoc &$global The reference to the global element
+     */
+    public function addGlobal(&$global) {
+        if (!isset($this->globals[$global->name])) $this->globals[$global->name] = &$global;
+    }
+
     /** Returns the package path.
-     * @return string Path to package
+     * @return string
      */
     public function asPath() {
-        return strtolower(str_replace('.', '/', str_replace('\\', '/', $this->name)));
+        return strtolower(str_replace('.', DS, str_replace('\\', DS, $this->name)));
     }
 
     /** Calculates the depth of this package from the root.
-     * @return integer The value of the depth of this package from the root
+     * @return integer
      */
     public function depth() {
         $depth  = substr_count($this->name, '.');
@@ -56,48 +66,10 @@ class packageDoc extends doc {
         return $depth;
     }
 
-    /** Adds a class to this package.
-     * @param classDoc $class Reference to class
-     */
-    public function addClass(&$class) {
-        if (isset($this->classes[$class->name()])) {
-            $phpapi = &$this->root->phpapi();
-            echo LF;
-            $phpapi->warning('Found class '.$class->name().' again, overwriting previous version');
-        }
-        $this->classes[$class->name()] = &$class;
-    }
-
-    /** Adds a global to this package.
-     * @param fieldDoc $global Reference to global element
-     */
-    public function addGlobal(&$global) {
-        if (!isset($this->globals[$global->name()])) $this->globals[$global->name()] = &$global;
-    }
-
-    /** Adds a function to this package.
-     * @param methodDoc $function Reference to function
-     */
-    public function addFunction(&$function) {
-        if (isset($this->functions[$function->name()])) {
-            $phpapi = &$this->root->phpapi();
-            echo LF;
-            $phpapi->warning('Found function '.$function->name().' again, overwriting previous version');
-        }
-        $this->functions[$function->name()] = &$function;
-    }
-
-    /** Gets all included classes (including exceptions and interfaces).
-     * @return classDoc[] An array of classes
-     */
-    function &allClasses() {
-        return $this->classes;
-    }
-
     /** Gets exceptions in this package.
-     * @return classDoc[] An array of exceptions
+     * @return array|NULL
      */
-    function &exceptions() {
+    public function &exceptions() {
         $exceptions = NULL;
         foreach ($this->classes as $name => $exception) {
             if ($exception->isException()) $exceptions[$name] = &$this->classes[$name];
@@ -105,60 +77,47 @@ class packageDoc extends doc {
         return $exceptions;
     }
 
-    /** Gets interfaces in this package.
-     * @return classDoc[] An array of interfaces
+    /** Lookups for a class within this package.
+     * @param  string $className Name of the class to lookup
+     * @return classDoc|NULL
      */
-    function &interfaces() {
+    public function &findClass($className) {
+        $return = NULL;
+        if (isset($this->classes[$className])) $return = &$this->classes[$className];
+        return $return;
+    }
+
+    /** Gets interfaces in this package.
+     * @return array|NULL
+     */
+    public function &interfaces() {
         $interfaces = NULL;
         foreach ($this->classes as $name => $interface) {
-            if ($interface->isInterface()) $interfaces[$name] = &$this->classes[$name];
+            if ($interface->interface) $interfaces[$name] = &$this->classes[$name];
         }
         return $interfaces;
     }
 
-    /** Gets traits in this package.
-     * @return classDoc[] An array of traits
-     */
-    function &traits() {
-        $traits = NULL;
-        foreach ($this->classes as $name => $trait) {
-            if ($trait->isTrait()) $traits[$name] = &$this->classes[$name];
-        }
-        return $traits;
-    }
-
     /** Gets ordinary classes (excluding exceptions and interfaces) in this package.
-     * @return classDoc[] An array of classes
+      * @return array|NULL
      */
-    function &ordinaryClasses() {
+    public function &ordinaryClasses() {
         $classes = NULL;
         foreach ($this->classes as $name => $class) {
             if ($class->isOrdinaryClass()) $classes[$name] = &$this->classes[$name];
         }
+        if (!empty($classes)) ksort($classes);
         return $classes;
     }
 
-    /** Gets globals in this package.
-     * @return fieldDoc[] An array of globals
+    /** Gets traits in this package.
+     * @return array|NULL
      */
-    function &globals() {
-        return $this->globals;
-    }
-
-    /** Gets functions in this package.
-     * @return methodDoc[] An array of functions
-     */
-    function &functions() {
-        return $this->functions;
-    }
-
-    /** Lookups for a class within this package.
-     * @param  string   $className Name of the class to lookup
-     * @return classDoc            A class
-     */
-    function &findClass($className) {
-        $return = NULL;
-        if (isset($this->classes[$className])) $return = &$this->classes[$className];
-        return $return;
+    public function &traits() {
+        $traits = NULL;
+        foreach ($this->classes as $name => $trait) {
+            if ($trait->trait) $traits[$name] = &$this->classes[$name];
+        }
+        return $traits;
     }
 }

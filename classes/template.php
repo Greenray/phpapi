@@ -1,9 +1,9 @@
 <?php
-/** Generate the index.html file used for presenting the frame-formated "cover page" of the API documentation.
+/** Templates parser.
  *
  * @program   phpapi: The PHP Documentation Creator
  * @file      classes/template.php
- * @version   3.1
+ * @version   4.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -12,9 +12,7 @@
 
 class template {
 
-    /** Template patterns.
-     * @var array
-     */
+    /** @var array Template patterns */
     private $patterns = [
         'each'      => "#\[each=(.*?)\](.*?)\[\/each.\\1\]#is",
         'foreach'   => "#\[foreach=([\w\_\-]*).([\w\_\-]*).([\w\_\-]*)\](.*?)\[\/foreach.\\1\]#is",
@@ -25,21 +23,17 @@ class template {
         'value'     => "#\{([\-\#\w]+)(|\[(.*?)\])\}#is"
     ];
 
-    /** Temlate name.
-     * @var string
-     */
+    /** @var string Temlate name */
     private $tpl = '';
 
-    /** Template variables.
-     * @var array
-     */
+    /** @var array Template variables */
     private $vars = [];
 
-    /** Class initialization.
-     * @param  string $template Path to template
-     * @return void
+    /** Class initialization
+     * @param object &$doclet  The reference to the documentation generator.
+     * @param string $template Path to template or template as variable
      */
-    public function __construct($doclet, $template) {
+    public function __construct(&$doclet, $template) {
         $tpl = TEMPLATES.$doclet.DS.$template.'.php';
         if (file_exists($tpl))
              $this->tpl = file_get_contents($tpl);
@@ -47,8 +41,8 @@ class template {
     }
 
     /** Parses control structure FOREACH.
-     * @param  array $matches Matches for control structure "foreach"
-     * @return string         Parsed string
+     * @param  array  $matches Matches for control structure "foreach"
+     * @return string          Parsed string
      */
     private function __foreach($matches) {
         $temp = '';
@@ -67,8 +61,8 @@ class template {
     }
 
     /** Parses control structure EACH.
-     * @param  array $matches Matches for control structure "each"
-     * @return string         Parsed string
+     * @param  array  $matches Matches for control structure "each"
+     * @return string          Parsed string
      */
     private function __each($matches) {
         $temp = '';
@@ -282,7 +276,7 @@ class template {
     private function searchValueInArray($needle, $haystack) {
         $result = '';
         foreach ($haystack as $key => $value) {
-            if ($needle == $key)  $result = $value;
+            if ($needle === $key)  $result = $value;
             if (is_array($value)) $result = $this->searchValueInArray($needle, $value);
         }
         return $result;

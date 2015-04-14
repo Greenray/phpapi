@@ -5,7 +5,7 @@
  *
  * @program   phpapi: The PHP Documentation Creator
  * @file      classes/rootDoc.php
- * @version   3.1
+ * @version   4.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -14,26 +14,21 @@
 
 class rootDoc extends doc {
 
-    /** The parsed packages.
-     * @var packageDoc[]
-     */
-    public $packages = [];
+    /** @var packageDoc The parsed packages */
+    public $packages = NULL;
 
-    /** Reference to the phpapi application object.
-     * @var phpapi
-     */
+    /** @var phpapi The reference the phpapi application object */
     public $phpapi = NULL;
 
     /** Constructor.
      * Sets the reference to application object and parses the main overview file.
-     *
-     * @param  phpapi $phpapi Reference to application object
-     * @return void
+     * The overview file is a markdown file, so it will be passed and represented at the main page of the documentation.
+     * @param phpapi &$phpapi The reference the application object
      */
-    public function rootDoc(&$phpapi) {
+    public function __construct(&$phpapi) {
         # Set a reference to application object
         $this->phpapi = &$phpapi;
-        $overview = $phpapi->options['overview'];
+        $overview     = $phpapi->options['overview'];
 
         # Parse overview file
         if (isset($overview)) {
@@ -41,7 +36,11 @@ class rootDoc extends doc {
                 $phpapi->verbose('Reading overview file "'.$overview.'".');
                 $text = file_get_contents($overview);
                 if (!empty($text)) {
-                    $text = str_replace(["\r\n", "\n\r", "\r", "\n"], '<br />', $text);
+                    require_once MARKDOWN.'MarkdownExtra.inc.php';
+
+                    $parser = new MarkdownExtra;
+                    $text   = $parser->transform($text);
+
                     $this->data = $phpapi->processDocComment('/** '.$text.' */', $this);
                     $this->mergeData();
                 }
@@ -49,37 +48,13 @@ class rootDoc extends doc {
         }
     }
 
-    /** Adds a package to this root.
-     *
-     * @param packageDoc package
-     */
-    public function addPackage(&$package) {
-        $this->packages[$package->name()] = &$package;
-    }
-
-    /** Returns a reference to the phpapi application object.
-     * @return phpapi.
-     */
-    function &phpapi() {
-        return $this->phpapi;
-    }
-
-    /** Returns a reference to the set options.
-     * @return str[] An array of strings
-     */
-    function &options() {
-        return $this->phpapi->options();
-    }
-
     /** Returns a reference to the classes and interfaces to be documented.
-     *
-     * @return classDoc[]
+     * @return array
      */
-    function &classes() {
+    public function &classes() {
         $classes  = [];
-        $packages = $this->packages; # Not by reference so as not to move the internal array pointer
-        foreach ($packages as $name => $package) {
-            $packageClasses = $this->packages[$name]->allClasses(); # Not by reference so as not to move the internal array pointer
+        foreach ($this->packages as $name => $package) {    # Not by reference so as not to move the internal array pointer
+            $packageClasses = $package->classes;            # Not by reference so as not to move the internal array pointer
             if ($packageClasses) {
                 foreach ($packageClasses as $key => $pack) {
                     $classes[$key.'.'.$name] = &$packageClasses[$key];
@@ -91,14 +66,12 @@ class rootDoc extends doc {
     }
 
     /** Returns a reference to the functions to be documented.
-     *
-     * @return methodDoc[]
+     * @return array
      */
-    function &functions() {
+    public function &functions() {
         $functions = [];
-        $packages  = $this->packages; # Not by reference so as not to move the internal array pointer
-        foreach ($packages as $name => $package) {
-            $packageFunctions = $this->packages[$name]->functions(); # Not by reference so as not to move the internal array pointer
+        foreach ($this->packages as $name => $package) {    # Not by reference so as not to move the internal array pointer
+            $packageFunctions = $package->functions;        # Not by reference so as not to move the internal array pointer
             if ($packageFunctions) {
                 foreach ($packageFunctions as $key => $pack) {
                     $functions[$name.'.'.$key] = &$packageFunctions[$key];
@@ -109,14 +82,12 @@ class rootDoc extends doc {
     }
 
     /** Returns a reference to the globals to be documented.
-     *
-     * @return fieldDoc[]
+     * @return array
      */
-    function &globals() {
+    public function &globals() {
         $globals  = [];
-        $packages = $this->packages; # Not by reference so as not to move the internal array pointer
-        foreach ($packages as $name => $package) {
-            $packageGlobals = $this->packages[$name]->globals(); # Not by reference so as not to move the internal array pointer
+        foreach ($this->packages as $name => $package) {    # Not by reference so as not to move the internal array pointer
+            $packageGlobals = $package->globals;          # Not by reference so as not to move the internal array pointer
             if ($packageGlobals) {
                 foreach ($packageGlobals as $key => $pack) {
                     $globals[$name.'.'.$key] = &$packageGlobals[$key];
@@ -130,32 +101,36 @@ class rootDoc extends doc {
     /** Returns a reference to a packageDoc for the specified package name.
      * If a package of the requested name does not exist, this method will create the
      * package object, add it to the root and return it.
-     *
-     * @param string name Package name
-     * @param boolean create Create package if it does not exist
-     * @return packageDoc
+     * @param  string  $name     Package name
+     * @param  boolean $create   Create package if it does not exist (default = FALSE)
+     * @param  string  $overview Package description                 (default = '')
+     * @return packageDoc|NULL
      */
-    function &packageNamed($name, $create = FALSE) {
+    public function &packageNamed($name, $create = FALSE, $overview = '') {
         $return = NULL;
         if (isset($this->packages[$name])) {
+            if (!empty($overview)) {
+                preg_match('/^(.+)(\.(?: |\t|\n|<\/p>|<\/?h[1-6]>|<hr)|$)/sU', $overview, $matches);
+                $this->packages[$name]->desc     = $matches[1];
+                $this->packages[$name]->overview = $overview;
+            }
             $return = &$this->packages[$name];
         } elseif ($create) {
-            $newPackage = &new packageDoc($name, $this);
-            $this->addPackage($newPackage);
+            $newPackage = &new packageDoc($name, $this, $overview);
+            $this->packages[$newPackage->name] = &$newPackage;
             $return = &$newPackage;
         }
         return $return;
     }
 
     /** Returns a reference to a classDoc for the specified class/interface name.
-     *
-     * @param string name Class name
-     * @return classDoc
+     * @param  string $name Class name
+     * @return classDoc|NULL
      */
-    function &classNamed($name) {
+    public function &classNamed($name) {
         $class = NULL;
         $pos   = strrpos($name, '\\');
-        if ($pos != FALSE) {
+        if ($pos !== FALSE) {
             $package = substr($name, 0, $pos);
             $name    = substr($name, $pos + 1);
         }
@@ -165,7 +140,7 @@ class rootDoc extends doc {
             $packages = $this->packages; # We do this copy so as not to upset the internal pointer of the array outside this scope
             foreach ($packages as $packageName => $package) {
                 $class = &$package->findClass($name);
-                if ($class != NULL) {
+                if ($class !== NULL) {
                     break;
                 }
             }

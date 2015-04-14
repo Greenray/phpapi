@@ -3,36 +3,30 @@
  *
  * @program   phpapi: The PHP Documentation Creator
  * @file      classes/methodDoc.php
- * @version   3.1
+ * @version   4.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * @package   phpapi
  */
 
-class methodDoc extends executableDoc {
+class methodDoc extends elementDoc {
 
-    /** The type of returns variable.
-     * @var type
-     */
-    public $returnType;
-
-    /** Is this method abstract.
-     * @var boolean
-     */
+    /** @var boolean Is this method abstract */
     public $abstract = FALSE;
 
+    /** @var type The type of returns variable */
+    public $returnType;
+
     /** Constructor.
-     *
-     * @param  string name Name of this element
-     * @param  classDoc|methodDoc $parent     The parent of this element
-     * @param  rootDoc            $root       The root element
+     * @param  string             $name       Name of this element
+     * @param  classDoc|methodDoc &$parent    The reference to the parent of this element
+     * @param  rootDoc            &$root      The reference to the root element
      * @param  string             $filename   The filename of the source file this element is in
      * @param  integer            $lineNumber The line number of the source file this element is at
      * @param  string             $sourcePath The source path containing the source file
-     * @return void
      */
-    public function methodDoc($name, &$parent, &$root, $filename, $lineNumber, $sourcePath) {
+    public function __construct($name, &$parent, &$root, $filename, $lineNumber, $sourcePath) {
         $this->name       = $name;
         $this->parent     = &$parent;
         $this->root       = &$root;
@@ -42,69 +36,43 @@ class methodDoc extends executableDoc {
         $this->sourcePath = $sourcePath;
     }
 
-    /** Adds a parameter to this method.
-     *
-     * @param  fieldDoc $parameter Name of the method parameter
-     * @return void
+    /** Returns TRUE if this class is an constructor.
+     * @return boolean
      */
-    public function addParameter(&$parameter) {
-        $this->parameters[$parameter->name()] = &$parameter;
+    public function isConstructor() {
+        return $this->name === '__construct';
     }
 
-    /** Gets return type.
-     *
-     * @return string Type of method return value
+    /** Returns TRUE if this class is an destructor.
+     * @return boolean
      */
-    public function returnType() {
-        return $this->returnType;
-    }
-
-    /** Formats a return type for outputting.
-     * Recognised types are turned into HTML anchor tags to the documentation page for the class defining them.
-     *
-     * @return string The string representation of the return type
-     */
-    public function returnTypeAsString() {
-        $myPackage = &$this->containingPackage();
-        $classDoc  = &$this->returnType->asClassDoc();
-        if ($classDoc) {
-               $packageDoc = &$classDoc->containingPackage();
-               return '<a href="'.str_repeat('../', $myPackage->depth() + 1).$classDoc->asPath().'">'.$classDoc->name().$this->returnType->dimension().'</a>';
-        } else return $this->returnType->typeName().$this->returnType->dimension();
+    public function isDestructor() {
+        return $this->name === '__destruct';
     }
 
     /** Is this construct a function.
-     * @return bool
+     * @return boolean
      */
     public function isFunction() {
-        return (get_class($this->parent) == 'rootDoc' && !$this->containingClass()) ? TRUE : FALSE;
+        return (get_class($this->parent) === 'rootDoc' && !$this->containingClass()) ? TRUE : FALSE;
     }
 
     /** Is this construct a method.
-     * @return bool
+     * @return boolean
      */
     public function isMethod() {
         return !$this->isFunction();
     }
 
-    /** Returns true if this class is abstract.
-     * @return bool
+    /** Formats a return type for outputting.
+     * Recognised types are turned into HTML anchor tags to the documentation page for the class defining them.
+     * @return string
      */
-    public function isAbstract() {
-        return $this->abstract;
-    }
-
-    /** Returns true if this class is an constructor.
-     * @return bool
-     */
-    public function isConstructor() {
-        return $this->name == '__construct';
-    }
-
-    /** Returns true if this class is an destructor.
-     * @return bool
-     */
-    public function isDestructor() {
-        return $this->name == '__destruct';
+    public function returnTypeAsString() {
+        $myPackage = &$this->containingPackage();
+        $classDoc  = &$this->returnType->asClassDoc();
+        if ($classDoc) {
+               return '<a href="'.str_repeat('../', $myPackage->depth() + 1).$classDoc->asPath().'">'.$classDoc->name.'</a>';
+        } else return $this->returnType->typeName;
     }
 }

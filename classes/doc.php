@@ -1,16 +1,15 @@
 <?php
-/** Abstract base class of all Doc classes.
+/** Base class of all Doc classes.
  * Doc item's are representations of PHP language constructs (class, package, method,...)
  * which have comments and have been processed by this run of phpapi.
  *
  * @program   phpapi: The PHP Documentation Creator
  * @file      classes/doc.php
- * @version   3.1
+ * @version   4.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * @package   phpapi
- * @abstract
  */
 
 class doc {
@@ -18,39 +17,34 @@ class doc {
     /** Data about the element creamed from the token stream before the object for this element was created.
      * This array contains extra data about the element that occurs before the element definition in the token
      * stream (including doc comment data), it is merged with the objects fields upon object completion.
-     * @var mixed[]
+     * @var mixed
      */
     public $data = NULL; # This must be NULL so set does not nest the arrays when $currentData is assigned
 
-    /** The unprocessed doc comment.
-     * @var string
-     */
+    /** @ var string Description of the package */
+    public $desc;
+
+    /** @var string The unprocessed doc comment */
     public $docComment = '';
 
-    /** Whether parsing is inside this elements curly braces.
-     * @var integer
-     */
+    /** @var integer Whether parsing is inside this elements curly braces */
     public $inBody = 0;
 
-    /** The name of this construct.
-     * @var string
-     */
+    /** @var string The name of this construct */
     public $name = NULL;
 
-    /** Reference to the root element.
-     * @var rootDoc
-     */
+    /** @var rootDoc The reference the root element */
     public $root = NULL;
 
-    /** Array of doc tags.
-     * @var tag[]
-     */
+    /** @var tag Array of doc tags */
     public $tags = [];
 
+    /** Constructor. */
+    public function __construct() {}
+
     /** Setter method.
-     *
-     * @param  string $member Name of the member to set
-     * @param  mixed  $value  The value to set member to
+     * @param  string  $member Name of the member to set
+     * @param  mixed   $value  The value to set member to
      * @return boolean
      */
     public function set($member, $value) {
@@ -65,9 +59,8 @@ class doc {
     }
 
     /** Setter by reference method.
-     *
-     * @param  string $member Name of the member to set
-     * @param  mixed  $value  The value to set member to
+     * @param  string  $member Name of the member to set
+     * @param  mixed   &$value The reference to the value of the variable, constant, etc.
      * @return boolean
      */
     public function setByRef($member, &$value) {
@@ -81,126 +74,94 @@ class doc {
         return FALSE;
     }
 
-    /** Returns the name of this doc item.
-     *
-     * @return string
-     */
-    public function name() {
-        return $this->name;
-    }
-
-    /** Returns tags of the specified kind in this Doc item.
-     * For example, if 'tagName' has value "@serial", all tags in this Doc item of type "@serial" will be returned.
-     * If NULL is given for 'tagName', all tags in this Doc item are returned.
-     *
-     * @param  string     $tagName Name of the tag kind to search for
-     * @return Tag[]|NULL          An array of Tag containing all tags of name 'tagname' or a
-     *                             singular tag object if only one exists for the given 'tagname'
-     */
-    function &tags($tagName = NULL) {
-        $return = NULL;
-        if     ($tagName == NULL)             $return = &$this->tags;
-        elseif (isset($this->tags[$tagName])) $return = &$this->tags[$tagName];
-        return $return;
-    }
-
-    /** Sets a tag.
-     *
-     * @param string $tagName Name of the tag kind to search for
-     * @param Tag    $tag     The tag to set
-     */
-    public function setTag($tagName, $tag) {
-        $this->tags[$tagName] = &$tag;
-    }
-
     /** Constructs a class.
-     * @return boolean False until overridden
+     * False until overridden.
+     * @return boolean
      */
     public function isClass() {
         return FALSE;
     }
 
+    /** Constructs an ordinary class (not an interface or an exception).
+     * False until overridden.
+     * @return boolean
+     */
+    public function isOrdinaryClass() {
+        return FALSE;
+    }
+
     /** Constructs a constructor.
-     * @return boolean False until overridden
+     * False until overridden.
+     * @return boolean
      */
     public function isConstructor() {
         return FALSE;
     }
 
     /** Constructs an exception.
-     * @return boolean False until overridden
+     * False until overridden.
+     * @return boolean
      */
     public function isException() {
         return FALSE;
     }
 
     /** Constructs a global variable.
-     * @return boolean False until overridden
+     * False until overridden.
+     * @return boolean
      */
     public function isGlobal() {
         return FALSE;
     }
 
-    /** Constructs final.
-     * @return boolean False until overridden
-     */
-    public function isFinal() {
-        return FALSE;
-    }
-
     /** Constructs a field.
-     * @return boolean False until overridden
+     * False until overridden.
+     * @return boolean
      */
     public function isField() {
         return FALSE;
     }
 
     /** Constructs a function.
-     * @return boolean False until overridden
+     * False until overridden.
+     * @return boolean
      */
     public function isFunction() {
         return FALSE;
     }
 
     /** Constructs an interface.
-     * @return boolean False until overridden
+     * False until overridden.
+     * @return boolean
      */
     public function isInterface() {
         return FALSE;
     }
 
-    /** Constructs an trait.
-     * @return boolean False until overridden
-     */
-    public function isTrait() {
-        return FALSE;
-    }
-
     /** Constructs a method.
-     * @return boolean False until overridden
+     * False until overridden.
+     * @return boolean
      */
     public function isMethod() {
         return FALSE;
     }
 
-    /** Constructs an ordinary class (not an interface or an exception).
-     * @return boolean False until overridden
+    /** Constructs an trait.
+     * False until overridden.
+     * @return boolean
      */
-    public function isOrdinaryClass() {
+    public function isTrait() {
         return FALSE;
     }
 
-    /** Merges the contents of the doc comment into the element object.
-     *
-     * @return void
-     */
+    /** Merges the contents of the doc comment into the element object. */
     public function mergeData() {
-        if (isset($this->data) && is_array($this->data)) {
+        if (!empty($this->data) && is_array($this->data)) {
 
             # Merge primitive types
             foreach ($this->data as $member => $value) {
                 if (!is_array($value)) {
-                    if ($member == 'type')
+                    if ($member === 'type')
                          $this->set('type', new type($value, $this->root));
                     else $this->set($member, $value);
                 }
@@ -212,25 +173,23 @@ class doc {
                 foreach ($this->data['tags'] as $name => $tag) {
                     if (is_array($tag)) {
                         foreach ($this->data['tags'][$name] as $key => $tag) {
-                            if (
-                                ($thisClass == 'rootDoc'    && $this->data['tags'][$name][$key]->inOverview()) ||
-                                ($thisClass == 'packageDoc' && $this->data['tags'][$name][$key]->inPackage())  ||
-                                ($thisClass == 'classDoc'   && $this->data['tags'][$name][$key]->inType())     ||
-                                ($thisClass == 'methodDoc'  && $this->data['tags'][$name][$key]->inMethod())   ||
-                                ($thisClass == 'fieldDoc'   && $this->data['tags'][$name][$key]->inField())
-                            ) {
+                            if (($thisClass === 'rootDoc'    && $this->data['tags'][$name][$key]->inOverview()) ||
+                                ($thisClass === 'packageDoc' && $this->data['tags'][$name][$key]->inPackage())  ||
+                                ($thisClass === 'classDoc'   && $this->data['tags'][$name][$key]->inType())     ||
+                                ($thisClass === 'methodDoc'  && $this->data['tags'][$name][$key]->inMethod())   ||
+                                ($thisClass === 'fieldDoc'   && $this->data['tags'][$name][$key]->inField()))
+                            {
                                 $this->tags[$name][$key] = &$this->data['tags'][$name][$key];
                                 $this->tags[$name][$key]->setParent($this);
                             }
                         }
                     } else {
-                        if (
-                            ($thisClass == 'rootDoc'    && $this->data['tags'][$name]->inOverview()) ||
-                            ($thisClass == 'packageDoc' && $this->data['tags'][$name]->inPackage())  ||
-                            ($thisClass == 'classDoc'   && $this->data['tags'][$name]->inType())     ||
-                            ($thisClass == 'methodDoc'  && $this->data['tags'][$name]->inMethod())   ||
-                            ($thisClass == 'fieldDoc'   && $this->data['tags'][$name]->inField())
-                        ) {
+                        if (($thisClass === 'rootDoc'    && $this->data['tags'][$name]->inOverview()) ||
+                            ($thisClass === 'packageDoc' && $this->data['tags'][$name]->inPackage())  ||
+                            ($thisClass === 'classDoc'   && $this->data['tags'][$name]->inType())     ||
+                            ($thisClass === 'methodDoc'  && $this->data['tags'][$name]->inMethod())   ||
+                            ($thisClass === 'fieldDoc'   && $this->data['tags'][$name]->inField()))
+                        {
                             $this->tags[$name] = &$this->data['tags'][$name];
                             $this->tags[$name]->setParent($this);
                         }
@@ -241,7 +200,7 @@ class doc {
             # Merge parameter types
             if (isset($this->parameters) && isset($this->data['parameters'])) {
                 foreach ($this->data['parameters'] as $name => $param) {
-                    if (substr($name, 0, 9) == '__unknown') {
+                    if (substr($name, 0, 9) === '__unknown') {
                         $index = substr($name, 9);
                         $parameters = array_values($this->parameters);
                         if (isset($parameters[$index])) {

@@ -1,0 +1,1417 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>API for class Markdown (phpAPI: The PHP Documentation Creator ver. 4.0)</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="generator" content="phpAPI 4.0 (https://github.com/Greenray/phpAPI/)">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="start" href="../index.html">
+</head>
+
+    <body id="Markdown" onload="parent.document.title=document.title;">
+        <div class="header">
+    <span style="float:right">phpAPI ver. 4.0</span>
+    
+        <ul>
+        
+            <li><a href="../overview-summary.html">Overview</a></li>
+        
+            <li><a href="../markdown/package-summary.html">Namespace</a></li>
+        
+            <li class="active">Class</li>
+        
+            <li><a href="../markdown/package-tree.html">markdown\Tree</a></li>
+        
+            <li><a href="../deprecated.html">Deprecated</a></li>
+        
+            <li><a href="../todo.html">Todo</a></li>
+        
+            <li><a href="../index-all.html">Index</a></li>
+        
+        </ul>
+    
+</div>
+<div class="small_links">Фреймы: <a href="../index.html" target="_top"> Включить</a> | <a href="../markdown/markdown.html" target="_top"> Выключить</a></div>
+
+    <div class="small_links">
+        Общий обзор: <a href="#summary_fields">Поля</a> | <a href="#summary_methods">Методы</a> | <a href="#summary_constructor">Конструктор</a>
+        Детали: <a href="#details_fields">Поля</a> | <a href="#details_methods">Методы</a> | <a href="#details_constructor">Конструктор</a>
+    </div>
+
+
+
+
+
+<hr />
+<div class="package">Пространство имен markdown</div>
+<h1>Class Markdown</h1>
+<div id="list">
+    <ul>
+        <li><strong>Markdown</strong></li></ul></li>
+    </ul>
+</div>
+
+    <dl>
+        <dt>Интерфесы:</dt>
+        <dd><a href="../markdown/markdowninterface.html">MarkdownInterface</a> </dd>
+    </dl>
+
+
+
+    <dl>
+        <dt>Подклассы:</dt>
+        <dd><a href="../markdown/markdownextra.html">MarkdownExtra</a> </dd>
+    </dl>
+
+<hr />
+<p class="signature">public  class <strong>Markdown</strong></p>
+<div class="comment" id="overview_description"></div>
+<div class="finfo">
+    <table class="hid">
+    
+        <tr>
+            <td class="hid left w_100">Overview</td>
+            <td class="hid right w_100 lilac">&nbsp;</td>
+            
+                <td class="hid" colspan="2">A text-to-HTML convertor.
+ Is used to process the overview file.</td>
+            
+        </tr>
+    
+    </table>
+</div>
+
+
+    <table id="summary_constants">
+        <tr><th colspan="2">Константы: общий обзор</th></tr>
+        
+            <tr>
+                <td class="type w_200">public final static  string</td>
+                <td class="description">
+                    <pre><a href="#MARKDOWNLIB_VERSION"><span class="lilac">MARKDOWNLIB_VERSION</span></a> = <span class="red">'1.5.0'</span></pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+    </table>
+
+
+    <table id="summary_fields">
+        <tr><th colspan="2">Поля: общий обзор</th></tr>
+        
+            <tr>
+                <td class="type w_200">protected  mixed</td>
+                <td class="description">
+                    <pre><a href="#$block_gamut"><span class="green">$block_gamut</span></a> = array(<br />	#<br />	# These are all the transformations that form block-level<br />	# tags like paragraphs, headers, and list items.<br />	#<br />		<span class="red">'doHeaders'</span>         => 10,<br />		<span class="red">'doHorizontalRules'</span> => 20,<br /><br />		<span class="red">'doLists'</span>           => 40,<br />		<span class="red">'doCodeBlocks'</span>      => 50,<br />		<span class="red">'doBlockQuotes'</span>     => 60,<br />		)</pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  mixed</td>
+                <td class="description">
+                    <pre><a href="#$document_gamut"><span class="green">$document_gamut</span></a> = array(<br />		# Strip link definitions, store in hashes.<br />		<span class="red">'stripLinkDefinitions'</span> => 20,<br /><br />		<span class="red">'runBasicBlockGamut'</span>   => 30,<br />		)</pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  mixed</td>
+                <td class="description">
+                    <pre><a href="#$em_relist"><span class="green">$em_relist</span></a> = array(<br />		<span class="red">''</span>  => <span class="red">'(?:(?<!\*)\*(?!\*)|(?<!_)_(?!_))(?![\.,:;]?\s)'</span>,<br />		<span class="red">'*'</span> => <span class="red">'(?<![\s*])\*(?!\*)'</span>,<br />		<span class="red">'_'</span> => <span class="red">'(?<![\s_])_(?!_)'</span>,<br />		)</pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  mixed</td>
+                <td class="description">
+                    <pre><a href="#$em_strong_prepared_relist"><span class="green">$em_strong_prepared_relist</span></a></pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  mixed</td>
+                <td class="description">
+                    <pre><a href="#$em_strong_relist"><span class="green">$em_strong_relist</span></a> = array(<br />		<span class="red">''</span>    => <span class="red">'(?:(?<!\*)\*\*\*(?!\*)|(?<!_)___(?!_))(?![\.,:;]?\s)'</span>,<br />		<span class="red">'***'</span> => <span class="red">'(?<![\s*])\*\*\*(?!\*)'</span>,<br />		<span class="red">'___'</span> => <span class="red">'(?<![\s_])___(?!_)'</span>,<br />		)</pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">public static  mixed</td>
+                <td class="description">
+                    <pre><a href="#$empty_element_suffix"><span class="green">$empty_element_suffix</span></a> = <span class="red">' />'</span></pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">public  mixed</td>
+                <td class="description">
+                    <pre><a href="#$enhanced_ordered_list"><span class="green">$enhanced_ordered_list</span></a> = false</pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  mixed</td>
+                <td class="description">
+                    <pre><a href="#$escape_chars"><span class="green">$escape_chars</span></a> = <span class="red">'\`*_{}[]()>#+-.!'</span></pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  mixed</td>
+                <td class="description">
+                    <pre><a href="#$escape_chars_re"><span class="green">$escape_chars_re</span></a></pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">public  mixed</td>
+                <td class="description">
+                    <pre><a href="#$header_id_func"><span class="green">$header_id_func</span></a> = null</pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  mixed</td>
+                <td class="description">
+                    <pre><a href="#$html_hashes"><span class="green">$html_hashes</span></a> = array()</pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  mixed</td>
+                <td class="description">
+                    <pre><a href="#$in_anchor"><span class="green">$in_anchor</span></a> = false</pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  mixed</td>
+                <td class="description">
+                    <pre><a href="#$list_level"><span class="green">$list_level</span></a> = 0</pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  mixed</td>
+                <td class="description">
+                    <pre><a href="#$nested_brackets_depth"><span class="green">$nested_brackets_depth</span></a> = 6</pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  mixed</td>
+                <td class="description">
+                    <pre><a href="#$nested_brackets_re"><span class="green">$nested_brackets_re</span></a></pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  mixed</td>
+                <td class="description">
+                    <pre><a href="#$nested_url_parenthesis_depth"><span class="green">$nested_url_parenthesis_depth</span></a> = 4</pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  mixed</td>
+                <td class="description">
+                    <pre><a href="#$nested_url_parenthesis_re"><span class="green">$nested_url_parenthesis_re</span></a></pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">public  mixed</td>
+                <td class="description">
+                    <pre><a href="#$no_entities"><span class="green">$no_entities</span></a> = false</pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">public  mixed</td>
+                <td class="description">
+                    <pre><a href="#$no_markup"><span class="green">$no_markup</span></a> = false</pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">public  mixed</td>
+                <td class="description">
+                    <pre><a href="#$predef_titles"><span class="green">$predef_titles</span></a> = array()</pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">public  mixed</td>
+                <td class="description">
+                    <pre><a href="#$predef_urls"><span class="green">$predef_urls</span></a> = array()</pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  mixed</td>
+                <td class="description">
+                    <pre><a href="#$span_gamut"><span class="green">$span_gamut</span></a> = array(<br />	#<br />	# These are all the transformations that occur *within* block-level<br />	# tags like paragraphs, headers, and list items.<br />	#<br />		# Process character escapes, code spans, and inline HTML<br />		# in one shot.<br />		<span class="red">'parseSpan'</span>           => -30,<br /><br />		# Process anchor and image tags. Images must come first,<br />		# because ![foo][f] looks like an anchor.<br />		<span class="red">'doImages'</span>            =>  10,<br />		<span class="red">'doAnchors'</span>           =>  20,<br /><br />		# Make links out of things like `<http://example.com/>`<br />		# Must come after doAnchors, because you can use < and ><br />		# delimiters in inline links like [this](<url>).<br />		<span class="red">'doAutoLinks'</span>         =>  30,<br />		<span class="red">'encodeAmpsAndAngles'</span> =>  40,<br /><br />		<span class="red">'doItalicsAndBold'</span>    =>  50,<br />		<span class="red">'doHardBreaks'</span>        =>  60,<br />		)</pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  mixed</td>
+                <td class="description">
+                    <pre><a href="#$strong_relist"><span class="green">$strong_relist</span></a> = array(<br />		<span class="red">''</span>   => <span class="red">'(?:(?<!\*)\*\*(?!\*)|(?<!_)__(?!_))(?![\.,:;]?\s)'</span>,<br />		<span class="red">'**'</span> => <span class="red">'(?<![\s*])\*\*(?!\*)'</span>,<br />		<span class="red">'__'</span> => <span class="red">'(?<![\s_])__(?!_)'</span>,<br />		)</pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">public  mixed</td>
+                <td class="description">
+                    <pre><a href="#$tab_width"><span class="green">$tab_width</span></a> = 4</pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  mixed</td>
+                <td class="description">
+                    <pre><a href="#$titles"><span class="green">$titles</span></a> = array()</pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">public  mixed</td>
+                <td class="description">
+                    <pre><a href="#$url_filter_func"><span class="green">$url_filter_func</span></a> = null</pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  mixed</td>
+                <td class="description">
+                    <pre><a href="#$urls"><span class="green">$urls</span></a> = array()</pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  mixed</td>
+                <td class="description">
+                    <pre><a href="#$utf8_strlen"><span class="green">$utf8_strlen</span></a> = <span class="red">'mb_strlen'</span></pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+    </table>
+
+
+
+    <table id="summary_constructor">
+        <tr><th colspan="2">Конструктор: общий обзор</th></tr>
+        <tr>
+            <td class="type w_200">public  void</td>
+            <td class="description">
+                <p><a href="#__construct"><strong><span class="black">__construct</span></strong></a>()</p>
+                <p class="description">Описания нет</p>
+            </td>
+        </tr>
+    </table>
+
+
+
+    <table id="summary_methods">
+        <tr><th colspan="2">Методы: общий обзор</th></tr>
+        
+            <tr>
+                <td class="type w_200">public static  void</td>
+                <td class="description">
+                    <p><a href="#defaultTransform"><strong><span class="black">defaultTransform</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#setup"><strong><span class="black">setup</span></strong></a> ()</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#teardown"><strong><span class="black">teardown</span></strong></a> ()</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">public  void</td>
+                <td class="description">
+                    <p><a href="#transform"><strong><span class="black">transform</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#stripLinkDefinitions"><strong><span class="black">stripLinkDefinitions</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#_stripLinkDefinitions_callback"><strong><span class="black">_stripLinkDefinitions_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#hashHTMLBlocks"><strong><span class="black">hashHTMLBlocks</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#_hashHTMLBlocks_callback"><strong><span class="black">_hashHTMLBlocks_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#hashPart"><strong><span class="black">hashPart</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>, <span class="lilac">string</span> <span class="blue">$boundary</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected static  void</td>
+                <td class="description">
+                    <p><a href="#hashBlock"><strong><span class="black">hashBlock</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#runBlockGamut"><strong><span class="black">runBlockGamut</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#runBasicBlockGamut"><strong><span class="black">runBasicBlockGamut</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#doHorizontalRules"><strong><span class="black">doHorizontalRules</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#runSpanGamut"><strong><span class="black">runSpanGamut</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#doHardBreaks"><strong><span class="black">doHardBreaks</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#_doHardBreaks_callback"><strong><span class="black">_doHardBreaks_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#doAnchors"><strong><span class="black">doAnchors</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#_doAnchors_reference_callback"><strong><span class="black">_doAnchors_reference_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#_doAnchors_inline_callback"><strong><span class="black">_doAnchors_inline_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#doImages"><strong><span class="black">doImages</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#_doImages_reference_callback"><strong><span class="black">_doImages_reference_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#_doImages_inline_callback"><strong><span class="black">_doImages_inline_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#doHeaders"><strong><span class="black">doHeaders</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#_doHeaders_callback_setext"><strong><span class="black">_doHeaders_callback_setext</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#_doHeaders_callback_atx"><strong><span class="black">_doHeaders_callback_atx</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#_generateIdFromHeaderValue"><strong><span class="black">_generateIdFromHeaderValue</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$headerValue</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#doLists"><strong><span class="black">doLists</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#_doLists_callback"><strong><span class="black">_doLists_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#processListItems"><strong><span class="black">processListItems</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$list_str</span>, <span class="lilac">mixed</span> <span class="blue">$marker_any_re</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#_processListItems_callback"><strong><span class="black">_processListItems_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#doCodeBlocks"><strong><span class="black">doCodeBlocks</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#_doCodeBlocks_callback"><strong><span class="black">_doCodeBlocks_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#makeCodeSpan"><strong><span class="black">makeCodeSpan</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$code</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#prepareItalicsAndBold"><strong><span class="black">prepareItalicsAndBold</span></strong></a> ()</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#doItalicsAndBold"><strong><span class="black">doItalicsAndBold</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#doBlockQuotes"><strong><span class="black">doBlockQuotes</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#_doBlockQuotes_callback"><strong><span class="black">_doBlockQuotes_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#_doBlockQuotes_callback2"><strong><span class="black">_doBlockQuotes_callback2</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#formParagraphs"><strong><span class="black">formParagraphs</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#encodeAttribute"><strong><span class="black">encodeAttribute</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#encodeURLAttribute"><strong><span class="black">encodeURLAttribute</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$url</span>, <span class="lilac">string</span> <span class="blue">&$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#encodeAmpsAndAngles"><strong><span class="black">encodeAmpsAndAngles</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#doAutoLinks"><strong><span class="black">doAutoLinks</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#_doAutoLinks_url_callback"><strong><span class="black">_doAutoLinks_url_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#_doAutoLinks_email_callback"><strong><span class="black">_doAutoLinks_email_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#encodeEntityObfuscatedAttribute"><strong><span class="black">encodeEntityObfuscatedAttribute</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>, <span class="lilac">string</span> <span class="blue">&$tail</span>, <span class="lilac">mixed</span> <span class="blue">$head_length</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#parseSpan"><strong><span class="black">parseSpan</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$str</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#handleSpanToken"><strong><span class="black">handleSpanToken</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$token</span>, <span class="lilac">mixed</span> <span class="blue">&$str</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#outdent"><strong><span class="black">outdent</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#detab"><strong><span class="black">detab</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#_detab_callback"><strong><span class="black">_detab_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#_initDetab"><strong><span class="black">_initDetab</span></strong></a> ()</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#unhash"><strong><span class="black">unhash</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">protected  void</td>
+                <td class="description">
+                    <p><a href="#_unhash_callback"><strong><span class="black">_unhash_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+    </table>
+
+
+
+    <h2 id="details_constants">Константы: детали</h2>
+    
+        <div class="location">doclets/markdown/Markdown.php at line 27</div>
+        <pre class="signature" id="MARKDOWNLIB_VERSION">public final static  string <strong>MARKDOWNLIB_VERSION</strong> = <span class="red">'1.5.0'</span></pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+
+
+    <h2 id="details_fields">Поля: детали</h2>
+    
+        <div class="location">doclets/markdown/Markdown.php at line 418</div>
+        <pre class="signature" id="block_gamut">protected mixed <strong><span class="green">$block_gamut</span></strong> = array(<br />	#<br />	# These are all the transformations that form block-level<br />	# tags like paragraphs, headers, and list items.<br />	#<br />		<span class="red">'doHeaders'</span>         => 10,<br />		<span class="red">'doHorizontalRules'</span> => 20,<br /><br />		<span class="red">'doLists'</span>           => 40,<br />		<span class="red">'doCodeBlocks'</span>      => 50,<br />		<span class="red">'doBlockQuotes'</span>     => 60,<br />		)</pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 195</div>
+        <pre class="signature" id="document_gamut">protected mixed <strong><span class="green">$document_gamut</span></strong> = array(<br />		# Strip link definitions, store in hashes.<br />		<span class="red">'stripLinkDefinitions'</span> => 20,<br /><br />		<span class="red">'runBasicBlockGamut'</span>   => 30,<br />		)</pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1011</div>
+        <pre class="signature" id="em_relist">protected mixed <strong><span class="green">$em_relist</span></strong> = array(<br />		<span class="red">''</span>  => <span class="red">'(?:(?<!\*)\*(?!\*)|(?<!_)_(?!_))(?![\.,:;]?\s)'</span>,<br />		<span class="red">'*'</span> => <span class="red">'(?<![\s*])\*(?!\*)'</span>,<br />		<span class="red">'_'</span> => <span class="red">'(?<![\s_])_(?!_)'</span>,<br />		)</pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1014</div>
+        <pre class="signature" id="em_strong_prepared_relist">protected mixed <strong><span class="green">$em_strong_prepared_relist</span></strong></pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1013</div>
+        <pre class="signature" id="em_strong_relist">protected mixed <strong><span class="green">$em_strong_relist</span></strong> = array(<br />		<span class="red">''</span>    => <span class="red">'(?:(?<!\*)\*\*\*(?!\*)|(?<!_)___(?!_))(?![\.,:;]?\s)'</span>,<br />		<span class="red">'***'</span> => <span class="red">'(?<![\s*])\*\*\*(?!\*)'</span>,<br />		<span class="red">'___'</span> => <span class="red">'(?<![\s_])___(?!_)'</span>,<br />		)</pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 54</div>
+        <pre class="signature" id="empty_element_suffix">public static mixed <strong><span class="green">$empty_element_suffix</span></strong> = <span class="red">' />'</span></pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 82</div>
+        <pre class="signature" id="enhanced_ordered_list">public mixed <strong><span class="green">$enhanced_ordered_list</span></strong> = false</pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 95</div>
+        <pre class="signature" id="escape_chars">protected mixed <strong><span class="green">$escape_chars</span></strong> = <span class="red">'\`*_{}[]()>#+-.!'</span></pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 96</div>
+        <pre class="signature" id="escape_chars_re">protected mixed <strong><span class="green">$escape_chars_re</span></strong></pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 69</div>
+        <pre class="signature" id="header_id_func">public mixed <strong><span class="green">$header_id_func</span></strong> = null</pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 126</div>
+        <pre class="signature" id="html_hashes">protected mixed <strong><span class="green">$html_hashes</span></strong> = array()</pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 129</div>
+        <pre class="signature" id="in_anchor">protected mixed <strong><span class="green">$in_anchor</span></strong> = false</pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 897</div>
+        <pre class="signature" id="list_level">protected mixed <strong><span class="green">$list_level</span></strong> = 0</pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 88</div>
+        <pre class="signature" id="nested_brackets_depth">protected mixed <strong><span class="green">$nested_brackets_depth</span></strong> = 6</pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 89</div>
+        <pre class="signature" id="nested_brackets_re">protected mixed <strong><span class="green">$nested_brackets_re</span></strong></pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 91</div>
+        <pre class="signature" id="nested_url_parenthesis_depth">protected mixed <strong><span class="green">$nested_url_parenthesis_depth</span></strong> = 4</pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 92</div>
+        <pre class="signature" id="nested_url_parenthesis_re">protected mixed <strong><span class="green">$nested_url_parenthesis_re</span></strong></pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 59</div>
+        <pre class="signature" id="no_entities">public mixed <strong><span class="green">$no_entities</span></strong> = false</pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 58</div>
+        <pre class="signature" id="no_markup">public mixed <strong><span class="green">$no_markup</span></strong> = false</pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 63</div>
+        <pre class="signature" id="predef_titles">public mixed <strong><span class="green">$predef_titles</span></strong> = array()</pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 62</div>
+        <pre class="signature" id="predef_urls">public mixed <strong><span class="green">$predef_urls</span></strong> = array()</pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 469</div>
+        <pre class="signature" id="span_gamut">protected mixed <strong><span class="green">$span_gamut</span></strong> = array(<br />	#<br />	# These are all the transformations that occur *within* block-level<br />	# tags like paragraphs, headers, and list items.<br />	#<br />		# Process character escapes, code spans, and inline HTML<br />		# in one shot.<br />		<span class="red">'parseSpan'</span>           => -30,<br /><br />		# Process anchor and image tags. Images must come first,<br />		# because ![foo][f] looks like an anchor.<br />		<span class="red">'doImages'</span>            =>  10,<br />		<span class="red">'doAnchors'</span>           =>  20,<br /><br />		# Make links out of things like `<http://example.com/>`<br />		# Must come after doAnchors, because you can use < and ><br />		# delimiters in inline links like [this](<url>).<br />		<span class="red">'doAutoLinks'</span>         =>  30,<br />		<span class="red">'encodeAmpsAndAngles'</span> =>  40,<br /><br />		<span class="red">'doItalicsAndBold'</span>    =>  50,<br />		<span class="red">'doHardBreaks'</span>        =>  60,<br />		)</pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1012</div>
+        <pre class="signature" id="strong_relist">protected mixed <strong><span class="green">$strong_relist</span></strong> = array(<br />		<span class="red">''</span>   => <span class="red">'(?:(?<!\*)\*\*(?!\*)|(?<!_)__(?!_))(?![\.,:;]?\s)'</span>,<br />		<span class="red">'**'</span> => <span class="red">'(?<![\s*])\*\*(?!\*)'</span>,<br />		<span class="red">'__'</span> => <span class="red">'(?<![\s_])__(?!_)'</span>,<br />		)</pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 55</div>
+        <pre class="signature" id="tab_width">public mixed <strong><span class="green">$tab_width</span></strong> = 4</pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 125</div>
+        <pre class="signature" id="titles">protected mixed <strong><span class="green">$titles</span></strong> = array()</pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 66</div>
+        <pre class="signature" id="url_filter_func">public mixed <strong><span class="green">$url_filter_func</span></strong> = null</pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 124</div>
+        <pre class="signature" id="urls">protected mixed <strong><span class="green">$urls</span></strong> = array()</pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1505</div>
+        <pre class="signature" id="utf8_strlen">protected mixed <strong><span class="green">$utf8_strlen</span></strong> = <span class="red">'mb_strlen'</span></pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+
+
+    <h2 id="details_constructor">Конструктор: детали</h2>
+    <div class="location">doclets/markdown/Markdown.php at line 99</div>
+    <code class="signature" id="__construct">public  void <strong>__construct</strong>()</code>
+    <div class="details">
+        Описания нет
+        
+    </div>
+
+
+
+    <h2 id="details_methods">Методы: детали</h2>
+    
+        <div class="location">doclets/markdown/Markdown.php at line 31</div>
+        <code class="signature" id="defaultTransform">public static  void <strong>defaultTransform</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 132</div>
+        <code class="signature" id="setup">protected  void <strong>setup</strong> ()</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 145</div>
+        <code class="signature" id="teardown">protected  void <strong>teardown</strong> ()</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 156</div>
+        <code class="signature" id="transform">public  void <strong>transform</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 198</div>
+        <code class="signature" id="stripLinkDefinitions">protected  void <strong>stripLinkDefinitions</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 232</div>
+        <code class="signature" id="_stripLinkDefinitions_callback">protected  void <strong>_stripLinkDefinitions_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 241</div>
+        <code class="signature" id="hashHTMLBlocks">protected  void <strong>hashHTMLBlocks</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 380</div>
+        <code class="signature" id="_hashHTMLBlocks_callback">protected  void <strong>_hashHTMLBlocks_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 387</div>
+        <code class="signature" id="hashPart">protected  void <strong>hashPart</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>, <span class="lilac">string</span> <span class="blue">$boundary</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 410</div>
+        <code class="signature" id="hashBlock">protected static  void <strong>hashBlock</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 420</div>
+        <code class="signature" id="runBlockGamut">protected  void <strong>runBlockGamut</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 434</div>
+        <code class="signature" id="runBasicBlockGamut">protected  void <strong>runBasicBlockGamut</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 451</div>
+        <code class="signature" id="doHorizontalRules">protected  void <strong>doHorizontalRules</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 471</div>
+        <code class="signature" id="runSpanGamut">protected  void <strong>runSpanGamut</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 483</div>
+        <code class="signature" id="doHardBreaks">protected  void <strong>doHardBreaks</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 488</div>
+        <code class="signature" id="_doHardBreaks_callback">protected  void <strong>_doHardBreaks_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 493</div>
+        <code class="signature" id="doAnchors">protected  void <strong>doAnchors</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 563</div>
+        <code class="signature" id="_doAnchors_reference_callback">protected  void <strong>_doAnchors_reference_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 597</div>
+        <code class="signature" id="_doAnchors_inline_callback">protected  void <strong>_doAnchors_inline_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 624</div>
+        <code class="signature" id="doImages">protected  void <strong>doImages</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 679</div>
+        <code class="signature" id="_doImages_reference_callback">protected  void <strong>_doImages_reference_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 707</div>
+        <code class="signature" id="_doImages_inline_callback">protected  void <strong>_doImages_inline_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 726</div>
+        <code class="signature" id="doHeaders">protected  void <strong>doHeaders</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 757</div>
+        <code class="signature" id="_doHeaders_callback_setext">protected  void <strong>_doHeaders_callback_setext</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 770</div>
+        <code class="signature" id="_doHeaders_callback_atx">protected  void <strong>_doHeaders_callback_atx</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 780</div>
+        <code class="signature" id="_generateIdFromHeaderValue">protected  void <strong>_generateIdFromHeaderValue</strong> (<span class="lilac">mixed</span> <span class="blue">$headerValue</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 797</div>
+        <code class="signature" id="doLists">protected  void <strong>doLists</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 862</div>
+        <code class="signature" id="_doLists_callback">protected  void <strong>_doLists_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 899</div>
+        <code class="signature" id="processListItems">protected  void <strong>processListItems</strong> (<span class="lilac">mixed</span> <span class="blue">$list_str</span>, <span class="lilac">mixed</span> <span class="blue">$marker_any_re</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 945</div>
+        <code class="signature" id="_processListItems_callback">protected  void <strong>_processListItems_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 970</div>
+        <code class="signature" id="doCodeBlocks">protected  void <strong>doCodeBlocks</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 988</div>
+        <code class="signature" id="_doCodeBlocks_callback">protected  void <strong>_doCodeBlocks_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1002</div>
+        <code class="signature" id="makeCodeSpan">protected  void <strong>makeCodeSpan</strong> (<span class="lilac">mixed</span> <span class="blue">$code</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1016</div>
+        <code class="signature" id="prepareItalicsAndBold">protected  void <strong>prepareItalicsAndBold</strong> ()</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1038</div>
+        <code class="signature" id="doItalicsAndBold">protected  void <strong>doItalicsAndBold</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1161</div>
+        <code class="signature" id="doBlockQuotes">protected  void <strong>doBlockQuotes</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1176</div>
+        <code class="signature" id="_doBlockQuotes_callback">protected  void <strong>_doBlockQuotes_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1190</div>
+        <code class="signature" id="_doBlockQuotes_callback2">protected  void <strong>_doBlockQuotes_callback2</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1197</div>
+        <code class="signature" id="formParagraphs">protected  void <strong>formParagraphs</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1267</div>
+        <code class="signature" id="encodeAttribute">protected  void <strong>encodeAttribute</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1278</div>
+        <code class="signature" id="encodeURLAttribute">protected  void <strong>encodeURLAttribute</strong> (<span class="lilac">mixed</span> <span class="blue">$url</span>, <span class="lilac">string</span> <span class="blue">&$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1305</div>
+        <code class="signature" id="encodeAmpsAndAngles">protected  void <strong>encodeAmpsAndAngles</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1326</div>
+        <code class="signature" id="doAutoLinks">protected  void <strong>doAutoLinks</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1353</div>
+        <code class="signature" id="_doAutoLinks_url_callback">protected  void <strong>_doAutoLinks_url_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1358</div>
+        <code class="signature" id="_doAutoLinks_email_callback">protected  void <strong>_doAutoLinks_email_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1366</div>
+        <code class="signature" id="encodeEntityObfuscatedAttribute">protected  void <strong>encodeEntityObfuscatedAttribute</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>, <span class="lilac">string</span> <span class="blue">&$tail</span>, <span class="lilac">mixed</span> <span class="blue">$head_length</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1411</div>
+        <code class="signature" id="parseSpan">protected  void <strong>parseSpan</strong> (<span class="lilac">mixed</span> <span class="blue">$str</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1471</div>
+        <code class="signature" id="handleSpanToken">protected  void <strong>handleSpanToken</strong> (<span class="lilac">mixed</span> <span class="blue">$token</span>, <span class="lilac">mixed</span> <span class="blue">&$str</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1495</div>
+        <code class="signature" id="outdent">protected  void <strong>outdent</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1507</div>
+        <code class="signature" id="detab">protected  void <strong>detab</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1520</div>
+        <code class="signature" id="_detab_callback">protected  void <strong>_detab_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1537</div>
+        <code class="signature" id="_initDetab">protected  void <strong>_initDetab</strong> ()</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1551</div>
+        <code class="signature" id="unhash">protected  void <strong>unhash</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+        <div class="location">doclets/markdown/Markdown.php at line 1558</div>
+        <code class="signature" id="_unhash_callback">protected  void <strong>_unhash_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
+        <div class="details">
+            Описания нет
+            
+        </div>
+        <hr />
+    
+
+
+
+        <div class="header">
+    <span style="float:right">phpAPI ver. 4.0</span>
+    
+        <ul>
+        
+            <li><a href="../overview-summary.html">Overview</a></li>
+        
+            <li><a href="../markdown/package-summary.html">Namespace</a></li>
+        
+            <li class="active">Class</li>
+        
+            <li><a href="../markdown/package-tree.html">markdown\Tree</a></li>
+        
+            <li><a href="../deprecated.html">Deprecated</a></li>
+        
+            <li><a href="../todo.html">Todo</a></li>
+        
+            <li><a href="../index-all.html">Index</a></li>
+        
+        </ul>
+    
+</div>
+<div class="small_links">Фреймы: <a href="../index.html" target="_top"> Включить</a> | <a href="../markdown/markdown.html" target="_top"> Выключить</a></div>
+
+    <div class="small_links">
+        Общий обзор: <a href="#summary_fields">Поля</a> | <a href="#summary_methods">Методы</a> | <a href="#summary_constructor">Конструктор</a>
+        Детали: <a href="#details_fields">Поля</a> | <a href="#details_methods">Методы</a> | <a href="#details_constructor">Конструктор</a>
+    </div>
+
+
+
+
+        <hr />
+    </body>
+
+</html>
