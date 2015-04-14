@@ -161,6 +161,14 @@
             </tr>
         
             <tr>
+                <td class="type w_200">public  mixed</td>
+                <td class="description">
+                    <pre><a href="#$overview"><span class="green">$overview</span></a></pre>
+                    <p class="description">Detailed package description</p>
+                </td>
+            </tr>
+        
+            <tr>
                 <td class="type w_200">public  <a href="../phpapi/rootdoc.html">rootDoc</a></td>
                 <td class="description">
                     <pre><a href="#$root"><span class="green">$root</span></a> = NULL</pre>
@@ -333,11 +341,16 @@
         <hr />
     
         <div class="location">classes/doc.php at line 37</div>
+        <pre class="signature" id="overview">public mixed <strong><span class="green">$overview</span></strong></pre>
+        <div class="details">Detailed package description</div>
+        <hr />
+    
+        <div class="location">classes/doc.php at line 40</div>
         <pre class="signature" id="root">public <a href="../phpapi/rootdoc.html">rootDoc</a> <strong><span class="green">$root</span></strong> = NULL</pre>
         <div class="details">The reference the root element</div>
         <hr />
     
-        <div class="location">classes/doc.php at line 40</div>
+        <div class="location">classes/doc.php at line 43</div>
         <pre class="signature" id="tags">public <a href="../tags/tag.html">tag</a> <strong><span class="green">$tags</span></strong> = []</pre>
         <div class="details">Array of doc tags</div>
         <hr />
@@ -345,7 +358,7 @@
 
 
     <h2 id="details_constructor">Конструктор: детали</h2>
-    <div class="location">classes/doc.php at line 43</div>
+    <div class="location">classes/doc.php at line 46</div>
     <code class="signature" id="__construct">public  void <strong>__construct</strong>()</code>
     <div class="details">
         Constructor.
@@ -356,7 +369,7 @@
 
     <h2 id="details_methods">Методы: детали</h2>
     
-        <div class="location">classes/doc.php at line 50</div>
+        <div class="location">classes/doc.php at line 53</div>
         <code class="signature" id="set">public  boolean <strong>set</strong> (<span class="lilac">string</span> <span class="blue">$member</span>, <span class="lilac">mixed</span> <span class="blue">$value</span>)</code>
         <div class="details">
             Setter method.
@@ -387,7 +400,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/doc.php at line 66</div>
+        <div class="location">classes/doc.php at line 69</div>
         <code class="signature" id="setByRef">public  boolean <strong>setByRef</strong> (<span class="lilac">string</span> <span class="blue">$member</span>, <span class="lilac">mixed</span> <span class="blue">&$value</span>)</code>
         <div class="details">
             Setter by reference method.
@@ -418,7 +431,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/doc.php at line 81</div>
+        <div class="location">classes/doc.php at line 84</div>
         <code class="signature" id="isClass">public  boolean <strong>isClass</strong> ()</code>
         <div class="details">
             Constructs a class.<br /> False until overridden.
@@ -426,7 +439,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/doc.php at line 89</div>
+        <div class="location">classes/doc.php at line 92</div>
         <code class="signature" id="isOrdinaryClass">public  boolean <strong>isOrdinaryClass</strong> ()</code>
         <div class="details">
             Constructs an ordinary class (not an interface or an exception).<br /> False until overridden.
@@ -434,7 +447,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/doc.php at line 97</div>
+        <div class="location">classes/doc.php at line 100</div>
         <code class="signature" id="isConstructor">public  boolean <strong>isConstructor</strong> ()</code>
         <div class="details">
             Constructs a constructor.<br /> False until overridden.
@@ -442,7 +455,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/doc.php at line 105</div>
+        <div class="location">classes/doc.php at line 108</div>
         <code class="signature" id="isException">public  boolean <strong>isException</strong> ()</code>
         <div class="details">
             Constructs an exception.<br /> False until overridden.
@@ -450,7 +463,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/doc.php at line 113</div>
+        <div class="location">classes/doc.php at line 116</div>
         <code class="signature" id="isGlobal">public  boolean <strong>isGlobal</strong> ()</code>
         <div class="details">
             Constructs a global variable.<br /> False until overridden.
@@ -458,7 +471,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/doc.php at line 121</div>
+        <div class="location">classes/doc.php at line 124</div>
         <code class="signature" id="isField">public  boolean <strong>isField</strong> ()</code>
         <div class="details">
             Constructs a field.<br /> False until overridden.
@@ -466,7 +479,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/doc.php at line 129</div>
+        <div class="location">classes/doc.php at line 132</div>
         <code class="signature" id="isFunction">public  boolean <strong>isFunction</strong> ()</code>
         <div class="details">
             Constructs a function.<br /> False until overridden.
@@ -474,7 +487,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/doc.php at line 137</div>
+        <div class="location">classes/doc.php at line 140</div>
         <code class="signature" id="isInterface">public  boolean <strong>isInterface</strong> ()</code>
         <div class="details">
             Constructs an interface.<br /> False until overridden.
@@ -482,7 +495,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/doc.php at line 145</div>
+        <div class="location">classes/doc.php at line 148</div>
         <code class="signature" id="isMethod">public  boolean <strong>isMethod</strong> ()</code>
         <div class="details">
             Constructs a method.<br /> False until overridden.
@@ -490,7 +503,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/doc.php at line 153</div>
+        <div class="location">classes/doc.php at line 156</div>
         <code class="signature" id="isTrait">public  boolean <strong>isTrait</strong> ()</code>
         <div class="details">
             Constructs an trait.<br /> False until overridden.
@@ -498,7 +511,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/doc.php at line 158</div>
+        <div class="location">classes/doc.php at line 161</div>
         <code class="signature" id="mergeData">public  void <strong>mergeData</strong> ()</code>
         <div class="details">
             Merges the contents of the doc comment into the element object.

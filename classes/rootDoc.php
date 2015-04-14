@@ -111,7 +111,7 @@ class rootDoc extends doc {
         if (isset($this->packages[$name])) {
             if (!empty($overview)) {
                 preg_match('/^(.+)(\.(?: |\t|\n|<\/p>|<\/?h[1-6]>|<hr)|$)/sU', $overview, $matches);
-                $this->packages[$name]->desc     = $matches[1];
+                $this->packages[$name]->desc     = $matches[0];
                 $this->packages[$name]->overview = $overview;
             }
             $return = &$this->packages[$name];

@@ -33,6 +33,9 @@ class doc {
     /** @var string The name of this construct */
     public $name = NULL;
 
+    /** Detailed package description */
+    public $overview;
+
     /** @var rootDoc The reference the root element */
     public $root = NULL;
 

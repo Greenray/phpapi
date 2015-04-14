@@ -27,9 +27,14 @@ class packageDoc extends doc {
      * @param string  $name     Package name
      * @param rootDoc &$root    The reference to the root element
      */
-    public function __construct($name, &$root) {
+    public function __construct($name, &$root, $overview = '') {
         $this->name =  $name;
         $this->root = &$root;
+        if (!empty($overview)) {
+            preg_match('/^(.+)(\.(?: |\t|\n|<\/p>|<\/?h[1-6]>|<hr)|$)/sU', $overview, $matches);
+            $this->desc     = $matches[0];
+            $this->overview = $overview;
+        }
     }
 
     /** Adds a class to this package.
