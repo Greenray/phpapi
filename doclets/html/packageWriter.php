@@ -110,15 +110,6 @@ class packageWriter extends htmlWriter {
 
             $this->items = $this->packageItems($doclet->rootDoc->phpapi, $package, $this->depth);
 
-            $tpl = new template($doclet->rootDoc->phpapi->options['doclet'], 'package-summary.tpl');
-            ob_start();
-
-            echo $tpl->parse($output);
-
-            $this->output = ob_get_contents();
-            ob_end_clean();
-            $this->write($package->asPath().DS.'package-summary.html', $package->name);
-
             $this->sections[0] = ['title' => 'Overview',   'url' => $index.'.html'];
             $this->sections[1] = ['title' => 'Namespace',  'url' => $package->asPath().DS.'package-summary.html', 'relative' => TRUE];
             $this->sections[2] = ['title' => 'Class'];
@@ -128,6 +119,15 @@ class packageWriter extends htmlWriter {
             $this->sections[6] = ['title' => 'Index',      'url' => 'index-all.html'];
 
             $this->tree($package, $package->asPath().DS.'package-tree', $package->name);
+
+            $tpl = new template($doclet->rootDoc->phpapi->options['doclet'], 'package-summary.tpl');
+            ob_start();
+
+            echo $tpl->parse($output);
+
+            $this->output = ob_get_contents();
+            ob_end_clean();
+            $this->write($package->asPath().DS.'package-summary.html', $package->name);
         }
         $this->sections[0] = ['title' => 'Overview',   'url' => $index.'.html'];
         $this->sections[1] = ['title' => 'Namespace'];
@@ -170,6 +170,8 @@ class packageWriter extends htmlWriter {
             $this->output = ob_get_contents();
             ob_end_clean();
             $this->write($dest.'.html', $name);
+        } else {
+            $this->sections[3] = ['title' => 'Tree'];
         }
     }
 

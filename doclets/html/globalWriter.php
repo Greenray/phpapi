@@ -25,12 +25,14 @@ class globalWriter extends htmlWriter {
             $this->sections[0] = ['title' => 'Overview',    'url' => $index.'.html'];
             $this->sections[1] = ['title' => 'Namespace',   'url' => $package->asPath().DS.'package-summary.html'];
             $this->sections[2] = ['title' => 'Global', 'selected' => TRUE];
-            $this->sections[4] = ['title' => $package->name.'\Tree', 'url' => $package->asPath().DS.'package-tree.html'];
+            $this->sections[3] = ['title' => $package->name.'\Tree', 'url' => $package->asPath().DS.'package-tree.html'];
             $this->sections[4] = ['title' => 'Deprecated',  'url' => 'deprecated.html'];
             $this->sections[5] = ['title' => 'Todo',        'url' => 'todo.html'];
             $this->sections[6] = ['title' => 'Index',       'url' => 'index-all.html'];
 
             $this->depth = $package->depth() + 1;
+
+            if (empty($package->classes)) $this->sections[3] = ['title' => 'Tree'];
 
             $output  = [];
             $globals = &$package->globals;

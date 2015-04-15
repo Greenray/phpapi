@@ -65,6 +65,8 @@ class todoWriter extends htmlWriter {
                     }
                 }
             }
+        } else {
+            $this->sections[3] = ['title' => 'Tree'];
         }
 
         $functions = &$doclet->rootDoc->functions();
