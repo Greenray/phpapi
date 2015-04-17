@@ -109,15 +109,6 @@ class packageWriter extends htmlWriter {
             }
 
             $this->items = $this->packageItems($doclet->rootDoc->phpapi, $package, $this->depth);
-
-            $this->sections[0] = ['title' => 'Overview',   'url' => $index.'.html'];
-            $this->sections[1] = ['title' => 'Namespace',  'url' => $package->asPath().DS.'package-summary.html', 'relative' => TRUE];
-            $this->sections[2] = ['title' => 'Class'];
-            $this->sections[3] = ['title' => $package->name.'\Tree', 'url' => $package->asPath().DS.'package-tree.html', 'selected' => TRUE, 'relative' => TRUE];
-            $this->sections[4] = ['title' => 'Deprecated', 'url' => 'deprecated.html'];
-            $this->sections[5] = ['title' => 'Todo',       'url' => 'todo.html'];
-            $this->sections[6] = ['title' => 'Index',      'url' => 'index-all.html'];
-
             $this->tree($package, $package->asPath().DS.'package-tree', $package->name);
 
             $tpl = new template($doclet->rootDoc->phpapi->options['doclet'], 'package-summary.tpl');

@@ -19,7 +19,7 @@ class items extends htmlWriter {
      * @param  phpapi &$phpapi The reference to the application object
      * @param  object &$doclet The reference to the documentation generator
      * @param  string $path    Path to directory for output
-     * @return string          Parsed template "all-items.tpl"
+     * @return string          Parsed template "items.tpl"
      */
     public static function items(&$phpapi, &$doclet, $path) {
         $output   = [];
@@ -65,8 +65,10 @@ class items extends htmlWriter {
             if ($exceptions && is_array($exceptions)) {
                 ksort($exceptions);
                 foreach ($exceptions as $i => $exception) {
-                    $output['exception'][$i]['path'] = $path.$exception->asPath();
-                    $output['exception'][$i]['name'] = $exception->name;
+                    $output['exception'][$i]['path']     = $path.$exception->asPath();
+                    $output['exception'][$i]['name']     = $exception->name;
+                    $output['exception'][$i]['packpath'] = $path.$package->asPath().DS;
+                    $output['exception'][$i]['packname'] = $exception->package;
                 }
             }
 
@@ -74,8 +76,10 @@ class items extends htmlWriter {
             if ($functions) {
                 ksort($functions);
                 foreach ($functions as $i => $function) {
-                    $output['function'][$i]['path'] = $path.$function->asPath();
-                    $output['function'][$i]['name'] = $function->name;
+                    $output['function'][$i]['path']     = $path.$function->asPath();
+                    $output['function'][$i]['name']     = $function->name;
+                    $output['function'][$i]['packpath'] = $path.$package->asPath().DS;
+                    $output['function'][$i]['packname'] = $function->package;
                 }
             }
 

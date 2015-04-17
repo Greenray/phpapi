@@ -37,7 +37,10 @@
     <h2>[__Исключения]</h2>
     <ul>
     [each=exception]
-        <li><a href="{exception[expath]}" title="{exception[name]}" target="main">{exception[name]}</a></li>
+        <li>
+            <a href="{exception[packpath]}package-summary.html" title="{exception[packname]}" target="main">{exception[packname]}</a> \
+            <a href="{exception[expath]}" title="{exception[name]}" target="main">{exception[name]}</a>
+        </li>
     [/each.exception]
     </ul>
 [/if.exception]
@@ -45,7 +48,10 @@
     <h2>[__Функции]</h2>
     <ul>
     [each=function]
-        <li><a href="{function[funpath]}" title="{function[name]}" target="main">{function[name]}</a></li>
+        <li>
+            <a href="{function[packpath]}package-summary.html" title="{function[packname]}" target="main">{function[packname]}</a> \
+            <a href="{function[funpath]}" title="{function[name]}" target="main">{function[name]}</a>
+        </li>
     [/each.function]
     </ul>
 [/if.function]

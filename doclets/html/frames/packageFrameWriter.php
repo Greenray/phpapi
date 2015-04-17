@@ -69,9 +69,11 @@ class packageFrameWriter extends htmlWriter {
             if ($exceptions) {
                 ksort($exceptions);
                 foreach ($exceptions as $i => $exception) {
-                    $output['exception'][$i]['name']   = $exception->name;
-                    $output['exception'][$i]['expath'] = $exception->asPath();
-                    $output['exception'][$i]['frpath'] = $prefix.$output['exception'][$i]['expath'];
+                    $output['exception'][$i]['name']     = $exception->name;
+                    $output['exception'][$i]['expath']   = $exception->asPath();
+                    $output['exception'][$i]['frpath']   = $prefix.$output['exception'][$i]['expath'];
+                    $output['exception'][$i]['packpath'] = $packpath;
+                    $output['exception'][$i]['packname'] = $package->name;
                 }
             }
 
@@ -79,9 +81,11 @@ class packageFrameWriter extends htmlWriter {
             if ($functions) {
                 ksort($functions);
                 foreach ($functions as $i => $function) {
-                    $output['function'][$i]['name']    = $function->name;
-                    $output['function'][$i]['funpath'] = $function->asPath();
-                    $output['function'][$i]['frpath']  = $prefix.$output['function'][$i]['funpath'];
+                    $output['function'][$i]['name']     = $function->name;
+                    $output['function'][$i]['funpath']  = $function->asPath();
+                    $output['function'][$i]['frpath']   = $prefix.$output['function'][$i]['funpath'];
+                    $output['function'][$i]['packpath'] = $packpath;
+                    $output['function'][$i]['packname'] = $package->name;
                 }
             }
 
@@ -95,7 +99,6 @@ class packageFrameWriter extends htmlWriter {
                 }
             }
 
-            $all = array_merge_recursive($all, $output);
             $tpl = new template($doclet->rootDoc->phpapi->options['doclet'], 'package-frame.tpl');
             ob_start();
 
@@ -104,6 +107,8 @@ class packageFrameWriter extends htmlWriter {
             $this->output = ob_get_contents();
             ob_end_clean();
             $this->write($package->asPath().DS.'package-frame.html', $package->name, FALSE);
+            unset($output['name']);
+            $all = array_merge_recursive($all, $output);
         }
 
         $tpl = new template($doclet->rootDoc->phpapi->options['doclet'], 'all-items.tpl');
