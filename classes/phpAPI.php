@@ -70,10 +70,11 @@ class phpapi {
 
         if (!empty($this->options['files']))
              $files = explode(',', $this->options['files']);
-        else $files = '*.php';
+        else $files = ['*.php'];
 
-        if (!empty($this->options['ignore']))   $this->options['ignore']   = explode(',', $this->options['ignore']);
-        if (!empty($this->options['overview'])) $this->options['overview'] = $this->makeAbsolutePath($this->options['overview'], $this->sourcePath[0]);
+        if (!empty($this->options['ignore'])) {
+            $this->options['ignore'] = explode(',', $this->options['ignore']);
+        }
         $this->doclet = $this->options['doclet'];
 
         $this->verbose('Searching for files to parse...');
@@ -97,22 +98,20 @@ class phpapi {
      */
     private function buildFileList($files, $dir) {
         $list = [];
-        $dir  = realpath($dir);
         if (!$dir) {
             return $list;
         }
 
         $dir = $this->fixPath($dir);
         foreach ($files as $filename) {
-            $filename = $this->makeAbsolutePath(trim($filename), $dir);
-            $globResults = glob($filename);
+            $globResults = glob($dir.$filename);
             if ($globResults) {
                 foreach ($globResults as $file) {
                     $okay = TRUE;
                     if (in_array($file, $this->options['ignore'])) {
-                            $okay = FALSE;
+                        $okay = FALSE;
                     }
-                    if ($okay) $list[] = realpath($file);
+                    if ($okay) $list[] = $file;
                 }
             } elseif (!$this->options['subDirs']) $this->error('Cannot find file "'.$filename.'"');
         }
@@ -123,12 +122,8 @@ class phpapi {
             if ($globResults) {
                 foreach ($globResults as $dirName) {
                     $okay = TRUE;
-                    if (in_array($dirName, $this->options['ignore'])) {
-                        $okay = FALSE;
-                    }
-                    if ($okay && (GLOB_ONLYDIR || is_dir($dirName))) {
-                        $list = array_merge($list, $this->buildFileList($files, $this->makeAbsolutePath($dirName, $this->path)));
-                    }
+                    if (in_array($dirName, $this->options['ignore'])) $okay = FALSE;
+                    if ($okay && (GLOB_ONLYDIR || is_dir($dirName)))  $list = array_merge($list, $this->buildFileList($files, $dirName));
                 }
             }
         }
@@ -148,16 +143,16 @@ class phpapi {
     function &createTag($name, $text, &$data, &$root) {
         $class = substr($name, 1);
         if ($class) {
-            $tagletFile = $this->makeAbsolutePath(TAGLETS.substr($name, 1).'.php', $this->path);
-            if (is_file($tagletFile)) {
+            $tagFile = TAGLETS.substr($name, 1).'.php';
+            if (is_file($tagFile)) {
 
                 # Load taglet for this tag.
-                if (!class_exists($class)) require_once($tagletFile);
+                if (!class_exists($class)) require_once($tagFile);
                 $tag = &new $class($text, $data, $root);
                 return $tag;
 
             } else {
-                $tagFile = $this->makeAbsolutePath(TAGLETS.$class.'Tag.php', $this->path);
+                $tagFile = TAGLETS.$class.'Tag.php';
                 if (is_file($tagFile)) {
 
                     # Load class for this tag.
@@ -276,32 +271,6 @@ class phpapi {
      */
     public function hasPrivateName($name) {
         return substr($name, 0, 1) === '_';
-    }
-
-    /** Turns path into an absolute path using the given prefix.
-     * @param  string $path   Path to make absolute
-     * @param  string $prefix Absolute path to append to relative path
-     * @return string         Absolute path to needed object
-     */
-    public function makeAbsolutePath($path, $prefix) {
-        if (substr($path, 0, 1) === '/'    ||    # Unix root
-            substr($path, 1, 2) === ':\\'  ||    # Windows root
-            substr($path, 0, 2) === '~/'   ||    # Unix home directory
-            substr($path, 0, 2) === '\\\\' ||    # Windows network location
-            preg_match('|^[a-z]+://|', $path))  # Url
-        {
-            return $path;
-
-        } else {
-            if (substr($path, 0, 2) === './') $path = substr($path, 2);
-
-            $absPath = $this->fixPath($prefix).$path;
-            $count = 1;
-            while ($count > 0) {
-                $absPath = preg_replace('|\w+/\.\./|', '', $absPath, -1, $count);
-            }
-            return $absPath;
-        }
     }
 
     /** Merges data of the superclass.
@@ -1033,7 +1002,7 @@ class phpapi {
      * @return string Path to processing source file
      */
     public function sourcePath() {
-        return realpath($this->sourcePath[$this->sourceIndex]);
+        return $this->sourcePath[$this->sourceIndex];
     }
 
     /** Writes a verbose message to standard output.

@@ -238,17 +238,17 @@
 
     <h2 id="details_fields">Поля: детали</h2>
     
-        <div class="location">classes/template.php at line 16</div>
+        <div class="location">lasses/template.php at line 16</div>
         <pre class="signature" id="patterns">private array <strong><span class="green">$patterns</span></strong> = [<br />        <span class="red">'each'</span>      => <span class="red">'#\[each=(.*?)\](.*?)\[\/each.\\1\]#is'</span>,<br />        <span class="red">'foreach'</span>   => <span class="red">'#\[foreach=([\w\_\-]*).([\w\_\-]*).([\w\_\-]*)\](.*?)\[\/foreach.\\1\]#is'</span>,<br />        <span class="red">'for'</span>       => <span class="red">'#\[for=(.*?)\](.*?)\[\/for\]#is'</span>,<br />        <span class="red">'if'</span>        => <span class="red">'#\[if=(.*?)(|\[(.*?)\])\](.*?)\[\/if.\\1\]#is'</span>,<br />        <span class="red">'if_else'</span>   => <span class="red">'#\[if_else=(.*?)(|\[(.*?)\])\](.*)\[else\](.*?)\[\/else\]#is'</span>,<br />        <span class="red">'translate'</span> => <span class="red">'#\(.*?)\#is'</span>,<br />        <span class="red">'value'</span>     => <span class="red">'#\{([\-\#\w]+)(|\[(.*?)\])\}#is'</span><br />    ]</pre>
         <div class="details">Template patterns</div>
         <hr />
     
-        <div class="location">classes/template.php at line 19</div>
+        <div class="location">lasses/template.php at line 19</div>
         <pre class="signature" id="tpl">private string <strong><span class="green">$tpl</span></strong> = <span class="red">''</span></pre>
         <div class="details">Temlate name</div>
         <hr />
     
-        <div class="location">classes/template.php at line 22</div>
+        <div class="location">lasses/template.php at line 22</div>
         <pre class="signature" id="vars">private array <strong><span class="green">$vars</span></strong> = []</pre>
         <div class="details">Template variables</div>
         <hr />
@@ -256,7 +256,7 @@
 
 
     <h2 id="details_constructor">Конструктор: детали</h2>
-    <div class="location">classes/template.php at line 28</div>
+    <div class="location">lasses/template.php at line 28</div>
     <code class="signature" id="__construct">public  void <strong>__construct</strong>(<span class="lilac">object</span> <span class="blue">&$doclet</span>, <span class="lilac">string</span> <span class="blue">$template</span>)</code>
     <div class="details">
         Class initialization
@@ -290,7 +290,7 @@
 
     <h2 id="details_methods">Методы: детали</h2>
     
-        <div class="location">classes/template.php at line 39</div>
+        <div class="location">lasses/template.php at line 39</div>
         <code class="signature" id="__foreach">private  string <strong>__foreach</strong> (<span class="lilac">array</span> <span class="blue">$matches</span>)</code>
         <div class="details">
             Parses control structure FOREACH.
@@ -320,7 +320,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/template.php at line 59</div>
+        <div class="location">lasses/template.php at line 59</div>
         <code class="signature" id="__each">private  string <strong>__each</strong> (<span class="lilac">array</span> <span class="blue">$matches</span>)</code>
         <div class="details">
             Parses control structure EACH.
@@ -350,7 +350,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/template.php at line 159</div>
+        <div class="location">lasses/template.php at line 159</div>
         <code class="signature" id="__for">private  string <strong>__for</strong> (<span class="lilac">array</span> <span class="blue">$matches</span>)</code>
         <div class="details">
             Parses of a control structure FOR.
@@ -380,7 +380,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/template.php at line 174</div>
+        <div class="location">lasses/template.php at line 174</div>
         <code class="signature" id="__if_else">private  string <strong>__if_else</strong> (<span class="lilac">array</span> <span class="blue">$matches</span>)</code>
         <div class="details">
             Parses of a control structure IF ELSE.
@@ -410,7 +410,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/template.php at line 195</div>
+        <div class="location">lasses/template.php at line 195</div>
         <code class="signature" id="__if">private  string <strong>__if</strong> (<span class="lilac">array</span> <span class="blue">$matches</span>)</code>
         <div class="details">
             Parses of a control structure IF.
@@ -440,7 +440,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/template.php at line 230</div>
+        <div class="location">lasses/template.php at line 230</div>
         <code class="signature" id="__value">private  string <strong>__value</strong> (<span class="lilac">array</span> <span class="blue">$matches</span>)</code>
         <div class="details">
             Replaces constants and variables with their values.
@@ -470,7 +470,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/template.php at line 259</div>
+        <div class="location">lasses/template.php at line 259</div>
         <code class="signature" id="__translate">private  string <strong>__translate</strong> (<span class="lilac">array</span> <span class="blue">$matches</span>)</code>
         <div class="details">
             Localization.<br /> Array variable $matches contains:
@@ -500,7 +500,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/template.php at line 268</div>
+        <div class="location">lasses/template.php at line 268</div>
         <code class="signature" id="searchValueInArray">private  mixed <strong>searchValueInArray</strong> (<span class="lilac">mixed</span> <span class="blue">$needle</span>, <span class="lilac">array</span> <span class="blue">$haystack</span>)</code>
         <div class="details">
             Recursive search of the value in a multidimensional array.
@@ -539,7 +539,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/template.php at line 281</div>
+        <div class="location">lasses/template.php at line 281</div>
         <code class="signature" id="parse">public  string <strong>parse</strong> (<span class="lilac">array</span> <span class="blue">$params</span>)</code>
         <div class="details">
             Parses template with given variables.

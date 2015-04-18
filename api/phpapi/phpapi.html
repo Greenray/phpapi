@@ -274,14 +274,6 @@
             </tr>
         
             <tr>
-                <td class="type w_200">public  string</td>
-                <td class="description">
-                    <p><a href="#makeAbsolutePath"><strong><span class="black">makeAbsolutePath</span></strong></a> (<span class="lilac">string</span> <span class="blue">$path</span>, <span class="lilac">string</span> <span class="blue">$prefix</span>)</p>
-                    <p class="description">Turns path into an absolute path using the given prefix.</p>
-                </td>
-            </tr>
-        
-            <tr>
                 <td class="type w_200">public  void</td>
                 <td class="description">
                     <p><a href="#mergeSuperClassData"><strong><span class="black">mergeSuperClassData</span></strong></a> (<a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">&$rootDoc</span>, <span class="lilac">string</span> <span class="blue">$parent</span>)</p>
@@ -352,37 +344,37 @@
 
     <h2 id="details_fields">Поля: детали</h2>
     
-        <div class="location">classes/phpAPI.php at line 20</div>
+        <div class="location">lasses/phpAPI.php at line 20</div>
         <pre class="signature" id="doclet">public string <strong><span class="green">$doclet</span></strong> = <span class="red">''</span></pre>
         <div class="details">Specifies the name of the class that starts the doclet used in generating the documentation</div>
         <hr />
     
-        <div class="location">classes/phpAPI.php at line 23</div>
+        <div class="location">lasses/phpAPI.php at line 23</div>
         <pre class="signature" id="files">public array <strong><span class="green">$files</span></strong> = []</pre>
         <div class="details">Files to parse</div>
         <hr />
     
-        <div class="location">classes/phpAPI.php at line 26</div>
+        <div class="location">lasses/phpAPI.php at line 26</div>
         <pre class="signature" id="options">public array <strong><span class="green">$options</span></strong> = []</pre>
         <div class="details">Options from config file</div>
         <hr />
     
-        <div class="location">classes/phpAPI.php at line 29</div>
+        <div class="location">lasses/phpAPI.php at line 29</div>
         <pre class="signature" id="path">public string <strong><span class="green">$path</span></strong> = <span class="red">'.'</span></pre>
         <div class="details">The path phpapi is running from</div>
         <hr />
     
-        <div class="location">classes/phpAPI.php at line 32</div>
+        <div class="location">lasses/phpAPI.php at line 32</div>
         <pre class="signature" id="sourceIndex">public integer <strong><span class="green">$sourceIndex</span></strong> = 0</pre>
         <div class="details">Number of parsed source files</div>
         <hr />
     
-        <div class="location">classes/phpAPI.php at line 35</div>
+        <div class="location">lasses/phpAPI.php at line 35</div>
         <pre class="signature" id="sourcePath">public string <strong><span class="green">$sourcePath</span></strong> = [<span class="red">'./'</span>]</pre>
         <div class="details">Directory containing files for parsing</div>
         <hr />
     
-        <div class="location">classes/phpAPI.php at line 38</div>
+        <div class="location">lasses/phpAPI.php at line 38</div>
         <pre class="signature" id="startTime">private integer <strong><span class="green">$startTime</span></strong> = 0</pre>
         <div class="details">The time in microseconds of the start of execution</div>
         <hr />
@@ -390,7 +382,7 @@
 
 
     <h2 id="details_constructor">Конструктор: детали</h2>
-    <div class="location">classes/phpAPI.php at line 44</div>
+    <div class="location">lasses/phpAPI.php at line 44</div>
     <code class="signature" id="__construct">public  void <strong>__construct</strong>(<span class="lilac">string</span> <span class="blue">$config</span>)</code>
     <div class="details">
         Constructor.<br /> Parses ini file and creates list of files for processing.
@@ -415,7 +407,7 @@
 
     <h2 id="details_methods">Методы: детали</h2>
     
-        <div class="location">classes/phpAPI.php at line 98</div>
+        <div class="location">lasses/phpAPI.php at line 99</div>
         <code class="signature" id="buildFileList">private  array <strong>buildFileList</strong> (<span class="lilac">array</span> <span class="blue">$files</span>, <span class="lilac">string</span> <span class="blue">$dir</span>)</code>
         <div class="details">
             Builds a complete list of files to parse.<br /> Expands out wildcards and traverse directories if asked to.<br /> This function is recursive.
@@ -454,7 +446,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/phpAPI.php at line 148</div>
+        <div class="location">lasses/phpAPI.php at line 143</div>
         <code class="signature" id="createTag">public  <a href="../tags/tag.html">tag</a> <strong>createTag</strong> (<span class="lilac">string</span> <span class="blue">$name</span>, <span class="lilac">string</span> <span class="blue">$text</span>, <span class="lilac">array</span> <span class="blue">&$data</span>, <a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">$root</span>, <span class="lilac">mixed</span> <span class="blue">&$root</span>)</code>
         <div class="details">
             Creates a tag.<br /> This method first tries to load a Taglet for the given tag name, upon failing it<br /> then tries to load a phpapi specialised tag class (e.g. classes/paramtag.php),<br /> if it still has not found a tag class it uses the standard tag class.
@@ -511,7 +503,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/phpAPI.php at line 185</div>
+        <div class="location">lasses/phpAPI.php at line 182</div>
         <code class="signature" id="getNext">private  array|boolean <strong>getNext</strong> (<span class="lilac">array</span> <span class="blue">&$tokens</span>, <span class="lilac">integer</span> <span class="blue">$key</span>, <span class="lilac">integer</span> <span class="blue">$whatToGet</span>, <span class="lilac">integer</span> <span class="blue">$maxDist</span>)</code>
         <div class="details">
             Gets next token of a certain type from token array.
@@ -568,7 +560,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/phpAPI.php at line 204</div>
+        <div class="location">lasses/phpAPI.php at line 201</div>
         <code class="signature" id="getPrev">private  array|boolean <strong>getPrev</strong> (<span class="lilac">array</span> <span class="blue">&$tokens</span>, <span class="lilac">integer</span> <span class="blue">$key</span>, <span class="lilac">integer</span> <span class="blue">$whatToGet</span>)</code>
         <div class="details">
             Gets previous token of a certain type from token array.
@@ -616,7 +608,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/phpAPI.php at line 219</div>
+        <div class="location">lasses/phpAPI.php at line 216</div>
         <code class="signature" id="getProgramElementName">private  string <strong>getProgramElementName</strong> (<span class="lilac">array</span> <span class="blue">&$tokens</span>, <span class="lilac">integer</span> <span class="blue">$key</span>)</code>
         <div class="details">
             Gets program element name from the token list.
@@ -655,7 +647,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/phpAPI.php at line 242</div>
+        <div class="location">lasses/phpAPI.php at line 239</div>
         <code class="signature" id="getTime">private  integer <strong>getTime</strong> ()</code>
         <div class="details">
             Gets the current time in microseconds.
@@ -676,7 +668,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/phpAPI.php at line 251</div>
+        <div class="location">lasses/phpAPI.php at line 248</div>
         <code class="signature" id="getType">private  string <strong>getType</strong> (<span class="lilac">mixed</span> <span class="blue">$var</span>)</code>
         <div class="details">
             Gets the type of the variable.
@@ -706,7 +698,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/phpAPI.php at line 269</div>
+        <div class="location">lasses/phpAPI.php at line 266</div>
         <code class="signature" id="fixPath">public  string <strong>fixPath</strong> (<span class="lilac">string</span> <span class="blue">$path</span>)</code>
         <div class="details">
             Adds a trailing slash to a path if it does not have one.
@@ -736,7 +728,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/phpAPI.php at line 277</div>
+        <div class="location">lasses/phpAPI.php at line 274</div>
         <code class="signature" id="hasPrivateName">public  boolean <strong>hasPrivateName</strong> (<span class="lilac">string</span> <span class="blue">$name</span>)</code>
         <div class="details">
             Does the given element name conform to the format that is used for private elements?
@@ -758,46 +750,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/phpAPI.php at line 286</div>
-        <code class="signature" id="makeAbsolutePath">public  string <strong>makeAbsolutePath</strong> (<span class="lilac">string</span> <span class="blue">$path</span>, <span class="lilac">string</span> <span class="blue">$prefix</span>)</code>
-        <div class="details">
-            Turns path into an absolute path using the given prefix.
-            <div class="finfo">
-    <table class="hid">
-    
-        <tr>
-            <td class="hid left w_100">Parameters</td>
-            <td class="hid right w_100 lilac">string</td>
-            
-                <td class="hid blue w_100">$path</td>
-                <td class="hid">Path to make absolute</td>
-            
-        </tr>
-    
-        <tr>
-            <td class="hid left w_100">&nbsp</td>
-            <td class="hid right w_100 lilac">string</td>
-            
-                <td class="hid blue w_100">$prefix</td>
-                <td class="hid">Absolute path to append to relative path</td>
-            
-        </tr>
-    
-        <tr>
-            <td class="hid left w_100">Return</td>
-            <td class="hid right w_100 lilac">string</td>
-            
-                <td class="hid" colspan="2">Absolute path to needed object</td>
-            
-        </tr>
-    
-    </table>
-</div>
-
-        </div>
-        <hr />
-    
-        <div class="location">classes/phpAPI.php at line 312</div>
+        <div class="location">lasses/phpAPI.php at line 283</div>
         <code class="signature" id="mergeSuperClassData">public  void <strong>mergeSuperClassData</strong> (<a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">&$rootDoc</span>, <span class="lilac">string</span> <span class="blue">$parent</span>)</code>
         <div class="details">
             Merges data of the superclass.<br /> This function is recursive.
@@ -828,7 +781,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/phpAPI.php at line 325</div>
+        <div class="location">lasses/phpAPI.php at line 296</div>
         <code class="signature" id="parse">public  <a href="../phpapi/rootdoc.html">rootDoc</a> <strong>parse</strong> ()</code>
         <div class="details">
             Parses files into tokens and create rootDoc.
@@ -849,7 +802,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/phpAPI.php at line 918</div>
+        <div class="location">lasses/phpAPI.php at line 889</div>
         <code class="signature" id="execute">public  void <strong>execute</strong> (<a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">$rootDoc</span>, <span class="lilac">mixed</span> <span class="blue">&$rootDoc</span>)</code>
         <div class="details">
             Loads and runs the doclet.
@@ -871,7 +824,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/phpAPI.php at line 960</div>
+        <div class="location">lasses/phpAPI.php at line 931</div>
         <code class="signature" id="processDocComment">public  array <strong>processDocComment</strong> (<span class="lilac">string</span> <span class="blue">$comment</span>, <span class="lilac">array</span> <span class="blue">$rootDoc</span>, <span class="lilac">mixed</span> <span class="blue">&$root</span>)</code>
         <div class="details">
             Process a doc comment into a doc tag array.
@@ -910,7 +863,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/phpAPI.php at line 1035</div>
+        <div class="location">lasses/phpAPI.php at line 1006</div>
         <code class="signature" id="sourcePath">public  string <strong>sourcePath</strong> ()</code>
         <div class="details">
             Returns the source path.
@@ -931,7 +884,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/phpAPI.php at line 1042</div>
+        <div class="location">lasses/phpAPI.php at line 1013</div>
         <code class="signature" id="verbose">public  void <strong>verbose</strong> (<span class="lilac">string</span> <span class="blue">$msg</span>)</code>
         <div class="details">
             Writes a verbose message to standard output.
@@ -953,7 +906,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/phpAPI.php at line 1049</div>
+        <div class="location">lasses/phpAPI.php at line 1020</div>
         <code class="signature" id="error">public  void <strong>error</strong> (<span class="lilac">string</span> <span class="blue">$msg</span>)</code>
         <div class="details">
             Writes an error message to standard error.
@@ -975,7 +928,7 @@
         </div>
         <hr />
     
-        <div class="location">classes/phpAPI.php at line 1056</div>
+        <div class="location">lasses/phpAPI.php at line 1027</div>
         <code class="signature" id="warning">public  void <strong>warning</strong> (<span class="lilac">string</span> <span class="blue">$msg</span>)</code>
         <div class="details">
             Writes a warning message to standard error.

@@ -41,10 +41,9 @@ class frames {
         require 'overviewFrameWriter.php';
         require 'packageFrameWriter.php';
 
-        if (isset($rootDoc->phpapi->options['destination']))
-             $this->destination = $phpapi->makeAbsolutePath($rootDoc->phpapi->options['destination'], $phpapi->sourcePath());
-        else $this->destination = $phpapi->makeAbsolutePath($this->destination,                       $phpapi->sourcePath());
-
+        if (isset($phpapi->options['destination'])) {
+            $this->destination = $phpapi->options['destination'];
+        }
         $this->destination = $phpapi->fixPath($this->destination);
 
         if (is_dir($this->destination))

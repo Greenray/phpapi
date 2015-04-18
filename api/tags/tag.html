@@ -273,27 +273,27 @@
 
     <h2 id="details_fields">Поля: детали</h2>
     
-        <div class="location">taglets/tag.php at line 20</div>
+        <div class="location">aglets/tag.php at line 20</div>
         <pre class="signature" id="name">public string <strong><span class="green">$name</span></strong> = NULL</pre>
         <div class="details">The name of the tag</div>
         <hr />
     
-        <div class="location">taglets/tag.php at line 23</div>
+        <div class="location">aglets/tag.php at line 23</div>
         <pre class="signature" id="parent">public <a href="../phpapi/elementdoc.html">elementDoc</a> <strong><span class="green">$parent</span></strong> = NULL</pre>
         <div class="details">The reference the elements parent</div>
         <hr />
     
-        <div class="location">taglets/tag.php at line 26</div>
+        <div class="location">aglets/tag.php at line 26</div>
         <pre class="signature" id="root">public <a href="../phpapi/rootdoc.html">rootDoc</a> <strong><span class="green">$root</span></strong> = NULL</pre>
         <div class="details">The reference the root element</div>
         <hr />
     
-        <div class="location">taglets/tag.php at line 29</div>
+        <div class="location">aglets/tag.php at line 29</div>
         <pre class="signature" id="text">public string <strong><span class="green">$text</span></strong> = NULL</pre>
         <div class="details">The value of the tag as raw data, without any text processing applied</div>
         <hr />
     
-        <div class="location">taglets/tag.php at line 32</div>
+        <div class="location">aglets/tag.php at line 32</div>
         <pre class="signature" id="type">public string <strong><span class="green">$type</span></strong> = NULL</pre>
         <div class="details">Type of parameter</div>
         <hr />
@@ -304,7 +304,7 @@
 
     <h2 id="details_methods">Методы: детали</h2>
     
-        <div class="location">taglets/tag.php at line 40</div>
+        <div class="location">aglets/tag.php at line 40</div>
         <code class="signature" id="tag">public  void <strong>tag</strong> (<span class="lilac">string</span> <span class="blue">$name</span>, <span class="lilac">string</span> <span class="blue">$text</span>, <a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">&$root</span>, <span class="lilac">string</span> <span class="blue">$type</span>)</code>
         <div class="details">
             Constructor.
@@ -352,7 +352,7 @@
         </div>
         <hr />
     
-        <div class="location">taglets/tag.php at line 50</div>
+        <div class="location">aglets/tag.php at line 50</div>
         <code class="signature" id="displayName">public  string <strong>displayName</strong> ()</code>
         <div class="details">
             Gets display name of this tag.
@@ -360,7 +360,7 @@
         </div>
         <hr />
     
-        <div class="location">taglets/tag.php at line 64</div>
+        <div class="location">aglets/tag.php at line 64</div>
         <code class="signature" id="firstCommentString">public  <a href="../tags/tag.html">tag</a> <strong>firstCommentString</strong> ()</code>
         <div class="details">
             Returns the first sentence of the comment as tags.<br /> Includes inline tags (i.e.  tags) but not regular tags.<br /> Each section of plain text is represented as a tag of kind "Text".<br /> Inline tags are represented as a SeeTag of kind "link".<br /> The sentence ends at the first period that is followed by a space, tab,<br /> or a line terminator, at the first tagline, or closing of a HTML block elements.
@@ -389,7 +389,7 @@
         </div>
         <hr />
     
-        <div class="location">taglets/tag.php at line 76</div>
+        <div class="location">aglets/tag.php at line 76</div>
         <code class="signature" id="getInlineTags">public  <a href="../tags/tag.html">tag</a> <strong>getInlineTags</strong> (<span class="lilac">string</span> <span class="blue">$text</span>)</code>
         <div class="details">
             Parses out inline tags from within a text string.
@@ -419,7 +419,7 @@
         </div>
         <hr />
     
-        <div class="location">taglets/tag.php at line 122</div>
+        <div class="location">aglets/tag.php at line 122</div>
         <code class="signature" id="inlineTags">public  <a href="../tags/tag.html">tag</a> <strong>inlineTags</strong> ()</code>
         <div class="details">
             For documentation comment with embedded @link tags, return the array of tags.<br /> Within a comment string "This is an example of inline tags for a<br /> documentaion comment commentlabel", where inside the inner<br /> braces, the first "Doc" carries exactly the same syntax as a SeeTag and<br /> the second "commentlabel" is label for the HTML link, will return an array<br /> of tags with first element as tag with comment text "This is an example of<br /> inline tags for a documentation comment" and second element as SeeTag with<br /> referenced class as "Doc" and the label for the HTML link as "commentlabel".
@@ -448,7 +448,7 @@
         </div>
         <hr />
     
-        <div class="location">taglets/tag.php at line 129</div>
+        <div class="location">aglets/tag.php at line 129</div>
         <code class="signature" id="setParent">public  void <strong>setParent</strong> (<a href="../phpapi/elementdoc.html">elementDoc</a> <span class="blue">&$element</span>)</code>
         <div class="details">
             Sets this tags parent
@@ -470,7 +470,7 @@
         </div>
         <hr />
     
-        <div class="location">taglets/tag.php at line 136</div>
+        <div class="location">aglets/tag.php at line 136</div>
         <code class="signature" id="inField">public  boolean <strong>inField</strong> ()</code>
         <div class="details">
             Returns TRUE if this Taglet is used in field documentation.
@@ -478,7 +478,7 @@
         </div>
         <hr />
     
-        <div class="location">taglets/tag.php at line 143</div>
+        <div class="location">aglets/tag.php at line 143</div>
         <code class="signature" id="inMethod">public  boolean <strong>inMethod</strong> ()</code>
         <div class="details">
             Returns TRUE if this Taglet is used in method documentation.
@@ -486,7 +486,7 @@
         </div>
         <hr />
     
-        <div class="location">taglets/tag.php at line 150</div>
+        <div class="location">aglets/tag.php at line 150</div>
         <code class="signature" id="inOverview">public  boolean <strong>inOverview</strong> ()</code>
         <div class="details">
             Returns TRUE if this Taglet is used in overview documentation.
@@ -494,7 +494,7 @@
         </div>
         <hr />
     
-        <div class="location">taglets/tag.php at line 157</div>
+        <div class="location">aglets/tag.php at line 157</div>
         <code class="signature" id="inPackage">public  boolean <strong>inPackage</strong> ()</code>
         <div class="details">
             Returns TRUE if this Taglet is used in package documentation.
@@ -502,7 +502,7 @@
         </div>
         <hr />
     
-        <div class="location">taglets/tag.php at line 164</div>
+        <div class="location">aglets/tag.php at line 164</div>
         <code class="signature" id="inType">public  boolean <strong>inType</strong> ()</code>
         <div class="details">
             Returns TRUE if this Taglet is used in class or interface documentation.
