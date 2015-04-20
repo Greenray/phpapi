@@ -1,9 +1,10 @@
 <?php
-/** This generates the HTML API documentation for each global function.
+/**
+ * This generates the HTML API documentation for each global function.
  *
- * @program   phpapi: The PHP Documentation Creator
+ * @program   phpapi: PHP Documentation Creator
  * @file      doclets/html/functionWriter.php
- * @version   4.0
+ * @version   4.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -12,8 +13,10 @@
 
 class functionWriter extends htmlWriter {
 
-    /** Build the function definitons.
-     * @param object &$doclet The reference to the documentation generator
+    /**
+     * Builds the function definitons.
+     *
+     * @param object &$doclet Reference to the documentation generator
      */
     public function __construct(&$doclet, $index) {
         parent::htmlWriter($doclet);

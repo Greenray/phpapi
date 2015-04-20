@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>API for class phpapi (phpAPI: The PHP Documentation Creator ver. 4.0)</title>
+    <title>API for class phpapi (phpAPI: PHP Documentation Creator ver. 4.1)</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="generator" content="phpAPI 4.0 (https://github.com/Greenray/phpAPI/)">
+    <meta name="generator" content="phpAPI 4.1 (https://github.com/Greenray/phpAPI/)">
     <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="start" href="../index.html">
 </head>
 
     <body id="phpapi" onload="parent.document.title=document.title;">
         <div class="header">
-    <span style="float:right">phpAPI ver. 4.0</span>
+    <span style="float:right">phpAPI ver. 4.1</span>
     
         <ul>
         
@@ -54,7 +54,7 @@
 
 
 <hr />
-<p class="signature">public  class <strong>phpapi</strong></p>
+<p class="arguments">public  class <strong>phpapi</strong></p>
 <div class="comment" id="overview_description">php tokenizer and parser.<br /> Particularly the packages, classes and options specified by the user.<br /> It is the root of the parsed tokens and is passed to the doclet to be formatted into output.</div>
 <div class="finfo">
     <table class="hid">
@@ -63,7 +63,7 @@
             <td class="hid left w_100">Program</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
             
-                <td class="hid" colspan="2">phpapi: The PHP Documentation Creator</td>
+                <td class="hid" colspan="2">phpapi: PHP Documentation Creator</td>
             
         </tr>
     
@@ -79,7 +79,7 @@
             <td class="hid left w_100">Version</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
             
-                <td class="hid" colspan="2">4.0</td>
+                <td class="hid" colspan="2">4.1</td>
             
         </tr>
     
@@ -111,7 +111,7 @@
             <td class="hid left w_100">Overview</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
             
-                <td class="hid" colspan="2">The main program package.
+                <td class="hid" colspan="2">Main program package.
  It sets global variables, loads classes, tokenizes and parses php files.
  After that it creates descriptions of the program elements and calls doclet to create documentation pages.</td>
             
@@ -153,7 +153,15 @@
                 <td class="type w_200">public  string</td>
                 <td class="description">
                     <pre><a href="#$path"><span class="green">$path</span></a> = <span class="red">'.'</span></pre>
-                    <p class="description">The path phpapi is running from</p>
+                    <p class="description">Path phpapi is running from</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">public  string</td>
+                <td class="description">
+                    <pre><a href="#$source"><span class="green">$source</span></a> = [<span class="red">'./'</span>]</pre>
+                    <p class="description">Directory containing files for parsing</p>
                 </td>
             </tr>
         
@@ -166,18 +174,10 @@
             </tr>
         
             <tr>
-                <td class="type w_200">public  string</td>
-                <td class="description">
-                    <pre><a href="#$sourcePath"><span class="green">$sourcePath</span></a> = [<span class="red">'./'</span>]</pre>
-                    <p class="description">Directory containing files for parsing</p>
-                </td>
-            </tr>
-        
-            <tr>
                 <td class="type w_200">private  integer</td>
                 <td class="description">
                     <pre><a href="#$startTime"><span class="green">$startTime</span></a> = 0</pre>
-                    <p class="description">The time in microseconds of the start of execution</p>
+                    <p class="description">Time in microseconds of the start of execution</p>
                 </td>
             </tr>
         
@@ -214,6 +214,22 @@
                 <td class="description">
                     <p><a href="#createTag"><strong><span class="black">createTag</span></strong></a> (<span class="lilac">string</span> <span class="blue">$name</span>, <span class="lilac">string</span> <span class="blue">$text</span>, <span class="lilac">array</span> <span class="blue">&$data</span>, <a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">$root</span>, <span class="lilac">mixed</span> <span class="blue">&$root</span>)</p>
                     <p class="description">Creates a tag.</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">private  array</td>
+                <td class="description">
+                    <p><a href="#buildFileList"><strong><span class="black">buildFileList</span></strong></a> (<span class="lilac">array</span> <span class="blue">$files</span>, <span class="lilac">string</span> <span class="blue">$dir</span>)</p>
+                    <p class="description">Builds a complete list of files to parse.</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">public  void</td>
+                <td class="description">
+                    <p><a href="#execute"><strong><span class="black">execute</span></strong></a> (<a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">&$rootDoc</span>)</p>
+                    <p class="description">Loads and runs the doclet.</p>
                 </td>
             </tr>
         
@@ -290,14 +306,6 @@
             </tr>
         
             <tr>
-                <td class="type w_200">public  void</td>
-                <td class="description">
-                    <p><a href="#execute"><strong><span class="black">execute</span></strong></a> (<a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">$rootDoc</span>, <span class="lilac">mixed</span> <span class="blue">&$rootDoc</span>)</p>
-                    <p class="description">Loads and runs the doclet.</p>
-                </td>
-            </tr>
-        
-            <tr>
                 <td class="type w_200">public  array</td>
                 <td class="description">
                     <p><a href="#processDocComment"><strong><span class="black">processDocComment</span></strong></a> (<span class="lilac">string</span> <span class="blue">$comment</span>, <span class="lilac">array</span> <span class="blue">$rootDoc</span>, <span class="lilac">mixed</span> <span class="blue">&$root</span>)</p>
@@ -309,7 +317,7 @@
                 <td class="type w_200">public  string</td>
                 <td class="description">
                     <p><a href="#sourcePath"><strong><span class="black">sourcePath</span></strong></a> ()</p>
-                    <p class="description">Returns the source path.</p>
+                    <p class="description">Returns the path of sources.</p>
                 </td>
             </tr>
         
@@ -344,48 +352,49 @@
 
     <h2 id="details_fields">Поля: детали</h2>
     
-        <div class="location">lasses/phpAPI.php at line 20</div>
-        <pre class="signature" id="doclet">public string <strong><span class="green">$doclet</span></strong> = <span class="red">''</span></pre>
+        <div class="location">classes/phpAPI.php at line 21</div>
+        <pre class="arguments" id="doclet">public string <strong><span class="green">$doclet</span></strong> = <span class="red">''</span></pre>
         <div class="details">Specifies the name of the class that starts the doclet used in generating the documentation</div>
         <hr />
     
-        <div class="location">lasses/phpAPI.php at line 23</div>
-        <pre class="signature" id="files">public array <strong><span class="green">$files</span></strong> = []</pre>
+        <div class="location">classes/phpAPI.php at line 24</div>
+        <pre class="arguments" id="files">public array <strong><span class="green">$files</span></strong> = []</pre>
         <div class="details">Files to parse</div>
         <hr />
     
-        <div class="location">lasses/phpAPI.php at line 26</div>
-        <pre class="signature" id="options">public array <strong><span class="green">$options</span></strong> = []</pre>
+        <div class="location">classes/phpAPI.php at line 27</div>
+        <pre class="arguments" id="options">public array <strong><span class="green">$options</span></strong> = []</pre>
         <div class="details">Options from config file</div>
         <hr />
     
-        <div class="location">lasses/phpAPI.php at line 29</div>
-        <pre class="signature" id="path">public string <strong><span class="green">$path</span></strong> = <span class="red">'.'</span></pre>
-        <div class="details">The path phpapi is running from</div>
+        <div class="location">classes/phpAPI.php at line 30</div>
+        <pre class="arguments" id="path">public string <strong><span class="green">$path</span></strong> = <span class="red">'.'</span></pre>
+        <div class="details">Path phpapi is running from</div>
         <hr />
     
-        <div class="location">lasses/phpAPI.php at line 32</div>
-        <pre class="signature" id="sourceIndex">public integer <strong><span class="green">$sourceIndex</span></strong> = 0</pre>
-        <div class="details">Number of parsed source files</div>
-        <hr />
-    
-        <div class="location">lasses/phpAPI.php at line 35</div>
-        <pre class="signature" id="sourcePath">public string <strong><span class="green">$sourcePath</span></strong> = [<span class="red">'./'</span>]</pre>
+        <div class="location">classes/phpAPI.php at line 36</div>
+        <pre class="arguments" id="source">public string <strong><span class="green">$source</span></strong> = [<span class="red">'./'</span>]</pre>
         <div class="details">Directory containing files for parsing</div>
         <hr />
     
-        <div class="location">lasses/phpAPI.php at line 38</div>
-        <pre class="signature" id="startTime">private integer <strong><span class="green">$startTime</span></strong> = 0</pre>
-        <div class="details">The time in microseconds of the start of execution</div>
+        <div class="location">classes/phpAPI.php at line 33</div>
+        <pre class="arguments" id="sourceIndex">public integer <strong><span class="green">$sourceIndex</span></strong> = 0</pre>
+        <div class="details">Number of parsed source files</div>
+        <hr />
+    
+        <div class="location">classes/phpAPI.php at line 39</div>
+        <pre class="arguments" id="startTime">private integer <strong><span class="green">$startTime</span></strong> = 0</pre>
+        <div class="details">Time in microseconds of the start of execution</div>
         <hr />
     
 
 
     <h2 id="details_constructor">Конструктор: детали</h2>
-    <div class="location">lasses/phpAPI.php at line 44</div>
-    <code class="signature" id="__construct">public  void <strong>__construct</strong>(<span class="lilac">string</span> <span class="blue">$config</span>)</code>
+    <div class="location">classes/phpAPI.php at line 47</div>
+    <code class="arguments" id="__construct">public  void <strong>__construct</strong>(<span class="lilac">string</span> <span class="blue">$config</span>)</code>
     <div class="details">
-        Constructor.<br /> Parses ini file and creates list of files for processing.
+        
+        <p class="description">Constructor.<br /> Parses ini file and creates list of files for processing.</p>
         <div class="finfo">
     <table class="hid">
     
@@ -393,8 +402,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$config</td>
-                <td class="hid">phpai configuration file (Default = <span class="red">'default.ini'</span>)</td>
+                <td class="hid" colspan="2">phpai configuration file (Default = <span class="red">'phpapi.ini'</span>)</td>
             
         </tr>
     
@@ -407,10 +415,11 @@
 
     <h2 id="details_methods">Методы: детали</h2>
     
-        <div class="location">lasses/phpAPI.php at line 99</div>
-        <code class="signature" id="buildFileList">private  array <strong>buildFileList</strong> (<span class="lilac">array</span> <span class="blue">$files</span>, <span class="lilac">string</span> <span class="blue">$dir</span>)</code>
+        <div class="location">classes/phpAPI.php at line 102</div>
+        <code class="arguments" id="buildFileList">private  array <strong>buildFileList</strong> (<span class="lilac">array</span> <span class="blue">$files</span>, <span class="lilac">string</span> <span class="blue">$dir</span>)</code>
         <div class="details">
-            Builds a complete list of files to parse.<br /> Expands out wildcards and traverse directories if asked to.<br /> This function is recursive.
+            
+            <p class="description">Builds a complete list of files to parse.<br /> Expands out wildcards and traverse directories if asked to.<br /> This function is recursive.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -418,8 +427,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">array</td>
             
-                <td class="hid blue w_100">$files</td>
-                <td class="hid">Filenames or wildcards</td>
+                <td class="hid" colspan="2">Filenames or wildcards</td>
             
         </tr>
     
@@ -427,8 +435,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$dir</td>
-                <td class="hid">Directory to scan</td>
+                <td class="hid" colspan="2">Directory to scan</td>
             
         </tr>
     
@@ -436,7 +443,7 @@
             <td class="hid left w_100">Return</td>
             <td class="hid right w_100 lilac">array</td>
             
-                <td class="hid" colspan="2">List of files</td>
+                <td class="hid" colspan="2">List of files to parse</td>
             
         </tr>
     
@@ -446,10 +453,11 @@
         </div>
         <hr />
     
-        <div class="location">lasses/phpAPI.php at line 143</div>
-        <code class="signature" id="createTag">public  <a href="../tags/tag.html">tag</a> <strong>createTag</strong> (<span class="lilac">string</span> <span class="blue">$name</span>, <span class="lilac">string</span> <span class="blue">$text</span>, <span class="lilac">array</span> <span class="blue">&$data</span>, <a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">$root</span>, <span class="lilac">mixed</span> <span class="blue">&$root</span>)</code>
+        <div class="location">classes/phpAPI.php at line 151</div>
+        <code class="arguments" id="createTag">public  <a href="../tags/tag.html">tag</a> <strong>createTag</strong> (<span class="lilac">string</span> <span class="blue">$name</span>, <span class="lilac">string</span> <span class="blue">$text</span>, <span class="lilac">array</span> <span class="blue">&$data</span>, <a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">$root</span>, <span class="lilac">mixed</span> <span class="blue">&$root</span>)</code>
         <div class="details">
-            Creates a tag.<br /> This method first tries to load a Taglet for the given tag name, upon failing it<br /> then tries to load a phpapi specialised tag class (e.g. classes/paramtag.php),<br /> if it still has not found a tag class it uses the standard tag class.
+            
+            <p class="description">Creates a tag.<br /> This method first tries to load a Taglet for the given tag name, upon failing it<br /> then tries to load a phpapi specialised tag class (e.g. classes/paramtag.php),<br /> if it still has not found a tag class it uses the standard tag class.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -457,8 +465,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$name</td>
-                <td class="hid">The name of the tag</td>
+                <td class="hid" colspan="2">Name of the tag</td>
             
         </tr>
     
@@ -466,8 +473,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$text</td>
-                <td class="hid">The contents of the tag</td>
+                <td class="hid" colspan="2">Contents of the tag</td>
             
         </tr>
     
@@ -475,8 +481,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">array</td>
             
-                <td class="hid blue w_100">&$data</td>
-                <td class="hid">The reference to the doc comment data array</td>
+                <td class="hid" colspan="2">Reference to the doc comment data array</td>
             
         </tr>
     
@@ -484,8 +489,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac"><a href="../phpapi/rootdoc.html">rootDoc</a></td>
             
-                <td class="hid blue w_100">$root</td>
-                <td class="hid">The reference to the root element</td>
+                <td class="hid" colspan="2">Reference to the root element</td>
             
         </tr>
     
@@ -503,10 +507,11 @@
         </div>
         <hr />
     
-        <div class="location">lasses/phpAPI.php at line 182</div>
-        <code class="signature" id="getNext">private  array|boolean <strong>getNext</strong> (<span class="lilac">array</span> <span class="blue">&$tokens</span>, <span class="lilac">integer</span> <span class="blue">$key</span>, <span class="lilac">integer</span> <span class="blue">$whatToGet</span>, <span class="lilac">integer</span> <span class="blue">$maxDist</span>)</code>
+        <div class="location">classes/phpAPI.php at line 102</div>
+        <code class="arguments" id="buildFileList">private  array <strong>buildFileList</strong> (<span class="lilac">array</span> <span class="blue">$files</span>, <span class="lilac">string</span> <span class="blue">$dir</span>)</code>
         <div class="details">
-            Gets next token of a certain type from token array.
+            
+            <p class="description">Builds a complete list of files to parse.<br /> Expands out wildcards and traverse directories if asked to.<br /> This function is recursive.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -514,8 +519,67 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">array</td>
             
-                <td class="hid blue w_100">&$tokens</td>
-                <td class="hid">The reference to the array of tokens to search</td>
+                <td class="hid" colspan="2">Filenames or wildcards</td>
+            
+        </tr>
+    
+        <tr>
+            <td class="hid left w_100">&nbsp</td>
+            <td class="hid right w_100 lilac">string</td>
+            
+                <td class="hid" colspan="2">Directory to scan</td>
+            
+        </tr>
+    
+        <tr>
+            <td class="hid left w_100">Return</td>
+            <td class="hid right w_100 lilac">array</td>
+            
+                <td class="hid" colspan="2">List of files to parse</td>
+            
+        </tr>
+    
+    </table>
+</div>
+
+        </div>
+        <hr />
+    
+        <div class="location">classes/phpAPI.php at line 190</div>
+        <code class="arguments" id="execute">public  void <strong>execute</strong> (<a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">&$rootDoc</span>)</code>
+        <div class="details">
+            
+            <p class="description">Loads and runs the doclet.</p>
+            <div class="finfo">
+    <table class="hid">
+    
+        <tr>
+            <td class="hid left w_100">Parameters</td>
+            <td class="hid right w_100 lilac"><a href="../phpapi/rootdoc.html">rootDoc</a></td>
+            
+                <td class="hid" colspan="2">Reference to root document</td>
+            
+        </tr>
+    
+    </table>
+</div>
+
+        </div>
+        <hr />
+    
+        <div class="location">classes/phpAPI.php at line 236</div>
+        <code class="arguments" id="getNext">private  array|boolean <strong>getNext</strong> (<span class="lilac">array</span> <span class="blue">&$tokens</span>, <span class="lilac">integer</span> <span class="blue">$key</span>, <span class="lilac">integer</span> <span class="blue">$whatToGet</span>, <span class="lilac">integer</span> <span class="blue">$maxDist</span>)</code>
+        <div class="details">
+            
+            <p class="description">Gets next token of a certain type from token array.</p>
+            <div class="finfo">
+    <table class="hid">
+    
+        <tr>
+            <td class="hid left w_100">Parameters</td>
+            <td class="hid right w_100 lilac">array</td>
+            
+                <td class="hid" colspan="2">Reference to the array of tokens to search</td>
             
         </tr>
     
@@ -523,8 +587,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">integer</td>
             
-                <td class="hid blue w_100">$key</td>
-                <td class="hid">Key to start searching from</td>
+                <td class="hid" colspan="2">Key to start searching from</td>
             
         </tr>
     
@@ -532,8 +595,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">integer</td>
             
-                <td class="hid blue w_100">$whatToGet</td>
-                <td class="hid">Type of token to look for</td>
+                <td class="hid" colspan="2">Type of token to look for</td>
             
         </tr>
     
@@ -541,8 +603,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">integer</td>
             
-                <td class="hid blue w_100">$maxDist</td>
-                <td class="hid">Optional max distance from key to look at (default is 0 for all)</td>
+                <td class="hid" colspan="2">Optional max distance from key to look at (default is 0 for all)</td>
             
         </tr>
     
@@ -560,10 +621,11 @@
         </div>
         <hr />
     
-        <div class="location">lasses/phpAPI.php at line 201</div>
-        <code class="signature" id="getPrev">private  array|boolean <strong>getPrev</strong> (<span class="lilac">array</span> <span class="blue">&$tokens</span>, <span class="lilac">integer</span> <span class="blue">$key</span>, <span class="lilac">integer</span> <span class="blue">$whatToGet</span>)</code>
+        <div class="location">classes/phpAPI.php at line 257</div>
+        <code class="arguments" id="getPrev">private  array|boolean <strong>getPrev</strong> (<span class="lilac">array</span> <span class="blue">&$tokens</span>, <span class="lilac">integer</span> <span class="blue">$key</span>, <span class="lilac">integer</span> <span class="blue">$whatToGet</span>)</code>
         <div class="details">
-            Gets previous token of a certain type from token array.
+            
+            <p class="description">Gets previous token of a certain type from token array.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -571,8 +633,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">array</td>
             
-                <td class="hid blue w_100">&$tokens</td>
-                <td class="hid">The reference the array of tokens to search</td>
+                <td class="hid" colspan="2">Reference the array of tokens to search</td>
             
         </tr>
     
@@ -580,8 +641,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">integer</td>
             
-                <td class="hid blue w_100">$key</td>
-                <td class="hid">Key to start searching from</td>
+                <td class="hid" colspan="2">Key to start searching from</td>
             
         </tr>
     
@@ -589,8 +649,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">integer</td>
             
-                <td class="hid blue w_100">$whatToGet</td>
-                <td class="hid">Type of token to look for</td>
+                <td class="hid" colspan="2">Type of token to look for</td>
             
         </tr>
     
@@ -608,10 +667,11 @@
         </div>
         <hr />
     
-        <div class="location">lasses/phpAPI.php at line 216</div>
-        <code class="signature" id="getProgramElementName">private  string <strong>getProgramElementName</strong> (<span class="lilac">array</span> <span class="blue">&$tokens</span>, <span class="lilac">integer</span> <span class="blue">$key</span>)</code>
+        <div class="location">classes/phpAPI.php at line 274</div>
+        <code class="arguments" id="getProgramElementName">private  string <strong>getProgramElementName</strong> (<span class="lilac">array</span> <span class="blue">&$tokens</span>, <span class="lilac">integer</span> <span class="blue">$key</span>)</code>
         <div class="details">
-            Gets program element name from the token list.
+            
+            <p class="description">Gets program element name from the token list.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -619,8 +679,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">array</td>
             
-                <td class="hid blue w_100">&$tokens</td>
-                <td class="hid">The reference the array of tokens</td>
+                <td class="hid" colspan="2">Reference the array of tokens</td>
             
         </tr>
     
@@ -628,8 +687,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">integer</td>
             
-                <td class="hid blue w_100">$key</td>
-                <td class="hid">Key to start searching from</td>
+                <td class="hid" colspan="2">Key to start searching from</td>
             
         </tr>
     
@@ -647,10 +705,11 @@
         </div>
         <hr />
     
-        <div class="location">lasses/phpAPI.php at line 239</div>
-        <code class="signature" id="getTime">private  integer <strong>getTime</strong> ()</code>
+        <div class="location">classes/phpAPI.php at line 299</div>
+        <code class="arguments" id="getTime">private  integer <strong>getTime</strong> ()</code>
         <div class="details">
-            Gets the current time in microseconds.
+            
+            <p class="description">Gets the current time in microseconds.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -668,10 +727,11 @@
         </div>
         <hr />
     
-        <div class="location">lasses/phpAPI.php at line 248</div>
-        <code class="signature" id="getType">private  string <strong>getType</strong> (<span class="lilac">mixed</span> <span class="blue">$var</span>)</code>
+        <div class="location">classes/phpAPI.php at line 310</div>
+        <code class="arguments" id="getType">private  string <strong>getType</strong> (<span class="lilac">mixed</span> <span class="blue">$var</span>)</code>
         <div class="details">
-            Gets the type of the variable.
+            
+            <p class="description">Gets the type of the variable.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -679,8 +739,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">mixed</td>
             
-                <td class="hid blue w_100">$var</td>
-                <td class="hid">Variable</td>
+                <td class="hid" colspan="2">Variable</td>
             
         </tr>
     
@@ -688,7 +747,7 @@
             <td class="hid left w_100">Return</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid" colspan="2">The type of the variable</td>
+                <td class="hid" colspan="2">Type of the variable</td>
             
         </tr>
     
@@ -698,10 +757,11 @@
         </div>
         <hr />
     
-        <div class="location">lasses/phpAPI.php at line 266</div>
-        <code class="signature" id="fixPath">public  string <strong>fixPath</strong> (<span class="lilac">string</span> <span class="blue">$path</span>)</code>
+        <div class="location">classes/phpAPI.php at line 330</div>
+        <code class="arguments" id="fixPath">public  string <strong>fixPath</strong> (<span class="lilac">string</span> <span class="blue">$path</span>)</code>
         <div class="details">
-            Adds a trailing slash to a path if it does not have one.
+            
+            <p class="description">Adds a trailing slash to a path if it does not have one.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -709,8 +769,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$path</td>
-                <td class="hid">Path to fix</td>
+                <td class="hid" colspan="2">Path to fix</td>
             
         </tr>
     
@@ -728,10 +787,11 @@
         </div>
         <hr />
     
-        <div class="location">lasses/phpAPI.php at line 274</div>
-        <code class="signature" id="hasPrivateName">public  boolean <strong>hasPrivateName</strong> (<span class="lilac">string</span> <span class="blue">$name</span>)</code>
+        <div class="location">classes/phpAPI.php at line 340</div>
+        <code class="arguments" id="hasPrivateName">public  boolean <strong>hasPrivateName</strong> (<span class="lilac">string</span> <span class="blue">$name</span>)</code>
         <div class="details">
-            Does the given element name conform to the format that is used for private elements?
+            
+            <p class="description">Does the given element name conform to the format that is used for private elements?</p>
             <div class="finfo">
     <table class="hid">
     
@@ -739,8 +799,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$name</td>
-                <td class="hid">Name to check</td>
+                <td class="hid" colspan="2">Name to check</td>
             
         </tr>
     
@@ -750,10 +809,11 @@
         </div>
         <hr />
     
-        <div class="location">lasses/phpAPI.php at line 283</div>
-        <code class="signature" id="mergeSuperClassData">public  void <strong>mergeSuperClassData</strong> (<a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">&$rootDoc</span>, <span class="lilac">string</span> <span class="blue">$parent</span>)</code>
+        <div class="location">classes/phpAPI.php at line 351</div>
+        <code class="arguments" id="mergeSuperClassData">public  void <strong>mergeSuperClassData</strong> (<a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">&$rootDoc</span>, <span class="lilac">string</span> <span class="blue">$parent</span>)</code>
         <div class="details">
-            Merges data of the superclass.<br /> This function is recursive.
+            
+            <p class="description">Merges data of the superclass.<br /> This function is recursive.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -761,8 +821,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac"><a href="../phpapi/rootdoc.html">rootDoc</a></td>
             
-                <td class="hid blue w_100">&$rootDoc</td>
-                <td class="hid">The reference to the root element</td>
+                <td class="hid" colspan="2">Reference to the root element</td>
             
         </tr>
     
@@ -770,8 +829,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$parent</td>
-                <td class="hid">Superclass (Default = NULL)</td>
+                <td class="hid" colspan="2">Superclass (Default = NULL)</td>
             
         </tr>
     
@@ -781,10 +839,11 @@
         </div>
         <hr />
     
-        <div class="location">lasses/phpAPI.php at line 296</div>
-        <code class="signature" id="parse">public  <a href="../phpapi/rootdoc.html">rootDoc</a> <strong>parse</strong> ()</code>
+        <div class="location">classes/phpAPI.php at line 366</div>
+        <code class="arguments" id="parse">public  <a href="../phpapi/rootdoc.html">rootDoc</a> <strong>parse</strong> ()</code>
         <div class="details">
-            Parses files into tokens and create rootDoc.
+            
+            <p class="description">Parses files into tokens and create rootDoc.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -792,7 +851,7 @@
             <td class="hid left w_100">Return</td>
             <td class="hid right w_100 lilac">rootDoc</td>
             
-                <td class="hid" colspan="2">The reference to the root element</td>
+                <td class="hid" colspan="2">Reference to the root element</td>
             
         </tr>
     
@@ -802,32 +861,11 @@
         </div>
         <hr />
     
-        <div class="location">lasses/phpAPI.php at line 889</div>
-        <code class="signature" id="execute">public  void <strong>execute</strong> (<a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">$rootDoc</span>, <span class="lilac">mixed</span> <span class="blue">&$rootDoc</span>)</code>
+        <div class="location">classes/phpAPI.php at line 991</div>
+        <code class="arguments" id="processDocComment">public  array <strong>processDocComment</strong> (<span class="lilac">string</span> <span class="blue">$comment</span>, <span class="lilac">array</span> <span class="blue">$rootDoc</span>, <span class="lilac">mixed</span> <span class="blue">&$root</span>)</code>
         <div class="details">
-            Loads and runs the doclet.
-            <div class="finfo">
-    <table class="hid">
-    
-        <tr>
-            <td class="hid left w_100">Parameters</td>
-            <td class="hid right w_100 lilac"><a href="../phpapi/rootdoc.html">rootDoc</a></td>
             
-                <td class="hid blue w_100">$rootDoc</td>
-                <td class="hid">The root of the parsed tokens</td>
-            
-        </tr>
-    
-    </table>
-</div>
-
-        </div>
-        <hr />
-    
-        <div class="location">lasses/phpAPI.php at line 931</div>
-        <code class="signature" id="processDocComment">public  array <strong>processDocComment</strong> (<span class="lilac">string</span> <span class="blue">$comment</span>, <span class="lilac">array</span> <span class="blue">$rootDoc</span>, <span class="lilac">mixed</span> <span class="blue">&$root</span>)</code>
-        <div class="details">
-            Process a doc comment into a doc tag array.
+            <p class="description">Process a doc comment into a doc tag array.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -835,8 +873,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$comment</td>
-                <td class="hid">The comment to process</td>
+                <td class="hid" colspan="2">Comment to process</td>
             
         </tr>
     
@@ -844,8 +881,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">array</td>
             
-                <td class="hid blue w_100">$rootDoc</td>
-                <td class="hid">The reference the root of the parsed tokens</td>
+                <td class="hid" colspan="2">Reference the root of the parsed tokens</td>
             
         </tr>
     
@@ -863,10 +899,11 @@
         </div>
         <hr />
     
-        <div class="location">lasses/phpAPI.php at line 1006</div>
-        <code class="signature" id="sourcePath">public  string <strong>sourcePath</strong> ()</code>
+        <div class="location">classes/phpAPI.php at line 1075</div>
+        <code class="arguments" id="sourcePath">public  string <strong>sourcePath</strong> ()</code>
         <div class="details">
-            Returns the source path.
+            
+            <p class="description">Returns the path of sources.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -884,10 +921,11 @@
         </div>
         <hr />
     
-        <div class="location">lasses/phpAPI.php at line 1013</div>
-        <code class="signature" id="verbose">public  void <strong>verbose</strong> (<span class="lilac">string</span> <span class="blue">$msg</span>)</code>
+        <div class="location">classes/phpAPI.php at line 1084</div>
+        <code class="arguments" id="verbose">public  void <strong>verbose</strong> (<span class="lilac">string</span> <span class="blue">$msg</span>)</code>
         <div class="details">
-            Writes a verbose message to standard output.
+            
+            <p class="description">Writes a verbose message to standard output.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -895,8 +933,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$msg</td>
-                <td class="hid">Verbose message to output</td>
+                <td class="hid" colspan="2">Verbose message to output</td>
             
         </tr>
     
@@ -906,10 +943,11 @@
         </div>
         <hr />
     
-        <div class="location">lasses/phpAPI.php at line 1020</div>
-        <code class="signature" id="error">public  void <strong>error</strong> (<span class="lilac">string</span> <span class="blue">$msg</span>)</code>
+        <div class="location">classes/phpAPI.php at line 1093</div>
+        <code class="arguments" id="error">public  void <strong>error</strong> (<span class="lilac">string</span> <span class="blue">$msg</span>)</code>
         <div class="details">
-            Writes an error message to standard error.
+            
+            <p class="description">Writes an error message to standard error.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -917,8 +955,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$msg</td>
-                <td class="hid">Error message to output</td>
+                <td class="hid" colspan="2">Error message to output</td>
             
         </tr>
     
@@ -928,10 +965,11 @@
         </div>
         <hr />
     
-        <div class="location">lasses/phpAPI.php at line 1027</div>
-        <code class="signature" id="warning">public  void <strong>warning</strong> (<span class="lilac">string</span> <span class="blue">$msg</span>)</code>
+        <div class="location">classes/phpAPI.php at line 1102</div>
+        <code class="arguments" id="warning">public  void <strong>warning</strong> (<span class="lilac">string</span> <span class="blue">$msg</span>)</code>
         <div class="details">
-            Writes a warning message to standard error.
+            
+            <p class="description">Writes a warning message to standard error.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -939,8 +977,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$msg</td>
-                <td class="hid">Warning message to output</td>
+                <td class="hid" colspan="2">Warning message to output</td>
             
         </tr>
     
@@ -954,7 +991,7 @@
 
 
         <div class="header">
-    <span style="float:right">phpAPI ver. 4.0</span>
+    <span style="float:right">phpAPI ver. 4.1</span>
     
         <ul>
         

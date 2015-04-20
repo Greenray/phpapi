@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>API for class doc (phpAPI: The PHP Documentation Creator ver. 4.0)</title>
+    <title>API for class doc (phpAPI: PHP Documentation Creator ver. 4.1)</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="generator" content="phpAPI 4.0 (https://github.com/Greenray/phpAPI/)">
+    <meta name="generator" content="phpAPI 4.1 (https://github.com/Greenray/phpAPI/)">
     <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="start" href="../index.html">
 </head>
 
     <body id="doc" onload="parent.document.title=document.title;">
         <div class="header">
-    <span style="float:right">phpAPI ver. 4.0</span>
+    <span style="float:right">phpAPI ver. 4.1</span>
     
         <ul>
         
@@ -59,7 +59,7 @@
     </dl>
 
 <hr />
-<p class="signature">public  class <strong>doc</strong></p>
+<p class="arguments">public  class <strong>doc</strong></p>
 <div class="comment" id="overview_description">Base class of all Doc classes.<br /> Doc item's are representations of PHP language constructs (class, package, method,...)<br /> which have comments and have been processed by this run of phpapi.</div>
 <div class="finfo">
     <table class="hid">
@@ -68,7 +68,7 @@
             <td class="hid left w_100">Program</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
             
-                <td class="hid" colspan="2">phpapi: The PHP Documentation Creator</td>
+                <td class="hid" colspan="2">phpapi: PHP Documentation Creator</td>
             
         </tr>
     
@@ -84,7 +84,7 @@
             <td class="hid left w_100">Version</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
             
-                <td class="hid" colspan="2">4.0</td>
+                <td class="hid" colspan="2">4.1</td>
             
         </tr>
     
@@ -140,7 +140,7 @@
                 <td class="type w_200">public  string</td>
                 <td class="description">
                     <pre><a href="#$docComment"><span class="green">$docComment</span></a> = <span class="red">''</span></pre>
-                    <p class="description">The unprocessed doc comment</p>
+                    <p class="description">Unprocessed doc comment</p>
                 </td>
             </tr>
         
@@ -156,7 +156,7 @@
                 <td class="type w_200">public  string</td>
                 <td class="description">
                     <pre><a href="#$name"><span class="green">$name</span></a> = NULL</pre>
-                    <p class="description">The name of this construct</p>
+                    <p class="description">Name of this construct</p>
                 </td>
             </tr>
         
@@ -172,7 +172,7 @@
                 <td class="type w_200">public  <a href="../phpapi/rootdoc.html">rootDoc</a></td>
                 <td class="description">
                     <pre><a href="#$root"><span class="green">$root</span></a> = NULL</pre>
-                    <p class="description">The reference the root element</p>
+                    <p class="description">Reference the root element</p>
                 </td>
             </tr>
         
@@ -315,53 +315,54 @@
 
     <h2 id="details_fields">Поля: детали</h2>
     
-        <div class="location">lasses/doc.php at line 22</div>
-        <pre class="signature" id="data">public mixed <strong><span class="green">$data</span></strong> = NULL</pre>
+        <div class="location">classes/doc.php at line 25</div>
+        <pre class="arguments" id="data">public mixed <strong><span class="green">$data</span></strong> = NULL</pre>
         <div class="details">Data about the element creamed from the token stream before the object for this element was created.<br /> This array contains extra data about the element that occurs before the element definition in the token<br /> stream (including doc comment data), it is merged with the objects fields upon object completion.</div>
         <hr />
     
-        <div class="location">lasses/doc.php at line 25</div>
-        <pre class="signature" id="desc">public string <strong><span class="green">$desc</span></strong></pre>
+        <div class="location">classes/doc.php at line 28</div>
+        <pre class="arguments" id="desc">public string <strong><span class="green">$desc</span></strong></pre>
         <div class="details">Description of the package</div>
         <hr />
     
-        <div class="location">lasses/doc.php at line 28</div>
-        <pre class="signature" id="docComment">public string <strong><span class="green">$docComment</span></strong> = <span class="red">''</span></pre>
-        <div class="details">The unprocessed doc comment</div>
+        <div class="location">classes/doc.php at line 31</div>
+        <pre class="arguments" id="docComment">public string <strong><span class="green">$docComment</span></strong> = <span class="red">''</span></pre>
+        <div class="details">Unprocessed doc comment</div>
         <hr />
     
-        <div class="location">lasses/doc.php at line 31</div>
-        <pre class="signature" id="inBody">public integer <strong><span class="green">$inBody</span></strong> = 0</pre>
+        <div class="location">classes/doc.php at line 34</div>
+        <pre class="arguments" id="inBody">public integer <strong><span class="green">$inBody</span></strong> = 0</pre>
         <div class="details">Whether parsing is inside this elements curly braces</div>
         <hr />
     
-        <div class="location">lasses/doc.php at line 34</div>
-        <pre class="signature" id="name">public string <strong><span class="green">$name</span></strong> = NULL</pre>
-        <div class="details">The name of this construct</div>
+        <div class="location">classes/doc.php at line 37</div>
+        <pre class="arguments" id="name">public string <strong><span class="green">$name</span></strong> = NULL</pre>
+        <div class="details">Name of this construct</div>
         <hr />
     
-        <div class="location">lasses/doc.php at line 37</div>
-        <pre class="signature" id="overview">public mixed <strong><span class="green">$overview</span></strong></pre>
+        <div class="location">classes/doc.php at line 40</div>
+        <pre class="arguments" id="overview">public mixed <strong><span class="green">$overview</span></strong></pre>
         <div class="details">Detailed package description</div>
         <hr />
     
-        <div class="location">lasses/doc.php at line 40</div>
-        <pre class="signature" id="root">public <a href="../phpapi/rootdoc.html">rootDoc</a> <strong><span class="green">$root</span></strong> = NULL</pre>
-        <div class="details">The reference the root element</div>
+        <div class="location">classes/doc.php at line 43</div>
+        <pre class="arguments" id="root">public <a href="../phpapi/rootdoc.html">rootDoc</a> <strong><span class="green">$root</span></strong> = NULL</pre>
+        <div class="details">Reference the root element</div>
         <hr />
     
-        <div class="location">lasses/doc.php at line 43</div>
-        <pre class="signature" id="tags">public <a href="../tags/tag.html">tag</a> <strong><span class="green">$tags</span></strong> = []</pre>
+        <div class="location">classes/doc.php at line 46</div>
+        <pre class="arguments" id="tags">public <a href="../tags/tag.html">tag</a> <strong><span class="green">$tags</span></strong> = []</pre>
         <div class="details">Array of doc tags</div>
         <hr />
     
 
 
     <h2 id="details_constructor">Конструктор: детали</h2>
-    <div class="location">lasses/doc.php at line 46</div>
-    <code class="signature" id="__construct">public  void <strong>__construct</strong>()</code>
+    <div class="location">classes/doc.php at line 49</div>
+    <code class="arguments" id="__construct">public  void <strong>__construct</strong>()</code>
     <div class="details">
-        Constructor.
+        
+        <p class="description">Constructor.</p>
         
     </div>
 
@@ -369,10 +370,11 @@
 
     <h2 id="details_methods">Методы: детали</h2>
     
-        <div class="location">lasses/doc.php at line 53</div>
-        <code class="signature" id="set">public  boolean <strong>set</strong> (<span class="lilac">string</span> <span class="blue">$member</span>, <span class="lilac">mixed</span> <span class="blue">$value</span>)</code>
+        <div class="location">classes/doc.php at line 58</div>
+        <code class="arguments" id="set">public  boolean <strong>set</strong> (<span class="lilac">string</span> <span class="blue">$member</span>, <span class="lilac">mixed</span> <span class="blue">$value</span>)</code>
         <div class="details">
-            Setter method.
+            
+            <p class="description">Setter method.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -380,8 +382,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$member</td>
-                <td class="hid">Name of the member to set</td>
+                <td class="hid" colspan="2">Name of the member to set</td>
             
         </tr>
     
@@ -389,8 +390,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">mixed</td>
             
-                <td class="hid blue w_100">$value</td>
-                <td class="hid">The value to set member to</td>
+                <td class="hid" colspan="2">Value to set member to</td>
             
         </tr>
     
@@ -400,10 +400,11 @@
         </div>
         <hr />
     
-        <div class="location">lasses/doc.php at line 69</div>
-        <code class="signature" id="setByRef">public  boolean <strong>setByRef</strong> (<span class="lilac">string</span> <span class="blue">$member</span>, <span class="lilac">mixed</span> <span class="blue">&$value</span>)</code>
+        <div class="location">classes/doc.php at line 76</div>
+        <code class="arguments" id="setByRef">public  boolean <strong>setByRef</strong> (<span class="lilac">string</span> <span class="blue">$member</span>, <span class="lilac">mixed</span> <span class="blue">&$value</span>)</code>
         <div class="details">
-            Setter by reference method.
+            
+            <p class="description">Setter by reference method.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -411,8 +412,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$member</td>
-                <td class="hid">Name of the member to set</td>
+                <td class="hid" colspan="2">Name of the member to set</td>
             
         </tr>
     
@@ -420,8 +420,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">mixed</td>
             
-                <td class="hid blue w_100">&$value</td>
-                <td class="hid">The reference to the value of the variable, constant, etc.</td>
+                <td class="hid" colspan="2">Reference to the value of the variable, constant, etc.</td>
             
         </tr>
     
@@ -431,90 +430,101 @@
         </div>
         <hr />
     
-        <div class="location">lasses/doc.php at line 84</div>
-        <code class="signature" id="isClass">public  boolean <strong>isClass</strong> ()</code>
+        <div class="location">classes/doc.php at line 93</div>
+        <code class="arguments" id="isClass">public  boolean <strong>isClass</strong> ()</code>
         <div class="details">
-            Constructs a class.<br /> False until overridden.
+            
+            <p class="description">Constructs a class.<br /> False until overridden.</p>
             
         </div>
         <hr />
     
-        <div class="location">lasses/doc.php at line 92</div>
-        <code class="signature" id="isOrdinaryClass">public  boolean <strong>isOrdinaryClass</strong> ()</code>
+        <div class="location">classes/doc.php at line 103</div>
+        <code class="arguments" id="isOrdinaryClass">public  boolean <strong>isOrdinaryClass</strong> ()</code>
         <div class="details">
-            Constructs an ordinary class (not an interface or an exception).<br /> False until overridden.
+            
+            <p class="description">Constructs an ordinary class (not an interface or an exception).<br /> False until overridden.</p>
             
         </div>
         <hr />
     
-        <div class="location">lasses/doc.php at line 100</div>
-        <code class="signature" id="isConstructor">public  boolean <strong>isConstructor</strong> ()</code>
+        <div class="location">classes/doc.php at line 113</div>
+        <code class="arguments" id="isConstructor">public  boolean <strong>isConstructor</strong> ()</code>
         <div class="details">
-            Constructs a constructor.<br /> False until overridden.
+            
+            <p class="description">Constructs a constructor.<br /> False until overridden.</p>
             
         </div>
         <hr />
     
-        <div class="location">lasses/doc.php at line 108</div>
-        <code class="signature" id="isException">public  boolean <strong>isException</strong> ()</code>
+        <div class="location">classes/doc.php at line 123</div>
+        <code class="arguments" id="isException">public  boolean <strong>isException</strong> ()</code>
         <div class="details">
-            Constructs an exception.<br /> False until overridden.
+            
+            <p class="description">Constructs an exception.<br /> False until overridden.</p>
             
         </div>
         <hr />
     
-        <div class="location">lasses/doc.php at line 116</div>
-        <code class="signature" id="isGlobal">public  boolean <strong>isGlobal</strong> ()</code>
+        <div class="location">classes/doc.php at line 133</div>
+        <code class="arguments" id="isGlobal">public  boolean <strong>isGlobal</strong> ()</code>
         <div class="details">
-            Constructs a global variable.<br /> False until overridden.
+            
+            <p class="description">Constructs a global variable.<br /> False until overridden.</p>
             
         </div>
         <hr />
     
-        <div class="location">lasses/doc.php at line 124</div>
-        <code class="signature" id="isField">public  boolean <strong>isField</strong> ()</code>
+        <div class="location">classes/doc.php at line 143</div>
+        <code class="arguments" id="isField">public  boolean <strong>isField</strong> ()</code>
         <div class="details">
-            Constructs a field.<br /> False until overridden.
+            
+            <p class="description">Constructs a field.<br /> False until overridden.</p>
             
         </div>
         <hr />
     
-        <div class="location">lasses/doc.php at line 132</div>
-        <code class="signature" id="isFunction">public  boolean <strong>isFunction</strong> ()</code>
+        <div class="location">classes/doc.php at line 153</div>
+        <code class="arguments" id="isFunction">public  boolean <strong>isFunction</strong> ()</code>
         <div class="details">
-            Constructs a function.<br /> False until overridden.
+            
+            <p class="description">Constructs a function.<br /> False until overridden.</p>
             
         </div>
         <hr />
     
-        <div class="location">lasses/doc.php at line 140</div>
-        <code class="signature" id="isInterface">public  boolean <strong>isInterface</strong> ()</code>
+        <div class="location">classes/doc.php at line 163</div>
+        <code class="arguments" id="isInterface">public  boolean <strong>isInterface</strong> ()</code>
         <div class="details">
-            Constructs an interface.<br /> False until overridden.
+            
+            <p class="description">Constructs an interface.<br /> False until overridden.</p>
             
         </div>
         <hr />
     
-        <div class="location">lasses/doc.php at line 148</div>
-        <code class="signature" id="isMethod">public  boolean <strong>isMethod</strong> ()</code>
+        <div class="location">classes/doc.php at line 173</div>
+        <code class="arguments" id="isMethod">public  boolean <strong>isMethod</strong> ()</code>
         <div class="details">
-            Constructs a method.<br /> False until overridden.
+            
+            <p class="description">Constructs a method.<br /> False until overridden.</p>
             
         </div>
         <hr />
     
-        <div class="location">lasses/doc.php at line 156</div>
-        <code class="signature" id="isTrait">public  boolean <strong>isTrait</strong> ()</code>
+        <div class="location">classes/doc.php at line 183</div>
+        <code class="arguments" id="isTrait">public  boolean <strong>isTrait</strong> ()</code>
         <div class="details">
-            Constructs an trait.<br /> False until overridden.
+            
+            <p class="description">Constructs an trait.<br /> False until overridden.</p>
             
         </div>
         <hr />
     
-        <div class="location">lasses/doc.php at line 161</div>
-        <code class="signature" id="mergeData">public  void <strong>mergeData</strong> ()</code>
+        <div class="location">classes/doc.php at line 188</div>
+        <code class="arguments" id="mergeData">public  void <strong>mergeData</strong> ()</code>
         <div class="details">
-            Merges the contents of the doc comment into the element object.
+            
+            <p class="description">Merges the contents of the doc comment into the element object.</p>
             
         </div>
         <hr />
@@ -523,7 +533,7 @@
 
 
         <div class="header">
-    <span style="float:right">phpAPI ver. 4.0</span>
+    <span style="float:right">phpAPI ver. 4.1</span>
     
         <ul>
         

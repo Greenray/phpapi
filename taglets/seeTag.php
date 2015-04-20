@@ -1,9 +1,10 @@
 <?php
-/** Represents a see tag.
+/**
+ * Represents a see tag.
  *
- * @program   phpapi: The PHP Documentation Creator
+ * @program   phpapi: PHP Documentation Creator
  * @file      taglets/seeTag.php
- * @version   4.0
+ * @version   4.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -12,13 +13,15 @@
 
 class seeTag extends tag {
 
-    /** @var string The link */
+    /** @var string Link */
     public $link = NULL;
 
-    /** Constructor.
-     * @param string  $text  The contents of the tag
-     * @param array   &$data The reference to the doc comment data array
-     * @param rootDoc &$root The reference to the root object
+    /**
+     * Constructor.
+     *
+     * @param string  $text  Contents of the tag
+     * @param array   &$data Reference to the doc comment data array
+     * @param rootDoc &$root Reference to the root object
      */
     public function __construct($text, &$data, &$root) {
         if (preg_match('/^<a href="(.+)">(.+)<\/a>$/', $text, $matches)) {
@@ -31,14 +34,18 @@ class seeTag extends tag {
         parent::tag('@see', $text, $root);
     }
 
-    /** Gets display name of this tag.
+    /**
+     * Gets display name of this tag.
+     *
      * @return string "See also"
      */
     public function displayName() {
         return 'See also';
     }
 
-    /** Generate the text to go into the seeTag link.
+    /**
+     * Generate the text to go into the seeTag link.
+     *
      * @param  string $link Link to process
      * @return string
      */
@@ -54,7 +61,9 @@ class seeTag extends tag {
         else return $link;
     }
 
-    /** Turn the objects link text into a link to the element it refers to.
+    /**
+     * Turn the objects link text into a link to the element it refers to.
+     *
      * @return elementDoc
      */
     function &resolveLink() {
@@ -68,7 +77,6 @@ class seeTag extends tag {
             $className   = $matches[2];
             $elementName = $matches[3];
 
-            # Get package
             if ($packageName) {
                 $package = &$this->root->packageNamed($packageName);
                 if (!$package) {
@@ -76,7 +84,6 @@ class seeTag extends tag {
                 }
             }
 
-            # Get class
             if ($className) {
                 if (isset($package))
                      $classes = &$package->classes;
@@ -91,10 +98,8 @@ class seeTag extends tag {
                 }
             }
 
-            # Get element
             if ($elementName) {
 
-                # From class
                 if (isset($class)) {
                     $methods = &$class->methods();
                     if ($methods) {
@@ -115,8 +120,6 @@ class seeTag extends tag {
                             }
                         }
                     }
-
-                # From package
                 } elseif (isset($package)) {
                     $classes = &$package->classes;
                     foreach ($classes as $key => $class) {
@@ -166,8 +169,9 @@ class seeTag extends tag {
                             }
                         }
                     }
-
+                #
                 # From anywhere
+                #
                 } else {
                     $classes = &$this->root->classes();
                     if ($classes) {
@@ -226,42 +230,54 @@ class seeTag extends tag {
         return $return;
     }
 
-    /** Returns TRUE if this Taglet is used in constructor documentation.
+    /**
+     * Returns TRUE if this Taglet is used in constructor documentation.
+     *
      * @return boolean
      */
     public function inConstructor() {
         return TRUE;
     }
 
-    /** Returns TRUE if this Taglet is used in field documentation.
+    /**
+     * Returns TRUE if this Taglet is used in field documentation.
+     *
      * @return boolean
      */
     public function inField() {
         return TRUE;
     }
 
-    /** Returns TRUE if this Taglet is used in method documentation.
+    /**
+     * Returns TRUE if this Taglet is used in method documentation.
+     *
      * @return boolean
      */
     public function inMethod() {
         return TRUE;
     }
 
-    /** Returns TRUE if this Taglet is used in overview documentation.
+    /**
+     * Returns TRUE if this Taglet is used in overview documentation.
+     *
      * @return boolean
      */
     public function inOverview() {
         return TRUE;
     }
 
-    /** Returns TRUE if this Taglet is used in package documentation.
+    /**
+     * Returns TRUE if this Taglet is used in package documentation.
+     *
      * @return boolean
      */
     public function inPackage() {
         return TRUE;
     }
 
-    /** Returns TRUE if this Taglet is used in class or interface documentation.
+    /**
+     * Returns TRUE if this Taglet is used in class or interface documentation.
+     *
      * @return boolean
      */
     public function inType() {

@@ -1,16 +1,17 @@
 <?php
-/** php tokenizer and parser.
+/**
+ * php tokenizer and parser.
  * Particularly the packages, classes and options specified by the user.
  * It is the root of the parsed tokens and is passed to the doclet to be formatted into output.
  *
- * @program   phpapi: The PHP Documentation Creator
+ * @program   phpapi: PHP Documentation Creator
  * @file      classes/phpapi.php
- * @version   4.0
+ * @version   4.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * @package   phpapi
- * @overview  The main program package.
+ * @overview  Main program package.
  *            It sets global variables, loads classes, tokenizes and parses php files.
  *            After that it creates descriptions of the program elements and calls doclet to create documentation pages.
  */
@@ -25,30 +26,28 @@ class phpapi {
     /** @var array Options from config file */
     public $options = [];
 
-    /** @var string The path phpapi is running from */
+    /** @var string Path phpapi is running from */
     public $path = '.';
 
     /** @var integer Number of parsed source files */
     public $sourceIndex = 0;
 
     /** @var string Directory containing files for parsing */
-    public $sourcePath = ['./'];
+    public $source = ['./'];
 
-    /** @var integer The time in microseconds of the start of execution */
+    /** @var integer Time in microseconds of the start of execution */
     private $startTime = 0;
 
-    /** Constructor.
+    /**
+     * Constructor.
      * Parses ini file and creates list of files for processing.
-     *  @param string $config phpai configuration file (Default = 'default.ini')
+     *
+     * @param string $config phpai configuration file (Default = 'phpapi.ini')
      */
-    public function __construct($config = 'default.ini') {
-        # Record start time
+    public function __construct($config = 'phpapi.ini') {
         $this->startTime = $this->getTime();
+        $this->path      = dirname(dirname(__FILE__));
 
-        # Set the path
-        $this->path = dirname(dirname(__FILE__));
-
-        # Read config file
         if (is_file($config)) {
             $this->options = parse_ini_file($config);
             if (count($this->options) === 0) {
@@ -59,14 +58,16 @@ class phpapi {
             $this->error('Cannot find configuration file "'.$config.'"');
             exit;
         }
-
+        #
         # Set phpapi options
+        #
         if (!empty($this->options['source'])) {
-            $this->sourcePath = [];
+            $this->source = [];
             foreach (explode(',', $this->options['source']) as $path) {
-                $this->sourcePath[] = $this->fixPath($path, getcwd());
+                $this->source[] = $this->fixPath($path, getcwd());
             }
         }
+        $this->options['destination'] = $this->fixPath($this->source[0].$this->options['destination']);
 
         if (!empty($this->options['files']))
              $files = explode(',', $this->options['files']);
@@ -80,7 +81,7 @@ class phpapi {
         $this->verbose('Searching for files to parse...');
 
         $this->files = [];
-        foreach ($this->sourcePath as $path) {
+        foreach ($this->source as $path) {
             $this->files[$path] = $this->buildFileList($files, $path);
         }
         if (count($this->files) === 0) {
@@ -89,21 +90,25 @@ class phpapi {
         }
     }
 
-    /** Builds a complete list of files to parse.
+    /**
+     * Builds a complete list of files to parse.
      * Expands out wildcards and traverse directories if asked to.
      * This function is recursive.
+     *
      * @param  array  $files Filenames or wildcards
      * @param  string $dir   Directory to scan
-     * @return array         List of files
+     * @return array         List of files to parse
      */
     private function buildFileList($files, $dir) {
         $list = [];
+//        $dir  = realpath($dir);
         if (!$dir) {
             return $list;
         }
 
         $dir = $this->fixPath($dir);
         foreach ($files as $filename) {
+//            $filename    = $this->makeAbsolutePath(trim($filename), $dir);
             $globResults = glob($dir.$filename);
             if ($globResults) {
                 foreach ($globResults as $file) {
@@ -115,8 +120,9 @@ class phpapi {
                 }
             } elseif (!$this->options['subDirs']) $this->error('Cannot find file "'.$filename.'"');
         }
-
+        #
         # Recurse into subdir
+        #
         if ($this->options['subDirs']) {
             $globResults = glob($dir.'*', GLOB_ONLYDIR);
             if ($globResults) {
@@ -130,14 +136,16 @@ class phpapi {
         return $list;
     }
 
-    /** Creates a tag.
+    /**
+     * Creates a tag.
      * This method first tries to load a Taglet for the given tag name, upon failing it
      * then tries to load a phpapi specialised tag class (e.g. classes/paramtag.php),
      * if it still has not found a tag class it uses the standard tag class.
-     * @param  string  $name  The name of the tag
-     * @param  string  $text  The contents of the tag
-     * @param  array   &$data The reference to the doc comment data array
-     * @param  rootDoc $root  The reference to the root element
+     *
+     * @param  string  $name  Name of the tag
+     * @param  string  $text  Contents of the tag
+     * @param  array   &$data Reference to the doc comment data array
+     * @param  rootDoc $root  Reference to the root element
      * @return tag            Tag object
      */
     function &createTag($name, $text, &$data, &$root) {
@@ -145,8 +153,9 @@ class phpapi {
         if ($class) {
             $tagFile = TAGLETS.substr($name, 1).'.php';
             if (is_file($tagFile)) {
-
+                #
                 # Load taglet for this tag.
+                #
                 if (!class_exists($class)) require_once($tagFile);
                 $tag = &new $class($text, $data, $root);
                 return $tag;
@@ -154,15 +163,18 @@ class phpapi {
             } else {
                 $tagFile = TAGLETS.$class.'Tag.php';
                 if (is_file($tagFile)) {
-
+                    #
                     # Load class for this tag.
+                    #
                     $class .= 'Tag';
                     if (!class_exists($class)) require_once($tagFile);
                     $tag = &new $class($text, $data, $root);
                     return $tag;
 
                 } else {
+                    #
                     # Create standard tag.
+                    #
                     $tag = &new tag($name, $text, $root);
                     return $tag;
                 }
@@ -170,8 +182,52 @@ class phpapi {
         }
     }
 
-    /** Gets next token of a certain type from token array.
-     * @param  array   &$tokens   The reference to the array of tokens to search
+    /**
+     * Loads and runs the doclet.
+     *
+     * @param rootDoc &$rootDoc Reference to root document
+     */
+    public function execute(&$rootDoc) {
+
+        require DOCLETS.$this->options['generator'].DS.'htmlWriter.php';
+        require DOCLETS.$this->options['generator'].DS.'overviewSummaryWriter.php';
+        require DOCLETS.$this->options['generator'].DS.'packageWriter.php';
+        require DOCLETS.$this->options['generator'].DS.'classWriter.php';
+        require DOCLETS.$this->options['generator'].DS.'functionWriter.php';
+        require DOCLETS.$this->options['generator'].DS.'globalWriter.php';
+        require DOCLETS.$this->options['generator'].DS.'indexWriter.php';
+        require DOCLETS.$this->options['generator'].DS.'deprecatedWriter.php';
+        require DOCLETS.$this->options['generator'].DS.'todoWriter.php';
+
+        $docletFile = DOCLETS.$this->options['generator'].DS.$this->doclet.DS.$this->doclet.'.php';
+        if (is_file($docletFile)) {
+
+            $this->verbose('Loading doclet "'.$this->doclet.'"');
+
+            require_once $docletFile;
+
+            $formatter = FORMATTERS.$this->options['formatter'].'.php';
+            if (is_file($formatter)) {
+
+                $this->verbose('Loading formatter "'.$this->options['formatter'].'"');
+
+                require_once $formatter;
+                $doclet = &new $this->doclet($rootDoc, new $this->options['formatter']);
+
+            } else {
+                $this->error('Cannot find formatter "'.$formatter.'"');
+                exit;
+            }
+
+        } else $this->error('Cannot find doclet "'.$docletFile.'"');
+
+        $this->verbose('Done ('.round($this->getTime() - $this->startTime, 2).' seconds)');
+    }
+
+    /**
+     * Gets next token of a certain type from token array.
+     *
+     * @param  array   &$tokens   Reference to the array of tokens to search
      * @param  integer $key       Key to start searching from
      * @param  integer $whatToGet Type of token to look for
      * @param  integer $maxDist   Optional max distance from key to look at (default is 0 for all)
@@ -190,8 +246,10 @@ class phpapi {
         return $tokens[$key][1];
     }
 
-    /** Gets previous token of a certain type from token array.
-     * @param  array   &$tokens   The reference the array of tokens to search
+    /**
+     * Gets previous token of a certain type from token array.
+     *
+     * @param  array   &$tokens   Reference the array of tokens to search
      * @param  integer $key       Key to start searching from
      * @param  integer $whatToGet Type of token to look for
      * @return array|boolean      Value of found token or FALSE
@@ -206,8 +264,10 @@ class phpapi {
         return $tokens[$key][1];
     }
 
-    /** Gets program element name from the token list.
-     * @param  array   &$tokens The reference the array of tokens
+    /**
+     * Gets program element name from the token list.
+     *
+     * @param  array   &$tokens Reference the array of tokens
      * @param  integer $key     Key to start searching from
      * @return string           Name of the program element
      */
@@ -231,7 +291,9 @@ class phpapi {
         return trim($name);
     }
 
-    /** Gets the current time in microseconds.
+    /**
+     * Gets the current time in microseconds.
+     *
      * @return integer Current time
      */
     private function getTime() {
@@ -239,9 +301,11 @@ class phpapi {
         return $microtime[0] + $microtime[1];
     }
 
-    /** Gets the type of the variable.
-     * @param  mixed  $var Variable
-     * @return string      The type of the variable
+    /**
+     * Gets the type of the variable.
+     *
+     * @param  mixed $var Variable
+     * @return string     Type of the variable
      */
     private function getType($var) {
         if ((substr($var, 0, 5) === 'array') || ((substr($var, 0, 1) === '[') && (substr($var, -1, 1)=== ']'))) {
@@ -257,7 +321,9 @@ class phpapi {
         return 'mixed';
     }
 
-    /** Adds a trailing slash to a path if it does not have one.
+    /**
+     * Adds a trailing slash to a path if it does not have one.
+     *
      * @param  string $path Path to fix
      * @return string       Fixed path
      */
@@ -265,17 +331,21 @@ class phpapi {
         return (substr($path, -1, 1) !== DS && substr($path, -1, 1) !== '\\') ? $path.DS : $path;
     }
 
-    /** Does the given element name conform to the format that is used for private elements?
-     * @param  string  $name Name to check
+    /**
+     * Does the given element name conform to the format that is used for private elements?
+     *
+     * @param  string $name Name to check
      * @return boolean
      */
     public function hasPrivateName($name) {
         return substr($name, 0, 1) === '_';
     }
 
-    /** Merges data of the superclass.
+    /**
+     * Merges data of the superclass.
      * This function is recursive.
-     * @param rootDoc &$rootDoc The reference to the root element
+     *
+     * @param rootDoc &$rootDoc Reference to the root element
      * @param string  $parent   Superclass (Default = NULL)
      */
     public function mergeSuperClassData(&$rootDoc, $parent = NULL) {
@@ -288,8 +358,10 @@ class phpapi {
         }
     }
 
-    /** Parses files into tokens and create rootDoc.
-     * @return rootDoc The reference to the root element
+    /**
+     * Parses files into tokens and create rootDoc.
+     *
+     * @return rootDoc Reference to the root element
      */
     public function &parse() {
         $rootDoc = &new rootDoc($this);
@@ -301,20 +373,22 @@ class phpapi {
                     $this->verbose('File "'.$filename.'"');
                     $fileString = file_get_contents($filename);
                     if ($fileString !== FALSE) {
-                        $fileString = str_replace(["\r\n", "\n\r", "\r", "\n"], LF, $fileString);
-
+                        $fileString = str_replace(["\r\n", "\n\r", "\r", LF], LF, $fileString);
+                        #
                         # Remove the empty lines from a file.
+                        #
                         $tokens = token_get_all($fileString);
-
+                        #
                         # This array holds data gathered before the type of element is discovered and an object is created for it, including doc comment data.
                         # This data is stored in the object once it has been created and then merged into the objects data fields upon object completion.
+                        #
                         $currentData    = [];
                         $currentPackage = $this->options['defaultPackage'];
                         $defaultPackage = $oldDefaultPackage = $currentPackage;
                         $fileData       = [];
 
                         $currentElement = [];     # Stack of element family, current at top of stack
-                        $ce = &$rootDoc;          # The reference element at top of stack
+                        $ce = &$rootDoc;          # Reference element at top of stack
 
                         $open_curly_braces = FALSE;
                         $in_parsed_string  = FALSE;
@@ -332,8 +406,11 @@ class phpapi {
                                     $token[0] === T_INTERFACE ||
                                     $token[0] === T_FUNCTION  ||
                                     $token[0] === T_VARIABLE
-                                   )) { # We have a code block after the 1st comment, so it is not a file level comment
-                                    $fileData = [];
+                                   )) {
+                                      #
+                                      # We have a code block after the 1st comment, so it is not a file level comment
+                                      #
+                    //                $fileData = [];
                                 }
                                 switch ($token[0]) {
 
@@ -342,7 +419,10 @@ class phpapi {
                                         if ($currentData) {
                                             $commentNumber++;
                                             if ($commentNumber === 1) {
-                                                if (isset($currentData['package'])) { # Store 1st comment incase it is a file level comment
+                                                if (isset($currentData['package'])) {
+                                                    #
+                                                    # Store 1st comment incase it is a file level comment
+                                                    #
                                                     $oldDefaultPackage = $defaultPackage;
                                                     $defaultPackage    = $currentData['package'];
                                                     if (isset($currentData['tags']['@overview'])) {
@@ -355,7 +435,6 @@ class phpapi {
                                         break;
 
                                     case T_CLASS:
-
                                         $class = &new classDoc($this->getProgramElementName($tokens, $key), $rootDoc, $filename, $lineNumber, $this->sourcePath());
 
                                         $this->verbose('Found class: '.$class->name);
@@ -380,7 +459,6 @@ class phpapi {
                                         break;
 
                                     case T_INTERFACE:
-
                                         $interface = &new classDoc($this->getProgramElementName($tokens, $key), $rootDoc, $filename, $lineNumber, $this->sourcePath());
 
                                         $this->verbose('Found interface: '.$interface->name);
@@ -404,7 +482,6 @@ class phpapi {
                                         break;
 
                                     case T_TRAIT:
-
                                         $trait = &new classDoc($this->getProgramElementName($tokens, $key), $rootDoc, $filename, $lineNumber, $this->sourcePath());
 
                                         $this->verbose('Found trait: '.$trait->name);
@@ -428,7 +505,6 @@ class phpapi {
                                         break;
 
                                     case T_EXTENDS:
-
                                         $superClassName = $this->getProgramElementName($tokens, $key);
                                         $ce->set('superclass', $superClassName);
                                         if ($superClass = &$rootDoc->classNamed($superClassName) &&
@@ -437,81 +513,27 @@ class phpapi {
                                         }
                                         break;
 
-                                    case T_IMPLEMENTS:
-
-                                        $interfaceName = $this->getProgramElementName($tokens, $key);
-                                        $interface     = &$rootDoc->classNamed($interfaceName);
-                                        if ($interface) $ce->set('interfaces', $interface);
-                                        break;
-
-                                    case T_THROW:
-
-                                        $className = $this->getNext($tokens, $key, T_STRING);
-                                        $class = &$rootDoc->classNamed($className);
-                                        if ($class)
-                                             $ce->setByRef('throws', $class);
-                                        else $ce->set('throws', $className);
-                                        break;
-
-                                    case T_PRIVATE:
-                                        $currentData['access'] = 'private';
-                                        break;
-
-                                    case T_PROTECTED:
-                                        $currentData['access'] = 'protected';
-                                        break;
-
-                                    case T_PUBLIC:
-                                        $currentData['access'] = 'public';
-                                        break;
-
                                     case T_ABSTRACT:
                                         $currentData['abstract'] = TRUE;
-                                        break;
-
-                                    case T_FINAL:
-                                        $currentData['final'] = TRUE;
-                                        break;
-
-                                    case T_STATIC:
-                                        $currentData['static'] = TRUE;
-                                        break;
-
-                                    case T_VAR:
-                                        $currentData['var'] = 'var';
                                         break;
 
                                     case T_CONST:
                                         $currentData['var'] = 'const';
                                         break;
 
-                                    case T_USE:
-                                        if (get_class($ce) === 'classDoc') {
-                                            while ($tokens[++$key][0] !== ';') {
-                                                if ($tokens[$key][0] === T_STRING) {
-                                                    $className = $tokens[$key][1];
-                                                    $class = &$rootDoc->classNamed($className);
-                                                    if ($class)
-                                                         $ce->setByRef('traits', $class);
-                                                    else $ce->set('traits', $className);
-                                                }
-                                            }
-                                        }
+                                    case T_CURLY_OPEN:
+                                    case T_DOLLAR_OPEN_CURLY_BRACES:
+                                        #
+                                        # We must catch this so we don't accidently step out of the current block
+                                        #
+                                        $open_curly_braces = TRUE;
                                         break;
 
-                                    case T_NAMESPACE:
-                                    case T_NS_C:
-                                        while ($tokens[++$key][0] !== T_STRING);
-                                        $namespace = $tokens[$key++][1];
-                                        while ($tokens[$key][0] === T_NS_SEPARATOR) {
-                                            $namespace .= $tokens[$key++][1].$tokens[$key++][1];
-                                        }
-                                        $currentPackage = $defaultPackage = $oldDefaultPackage = $namespace;
-                                        $key--;
+                                    case T_FINAL:
+                                        $currentData['final'] = TRUE;
                                         break;
 
                                     case T_FUNCTION:
-
                                         $name   = $this->getProgramElementName($tokens, $key);
                                         $method = &new methodDoc($name, $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath());
                                         unset($name);
@@ -523,7 +545,7 @@ class phpapi {
                                         $ceClass = get_class($ce);
                                         if ($ceClass === 'rootDoc') {
 
-                                            $msg  = 'Found function: '.$method->name;
+                                            $msg = 'Found function: '.$method->name;
 
                                             if (isset($currentData['access']) && $currentData['access'] === 'private') {
                                                 $method->access = 'private';
@@ -565,8 +587,55 @@ class phpapi {
                                         unset($method);
                                         break;
 
-                                    case T_STRING:
+                                    case T_IMPLEMENTS:
+                                        $interfaceName = $this->getProgramElementName($tokens, $key);
+                                        $interface     = &$rootDoc->classNamed($interfaceName);
+                                        if ($interface) $ce->set('interfaces', $interface);
+                                        break;
 
+                                    case T_INCLUDE:
+                                    case T_INCLUDE_ONCE:
+                                    case T_REQUIRE:
+                                    case T_REQUIRE_ONCE:
+                                        $include = $tokens[$key][1];
+                                        while (isset($tokens[$key]) && $tokens[$key] !==';') {
+                                            $key++;
+                                            if (is_array($tokens[$key]))
+                                                 $include .= $tokens[$key][1];
+                                            else $include .= $tokens[$key];
+                                        }
+                                        $ce->set('includes', $include);
+                                        unset($include);
+                                        break;
+
+                                    case T_NAMESPACE:
+                                    case T_NS_C:
+                                        while ($tokens[++$key][0] !== T_STRING);
+                                        $namespace = $tokens[$key++][1];
+                                        while ($tokens[$key][0] === T_NS_SEPARATOR) {
+                                            $namespace .= $tokens[$key++][1].$tokens[$key++][1];
+                                        }
+                                        $currentPackage = $defaultPackage = $oldDefaultPackage = $namespace;
+                                        $key--;
+                                        break;
+
+                                    case T_PRIVATE:
+                                        $currentData['access'] = 'private';
+                                        break;
+
+                                    case T_PROTECTED:
+                                        $currentData['access'] = 'protected';
+                                        break;
+
+                                    case T_PUBLIC:
+                                        $currentData['access'] = 'public';
+                                        break;
+
+                                    case T_STATIC:
+                                        $currentData['static'] = TRUE;
+                                        break;
+
+                                    case T_STRING:
                                         $value = '';
                                         if ($token[1] === 'define') {
                                             $const = &new fieldDoc($this->getNext($tokens, $key, T_CONSTANT_ENCAPSED_STRING), $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath());
@@ -609,17 +678,17 @@ class phpapi {
                                             unset($const);
 
                                         } elseif (isset($currentData['var']) && $currentData['var'] === 'const') {
-
+                                            #
                                             # Member constant
+                                            #
                                             $value = '';
                                             do {
                                                 $key++;
                                                 if ($tokens[$key] === '=') {
-                                                    $name  = $this->getPrev($tokens, $key, [T_VARIABLE, T_STRING]);
+                                                    $name = $this->getPrev($tokens, $key, [T_VARIABLE, T_STRING]);
 
                                                 } elseif (isset($value) && $tokens[$key] !== ',' && $tokens[$key] !== ';') {
 
-                                                    # Set value
                                                     if (is_array($tokens[$key]))
                                                          $value .= $tokens[$key][1];
                                                     else $value .= $tokens[$key];
@@ -651,7 +720,6 @@ class phpapi {
                                             $currentData = [];
 
                                         } elseif (get_class($ce) === 'methodDoc' && $ce->inBody === 0) {
-
                                             # Function parameter
                                             $typehint = NULL;
                                             do {
@@ -705,9 +773,36 @@ class phpapi {
                                         }
                                         break;
 
-                                    case T_VARIABLE:
+                                    case T_THROW:
+                                        $className = $this->getNext($tokens, $key, T_STRING);
+                                        $class = &$rootDoc->classNamed($className);
+                                        if ($class)
+                                             $ce->setByRef('throws', $class);
+                                        else $ce->set('throws', $className);
+                                        break;
 
+                                    case T_USE:
+                                        if (get_class($ce) === 'classDoc') {
+                                            while ($tokens[++$key][0] !== ';') {
+                                                if ($tokens[$key][0] === T_STRING) {
+                                                    $className = $tokens[$key][1];
+                                                    $class = &$rootDoc->classNamed($className);
+                                                    if ($class)
+                                                         $ce->setByRef('traits', $class);
+                                                    else $ce->set('traits', $className);
+                                                }
+                                            }
+                                        }
+                                        break;
+
+                                    case T_VAR:
+                                        $currentData['var'] = 'var';
+                                        break;
+
+                                    case T_VARIABLE:
+                                        #
                                         # Global variable
+                                        #
                                         $value = '';
                                         if (get_class($ce) === 'rootDoc') {
                                             $global = &new fieldDoc($tokens[$key][1], $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath());
@@ -758,7 +853,9 @@ class phpapi {
                                             unset($msg);
 
                                         } elseif (
+                                            #
                                             # Read member variable
+                                            #
                                             (isset($currentData['var'])    &&  $currentData['var']    === 'var')      ||
                                             (isset($currentData['access']) && ($currentData['access'] === 'public'    ||
                                                                                $currentData['access'] === 'protected' ||
@@ -769,13 +866,15 @@ class phpapi {
                                             do {
                                                 $key++;
                                                 if ($tokens[$key] === '=') {
-
+                                                    #
                                                     # Start value
+                                                    #
                                                     $name  = $this->getPrev($tokens, $key, T_VARIABLE);
                                                     $bracketCount = 0;
                                                 } elseif (isset($value) && ($tokens[$key] !==',' || $bracketCount > 0) && $tokens[$key] !==';') {
-
+                                                    #
                                                     # Set value
+                                                    #
                                                     if     (($tokens[$key] === '(') || ($tokens[$key] === '[')) $bracketCount++;
                                                     elseif (($tokens[$key] === ')') || ($tokens[$key] === ']')) $bracketCount--;
 
@@ -809,14 +908,11 @@ class phpapi {
                                         }
                                         break;
 
-                                    case T_CURLY_OPEN:
-                                    case T_DOLLAR_OPEN_CURLY_BRACES: # We must catch this so we don't accidently step out of the current block
-                                        $open_curly_braces = TRUE;
-                                        break;
                                 }
                             } else {
-
+                                #
                                 # Primitive tokens
+                                #
                                 switch ($token) {
 
                                     case '{':
@@ -825,8 +921,9 @@ class phpapi {
 
                                     case '}':
                                         if (!$in_parsed_string) {
-
+                                            #
                                             # End of var curly brace syntax
+                                            #
                                             if ($open_curly_braces) $open_curly_braces = FALSE;
                                             else {
                                                 $ce->inBody--;
@@ -846,8 +943,9 @@ class phpapi {
                                         break;
 
                                     case ';':
-
+                                        #
                                         # Case for closing abstract functions
+                                        #
                                         if (!$in_parsed_string && $ce->inBody === 0 && count($currentElement) > 0) {
                                             $ce->mergeData();
                                             array_pop($currentElement); # Re-assign current element
@@ -861,8 +959,9 @@ class phpapi {
                                         break;
 
                                     case '"':
-
+                                        #
                                         # Catch parsed strings so as to ignore tokens within
+                                        #
                                         $in_parsed_string = !$in_parsed_string;
                                         break;
                                 }
@@ -875,55 +974,18 @@ class phpapi {
                 }
             }
         }
-
+        #
         # Add parent data to child elements
+        #
         $this->mergeSuperClassData($rootDoc);
         return $rootDoc;
     }
 
-    /** Loads and runs the doclet.
-     * @param rootDoc $rootDoc The root of the parsed tokens
-     */
-    public function execute(&$rootDoc) {
-
-        require DOCLETS.$this->options['generator'].DS.'htmlWriter.php';
-        require DOCLETS.$this->options['generator'].DS.'overviewSummaryWriter.php';
-        require DOCLETS.$this->options['generator'].DS.'packageWriter.php';
-        require DOCLETS.$this->options['generator'].DS.'classWriter.php';
-        require DOCLETS.$this->options['generator'].DS.'functionWriter.php';
-        require DOCLETS.$this->options['generator'].DS.'globalWriter.php';
-        require DOCLETS.$this->options['generator'].DS.'indexWriter.php';
-        require DOCLETS.$this->options['generator'].DS.'deprecatedWriter.php';
-        require DOCLETS.$this->options['generator'].DS.'todoWriter.php';
-
-        $docletFile = DOCLETS.$this->options['generator'].DS.$this->doclet.DS.$this->doclet.'.php';
-        if (is_file($docletFile)) {
-
-            $this->verbose('Loading doclet "'.$this->doclet.'"');
-
-            require_once($docletFile);
-
-            $formatter = FORMATTERS.$this->options['formatter'].'.php';
-            if (is_file($formatter)) {
-
-                $this->verbose('Loading formatter "'.$this->options['formatter'].'"');
-
-                require_once($formatter);
-                $doclet = &new $this->doclet($rootDoc, new $this->options['formatter']);
-
-            } else {
-                $this->error('Cannot find formatter "'.$formatter.'"');
-                exit;
-            }
-
-        } else $this->error('Cannot find doclet "'.$docletFile.'"');
-
-        $this->verbose('Done ('.round($this->getTime() - $this->startTime, 2).' seconds)');
-    }
-
-    /** Process a doc comment into a doc tag array.
-     * @param  string $comment The comment to process
-     * @param  array  $rootDoc The reference the root of the parsed tokens
+    /**
+     * Process a doc comment into a doc tag array.
+     *
+     * @param  string $comment Comment to process
+     * @param  array  $rootDoc Reference the root of the parsed tokens
      * @return array           Array of doc comment data
      */
     public function processDocComment($comment, &$root) {
@@ -932,18 +994,22 @@ class phpapi {
             'tags' => []
         ];
         $explodedComment = preg_split('/\n[ \n\t\/]*\*+[ \t]*@/', LF.$comment);
-
-         # We need the leading whitespace to detect multi-line list entries
+        #
+        # We need the leading whitespace to detect multi-line list entries
+        #
         preg_match_all('/^[ \t]*[\/*]*\**( ?.*)[ \t\/*]*$/m', array_shift($explodedComment), $matches);
         if (isset($matches[1])) {
             $text = implode(LF, $matches[1]).LF;
             $data['tags']['@text'] = $this->createTag('@text', trim($text, " \n\t\0\x0B*/"), $data, $root);
         }
-
+        #
         # Process tags
+        #
         foreach ($explodedComment as $tag) {
+            #
             # Strip whitespace, newlines and asterisks
             # Fixed: empty comment lines at end of docblock
+            #
             $tag   = preg_replace('/(^[\s\n\*]+|[\s\*]*\*\/$)/m', ' ', $tag);
             $tag   = trim($tag);
             $parts = preg_split('/ +/', $tag);
@@ -984,42 +1050,53 @@ class phpapi {
                         $data['static'] = TRUE;
                         break;
 
-                    default:         # Create tag
+                    default:
+                        #
+                        # Create tag
+                        #
                         $name = '@'.$name;
                         if (isset($data['tags'][$name])) {
                             if (is_array($data['tags'][$name]))
                                  $data['tags'][$name][] = $this->createTag($name, $text, $data, $root);
                             else $data['tags'][$name]   = [$data['tags'][$name], $this->createTag($name, $text, $data, $root)];
 
-                        } else   $data['tags'][$name]   = &$this->createTag($name, $text, $data, $root);
+                        } else   $data['tags'][$name] = &$this->createTag($name, $text, $data, $root);
                 }
             }
         }
         return $data;
     }
 
-    /** Returns the source path.
+    /**
+     * Returns the path of sources.
+     *
      * @return string Path to processing source file
      */
     public function sourcePath() {
-        return $this->sourcePath[$this->sourceIndex];
+        return $this->source[$this->sourceIndex];
     }
 
-    /** Writes a verbose message to standard output.
+    /**
+     * Writes a verbose message to standard output.
+     *
      * @param string $msg Verbose message to output
      */
     public function verbose($msg) {
         if ($this->options['verbose']) echo $msg, LF;
     }
 
-    /** Writes an error message to standard error.
+    /**
+     * Writes an error message to standard error.
+     *
      * @param string $msg Error message to output
      */
     public function error($msg) {
         fwrite(STDERR, 'ERROR: '.$msg.LF);
     }
 
-    /** Writes a warning message to standard error.
+    /**
+     * Writes a warning message to standard error.
+     *
      * @param string $msg Warning message to output
      */
     public function warning($msg) {

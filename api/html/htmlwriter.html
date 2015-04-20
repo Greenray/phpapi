@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>API for class htmlWriter (phpAPI: The PHP Documentation Creator ver. 4.0)</title>
+    <title>API for class htmlWriter (phpAPI: PHP Documentation Creator ver. 4.1)</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="generator" content="phpAPI 4.0 (https://github.com/Greenray/phpAPI/)">
+    <meta name="generator" content="phpAPI 4.1 (https://github.com/Greenray/phpAPI/)">
     <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="start" href="../index.html">
 </head>
 
     <body id="htmlWriter" onload="parent.document.title=document.title;">
         <div class="header">
-    <span style="float:right">phpAPI ver. 4.0</span>
+    <span style="float:right">phpAPI ver. 4.1</span>
     
         <ul>
         
@@ -59,7 +59,7 @@
     </dl>
 
 <hr />
-<p class="signature">public  class <strong>htmlWriter</strong></p>
+<p class="arguments">public  class <strong>htmlWriter</strong></p>
 <div class="comment" id="overview_description">Generates menu and writes html pages.</div>
 <div class="finfo">
     <table class="hid">
@@ -68,7 +68,7 @@
             <td class="hid left w_100">Program</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
             
-                <td class="hid" colspan="2">phpapi: The PHP Documentation Creator</td>
+                <td class="hid" colspan="2">phpapi: PHP Documentation Creator</td>
             
         </tr>
     
@@ -84,7 +84,7 @@
             <td class="hid left w_100">Version</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
             
-                <td class="hid" colspan="2">4.0</td>
+                <td class="hid" colspan="2">4.1</td>
             
         </tr>
     
@@ -132,7 +132,7 @@
                 <td class="type w_200">public  integer</td>
                 <td class="description">
                     <pre><a href="#$depth"><span class="green">$depth</span></a> = 0</pre>
-                    <p class="description">The directory structure depth. </p>
+                    <p class="description">Directory structure depth. </p>
                 </td>
             </tr>
         
@@ -140,7 +140,7 @@
                 <td class="type w_200">public  doclet</td>
                 <td class="description">
                     <pre><a href="#$doclet"><span class="green">$doclet</span></a></pre>
-                    <p class="description">The doclet that created this object</p>
+                    <p class="description">Doclet that created this object</p>
                 </td>
             </tr>
         
@@ -164,7 +164,15 @@
                 <td class="type w_200">public  string</td>
                 <td class="description">
                     <pre><a href="#$output"><span class="green">$output</span></a> = <span class="red">''</span></pre>
-                    <p class="description">The output body</p>
+                    <p class="description">Output body</p>
+                </td>
+            </tr>
+        
+            <tr>
+                <td class="type w_200">private  mixed</td>
+                <td class="description">
+                    <pre><a href="#$regexp"><span class="green">$regexp</span></a> = [<br />        <span class="red">"#[\"</span>](.*?)[\<span class="red">"]#is"</span>     => <span class="red">'<span class=<span class="red">"red"</span>><span class="red">"\\1"</span></span>'</span>,<br />        <span class="red">"#<span class="red">"(.*?)"</span>#is"</span> => <span class="red">'<span class=<span class="red">"red"</span>><span class="red">"\\1"</span></span>'</span>,<br />        <span class="red">"#[\<span class="red">'](.*?)[\'</span>]#is"</span>     => <span class="red">'<span class=<span class="red">"red"</span>>\'</span>\\1\<span class="red">'</span>'</span>,<br />        <span class="red">"#(.*?)#is"</span>  => <span class="red">'\\2'</span><br />    ]</pre>
+                    <p class="description">Описания нет</p>
                 </td>
             </tr>
         
@@ -172,7 +180,7 @@
                 <td class="type w_200">public  array</td>
                 <td class="description">
                     <pre><a href="#$sections"><span class="green">$sections</span></a> = []</pre>
-                    <p class="description">The section titles to place in the header</p>
+                    <p class="description">Section titles to place in the header</p>
                 </td>
             </tr>
         
@@ -218,10 +226,10 @@
             </tr>
         
             <tr>
-                <td class="type w_200">protected  string</td>
+                <td class="type w_200">protected  array</td>
                 <td class="description">
-                    <p><a href="#processTags"><strong><span class="black">processTags</span></strong></a> (<a href="../tags/tag.html">tag</a> <span class="blue">&$tag</span>, <span class="lilac">object</span> <span class="blue">$obj</span>, <span class="lilac">mixed</span> <span class="blue">&$tags</span>)</p>
-                    <p class="description">Formats tags for output.</p>
+                    <p><a href="#parameters"><strong><span class="black">parameters</span></strong></a> (<a href="../tags/tag.html">tag</a> <span class="blue">&$tag</span>, <span class="lilac">object</span> <span class="blue">$obj</span>, <span class="lilac">mixed</span> <span class="blue">&$tags</span>)</p>
+                    <p class="description">Formats parameters for output.</p>
                 </td>
             </tr>
         
@@ -248,34 +256,39 @@
 
     <h2 id="details_fields">Поля: детали</h2>
     
-        <div class="location">oclets/html/htmlWriter.php at line 17</div>
-        <pre class="signature" id="depth">public integer <strong><span class="green">$depth</span></strong> = 0</pre>
-        <div class="details">The directory structure depth. Used to calculate relative paths</div>
+        <div class="location">doclets/html/htmlWriter.php at line 18</div>
+        <pre class="arguments" id="depth">public integer <strong><span class="green">$depth</span></strong> = 0</pre>
+        <div class="details">Directory structure depth. Used to calculate relative paths</div>
         <hr />
     
-        <div class="location">oclets/html/htmlWriter.php at line 20</div>
-        <pre class="signature" id="doclet">public doclet <strong><span class="green">$doclet</span></strong></pre>
-        <div class="details">The doclet that created this object</div>
+        <div class="location">doclets/html/htmlWriter.php at line 21</div>
+        <pre class="arguments" id="doclet">public doclet <strong><span class="green">$doclet</span></strong></pre>
+        <div class="details">Doclet that created this object</div>
         <hr />
     
-        <div class="location">oclets/html/htmlWriter.php at line 23</div>
-        <pre class="signature" id="id">public string <strong><span class="green">$id</span></strong> = <span class="red">'overview'</span></pre>
+        <div class="location">doclets/html/htmlWriter.php at line 24</div>
+        <pre class="arguments" id="id">public string <strong><span class="green">$id</span></strong> = <span class="red">'overview'</span></pre>
         <div class="details">The <body> id attribute value, used for selecting style</div>
         <hr />
     
-        <div class="location">oclets/html/htmlWriter.php at line 26</div>
-        <pre class="signature" id="items">public string <strong><span class="green">$items</span></strong> = <span class="red">''</span></pre>
+        <div class="location">doclets/html/htmlWriter.php at line 27</div>
+        <pre class="arguments" id="items">public string <strong><span class="green">$items</span></strong> = <span class="red">''</span></pre>
         <div class="details">List of package, functions, globals...</div>
         <hr />
     
-        <div class="location">oclets/html/htmlWriter.php at line 29</div>
-        <pre class="signature" id="output">public string <strong><span class="green">$output</span></strong> = <span class="red">''</span></pre>
-        <div class="details">The output body</div>
+        <div class="location">doclets/html/htmlWriter.php at line 30</div>
+        <pre class="arguments" id="output">public string <strong><span class="green">$output</span></strong> = <span class="red">''</span></pre>
+        <div class="details">Output body</div>
         <hr />
     
-        <div class="location">oclets/html/htmlWriter.php at line 32</div>
-        <pre class="signature" id="sections">public array <strong><span class="green">$sections</span></strong> = []</pre>
-        <div class="details">The section titles to place in the header</div>
+        <div class="location">doclets/html/htmlWriter.php at line 32</div>
+        <pre class="arguments" id="regexp">private mixed <strong><span class="green">$regexp</span></strong> = [<br />        <span class="red">"#[\"</span>](.*?)[\<span class="red">"]#is"</span>     => <span class="red">'<span class=<span class="red">"red"</span>><span class="red">"\\1"</span></span>'</span>,<br />        <span class="red">"#<span class="red">"(.*?)"</span>#is"</span> => <span class="red">'<span class=<span class="red">"red"</span>><span class="red">"\\1"</span></span>'</span>,<br />        <span class="red">"#[\<span class="red">'](.*?)[\'</span>]#is"</span>     => <span class="red">'<span class=<span class="red">"red"</span>>\'</span>\\1\<span class="red">'</span>'</span>,<br />        <span class="red">"#(.*?)#is"</span>  => <span class="red">'\\2'</span><br />    ]</pre>
+        <div class="details">Описания нет</div>
+        <hr />
+    
+        <div class="location">doclets/html/htmlWriter.php at line 35</div>
+        <pre class="arguments" id="sections">public array <strong><span class="green">$sections</span></strong> = []</pre>
+        <div class="details">Section titles to place in the header</div>
         <hr />
     
 
@@ -284,10 +297,11 @@
 
     <h2 id="details_methods">Методы: детали</h2>
     
-        <div class="location">oclets/html/htmlWriter.php at line 37</div>
-        <code class="signature" id="htmlWriter">public  void <strong>htmlWriter</strong> (<span class="lilac">object</span> <span class="blue">&$doclet</span>)</code>
+        <div class="location">doclets/html/htmlWriter.php at line 42</div>
+        <code class="arguments" id="htmlWriter">public  void <strong>htmlWriter</strong> (<span class="lilac">object</span> <span class="blue">&$doclet</span>)</code>
         <div class="details">
-            Constructor.
+            
+            <p class="description">Constructor.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -295,8 +309,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">object</td>
             
-                <td class="hid blue w_100">&$doclet</td>
-                <td class="hid">The reference to documentation generator</td>
+                <td class="hid" colspan="2">Reference to documentation generator</td>
             
         </tr>
     
@@ -306,10 +319,11 @@
         </div>
         <hr />
     
-        <div class="location">oclets/html/htmlWriter.php at line 46</div>
-        <code class="signature" id="nav">public  string <strong>nav</strong> (<span class="lilac">string</span> <span class="blue">$path</span>, <span class="lilac">string</span> <span class="blue">$file</span>)</code>
+        <div class="location">doclets/html/htmlWriter.php at line 53</div>
+        <code class="arguments" id="nav">public  string <strong>nav</strong> (<span class="lilac">string</span> <span class="blue">$path</span>, <span class="lilac">string</span> <span class="blue">$file</span>)</code>
         <div class="details">
-            Builds the navigation bar.
+            
+            <p class="description">Builds the navigation bar.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -317,8 +331,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$path</td>
-                <td class="hid">The path to write the file to</td>
+                <td class="hid" colspan="2">Path to write the file to</td>
             
         </tr>
     
@@ -326,8 +339,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$file</td>
-                <td class="hid">Filename for which navigation to create (default = <span class="red">''</span>)</td>
+                <td class="hid" colspan="2">Filename for which navigation to create (default = <span class="red">''</span>)</td>
             
         </tr>
     
@@ -345,10 +357,11 @@
         </div>
         <hr />
     
-        <div class="location">oclets/html/htmlWriter.php at line 78</div>
-        <code class="signature" id="packageItems">public  string <strong>packageItems</strong> (<a href="../phpapi/phpapi.html">phpapi</a> <span class="blue">&$phpapi</span>, <a href="../phpapi/packagedoc.html">packageDoc</a> <span class="blue">&$package</span>)</code>
+        <div class="location">doclets/html/htmlWriter.php at line 87</div>
+        <code class="arguments" id="packageItems">public  string <strong>packageItems</strong> (<a href="../phpapi/phpapi.html">phpapi</a> <span class="blue">&$phpapi</span>, <a href="../phpapi/packagedoc.html">packageDoc</a> <span class="blue">&$package</span>)</code>
         <div class="details">
-            Builds all items of the class.
+            
+            <p class="description">Builds all items of the class.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -356,8 +369,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac"><a href="../phpapi/phpapi.html">phpapi</a></td>
             
-                <td class="hid blue w_100">&$phpapi</td>
-                <td class="hid">The reference to the application object</td>
+                <td class="hid" colspan="2">Reference to the application object</td>
             
         </tr>
     
@@ -365,8 +377,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac"><a href="../phpapi/packagedoc.html">packageDoc</a></td>
             
-                <td class="hid blue w_100">&$package</td>
-                <td class="hid">The reference to the current package</td>
+                <td class="hid" colspan="2">Reference to the current package</td>
             
         </tr>
     
@@ -374,7 +385,7 @@
             <td class="hid left w_100">Return</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid" colspan="2">Parsed template &quot;class-items&quot;</td>
+                <td class="hid" colspan="2">Parsed template <span class="red">"class-items"</span></td>
             
         </tr>
     
@@ -384,10 +395,11 @@
         </div>
         <hr />
     
-        <div class="location">oclets/html/htmlWriter.php at line 159</div>
-        <code class="signature" id="processInlineTags">protected  string <strong>processInlineTags</strong> (<a href="../tags/tag.html">tag</a> <span class="blue">&$tag</span>, <span class="lilac">boolean</span> <span class="blue">$first</span>)</code>
+        <div class="location">doclets/html/htmlWriter.php at line 170</div>
+        <code class="arguments" id="processInlineTags">protected  string <strong>processInlineTags</strong> (<a href="../tags/tag.html">tag</a> <span class="blue">&$tag</span>, <span class="lilac">boolean</span> <span class="blue">$first</span>)</code>
         <div class="details">
-            Converts inline tags into a string for outputting.
+            
+            <p class="description">Converts inline tags into a string for outputting.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -395,8 +407,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac"><a href="../tags/tag.html">tag</a></td>
             
-                <td class="hid blue w_100">&$tag</td>
-                <td class="hid">Object reference</td>
+                <td class="hid" colspan="2">Object reference</td>
             
         </tr>
     
@@ -404,8 +415,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">boolean</td>
             
-                <td class="hid blue w_100">$first</td>
-                <td class="hid">Process first line of comment only</td>
+                <td class="hid" colspan="2">Process first line of comment only</td>
             
         </tr>
     
@@ -413,7 +423,7 @@
             <td class="hid left w_100">Return</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid" colspan="2">The string representation of the elements doc tags</td>
+                <td class="hid" colspan="2">String representation of the elements doc tags</td>
             
         </tr>
     
@@ -423,10 +433,11 @@
         </div>
         <hr />
     
-        <div class="location">oclets/html/htmlWriter.php at line 182</div>
-        <code class="signature" id="processTags">protected  string <strong>processTags</strong> (<a href="../tags/tag.html">tag</a> <span class="blue">&$tag</span>, <span class="lilac">object</span> <span class="blue">$obj</span>, <span class="lilac">mixed</span> <span class="blue">&$tags</span>)</code>
+        <div class="location">doclets/html/htmlWriter.php at line 197</div>
+        <code class="arguments" id="parameters">protected  array <strong>parameters</strong> (<a href="../tags/tag.html">tag</a> <span class="blue">&$tag</span>, <span class="lilac">object</span> <span class="blue">$obj</span>, <span class="lilac">mixed</span> <span class="blue">&$tags</span>)</code>
         <div class="details">
-            Formats tags for output.
+            
+            <p class="description">Formats parameters for output.<br /> Returns the list of parameters with their types.<br /> Recognised types are turned into HTML anchor tags to the documentation page for the class defining them.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -434,8 +445,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac"><a href="../tags/tag.html">tag</a></td>
             
-                <td class="hid blue w_100">&$tag</td>
-                <td class="hid">Object reference</td>
+                <td class="hid" colspan="2">Object reference</td>
             
         </tr>
     
@@ -443,38 +453,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">object</td>
             
-                <td class="hid blue w_100">$obj</td>
-                <td class="hid">The currently processed object</td>
-            
-        </tr>
-    
-        <tr>
-            <td class="hid left w_100">Return</td>
-            <td class="hid right w_100 lilac">string</td>
-            
-                <td class="hid" colspan="2">The text representation of the tags</td>
-            
-        </tr>
-    
-    </table>
-</div>
-
-        </div>
-        <hr />
-    
-        <div class="location">oclets/html/htmlWriter.php at line 262</div>
-        <code class="signature" id="showObject">public  array <strong>showObject</strong> (<span class="lilac">object</span> <span class="blue">$object</span>)</code>
-        <div class="details">
-            Preparation of the object for html template.
-            <div class="finfo">
-    <table class="hid">
-    
-        <tr>
-            <td class="hid left w_100">Parameters</td>
-            <td class="hid right w_100 lilac">object</td>
-            
-                <td class="hid blue w_100">$object</td>
-                <td class="hid">Object (fields, methods, constants, variables...)</td>
+                <td class="hid" colspan="2">Currently processed object</td>
             
         </tr>
     
@@ -482,7 +461,7 @@
             <td class="hid left w_100">Return</td>
             <td class="hid right w_100 lilac">array</td>
             
-                <td class="hid" colspan="2">The result</td>
+                <td class="hid" colspan="2">Text representation of the parameters</td>
             
         </tr>
     
@@ -492,10 +471,41 @@
         </div>
         <hr />
     
-        <div class="location">oclets/html/htmlWriter.php at line 297</div>
-        <code class="signature" id="write">public  void <strong>write</strong> (<span class="lilac">string</span> <span class="blue">$file</span>, <span class="lilac">string</span> <span class="blue">$title</span>, <span class="lilac">boolean</span> <span class="blue">$menu</span>)</code>
+        <div class="location">doclets/html/htmlWriter.php at line 279</div>
+        <code class="arguments" id="showObject">public  array <strong>showObject</strong> (<span class="lilac">object</span> <span class="blue">$object</span>)</code>
         <div class="details">
-            Writes the HTML page to disk using the given path.
+            
+            <p class="description">Preparation of the object for html template.</p>
+            <div class="finfo">
+    <table class="hid">
+    
+        <tr>
+            <td class="hid left w_100">Parameters</td>
+            <td class="hid right w_100 lilac">object</td>
+            
+                <td class="hid" colspan="2">Object (fields, methods, constants, variables...)</td>
+            
+        </tr>
+    
+        <tr>
+            <td class="hid left w_100">Return</td>
+            <td class="hid right w_100 lilac">array</td>
+            
+                <td class="hid" colspan="2">Result</td>
+            
+        </tr>
+    
+    </table>
+</div>
+
+        </div>
+        <hr />
+    
+        <div class="location">doclets/html/htmlWriter.php at line 319</div>
+        <code class="arguments" id="write">public  void <strong>write</strong> (<span class="lilac">string</span> <span class="blue">$file</span>, <span class="lilac">string</span> <span class="blue">$title</span>, <span class="lilac">boolean</span> <span class="blue">$menu</span>)</code>
+        <div class="details">
+            
+            <p class="description">Writes the HTML page to disk using the given path.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -503,8 +513,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$file</td>
-                <td class="hid">The path to write the file to</td>
+                <td class="hid" colspan="2">Path to write the file to</td>
             
         </tr>
     
@@ -512,8 +521,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$title</td>
-                <td class="hid">The title for new page</td>
+                <td class="hid" colspan="2">Title for new page</td>
             
         </tr>
     
@@ -521,8 +529,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">boolean</td>
             
-                <td class="hid blue w_100">$menu</td>
-                <td class="hid">To place the menu on the page</td>
+                <td class="hid" colspan="2">To place the menu on the page</td>
             
         </tr>
     
@@ -536,7 +543,7 @@
 
 
         <div class="header">
-    <span style="float:right">phpAPI ver. 4.0</span>
+    <span style="float:right">phpAPI ver. 4.1</span>
     
         <ul>
         

@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>API for class rootDoc (phpAPI: The PHP Documentation Creator ver. 4.0)</title>
+    <title>API for class rootDoc (phpAPI: PHP Documentation Creator ver. 4.1)</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="generator" content="phpAPI 4.0 (https://github.com/Greenray/phpAPI/)">
+    <meta name="generator" content="phpAPI 4.1 (https://github.com/Greenray/phpAPI/)">
     <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="start" href="../index.html">
 </head>
 
     <body id="rootDoc" onload="parent.document.title=document.title;">
         <div class="header">
-    <span style="float:right">phpAPI ver. 4.0</span>
+    <span style="float:right">phpAPI ver. 4.1</span>
     
         <ul>
         
@@ -54,7 +54,7 @@
 
 
 <hr />
-<p class="signature">public  class <strong>rootDoc</strong> extends <a href="../phpapi/doc.html">doc</a></p>
+<p class="arguments">public  class <strong>rootDoc</strong> extends <a href="../phpapi/doc.html">doc</a></p>
 <div class="comment" id="overview_description">Нolds the information from one run of phpapi.<br /> Particularly the packages, classes and options specified by the user.<br /> It is  the root of the parsed tokens and is passed to the doclet to be formatted into output.</div>
 <div class="finfo">
     <table class="hid">
@@ -63,7 +63,7 @@
             <td class="hid left w_100">Program</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
             
-                <td class="hid" colspan="2">phpapi: The PHP Documentation Creator</td>
+                <td class="hid" colspan="2">phpapi: PHP Documentation Creator</td>
             
         </tr>
     
@@ -79,7 +79,7 @@
             <td class="hid left w_100">Version</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
             
-                <td class="hid" colspan="2">4.0</td>
+                <td class="hid" colspan="2">4.1</td>
             
         </tr>
     
@@ -119,7 +119,7 @@
                 <td class="type w_200">public  <a href="../phpapi/packagedoc.html">packageDoc</a></td>
                 <td class="description">
                     <pre><a href="#$packages"><span class="green">$packages</span></a> = NULL</pre>
-                    <p class="description">The parsed packages</p>
+                    <p class="description">Parsed packages</p>
                 </td>
             </tr>
         
@@ -127,7 +127,7 @@
                 <td class="type w_200">public  <a href="../phpapi/phpapi.html">phpapi</a></td>
                 <td class="description">
                     <pre><a href="#$phpapi"><span class="green">$phpapi</span></a> = NULL</pre>
-                    <p class="description">The reference the phpapi application object</p>
+                    <p class="description">Reference the phpapi application object</p>
                 </td>
             </tr>
         
@@ -204,7 +204,7 @@
     
         <table class="inherit">
             <tr><th colspan="2">Методы, унаследованные из phpapi \ doc</th></tr>
-            <tr><td><a href="../phpapi/doc.html#__construct../phpapi/doc.html#isClass../phpapi/doc.html#isConstructor../phpapi/doc.html#isException../phpapi/doc.html#isField../phpapi/doc.html#isFunction../phpapi/doc.html#isGlobal../phpapi/doc.html#isInterface../phpapi/doc.html#isMethod../phpapi/doc.html#isOrdinaryClass../phpapi/doc.html#isTrait../phpapi/doc.html#mergeData../phpapi/doc.html#set../phpapi/doc.html#setByRef">__construct, isClass, isConstructor, isException, isField, isFunction, isGlobal, isInterface, isMethod, isOrdinaryClass, isTrait, mergeData, set, setByRef</a></td></tr>
+            <tr><td><a href="../phpapi/doc.html#__construct../../../../../../../../../../../../../">__construct, isClass, isConstructor, isException, isField, isFunction, isGlobal, isInterface, isMethod, isOrdinaryClass, isTrait, mergeData, set, setByRef</a></td></tr>
         </table>
     
 
@@ -212,23 +212,30 @@
 
     <h2 id="details_fields">Поля: детали</h2>
     
-        <div class="location">lasses/rootDoc.php at line 18</div>
-        <pre class="signature" id="packages">public <a href="../phpapi/packagedoc.html">packageDoc</a> <strong><span class="green">$packages</span></strong> = NULL</pre>
-        <div class="details">The parsed packages</div>
+        <div class="location">classes/rootDoc.php at line 19</div>
+        <pre class="arguments" id="packages">public <a href="../phpapi/packagedoc.html">packageDoc</a> <strong><span class="green">$packages</span></strong> = NULL</pre>
+        <div class="details">Parsed packages</div>
         <hr />
     
-        <div class="location">lasses/rootDoc.php at line 21</div>
-        <pre class="signature" id="phpapi">public <a href="../phpapi/phpapi.html">phpapi</a> <strong><span class="green">$phpapi</span></strong> = NULL</pre>
-        <div class="details">The reference the phpapi application object</div>
+        <div class="location">classes/rootDoc.php at line 22</div>
+        <pre class="arguments" id="phpapi">public <a href="../phpapi/phpapi.html">phpapi</a> <strong><span class="green">$phpapi</span></strong> = NULL</pre>
+        <div class="details">Reference the phpapi application object</div>
         <hr />
     
 
 
     <h2 id="details_constructor">Конструктор: детали</h2>
-    <div class="location">lasses/rootDoc.php at line 28</div>
-    <code class="signature" id="__construct">public  void <strong>__construct</strong>(<a href="../phpapi/phpapi.html">phpapi</a> <span class="blue">&$phpapi</span>)</code>
+    <div class="location">classes/rootDoc.php at line 31</div>
+    <code class="arguments" id="__construct">public  void <strong>__construct</strong>(<a href="../phpapi/phpapi.html">phpapi</a> <span class="blue">&$phpapi</span>)</code>
     <div class="details">
-        Constructor.<br /> Sets the reference to application object and parses the main overview file.<br /> The overview file is a markdown file, so it will be passed and represented at the main page of the documentation.
+        
+        require_once MARKDOWN.<span class="red">'MarkdownInterface.php'</span><br />
+        
+        require_once MARKDOWN.<span class="red">'Markdown.php'</span><br />
+        
+        require_once MARKDOWN.<span class="red">'MarkdownExtra.php'</span><br />
+        
+        <p class="description">Constructor.<br /> Sets Reference to application object and parses the main overview file.<br /> Overview file is a markdown file, so it will be passed and represented at the main page of the documentation.</p>
         <div class="finfo">
     <table class="hid">
     
@@ -236,8 +243,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac"><a href="../phpapi/phpapi.html">phpapi</a></td>
             
-                <td class="hid blue w_100">&$phpapi</td>
-                <td class="hid">The reference the application object</td>
+                <td class="hid" colspan="2">Reference the application object</td>
             
         </tr>
     
@@ -250,34 +256,62 @@
 
     <h2 id="details_methods">Методы: детали</h2>
     
-        <div class="location">lasses/rootDoc.php at line 54</div>
-        <code class="signature" id="classes">public  array <strong>classes</strong> ()</code>
+        <div class="location">classes/rootDoc.php at line 61</div>
+        <code class="arguments" id="classes">public  array <strong>classes</strong> ()</code>
         <div class="details">
-            Returns a reference to the classes and interfaces to be documented.
+            
+            require_once MARKDOWN.<span class="red">'MarkdownInterface.php'</span><br />
+            
+            require_once MARKDOWN.<span class="red">'Markdown.php'</span><br />
+            
+            require_once MARKDOWN.<span class="red">'MarkdownExtra.php'</span><br />
+            
+            <p class="description">Returns a reference to the classes and interfaces to be documented.</p>
             
         </div>
         <hr />
     
-        <div class="location">lasses/rootDoc.php at line 71</div>
-        <code class="signature" id="functions">public  array <strong>functions</strong> ()</code>
+        <div class="location">classes/rootDoc.php at line 80</div>
+        <code class="arguments" id="functions">public  array <strong>functions</strong> ()</code>
         <div class="details">
-            Returns a reference to the functions to be documented.
+            
+            require_once MARKDOWN.<span class="red">'MarkdownInterface.php'</span><br />
+            
+            require_once MARKDOWN.<span class="red">'Markdown.php'</span><br />
+            
+            require_once MARKDOWN.<span class="red">'MarkdownExtra.php'</span><br />
+            
+            <p class="description">Returns a reference to the functions to be documented.</p>
             
         </div>
         <hr />
     
-        <div class="location">lasses/rootDoc.php at line 87</div>
-        <code class="signature" id="globals">public  array <strong>globals</strong> ()</code>
+        <div class="location">classes/rootDoc.php at line 98</div>
+        <code class="arguments" id="globals">public  array <strong>globals</strong> ()</code>
         <div class="details">
-            Returns a reference to the globals to be documented.
+            
+            require_once MARKDOWN.<span class="red">'MarkdownInterface.php'</span><br />
+            
+            require_once MARKDOWN.<span class="red">'Markdown.php'</span><br />
+            
+            require_once MARKDOWN.<span class="red">'MarkdownExtra.php'</span><br />
+            
+            <p class="description">Returns a reference to the globals to be documented.</p>
             
         </div>
         <hr />
     
-        <div class="location">lasses/rootDoc.php at line 109</div>
-        <code class="signature" id="packageNamed">public  packageDoc|NULL <strong>packageNamed</strong> (<span class="lilac">string</span> <span class="blue">$name</span>, <span class="lilac">boolean</span> <span class="blue">$create</span>, <span class="lilac">string</span> <span class="blue">$overview</span>)</code>
+        <div class="location">classes/rootDoc.php at line 123</div>
+        <code class="arguments" id="packageNamed">public  packageDoc|NULL <strong>packageNamed</strong> (<span class="lilac">string</span> <span class="blue">$name</span>, <span class="lilac">boolean</span> <span class="blue">$create</span>, <span class="lilac">string</span> <span class="blue">$overview</span>)</code>
         <div class="details">
-            Returns a reference to a packageDoc for the specified package name.<br /> If a package of the requested name does not exist, this method will create the<br /> package object, add it to the root and return it.
+            
+            require_once MARKDOWN.<span class="red">'MarkdownInterface.php'</span><br />
+            
+            require_once MARKDOWN.<span class="red">'Markdown.php'</span><br />
+            
+            require_once MARKDOWN.<span class="red">'MarkdownExtra.php'</span><br />
+            
+            <p class="description">Returns a reference to a packageDoc for the specified package name.<br /> If a package of the requested name does not exist, this method will create the<br /> package object, add it to the root and return it.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -285,8 +319,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$name</td>
-                <td class="hid">Package name</td>
+                <td class="hid" colspan="2">Package name</td>
             
         </tr>
     
@@ -294,8 +327,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">boolean</td>
             
-                <td class="hid blue w_100">$create</td>
-                <td class="hid">Create package if it does not exist (default = FALSE)</td>
+                <td class="hid" colspan="2">Create package if it does not exist (default = FALSE)</td>
             
         </tr>
     
@@ -303,8 +335,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$overview</td>
-                <td class="hid">Package description (default = <span class="red">''</span>)</td>
+                <td class="hid" colspan="2">Package description (default = <span class="red">''</span>)</td>
             
         </tr>
     
@@ -314,10 +345,17 @@
         </div>
         <hr />
     
-        <div class="location">lasses/rootDoc.php at line 130</div>
-        <code class="signature" id="classNamed">public  classDoc|NULL <strong>classNamed</strong> (<span class="lilac">string</span> <span class="blue">$name</span>)</code>
+        <div class="location">classes/rootDoc.php at line 147</div>
+        <code class="arguments" id="classNamed">public  classDoc|NULL <strong>classNamed</strong> (<span class="lilac">string</span> <span class="blue">$name</span>)</code>
         <div class="details">
-            Returns a reference to a classDoc for the specified class/interface name.
+            
+            require_once MARKDOWN.<span class="red">'MarkdownInterface.php'</span><br />
+            
+            require_once MARKDOWN.<span class="red">'Markdown.php'</span><br />
+            
+            require_once MARKDOWN.<span class="red">'MarkdownExtra.php'</span><br />
+            
+            <p class="description">Returns a reference to a classDoc for the specified class/interface name.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -325,8 +363,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$name</td>
-                <td class="hid">Class name</td>
+                <td class="hid" colspan="2">Class name</td>
             
         </tr>
     
@@ -340,7 +377,7 @@
 
 
         <div class="header">
-    <span style="float:right">phpAPI ver. 4.0</span>
+    <span style="float:right">phpAPI ver. 4.1</span>
     
         <ul>
         

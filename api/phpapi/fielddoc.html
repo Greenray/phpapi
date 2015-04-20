@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>API for class fieldDoc (phpAPI: The PHP Documentation Creator ver. 4.0)</title>
+    <title>API for class fieldDoc (phpAPI: PHP Documentation Creator ver. 4.1)</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="generator" content="phpAPI 4.0 (https://github.com/Greenray/phpAPI/)">
+    <meta name="generator" content="phpAPI 4.1 (https://github.com/Greenray/phpAPI/)">
     <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="start" href="../index.html">
 </head>
 
     <body id="fieldDoc" onload="parent.document.title=document.title;">
         <div class="header">
-    <span style="float:right">phpAPI ver. 4.0</span>
+    <span style="float:right">phpAPI ver. 4.1</span>
     
         <ul>
         
@@ -47,14 +47,15 @@
 <h1>Class fieldDoc</h1>
 <div id="list">
     <ul>
-        <li><a href="../phpapi/doc.html">doc</a><ul><li><a href="../phpapi/elementdoc.html">elementDoc</a><ul><li><strong>fieldDoc</strong></li></ul></li></ul></li>
+        <li><a href="../phpapi/doc.html">doc</a><ul><li><a href="../phpapi/elementdoc.html">elementDoc</a><ul><li><strong>fieldDoc</strong></li></ul></li>
+                        </ul></li>
     </ul>
 </div>
 
 
 
 <hr />
-<p class="signature">public  class <strong>fieldDoc</strong> extends <a href="../phpapi/elementdoc.html">elementDoc</a></p>
+<p class="arguments">public  class <strong>fieldDoc</strong> extends <a href="../phpapi/elementdoc.html">elementDoc</a></p>
 <div class="comment" id="overview_description">Represents a PHP variable, constant or member variable (field).</div>
 <div class="finfo">
     <table class="hid">
@@ -63,7 +64,7 @@
             <td class="hid left w_100">Program</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
             
-                <td class="hid" colspan="2">phpapi: The PHP Documentation Creator</td>
+                <td class="hid" colspan="2">phpapi: PHP Documentation Creator</td>
             
         </tr>
     
@@ -79,7 +80,7 @@
             <td class="hid left w_100">Version</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
             
-                <td class="hid" colspan="2">4.0</td>
+                <td class="hid" colspan="2">4.1</td>
             
         </tr>
     
@@ -119,7 +120,7 @@
                 <td class="type w_200">public  string</td>
                 <td class="description">
                     <pre><a href="#$type"><span class="green">$type</span></a> = NULL</pre>
-                    <p class="description">The type of the variable</p>
+                    <p class="description">Type of the variable</p>
                 </td>
             </tr>
         
@@ -127,7 +128,7 @@
                 <td class="type w_200">public  mixed</td>
                 <td class="description">
                     <pre><a href="#$value"><span class="green">$value</span></a> = NULL</pre>
-                    <p class="description">The value of the variable if it is a constant</p>
+                    <p class="description">Value of the variable</p>
                 </td>
             </tr>
         
@@ -137,7 +138,7 @@
     
         <table class="inherit">
             <tr><th colspan="2">Поля, унаследованные из phpapi \ elementDoc</th></tr>
-            <tr><td><a href="../phpapi/elementdoc.html#$access../phpapi/elementdoc.html#$filename../phpapi/elementdoc.html#$final../phpapi/elementdoc.html#$lineNumber../phpapi/elementdoc.html#$package../phpapi/elementdoc.html#$parameters../phpapi/elementdoc.html#$parent../phpapi/elementdoc.html#$sourcePath../phpapi/elementdoc.html#$static../phpapi/elementdoc.html#$throws">$access, $filename, $final, $lineNumber, $package, $parameters, $parent, $sourcePath, $static, $throws</a></td></tr>
+            <tr><td><a href="../phpapi/elementdoc.html#$access../phpapi/elementdoc.html#$filename../phpapi/elementdoc.html#$final../phpapi/elementdoc.html#$includes../phpapi/elementdoc.html#$lineNumber../phpapi/elementdoc.html#$package../phpapi/elementdoc.html#$parameters../phpapi/elementdoc.html#$parent../phpapi/elementdoc.html#$sourcePath../phpapi/elementdoc.html#$static../phpapi/elementdoc.html#$throws">$access, $filename, $final, $includes, $lineNumber, $package, $parameters, $parent, $sourcePath, $static, $throws</a></td></tr>
         </table>
     
         <table class="inherit">
@@ -182,8 +183,8 @@
             <tr>
                 <td class="type w_200">public  string</td>
                 <td class="description">
-                    <p><a href="#typeAsString"><strong><span class="black">typeAsString</span></strong></a> ()</p>
-                    <p class="description">Format a field type for outputting.</p>
+                    <p><a href="#type"><strong><span class="black">type</span></strong></a> ()</p>
+                    <p class="description">Formats a field type for outputting.</p>
                 </td>
             </tr>
         
@@ -193,12 +194,12 @@
     
         <table class="inherit">
             <tr><th colspan="2">Методы, унаследованные из phpapi \ elementDoc</th></tr>
-            <tr><td><a href="../phpapi/elementdoc.html#__construct../phpapi/elementdoc.html#asPath../phpapi/elementdoc.html#containingClass../phpapi/elementdoc.html#containingPackage../phpapi/elementdoc.html#location../phpapi/elementdoc.html#modifiers../phpapi/elementdoc.html#qualifiedName../phpapi/elementdoc.html#signature">__construct, asPath, containingClass, containingPackage, location, modifiers, qualifiedName, signature</a></td></tr>
+            <tr><td><a href="../phpapi/elementdoc.html#__construct../../../../../../../">__construct, arguments, asPath, containingClass, containingPackage, fullNamespace, location, modifiers</a></td></tr>
         </table>
     
         <table class="inherit">
             <tr><th colspan="2">Методы, унаследованные из phpapi \ doc</th></tr>
-            <tr><td><a href="../phpapi/doc.html#__construct../phpapi/doc.html#isClass../phpapi/doc.html#isConstructor../phpapi/doc.html#isException../phpapi/doc.html#isField../phpapi/doc.html#isFunction../phpapi/doc.html#isGlobal../phpapi/doc.html#isInterface../phpapi/doc.html#isMethod../phpapi/doc.html#isOrdinaryClass../phpapi/doc.html#isTrait../phpapi/doc.html#mergeData../phpapi/doc.html#set../phpapi/doc.html#setByRef">__construct, isClass, isConstructor, isException, isField, isFunction, isGlobal, isInterface, isMethod, isOrdinaryClass, isTrait, mergeData, set, setByRef</a></td></tr>
+            <tr><td><a href="../phpapi/doc.html#__construct../../../../../../../../../../../../../">__construct, isClass, isConstructor, isException, isField, isFunction, isGlobal, isInterface, isMethod, isOrdinaryClass, isTrait, mergeData, set, setByRef</a></td></tr>
         </table>
     
 
@@ -206,23 +207,24 @@
 
     <h2 id="details_fields">Поля: детали</h2>
     
-        <div class="location">lasses/fieldDoc.php at line 16</div>
-        <pre class="signature" id="type">public string <strong><span class="green">$type</span></strong> = NULL</pre>
-        <div class="details">The type of the variable</div>
+        <div class="location">classes/fieldDoc.php at line 17</div>
+        <pre class="arguments" id="type">public string <strong><span class="green">$type</span></strong> = NULL</pre>
+        <div class="details">Type of the variable</div>
         <hr />
     
-        <div class="location">lasses/fieldDoc.php at line 19</div>
-        <pre class="signature" id="value">public mixed <strong><span class="green">$value</span></strong> = NULL</pre>
-        <div class="details">The value of the variable if it is a constant</div>
+        <div class="location">classes/fieldDoc.php at line 20</div>
+        <pre class="arguments" id="value">public mixed <strong><span class="green">$value</span></strong> = NULL</pre>
+        <div class="details">Value of the variable</div>
         <hr />
     
 
 
     <h2 id="details_constructor">Конструктор: детали</h2>
-    <div class="location">lasses/fieldDoc.php at line 29</div>
-    <code class="signature" id="__construct">public  void <strong>__construct</strong>(<span class="lilac">string</span> <span class="blue">$name</span>, <span class="lilac">classDoc|methodDoc</span> <span class="blue">&$parent</span>, <a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">&$root</span>, <span class="lilac">string</span> <span class="blue">$filename</span>, <span class="lilac">integer</span> <span class="blue">$lineNumber</span>, <span class="lilac">string</span> <span class="blue">$sourcePath</span>)</code>
+    <div class="location">classes/fieldDoc.php at line 32</div>
+    <code class="arguments" id="__construct">public  void <strong>__construct</strong>(<span class="lilac">string</span> <span class="blue">$name</span>, <span class="lilac">classDoc|methodDoc</span> <span class="blue">&$parent</span>, <a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">&$root</span>, <span class="lilac">string</span> <span class="blue">$filename</span>, <span class="lilac">integer</span> <span class="blue">$lineNumber</span>, <span class="lilac">string</span> <span class="blue">$sourcePath</span>)</code>
     <div class="details">
-        Constructor.
+        
+        <p class="description">Constructor.</p>
         <div class="finfo">
     <table class="hid">
     
@@ -230,8 +232,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$name</td>
-                <td class="hid">Name of this element</td>
+                <td class="hid" colspan="2">Name of this element</td>
             
         </tr>
     
@@ -239,8 +240,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">classDoc|methodDoc</td>
             
-                <td class="hid blue w_100">&$parent</td>
-                <td class="hid">The reference to the parent of this element</td>
+                <td class="hid" colspan="2">Reference to the parent of this element</td>
             
         </tr>
     
@@ -248,8 +248,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac"><a href="../phpapi/rootdoc.html">rootDoc</a></td>
             
-                <td class="hid blue w_100">&$root</td>
-                <td class="hid">The reference to the root element</td>
+                <td class="hid" colspan="2">Reference to the root element</td>
             
         </tr>
     
@@ -257,8 +256,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$filename</td>
-                <td class="hid">The filename of the source file this element is in</td>
+                <td class="hid" colspan="2">Filename of the source file this element is in</td>
             
         </tr>
     
@@ -266,8 +264,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">integer</td>
             
-                <td class="hid blue w_100">$lineNumber</td>
-                <td class="hid">The line number of the source file this element is at</td>
+                <td class="hid" colspan="2">Line number of the source file this element is at</td>
             
         </tr>
     
@@ -275,8 +272,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$sourcePath</td>
-                <td class="hid">The source path containing the source file</td>
+                <td class="hid" colspan="2">Source path containing the source file</td>
             
         </tr>
     
@@ -289,26 +285,29 @@
 
     <h2 id="details_methods">Методы: детали</h2>
     
-        <div class="location">lasses/fieldDoc.php at line 42</div>
-        <code class="signature" id="isField">public  boolean <strong>isField</strong> ()</code>
+        <div class="location">classes/fieldDoc.php at line 47</div>
+        <code class="arguments" id="isField">public  boolean <strong>isField</strong> ()</code>
         <div class="details">
-            Construct is a field.
+            
+            <p class="description">Construct is a field.</p>
             
         </div>
         <hr />
     
-        <div class="location">lasses/fieldDoc.php at line 49</div>
-        <code class="signature" id="isGlobal">public  boolean <strong>isGlobal</strong> ()</code>
+        <div class="location">classes/fieldDoc.php at line 56</div>
+        <code class="arguments" id="isGlobal">public  boolean <strong>isGlobal</strong> ()</code>
         <div class="details">
-            Construct is a global.
+            
+            <p class="description">Construct is a global.</p>
             
         </div>
         <hr />
     
-        <div class="location">lasses/fieldDoc.php at line 57</div>
-        <code class="signature" id="typeAsString">public  string <strong>typeAsString</strong> ()</code>
+        <div class="location">classes/fieldDoc.php at line 66</div>
+        <code class="arguments" id="type">public  string <strong>type</strong> ()</code>
         <div class="details">
-            Format a field type for outputting.<br /> Recognised types are turned into HTML anchor tags to the documentation page for the class defining them.
+            
+            <p class="description">Formats a field type for outputting.<br /> Recognised types are turned into HTML anchor tags to the documentation page for the class defining them.</p>
             
         </div>
         <hr />
@@ -317,7 +316,7 @@
 
 
         <div class="header">
-    <span style="float:right">phpAPI ver. 4.0</span>
+    <span style="float:right">phpAPI ver. 4.1</span>
     
         <ul>
         

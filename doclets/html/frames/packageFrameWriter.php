@@ -1,11 +1,12 @@
 <?php
-/** This generates the package-frame.html file that lists the interfaces and
+/**
+ * This generates the package-frame.html file that lists the interfaces and
  * classes in a given package for displaying in the lower-left frame of the
  * frame-formatted default output.
  *
- * @program   phpapi: The PHP Documentation Creator
+ * @program   phpapi: PHP Documentation Creator
  * @file      doclets/html/frames/packageFrameWriter.php
- * @version   4.0
+ * @version   4.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -14,8 +15,10 @@
 
 class packageFrameWriter extends htmlWriter {
 
-    /** Build the package frame index.
-     * @param object &$doclet The reference to the documentation generator
+    /**
+     * Builds the package frame index.
+     *
+     * @param object &$doclet Reference to the documentation generator
      */
     public function __construct(&$doclet) {
         parent::htmlWriter($doclet);

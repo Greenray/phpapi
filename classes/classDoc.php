@@ -1,10 +1,11 @@
 <?php
-/** Represents a PHP class and provides access to information about the class,
+/**
+ * Represents a PHP class and provides access to information about the class,
  * class's comment and tags, and the members of the class.
  *
- * @program   phpapi: The PHP Documentation Creator
+ * @program   phpapi: PHP Documentation Creator
  * @file      classes/classDoc.php
- * @version   4.0
+ * @version   4.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -22,6 +23,9 @@ class classDoc extends elementDoc {
     /** @var fieldDoc Class fields */
     public $fields = [];
 
+    /** @var array Required files or files to be included */
+    public $includes = [];
+
     /** @var boolean Is this an interface? */
     public $interface = FALSE;
 
@@ -31,7 +35,7 @@ class classDoc extends elementDoc {
     /** @var methodDoc Class methods */
     public $methods = [];
 
-    /** @var string The super class */
+    /** @var string Super class */
     public $superclass = NULL;
 
     /** @var boolean Is this a trait? */
@@ -40,12 +44,14 @@ class classDoc extends elementDoc {
     /** @var classDoc Traits this class uses */
     public $traits = [];
 
-    /** Constructor.
-     * @param  string  $name       The name of this element
-     * @param  rootDoc &$root      Object reference
-     * @param  string  $filename   The filename of the source file this element is in
-     * @param  integer $lineNumber The line number of the source file this element is at
-     * @param  string  $sourcePath The source path containing the source file
+    /**
+     * Constructor.
+     *
+     * @param string  $name       Name of this element
+     * @param rootDoc &$root      Object reference
+     * @param string  $filename   Filename of the source file this element is in
+     * @param integer $lineNumber Line number of the source file this element is at
+     * @param string  $sourcePath Source path containing the source file
      */
     public function __construct($name, &$root, $filename, $lineNumber, $sourcePath) {
         $this->name       = $name;
@@ -55,7 +61,9 @@ class classDoc extends elementDoc {
         $this->sourcePath = $sourcePath;
     }
 
-    /** Returns constructor for this class.
+    /**
+     * Returns constructor for this class.
+     *
      * @return methodDoc
      */
     public function &constructor() {
@@ -69,7 +77,9 @@ class classDoc extends elementDoc {
         return $return;
     }
 
-    /** Returns destructor for this class.
+    /**
+     * Returns destructor for this class.
+     *
      * @return methodDoc
      */
     public function &destructor() {
@@ -83,37 +93,47 @@ class classDoc extends elementDoc {
         return $return;
     }
 
-    /** Returns TRUE if object is a class.
+    /**
+     * Returns TRUE if object is a class.
+     *
      * @return boolean
      */
     public function isClass() {
         return !$this->interface && !$this->trait;
     }
 
-    /** Returns TRUE if object is an exception.
+    /**
+     * Returns TRUE if object is an exception.
+     *
      * @return boolean
      */
     public function isException() {
         return (strtolower($this->superclass) === 'exception') ? TRUE : FALSE;
     }
 
-    /** Returns TRUE if this element is an interface.
+    /**
+     * Returns TRUE if this element is an interface.
+     *
      * @return boolean
      */
     public function isInterface() {
         return $this->interface;
     }
 
-    /** Constructs an ordinary class (not an interface or an exception).
+    /**
+     * Constructs an ordinary class (not an interface or an exception).
+     *
      * @return boolean
      */
     public function isOrdinaryClass() {
         return ($this->isClass() && !$this->isException()) ? TRUE : FALSE;
     }
 
-    /** Merges the details of the superclass with this class.
+    /**
+     * Merges the details of the superclass with this class.
      * This function is recursive.
-     * @param string $superClassName The name of the root class (default = NULL)
+     *
+     * @param string $superClassName Name of the root class (default = NULL)
      */
     public function mergeSuperClassData($superClassName = NULL) {
         if (!$superClassName) {
@@ -122,14 +142,17 @@ class classDoc extends elementDoc {
         if ($superClassName) {
             $parent = &$this->root->classNamed($superClassName);
             if ($parent->superclass) {
+                #
                 # Merge parents superclass data first by recursing
+                #
                 $this->mergeSuperClassData($parent->superclass);
             }
         }
 
         if (isset($parent)) {
-
+            #
             # Merge class tags array
+            #
             $tags = &$parent->tags;
             if ($tags) {
                 foreach ($tags as $name => $tag) {
@@ -149,13 +172,16 @@ class classDoc extends elementDoc {
                     }
                 }
             }
-
+            #
             # Merge method data
+            #
             $methods = &$this->methods();
             foreach ($methods as $name => $method) {
                 $parentMethod = (isset($parent->methods[$name])) ? $parent->methods[$name] : NULL;
                 if ($parentMethod) {
+                    #
                     # Tags
+                    #
                     $tags = &$parentMethod->tags;
                     if ($tags) {
                         foreach ($tags as $tagName => $tag) {
@@ -175,8 +201,9 @@ class classDoc extends elementDoc {
                             }
                         }
                     }
-
+                    #
                     # Method parameters
+                    #
                     foreach ($parentMethod->parameters as $paramName => $param) {
                         if (isset($methods[$name]->parameters[$paramName])) {
                             $type = &$methods[$name]->parameters[$paramName]->type;
@@ -190,16 +217,18 @@ class classDoc extends elementDoc {
                             $methods[$name]->parameters[$paramName]->set('type', new type($paramType->typeName, $this->root));
                         }
                     }
-
+                    #
                     # Method return type
+                    #
                     if ($parentMethod->returnType && $methods[$name]->returnType->typeName === 'void') {
 
                         $this->root->phpapi->verbose('> Merging method '.$this->name.':'.$name.' with return type from parent '.$parent->name.':'.$parentMethod->name);
 
                         $methods[$name]->returnType = $parentMethod->returnType;
                     }
-
+                    #
                     # Method thrown exceptions
+                    #
                     foreach ($parentMethod->throws as $exceptionName => $exception) {
                         if (!isset($methods[$name]->throws[$exceptionName])) {
 
@@ -213,7 +242,9 @@ class classDoc extends elementDoc {
         }
     }
 
-    /** Returns the array of methods in current class.
+    /**
+     * Returns the array of methods in current class.
+     *
      * @param  boolean $regularOnly Do not return constructors and destructors (default = FALSE)
      * @return array methodDoc
      */
@@ -229,7 +260,9 @@ class classDoc extends elementDoc {
         return $return;
     }
 
-    /** Returns the array of known subclasses of this class.
+    /**
+     * Returns the array of known subclasses of this class.
+     *
      * @return array classDoc
      */
     public function subclasses() {

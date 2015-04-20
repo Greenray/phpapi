@@ -1,9 +1,10 @@
 <?php
-/** This generates the index of elements.
+/**
+ * This generates the index of elements.
  *
- * @program   phpapi: The PHP Documentation Creator
+ * @program   phpapi: PHP Documentation Creator
  * @file      doclets/html/indexWriter.php
- * @version   4.0
+ * @version   4.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -12,8 +13,10 @@
 
 class indexWriter extends htmlWriter {
 
-    /** Build the index of elements.
-     * @param object &$doclet The reference to the documentation generator
+    /**
+     * Builds the index of elements.
+     *
+     * @param object &$doclet Reference to the documentation generator
      */
     public function __construct(&$doclet, $index) {
         parent::htmlWriter($doclet);
@@ -58,7 +61,7 @@ class indexWriter extends htmlWriter {
                 if ($parent && get_class($parent) !=='rootDoc') {
                     $output['elements'][$letter]['letter'][$i]['in']     = __('класса');
                     $output['elements'][$letter]['letter'][$i]['inPath'] = $parent->asPath();
-                    $output['elements'][$letter]['letter'][$i]['inName'] = $parent->qualifiedName();
+                    $output['elements'][$letter]['letter'][$i]['inName'] = $parent->fullNamespace();
                 } else {
                     $package = &$element->containingPackage();
                     $output['elements'][$letter]['letter'][$i]['in']     = __('в пространстве имен');
@@ -76,8 +79,8 @@ class indexWriter extends htmlWriter {
                         break;
 
                     case 'methodDoc':
-                        if     ($element->isMethod())   $output['elements'][$letter]['letter'][$i]['element'] = __('Метод');
-                        elseif ($element->isFunction()) $output['elements'][$letter]['letter'][$i]['element'] = __('Функция');
+                        if     (!$element->isFunction()) $output['elements'][$letter]['letter'][$i]['element'] = __('Метод');
+                        elseif ($element->isFunction())  $output['elements'][$letter]['letter'][$i]['element'] = __('Функция');
                         break;
 
                     case 'fieldDoc':
@@ -105,15 +108,17 @@ class indexWriter extends htmlWriter {
         $this->write('index-all.html', 'Index');
     }
 
-    /** Compares two elements.
-     * @param  mixed   $element1 Element 1 to compare
-     * @param  mixed   $element2 Element 2 to comar
-     * @return integer           The resalt of compare
+    /**
+     * Compares two elements.
+     *
+     * @param  mixed $element1 Element 1 to compare
+     * @param  mixed $element2 Element 2 to comar
+     * @return integer         Resalt of compare
      */
     public function compareElements($element1, $element2) {
         $e1 = strtolower($element1->name);
         $e2 = strtolower($element2->name);
-        if ($e1 === $e2)    return 0;
+        if ($e1 === $e2)   return 0;
         elseif ($e1 < $e2) return -1;
         else               return 1;
     }

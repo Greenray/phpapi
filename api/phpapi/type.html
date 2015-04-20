@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>API for class type (phpAPI: The PHP Documentation Creator ver. 4.0)</title>
+    <title>API for class type (phpAPI: PHP Documentation Creator ver. 4.1)</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="generator" content="phpAPI 4.0 (https://github.com/Greenray/phpAPI/)">
+    <meta name="generator" content="phpAPI 4.1 (https://github.com/Greenray/phpAPI/)">
     <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="start" href="../index.html">
 </head>
 
     <body id="type" onload="parent.document.title=document.title;">
         <div class="header">
-    <span style="float:right">phpAPI ver. 4.0</span>
+    <span style="float:right">phpAPI ver. 4.1</span>
     
         <ul>
         
@@ -54,7 +54,7 @@
 
 
 <hr />
-<p class="signature">public  class <strong>type</strong></p>
+<p class="arguments">public  class <strong>type</strong></p>
 <div class="comment" id="overview_description">Represents a PHP variable type.<br /> Type can be a class or primitive data type.</div>
 <div class="finfo">
     <table class="hid">
@@ -63,7 +63,7 @@
             <td class="hid left w_100">Program</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
             
-                <td class="hid" colspan="2">phpapi: The PHP Documentation Creator</td>
+                <td class="hid" colspan="2">phpapi: PHP Documentation Creator</td>
             
         </tr>
     
@@ -79,7 +79,7 @@
             <td class="hid left w_100">Version</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
             
-                <td class="hid" colspan="2">4.0</td>
+                <td class="hid" colspan="2">4.1</td>
             
         </tr>
     
@@ -119,7 +119,7 @@
                 <td class="type w_200">public  <a href="../phpapi/rootdoc.html">rootDoc</a></td>
                 <td class="description">
                     <pre><a href="#$root"><span class="green">$root</span></a> = NULL</pre>
-                    <p class="description">The reference the root element</p>
+                    <p class="description">Reference the root element</p>
                 </td>
             </tr>
         
@@ -127,7 +127,7 @@
                 <td class="type w_200">public  string</td>
                 <td class="description">
                     <pre><a href="#$typeName"><span class="green">$typeName</span></a> = NULL</pre>
-                    <p class="description">The name of the type</p>
+                    <p class="description">Name of the type</p>
                 </td>
             </tr>
         
@@ -166,23 +166,24 @@
 
     <h2 id="details_fields">Поля: детали</h2>
     
-        <div class="location">lasses/type.php at line 17</div>
-        <pre class="signature" id="root">public <a href="../phpapi/rootdoc.html">rootDoc</a> <strong><span class="green">$root</span></strong> = NULL</pre>
-        <div class="details">The reference the root element</div>
+        <div class="location">classes/type.php at line 18</div>
+        <pre class="arguments" id="root">public <a href="../phpapi/rootdoc.html">rootDoc</a> <strong><span class="green">$root</span></strong> = NULL</pre>
+        <div class="details">Reference the root element</div>
         <hr />
     
-        <div class="location">lasses/type.php at line 20</div>
-        <pre class="signature" id="typeName">public string <strong><span class="green">$typeName</span></strong> = NULL</pre>
-        <div class="details">The name of the type</div>
+        <div class="location">classes/type.php at line 21</div>
+        <pre class="arguments" id="typeName">public string <strong><span class="green">$typeName</span></strong> = NULL</pre>
+        <div class="details">Name of the type</div>
         <hr />
     
 
 
     <h2 id="details_constructor">Конструктор: детали</h2>
-    <div class="location">lasses/type.php at line 26</div>
-    <code class="signature" id="__construct">public  void <strong>__construct</strong>(<span class="lilac">string</span> <span class="blue">$name</span>, <a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">&$root</span>)</code>
+    <div class="location">classes/type.php at line 29</div>
+    <code class="arguments" id="__construct">public  void <strong>__construct</strong>(<span class="lilac">string</span> <span class="blue">$name</span>, <a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">&$root</span>)</code>
     <div class="details">
-        Constructor.
+        
+        <p class="description">Constructor.</p>
         <div class="finfo">
     <table class="hid">
     
@@ -190,8 +191,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$name</td>
-                <td class="hid">The name of the variable type</td>
+                <td class="hid" colspan="2">Name of the variable type</td>
             
         </tr>
     
@@ -199,8 +199,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac"><a href="../phpapi/rootdoc.html">rootDoc</a></td>
             
-                <td class="hid blue w_100">&$root</td>
-                <td class="hid">The reference rootDoc object to tie this type too</td>
+                <td class="hid" colspan="2">Reference rootDoc object to tie this type too</td>
             
         </tr>
     
@@ -213,10 +212,11 @@
 
     <h2 id="details_methods">Методы: детали</h2>
     
-        <div class="location">lasses/type.php at line 37</div>
-        <code class="signature" id="asClassDoc">public  classDoc|NULL <strong>asClassDoc</strong> ()</code>
+        <div class="location">classes/type.php at line 42</div>
+        <code class="arguments" id="asClassDoc">public  classDoc|NULL <strong>asClassDoc</strong> ()</code>
         <div class="details">
-            Returns a classDoc if the type is a class, NULL if it is a primitive type.
+            
+            <p class="description">Returns a classDoc if the type is a class, NULL if it is a primitive type.</p>
             
         </div>
         <hr />
@@ -225,7 +225,7 @@
 
 
         <div class="header">
-    <span style="float:right">phpAPI ver. 4.0</span>
+    <span style="float:right">phpAPI ver. 4.1</span>
     
         <ul>
         

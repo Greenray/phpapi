@@ -1,9 +1,9 @@
 <?php
 /**
+ * Markdown interface -  A text-to-HTML conversion tool for web writers.
+ *
  * @package markdown
  */
-#
-# Markdown  -  A text-to-HTML conversion tool for web writers
 #
 # PHP Markdown
 # Copyright (c) 2004-2015 Michel Fortin

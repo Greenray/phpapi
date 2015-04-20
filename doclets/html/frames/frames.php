@@ -1,38 +1,40 @@
 <?php
-/** The frames doclet.
+/**
+ * Frames doclet.
  * This doclet generates HTML output similar to that produced by the Javadoc frames doclet.
  *
- * @program   phpapi: The PHP Documentation Creator
+ * @program   phpapi: PHP Documentation Creator
  * @file      doclets/html/frames/frames.php
- * @version   4.0
+ * @version   4.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * @package   frames
- * @overview  The frames doclet.
+ * @overview  Frames doclet.
  *            This doclet generates HTML output similar to that produced by the Javadoc htmlFrames doclet.
  */
 
 class frames {
 
-    /** @var string The directory to place the generated files */
-    public $destination = 'api';
-
-    /** Specifies the header text to be placed at the top of each output file.
-     * The header will be placed to the right of the upper navigation bar.
+    /**
+     * Specifies the header text to be placed at the top of each output file.
+     * Header will be placed to the right of the upper navigation bar.
+     *
      * @var string
      */
     public $header = 'Unknown';
 
-    /** @var rootDoc A reference to the root doc */
+    /** @var rootDoc Reference to the root doc */
     public $rootDoc;
 
-    /** Doclet constructor.
-     * @param rootDoc       &$rootDoc  The reference to the root document
-     * @param htmlFormatter $formatter The documentation formatter
+    /**
+     * Doclet constructor.
+     *
+     * @param rootDoc       &$rootDoc  Reference to the root document
+     * @param htmlFormatter $formatter Documentation formatter
      */
     public function __construct(&$rootDoc, $formatter) {
-        # set doclet options
+
         $this->rootDoc   = &$rootDoc;
         $this->formatter = $formatter;
         $phpapi = &$rootDoc->phpapi;
@@ -41,18 +43,13 @@ class frames {
         require 'overviewFrameWriter.php';
         require 'packageFrameWriter.php';
 
-        if (isset($phpapi->options['destination'])) {
-            $this->destination = $phpapi->options['destination'];
-        }
-        $this->destination = $phpapi->fixPath($this->destination);
-
-        if (is_dir($this->destination))
+        if (is_dir($phpapi->options['destination']))
              $phpapi->warning('Output directory already exists, overwriting');
-        else mkdir($this->destination);
+        else mkdir($phpapi->options['destination']);
 
-        $phpapi->verbose('Setting output directory to "'.$this->destination.'"');
+        $phpapi->verbose('Setting output directory to "'.$phpapi->options['destination'].'"');
 
-        if (isset($rootDoc->phpapi->options['header'])) $this->header = &$rootDoc->phpapi->options['header'];
+        if (isset($phpapi->options['header'])) $this->header = &$phpapi->options['header'];
 
         $frameOutputWriter     = &new frameOutputWriter($this);                           # Main frame
         $overviewSummaryWriter = &new overviewSummaryWriter($this, 'overview-summary');   # Overview summary
@@ -67,9 +64,9 @@ class frames {
         $todoWriter            = &new todoWriter($this,            'overview-summary');   # Todo index
 
         $phpapi->verbose('Copying stylesheet');
-        copy(TEMPLATES.$rootDoc->phpapi->options['doclet'].DS.'style.css', $this->destination.'style.css');
+        copy(TEMPLATES.$phpapi->options['doclet'].DS.'style.css', $phpapi->options['destination'].'style.css');
 
-        if (!is_dir($this->destination.'resources')) mkdir($this->destination.'resources');
+        if (!is_dir($phpapi->options['destination'].'resources')) mkdir($phpapi->options['destination'].'resources');
 
         $phpapi->verbose('Copying resources');
         $dir = dir(RESOURCES);
@@ -78,7 +75,7 @@ class frames {
             while (($element = $dir->read()) !== FALSE) {
                 if (!in_array($element, $exclude)) {
                     if (is_readable(RESOURCES.$element)) {
-                        copy(RESOURCES.$element, $this->destination.'resources'.DS.$element);
+                        copy(RESOURCES.$element, $phpapi->options['destination'].'resources'.DS.$element);
                     }
                 }
             }

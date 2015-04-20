@@ -1,11 +1,12 @@
 <?php
-/** Нolds the information from one run of phpapi.
+/**
+ * Нolds the information from one run of phpapi.
  * Particularly the packages, classes and options specified by the user.
  * It is  the root of the parsed tokens and is passed to the doclet to be formatted into output.
  *
- * @program   phpapi: The PHP Documentation Creator
+ * @program   phpapi: PHP Documentation Creator
  * @file      classes/rootDoc.php
- * @version   4.0
+ * @version   4.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -14,16 +15,18 @@
 
 class rootDoc extends doc {
 
-    /** @var packageDoc The parsed packages */
+    /** @var packageDoc Parsed packages */
     public $packages = NULL;
 
-    /** @var phpapi The reference the phpapi application object */
+    /** @var phpapi Reference the phpapi application object */
     public $phpapi = NULL;
 
-    /** Constructor.
-     * Sets the reference to application object and parses the main overview file.
-     * The overview file is a markdown file, so it will be passed and represented at the main page of the documentation.
-     * @param phpapi &$phpapi The reference the application object
+    /**
+     * Constructor.
+     * Sets Reference to application object and parses the main overview file.
+     * Overview file is a markdown file, so it will be passed and represented at the main page of the documentation.
+     *
+     * @param phpapi &$phpapi Reference the application object
      */
     public function __construct(&$phpapi) {
         # Set a reference to application object
@@ -36,7 +39,9 @@ class rootDoc extends doc {
                 $phpapi->verbose('Reading overview file "'.$overview.'".');
                 $text = file_get_contents($overview);
                 if (!empty($text)) {
-                    require_once MARKDOWN.'MarkdownExtra.inc.php';
+                    require_once MARKDOWN.'MarkdownInterface.php';
+                    require_once MARKDOWN.'Markdown.php';
+                    require_once MARKDOWN.'MarkdownExtra.php';
 
                     $parser = new MarkdownExtra;
                     $text   = $parser->transform($text);
@@ -48,7 +53,9 @@ class rootDoc extends doc {
         }
     }
 
-    /** Returns a reference to the classes and interfaces to be documented.
+    /**
+     * Returns a reference to the classes and interfaces to be documented.
+     *
      * @return array
      */
     public function &classes() {
@@ -65,7 +72,9 @@ class rootDoc extends doc {
         return $classes;
     }
 
-    /** Returns a reference to the functions to be documented.
+    /**
+     * Returns a reference to the functions to be documented.
+     *
      * @return array
      */
     public function &functions() {
@@ -81,7 +90,9 @@ class rootDoc extends doc {
         return $functions;
     }
 
-    /** Returns a reference to the globals to be documented.
+    /**
+     * Returns a reference to the globals to be documented.
+     *
      * @return array
      */
     public function &globals() {
@@ -98,12 +109,15 @@ class rootDoc extends doc {
         return $globals;
     }
 
-    /** Returns a reference to a packageDoc for the specified package name.
+    /**
+     * Returns a reference to a packageDoc for the specified package name.
      * If a package of the requested name does not exist, this method will create the
      * package object, add it to the root and return it.
-     * @param  string  $name     Package name
-     * @param  boolean $create   Create package if it does not exist (default = FALSE)
-     * @param  string  $overview Package description                 (default = '')
+     *
+     * @param string  $name     Package name
+     * @param boolean $create   Create package if it does not exist (default = FALSE)
+     * @param string  $overview Package description                 (default = '')
+     *
      * @return packageDoc|NULL
      */
     public function &packageNamed($name, $create = FALSE, $overview = '') {
@@ -123,8 +137,11 @@ class rootDoc extends doc {
         return $return;
     }
 
-    /** Returns a reference to a classDoc for the specified class/interface name.
-     * @param  string $name Class name
+    /**
+     * Returns a reference to a classDoc for the specified class/interface name.
+     *
+     * @param string $name Class name
+     *
      * @return classDoc|NULL
      */
     public function &classNamed($name) {

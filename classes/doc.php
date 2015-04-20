@@ -1,11 +1,12 @@
 <?php
-/** Base class of all Doc classes.
+/**
+ * Base class of all Doc classes.
  * Doc item's are representations of PHP language constructs (class, package, method,...)
  * which have comments and have been processed by this run of phpapi.
  *
- * @program   phpapi: The PHP Documentation Creator
+ * @program   phpapi: PHP Documentation Creator
  * @file      classes/doc.php
- * @version   4.0
+ * @version   4.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -14,9 +15,11 @@
 
 class doc {
 
-    /** Data about the element creamed from the token stream before the object for this element was created.
+    /**
+     * Data about the element creamed from the token stream before the object for this element was created.
      * This array contains extra data about the element that occurs before the element definition in the token
      * stream (including doc comment data), it is merged with the objects fields upon object completion.
+     *
      * @var mixed
      */
     public $data = NULL; # This must be NULL so set does not nest the arrays when $currentData is assigned
@@ -24,19 +27,19 @@ class doc {
     /** @ var string Description of the package */
     public $desc;
 
-    /** @var string The unprocessed doc comment */
+    /** @var string Unprocessed doc comment */
     public $docComment = '';
 
     /** @var integer Whether parsing is inside this elements curly braces */
     public $inBody = 0;
 
-    /** @var string The name of this construct */
+    /** @var string Name of this construct */
     public $name = NULL;
 
     /** Detailed package description */
     public $overview;
 
-    /** @var rootDoc The reference the root element */
+    /** @var rootDoc Reference the root element */
     public $root = NULL;
 
     /** @var tag Array of doc tags */
@@ -45,9 +48,11 @@ class doc {
     /** Constructor. */
     public function __construct() {}
 
-    /** Setter method.
-     * @param  string  $member Name of the member to set
-     * @param  mixed   $value  The value to set member to
+    /**
+     * Setter method.
+     *
+     * @param  string $member Name of the member to set
+     * @param  mixed  $value  Value to set member to
      * @return boolean
      */
     public function set($member, $value) {
@@ -61,9 +66,11 @@ class doc {
         return FALSE;
     }
 
-    /** Setter by reference method.
-     * @param  string  $member Name of the member to set
-     * @param  mixed   &$value The reference to the value of the variable, constant, etc.
+    /**
+     * Setter by reference method.
+     *
+     * @param  string $member Name of the member to set
+     * @param  mixed  &$value Reference to the value of the variable, constant, etc.
      * @return boolean
      */
     public function setByRef($member, &$value) {
@@ -77,80 +84,100 @@ class doc {
         return FALSE;
     }
 
-    /** Constructs a class.
+    /**
+     * Constructs a class.
      * False until overridden.
+     *
      * @return boolean
      */
     public function isClass() {
         return FALSE;
     }
 
-    /** Constructs an ordinary class (not an interface or an exception).
+    /**
+     * Constructs an ordinary class (not an interface or an exception).
      * False until overridden.
+     *
      * @return boolean
      */
     public function isOrdinaryClass() {
         return FALSE;
     }
 
-    /** Constructs a constructor.
+    /**
+     * Constructs a constructor.
      * False until overridden.
+     *
      * @return boolean
      */
     public function isConstructor() {
         return FALSE;
     }
 
-    /** Constructs an exception.
+    /**
+     * Constructs an exception.
      * False until overridden.
+     *
      * @return boolean
      */
     public function isException() {
         return FALSE;
     }
 
-    /** Constructs a global variable.
+    /**
+     * Constructs a global variable.
      * False until overridden.
+     *
      * @return boolean
      */
     public function isGlobal() {
         return FALSE;
     }
 
-    /** Constructs a field.
+    /**
+     * Constructs a field.
      * False until overridden.
+     *
      * @return boolean
      */
     public function isField() {
         return FALSE;
     }
 
-    /** Constructs a function.
+    /**
+     * Constructs a function.
      * False until overridden.
+     *
      * @return boolean
      */
     public function isFunction() {
         return FALSE;
     }
 
-    /** Constructs an interface.
+    /**
+     * Constructs an interface.
      * False until overridden.
+     *
      * @return boolean
      */
     public function isInterface() {
         return FALSE;
     }
 
-    /** Constructs a method.
+    /**
+     * Constructs a method.
      * False until overridden.
+     *
      * @return boolean
      */
     public function isMethod() {
         return FALSE;
     }
 
-    /** Constructs an trait.
+    /**
+     * Constructs an trait.
      * False until overridden.
+     *
      * @return boolean
      */
     public function isTrait() {
@@ -160,8 +187,9 @@ class doc {
     /** Merges the contents of the doc comment into the element object. */
     public function mergeData() {
         if (!empty($this->data) && is_array($this->data)) {
-
+            #
             # Merge primitive types
+            #
             foreach ($this->data as $member => $value) {
                 if (!is_array($value)) {
                     if ($member === 'type')
@@ -169,8 +197,9 @@ class doc {
                     else $this->set($member, $value);
                 }
             }
-
+            #
             # Merge tags array
+            #
             if (isset($this->data['tags']) && is_array($this->data['tags'])) {
                 $thisClass = get_class($this);
                 foreach ($this->data['tags'] as $name => $tag) {
@@ -199,8 +228,9 @@ class doc {
                     }
                 }
             }
-
+            #
             # Merge parameter types
+            #
             if (isset($this->parameters) && isset($this->data['parameters'])) {
                 foreach ($this->data['parameters'] as $name => $param) {
                     if (substr($name, 0, 9) === '__unknown') {
@@ -220,11 +250,13 @@ class doc {
                     }
                 }
             }
-
+            #
             # Merge return type
+            #
             if (isset($this->returnType) && isset($this->data['return'])) $this->returnType = &new type($this->data['return'], $this->root);
-
+            #
             # Merge exceptions
+            #
             if (isset($this->throws) && isset($this->data['throws'])) {
                 foreach ($this->data['throws'] as $name => $exception) {
                     $this->throws[$name] = &$this->data['throws'][$name];

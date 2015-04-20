@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>API for class frames (phpAPI: The PHP Documentation Creator ver. 4.0)</title>
+    <title>API for class frames (phpAPI: PHP Documentation Creator ver. 4.1)</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="generator" content="phpAPI 4.0 (https://github.com/Greenray/phpAPI/)">
+    <meta name="generator" content="phpAPI 4.1 (https://github.com/Greenray/phpAPI/)">
     <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="start" href="../index.html">
 </head>
 
     <body id="frames" onload="parent.document.title=document.title;">
         <div class="header">
-    <span style="float:right">phpAPI ver. 4.0</span>
+    <span style="float:right">phpAPI ver. 4.1</span>
     
         <ul>
         
@@ -54,8 +54,8 @@
 
 
 <hr />
-<p class="signature">public  class <strong>frames</strong></p>
-<div class="comment" id="overview_description">The frames doclet.<br /> This doclet generates HTML output similar to that produced by the Javadoc frames doclet.</div>
+<p class="arguments">public  class <strong>frames</strong></p>
+<div class="comment" id="overview_description">Frames doclet.<br /> This doclet generates HTML output similar to that produced by the Javadoc frames doclet.</div>
 <div class="finfo">
     <table class="hid">
     
@@ -63,7 +63,7 @@
             <td class="hid left w_100">Program</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
             
-                <td class="hid" colspan="2">phpapi: The PHP Documentation Creator</td>
+                <td class="hid" colspan="2">phpapi: PHP Documentation Creator</td>
             
         </tr>
     
@@ -79,7 +79,7 @@
             <td class="hid left w_100">Version</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
             
-                <td class="hid" colspan="2">4.0</td>
+                <td class="hid" colspan="2">4.1</td>
             
         </tr>
     
@@ -111,7 +111,7 @@
             <td class="hid left w_100">Overview</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
             
-                <td class="hid" colspan="2">The frames doclet.
+                <td class="hid" colspan="2">Frames doclet.
  This doclet generates HTML output similar to that produced by the Javadoc htmlFrames doclet.</td>
             
         </tr>
@@ -127,14 +127,6 @@
             <tr>
                 <td class="type w_200">public  string</td>
                 <td class="description">
-                    <pre><a href="#$destination"><span class="green">$destination</span></a> = <span class="red">'api'</span></pre>
-                    <p class="description">The directory to place the generated files</p>
-                </td>
-            </tr>
-        
-            <tr>
-                <td class="type w_200">public  string</td>
-                <td class="description">
                     <pre><a href="#$header"><span class="green">$header</span></a> = <span class="red">'Unknown'</span></pre>
                     <p class="description">Specifies the header text to be placed at the top of each output file.</p>
                 </td>
@@ -144,7 +136,7 @@
                 <td class="type w_200">public  <a href="../phpapi/rootdoc.html">rootDoc</a></td>
                 <td class="description">
                     <pre><a href="#$rootDoc"><span class="green">$rootDoc</span></a></pre>
-                    <p class="description">A reference to the root doc</p>
+                    <p class="description">Reference to the root doc</p>
                 </td>
             </tr>
         
@@ -170,28 +162,30 @@
 
     <h2 id="details_fields">Поля: детали</h2>
     
-        <div class="location">oclets/html/frames/frames.php at line 19</div>
-        <pre class="signature" id="destination">public string <strong><span class="green">$destination</span></strong> = <span class="red">'api'</span></pre>
-        <div class="details">The directory to place the generated files</div>
+        <div class="location">doclets/html/frames/frames.php at line 25</div>
+        <pre class="arguments" id="header">public string <strong><span class="green">$header</span></strong> = <span class="red">'Unknown'</span></pre>
+        <div class="details">Specifies the header text to be placed at the top of each output file.<br /> Header will be placed to the right of the upper navigation bar.</div>
         <hr />
     
-        <div class="location">oclets/html/frames/frames.php at line 25</div>
-        <pre class="signature" id="header">public string <strong><span class="green">$header</span></strong> = <span class="red">'Unknown'</span></pre>
-        <div class="details">Specifies the header text to be placed at the top of each output file.<br /> The header will be placed to the right of the upper navigation bar.</div>
-        <hr />
-    
-        <div class="location">oclets/html/frames/frames.php at line 28</div>
-        <pre class="signature" id="rootDoc">public <a href="../phpapi/rootdoc.html">rootDoc</a> <strong><span class="green">$rootDoc</span></strong></pre>
-        <div class="details">A reference to the root doc</div>
+        <div class="location">doclets/html/frames/frames.php at line 28</div>
+        <pre class="arguments" id="rootDoc">public <a href="../phpapi/rootdoc.html">rootDoc</a> <strong><span class="green">$rootDoc</span></strong></pre>
+        <div class="details">Reference to the root doc</div>
         <hr />
     
 
 
     <h2 id="details_constructor">Конструктор: детали</h2>
-    <div class="location">oclets/html/frames/frames.php at line 34</div>
-    <code class="signature" id="__construct">public  void <strong>__construct</strong>(<a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">&$rootDoc</span>, <a href="../formatters/htmlformatter.html">htmlFormatter</a> <span class="blue">$formatter</span>)</code>
+    <div class="location">doclets/html/frames/frames.php at line 36</div>
+    <code class="arguments" id="__construct">public  void <strong>__construct</strong>(<a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">&$rootDoc</span>, <a href="../formatters/htmlformatter.html">htmlFormatter</a> <span class="blue">$formatter</span>)</code>
     <div class="details">
-        Doclet constructor.
+        
+        require <span class="red">'frameOutputWriter.php'</span><br />
+        
+        require <span class="red">'overviewFrameWriter.php'</span><br />
+        
+        require <span class="red">'packageFrameWriter.php'</span><br />
+        
+        <p class="description">Doclet constructor.</p>
         <div class="finfo">
     <table class="hid">
     
@@ -199,8 +193,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac"><a href="../phpapi/rootdoc.html">rootDoc</a></td>
             
-                <td class="hid blue w_100">&$rootDoc</td>
-                <td class="hid">The reference to the root document</td>
+                <td class="hid" colspan="2">Reference to the root document</td>
             
         </tr>
     
@@ -208,8 +201,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac"><a href="../formatters/htmlformatter.html">htmlFormatter</a></td>
             
-                <td class="hid blue w_100">$formatter</td>
-                <td class="hid">The documentation formatter</td>
+                <td class="hid" colspan="2">Documentation formatter</td>
             
         </tr>
     
@@ -223,7 +215,7 @@
 
 
         <div class="header">
-    <span style="float:right">phpAPI ver. 4.0</span>
+    <span style="float:right">phpAPI ver. 4.1</span>
     
         <ul>
         

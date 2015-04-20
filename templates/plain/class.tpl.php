@@ -25,9 +25,9 @@
     </dl>
 [/if.subclass]
 <hr />
-<p class="signature">{ismodifiers} {is} <strong>{isname}</strong>[if=extends]{extends}[/if.extends]</p>
-<div class="comment" id="overview_description">{textag}</div>
-[if=main_tags]{main_tags}[/if.main_tags]
+<p class="arguments">{ismodifiers} {is} <strong>{isname}</strong>[if=extends]{extends}[/if.extends]</p>
+<div class="comment" id="overview_description">{textTag}</div>
+[if=mainParams]{mainParams}[/if.mainParams]
 [if=constant]
     <table id="summary_constants">
         <tr><th colspan="2">[__Константы]: [__общий обзор]</th></tr>
@@ -59,7 +59,7 @@
 [if=inheritFields]
     [each=inheritFields]
         <table class="inherit">
-            <tr><th colspan="2">[__Поля, унаследованные из] {inheritFields[qualifiedName]}</th></tr>
+            <tr><th colspan="2">[__Поля, унаследованные из] {inheritFields[fullNamespace]}</th></tr>
             <tr><td><a href="{inheritFields[path]}">{inheritFields[name]}</a></td></tr>
         </table>
     [/each.inheritFields]
@@ -70,7 +70,7 @@
         <tr>
             <td class="type w_200">{modifiers} {type}</td>
             <td class="description">
-                <p><a href="#{name}"><strong><span class="black">{name}</span></strong></a>{signature}</p>
+                <p><a href="#{name}"><strong><span class="black">{name}</span></strong></a>{arguments}</p>
                 <p class="description">{shortDesc}</p>
             </td>
         </tr>
@@ -82,7 +82,7 @@
         <tr>
             <td class="type w_200">{modifiers} {type}</td>
             <td class="description">
-                <p><a href="#{name}"><strong><span class="black">{name}</span></strong></a>{signature}</p>
+                <p><a href="#{name}"><strong><span class="black">{name}</span></strong></a>{arguments}</p>
                 <p class="description">{shortDesc}</p>
             </td>
         </tr>
@@ -95,7 +95,7 @@
             <tr>
                 <td class="type w_200">{method[modifiers]} {method[type]}</td>
                 <td class="description">
-                    <p><a href="#{method[name]}"><strong><span class="black">{method[name]}</span></strong></a> {method[signature]}</p>
+                    <p><a href="#{method[name]}"><strong><span class="black">{method[name]}</span></strong></a> {method[arguments]}</p>
                     <p class="description">{method[shortDesc]}</p>
                 </td>
             </tr>
@@ -105,7 +105,7 @@
 [if=inheritMethods]
     [each=inheritMethods]
         <table class="inherit">
-            <tr><th colspan="2">[__Методы, унаследованные из] {inheritMethods[qualifiedName]}</th></tr>
+            <tr><th colspan="2">[__Методы, унаследованные из] {inheritMethods[fullNamespace]}</th></tr>
             <tr><td><a href="{inheritMethods[path]}">{inheritMethods[name]}</a></td></tr>
         </table>
     [/each.inheritMethods]
@@ -114,7 +114,7 @@
     <h2 id="details_constants">[__Константы]: [__детали]</h2>
     [each=constant]
         <div class="location">{constant[location]}</div>
-        <pre class="signature" id="{constant[name]}">{constant[modifiers]} {constant[type]} <strong>{constant[name]}</strong>{constant[value]}</pre>
+        <pre class="arguments" id="{constant[name]}">{constant[modifiers]} {constant[type]} <strong>{constant[name]}</strong>{constant[value]}</pre>
         <div class="details">{constant[fullDesc]}</div>
         <hr />
     [/each.constant]
@@ -123,7 +123,7 @@
     <h2 id="details_fields">[__Поля]: [__детали]</h2>
     [each=field]
         <div class="location">{field[location]}</div>
-        <pre class="signature" id="{field[id]}">{field[modifiers]}{field[type]} <strong><span class="green">{field[name]}</span></strong>{field[value]}</pre>
+        <pre class="arguments" id="{field[id]}">{field[modifiers]}{field[type]} <strong><span class="green">{field[name]}</span></strong>{field[value]}</pre>
         <div class="details">{field[fullDesc]}</div>
         <hr />
     [/each.field]
@@ -131,29 +131,29 @@
 [if=constructor]
     <h2 id="details_constructor">[__Конструктор]: [__детали]</h2>
     <div class="location">{location}</div>
-    <code class="signature" id="{name}">{modifiers} {type} <strong>{name}</strong>{signature}</code>
+    <code class="arguments" id="{name}">{modifiers} {type} <strong>{name}</strong>{arguments}</code>
     <div class="details">
         {fullDesc}
-        {tags}
+        {parameters}
     </div>
 [/if.constructor]
 [if=destructor]
     <h2 id="details_destructor">[__Деструктор]: [__детали]</h2>
     <div class="location">{location}</div>
-    <code class="signature" id="{name}">{modifiers} {type} <strong>{name}</strong>{signature}</code>
+    <code class="arguments" id="{name}">{modifiers} {type} <strong>{name}</strong>{arguments}</code>
     <div class="details">
         {fullDesc}
-        {tags}
+        {parameters}
     </div>
 [/if.destructor]
 [if=method]
     <h2 id="details_methods">[__Методы]: [__детали]</h2>
     [each=method]
         <div class="location">{method[location]}</div>
-        <code class="signature" id="{method[name]}">{method[modifiers]} {method[type]} <strong>{method[name]}</strong> {method[signature]}</code>
+        <code class="arguments" id="{method[name]}">{method[modifiers]} {method[type]} <strong>{method[name]}</strong> {method[arguments]}</code>
         <div class="details">
             {method[fullDesc]}
-            {method[tags]}
+            {method[parameters]}
         </div>
         <hr />
     [/each.method]

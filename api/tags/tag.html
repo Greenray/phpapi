@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>API for class tag (phpAPI: The PHP Documentation Creator ver. 4.0)</title>
+    <title>API for class tag (phpAPI: PHP Documentation Creator ver. 4.1)</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="generator" content="phpAPI 4.0 (https://github.com/Greenray/phpAPI/)">
+    <meta name="generator" content="phpAPI 4.1 (https://github.com/Greenray/phpAPI/)">
     <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="start" href="../index.html">
 </head>
 
     <body id="tag" onload="parent.document.title=document.title;">
         <div class="header">
-    <span style="float:right">phpAPI ver. 4.0</span>
+    <span style="float:right">phpAPI ver. 4.1</span>
     
         <ul>
         
@@ -59,7 +59,7 @@
     </dl>
 
 <hr />
-<p class="signature">public  class <strong>tag</strong></p>
+<p class="arguments">public  class <strong>tag</strong></p>
 <div class="comment" id="overview_description">Represents a documentation tag.<br /> Given a tag (e.g. "@since 1.2"), holds tag name (e.g. "@since") and tag text (e.g. "1.2").<br /> Tags with structure or which require special processing are handled by subclasses.</div>
 <div class="finfo">
     <table class="hid">
@@ -68,7 +68,7 @@
             <td class="hid left w_100">Program</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
             
-                <td class="hid" colspan="2">phpapi: The PHP Documentation Creator</td>
+                <td class="hid" colspan="2">phpapi: PHP Documentation Creator</td>
             
         </tr>
     
@@ -84,7 +84,7 @@
             <td class="hid left w_100">Version</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
             
-                <td class="hid" colspan="2">4.0</td>
+                <td class="hid" colspan="2">4.1</td>
             
         </tr>
     
@@ -117,7 +117,7 @@
             <td class="hid right w_100 lilac">&nbsp;</td>
             
                 <td class="hid" colspan="2">Represents a documentation tag.
- The tag is a keyword (e.g. @version) with value (e.g. 1.0)</td>
+ Tag is a keyword (e.g. @version) with value (e.g. 1.0)</td>
             
         </tr>
     
@@ -133,7 +133,7 @@
                 <td class="type w_200">public  string</td>
                 <td class="description">
                     <pre><a href="#$name"><span class="green">$name</span></a> = NULL</pre>
-                    <p class="description">The name of the tag</p>
+                    <p class="description">Name of the tag</p>
                 </td>
             </tr>
         
@@ -141,7 +141,7 @@
                 <td class="type w_200">public  <a href="../phpapi/elementdoc.html">elementDoc</a></td>
                 <td class="description">
                     <pre><a href="#$parent"><span class="green">$parent</span></a> = NULL</pre>
-                    <p class="description">The reference the elements parent</p>
+                    <p class="description">Reference the elements parent</p>
                 </td>
             </tr>
         
@@ -149,7 +149,7 @@
                 <td class="type w_200">public  <a href="../phpapi/rootdoc.html">rootDoc</a></td>
                 <td class="description">
                     <pre><a href="#$root"><span class="green">$root</span></a> = NULL</pre>
-                    <p class="description">The reference the root element</p>
+                    <p class="description">Reference the root element</p>
                 </td>
             </tr>
         
@@ -157,7 +157,7 @@
                 <td class="type w_200">public  string</td>
                 <td class="description">
                     <pre><a href="#$text"><span class="green">$text</span></a> = NULL</pre>
-                    <p class="description">The value of the tag as raw data, without any text processing applied</p>
+                    <p class="description">Value of the tag as raw data, without any text processing applied</p>
                 </td>
             </tr>
         
@@ -273,28 +273,28 @@
 
     <h2 id="details_fields">Поля: детали</h2>
     
-        <div class="location">aglets/tag.php at line 20</div>
-        <pre class="signature" id="name">public string <strong><span class="green">$name</span></strong> = NULL</pre>
-        <div class="details">The name of the tag</div>
+        <div class="location">taglets/tag.php at line 21</div>
+        <pre class="arguments" id="name">public string <strong><span class="green">$name</span></strong> = NULL</pre>
+        <div class="details">Name of the tag</div>
         <hr />
     
-        <div class="location">aglets/tag.php at line 23</div>
-        <pre class="signature" id="parent">public <a href="../phpapi/elementdoc.html">elementDoc</a> <strong><span class="green">$parent</span></strong> = NULL</pre>
-        <div class="details">The reference the elements parent</div>
+        <div class="location">taglets/tag.php at line 24</div>
+        <pre class="arguments" id="parent">public <a href="../phpapi/elementdoc.html">elementDoc</a> <strong><span class="green">$parent</span></strong> = NULL</pre>
+        <div class="details">Reference the elements parent</div>
         <hr />
     
-        <div class="location">aglets/tag.php at line 26</div>
-        <pre class="signature" id="root">public <a href="../phpapi/rootdoc.html">rootDoc</a> <strong><span class="green">$root</span></strong> = NULL</pre>
-        <div class="details">The reference the root element</div>
+        <div class="location">taglets/tag.php at line 27</div>
+        <pre class="arguments" id="root">public <a href="../phpapi/rootdoc.html">rootDoc</a> <strong><span class="green">$root</span></strong> = NULL</pre>
+        <div class="details">Reference the root element</div>
         <hr />
     
-        <div class="location">aglets/tag.php at line 29</div>
-        <pre class="signature" id="text">public string <strong><span class="green">$text</span></strong> = NULL</pre>
-        <div class="details">The value of the tag as raw data, without any text processing applied</div>
+        <div class="location">taglets/tag.php at line 30</div>
+        <pre class="arguments" id="text">public string <strong><span class="green">$text</span></strong> = NULL</pre>
+        <div class="details">Value of the tag as raw data, without any text processing applied</div>
         <hr />
     
-        <div class="location">aglets/tag.php at line 32</div>
-        <pre class="signature" id="type">public string <strong><span class="green">$type</span></strong> = NULL</pre>
+        <div class="location">taglets/tag.php at line 33</div>
+        <pre class="arguments" id="type">public string <strong><span class="green">$type</span></strong> = NULL</pre>
         <div class="details">Type of parameter</div>
         <hr />
     
@@ -304,10 +304,11 @@
 
     <h2 id="details_methods">Методы: детали</h2>
     
-        <div class="location">aglets/tag.php at line 40</div>
-        <code class="signature" id="tag">public  void <strong>tag</strong> (<span class="lilac">string</span> <span class="blue">$name</span>, <span class="lilac">string</span> <span class="blue">$text</span>, <a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">&$root</span>, <span class="lilac">string</span> <span class="blue">$type</span>)</code>
+        <div class="location">taglets/tag.php at line 43</div>
+        <code class="arguments" id="tag">public  void <strong>tag</strong> (<span class="lilac">string</span> <span class="blue">$name</span>, <span class="lilac">string</span> <span class="blue">$text</span>, <a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">&$root</span>, <span class="lilac">string</span> <span class="blue">$type</span>)</code>
         <div class="details">
-            Constructor.
+            
+            <p class="description">Constructor.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -315,8 +316,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$name</td>
-                <td class="hid">The name of the tag (including @)</td>
+                <td class="hid" colspan="2">Name of the tag (including @)</td>
             
         </tr>
     
@@ -324,8 +324,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$text</td>
-                <td class="hid">The contents of the tag</td>
+                <td class="hid" colspan="2">Contents of the tag</td>
             
         </tr>
     
@@ -333,16 +332,15 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac"><a href="../phpapi/rootdoc.html">rootDoc</a></td>
             
-                <td class="hid blue w_100">&$root</td>
-                <td class="hid">The reference to the root object</td>
+                <td class="hid" colspan="2">Reference to the root object</td>
             
         </tr>
     
         <tr>
-            <td class="hid left w_100">Paqram</td>
-            <td class="hid right w_100 lilac">&nbsp;</td>
+            <td class="hid left w_100">&nbsp</td>
+            <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid" colspan="2">string $type The type of the element</td>
+                <td class="hid" colspan="2">Type of the element</td>
             
         </tr>
     
@@ -352,18 +350,20 @@
         </div>
         <hr />
     
-        <div class="location">aglets/tag.php at line 50</div>
-        <code class="signature" id="displayName">public  string <strong>displayName</strong> ()</code>
+        <div class="location">taglets/tag.php at line 55</div>
+        <code class="arguments" id="displayName">public  string <strong>displayName</strong> ()</code>
         <div class="details">
-            Gets display name of this tag.
+            
+            <p class="description">Gets display name of this tag.</p>
             
         </div>
         <hr />
     
-        <div class="location">aglets/tag.php at line 64</div>
-        <code class="signature" id="firstCommentString">public  <a href="../tags/tag.html">tag</a> <strong>firstCommentString</strong> ()</code>
+        <div class="location">taglets/tag.php at line 70</div>
+        <code class="arguments" id="firstCommentString">public  <a href="../tags/tag.html">tag</a> <strong>firstCommentString</strong> ()</code>
         <div class="details">
-            Returns the first sentence of the comment as tags.<br /> Includes inline tags (i.e.  tags) but not regular tags.<br /> Each section of plain text is represented as a tag of kind "Text".<br /> Inline tags are represented as a SeeTag of kind "link".<br /> The sentence ends at the first period that is followed by a space, tab,<br /> or a line terminator, at the first tagline, or closing of a HTML block elements.
+            
+            <p class="description">Returns the first sentence of the comment as tags.<br /> Includes inline tags (i.e.  tags) but not regular tags.<br /> Each section of plain text is represented as a tag of kind "Text".<br /> Inline tags are represented as a SeeTag of kind "link".<br /> Sentence ends at the first period that is followed by a space, tab,<br /> or a line terminator, at the first tagline, or closing of a HTML block elements.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -389,10 +389,11 @@
         </div>
         <hr />
     
-        <div class="location">aglets/tag.php at line 76</div>
-        <code class="signature" id="getInlineTags">public  <a href="../tags/tag.html">tag</a> <strong>getInlineTags</strong> (<span class="lilac">string</span> <span class="blue">$text</span>)</code>
+        <div class="location">taglets/tag.php at line 84</div>
+        <code class="arguments" id="getInlineTags">public  <a href="../tags/tag.html">tag</a> <strong>getInlineTags</strong> (<span class="lilac">string</span> <span class="blue">$text</span>)</code>
         <div class="details">
-            Parses out inline tags from within a text string.
+            
+            <p class="description">Parses out inline tags from within a text string.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -400,8 +401,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$text</td>
-                <td class="hid">Text for parse</td>
+                <td class="hid" colspan="2">Text for parse</td>
             
         </tr>
     
@@ -419,10 +419,11 @@
         </div>
         <hr />
     
-        <div class="location">aglets/tag.php at line 122</div>
-        <code class="signature" id="inlineTags">public  <a href="../tags/tag.html">tag</a> <strong>inlineTags</strong> ()</code>
+        <div class="location">taglets/tag.php at line 131</div>
+        <code class="arguments" id="inlineTags">public  <a href="../tags/tag.html">tag</a> <strong>inlineTags</strong> ()</code>
         <div class="details">
-            For documentation comment with embedded @link tags, return the array of tags.<br /> Within a comment string "This is an example of inline tags for a<br /> documentaion comment commentlabel", where inside the inner<br /> braces, the first "Doc" carries exactly the same syntax as a SeeTag and<br /> the second "commentlabel" is label for the HTML link, will return an array<br /> of tags with first element as tag with comment text "This is an example of<br /> inline tags for a documentation comment" and second element as SeeTag with<br /> referenced class as "Doc" and the label for the HTML link as "commentlabel".
+            
+            <p class="description">For documentation comment with embedded @link tags, return the array of tags.<br /> Within a comment string "This is an example of inline tags for a<br /> documentaion comment commentlabel", where inside the inner<br /> braces, the first "Doc" carries exactly the same syntax as a SeeTag and<br /> the second "commentlabel" is label for the HTML link, will return an array<br /> of tags with first element as tag with comment text "This is an example of<br /> inline tags for a documentation comment" and second element as SeeTag with<br /> referenced class as "Doc" and the label for the HTML link as "commentlabel".</p>
             <div class="finfo">
     <table class="hid">
     
@@ -448,10 +449,11 @@
         </div>
         <hr />
     
-        <div class="location">aglets/tag.php at line 129</div>
-        <code class="signature" id="setParent">public  void <strong>setParent</strong> (<a href="../phpapi/elementdoc.html">elementDoc</a> <span class="blue">&$element</span>)</code>
+        <div class="location">taglets/tag.php at line 140</div>
+        <code class="arguments" id="setParent">public  void <strong>setParent</strong> (<a href="../phpapi/elementdoc.html">elementDoc</a> <span class="blue">&$element</span>)</code>
         <div class="details">
-            Sets this tags parent
+            
+            <p class="description">Sets this tags parent</p>
             <div class="finfo">
     <table class="hid">
     
@@ -459,8 +461,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac"><a href="../phpapi/elementdoc.html">elementDoc</a></td>
             
-                <td class="hid blue w_100">&$element</td>
-                <td class="hid">The reference to the parent element</td>
+                <td class="hid" colspan="2">Reference to the parent element</td>
             
         </tr>
     
@@ -470,42 +471,47 @@
         </div>
         <hr />
     
-        <div class="location">aglets/tag.php at line 136</div>
-        <code class="signature" id="inField">public  boolean <strong>inField</strong> ()</code>
+        <div class="location">taglets/tag.php at line 149</div>
+        <code class="arguments" id="inField">public  boolean <strong>inField</strong> ()</code>
         <div class="details">
-            Returns TRUE if this Taglet is used in field documentation.
+            
+            <p class="description">Returns TRUE if this Taglet is used in field documentation.</p>
             
         </div>
         <hr />
     
-        <div class="location">aglets/tag.php at line 143</div>
-        <code class="signature" id="inMethod">public  boolean <strong>inMethod</strong> ()</code>
+        <div class="location">taglets/tag.php at line 158</div>
+        <code class="arguments" id="inMethod">public  boolean <strong>inMethod</strong> ()</code>
         <div class="details">
-            Returns TRUE if this Taglet is used in method documentation.
+            
+            <p class="description">Returns TRUE if this Taglet is used in method documentation.</p>
             
         </div>
         <hr />
     
-        <div class="location">aglets/tag.php at line 150</div>
-        <code class="signature" id="inOverview">public  boolean <strong>inOverview</strong> ()</code>
+        <div class="location">taglets/tag.php at line 167</div>
+        <code class="arguments" id="inOverview">public  boolean <strong>inOverview</strong> ()</code>
         <div class="details">
-            Returns TRUE if this Taglet is used in overview documentation.
+            
+            <p class="description">Returns TRUE if this Taglet is used in overview documentation.</p>
             
         </div>
         <hr />
     
-        <div class="location">aglets/tag.php at line 157</div>
-        <code class="signature" id="inPackage">public  boolean <strong>inPackage</strong> ()</code>
+        <div class="location">taglets/tag.php at line 176</div>
+        <code class="arguments" id="inPackage">public  boolean <strong>inPackage</strong> ()</code>
         <div class="details">
-            Returns TRUE if this Taglet is used in package documentation.
+            
+            <p class="description">Returns TRUE if this Taglet is used in package documentation.</p>
             
         </div>
         <hr />
     
-        <div class="location">aglets/tag.php at line 164</div>
-        <code class="signature" id="inType">public  boolean <strong>inType</strong> ()</code>
+        <div class="location">taglets/tag.php at line 185</div>
+        <code class="arguments" id="inType">public  boolean <strong>inType</strong> ()</code>
         <div class="details">
-            Returns TRUE if this Taglet is used in class or interface documentation.
+            
+            <p class="description">Returns TRUE if this Taglet is used in class or interface documentation.</p>
             
         </div>
         <hr />
@@ -514,7 +520,7 @@
 
 
         <div class="header">
-    <span style="float:right">phpAPI ver. 4.0</span>
+    <span style="float:right">phpAPI ver. 4.1</span>
     
         <ul>
         

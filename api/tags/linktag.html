@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>API for class linkTag (phpAPI: The PHP Documentation Creator ver. 4.0)</title>
+    <title>API for class linkTag (phpAPI: PHP Documentation Creator ver. 4.1)</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="generator" content="phpAPI 4.0 (https://github.com/Greenray/phpAPI/)">
+    <meta name="generator" content="phpAPI 4.1 (https://github.com/Greenray/phpAPI/)">
     <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="start" href="../index.html">
 </head>
 
     <body id="linkTag" onload="parent.document.title=document.title;">
         <div class="header">
-    <span style="float:right">phpAPI ver. 4.0</span>
+    <span style="float:right">phpAPI ver. 4.1</span>
     
         <ul>
         
@@ -47,14 +47,16 @@
 <h1>Class linkTag</h1>
 <div id="list">
     <ul>
-        <li><a href="../tags/tag.html">tag</a><ul><li><a href="../tags/seetag.html">seeTag</a><ul><li><a href="../tags/linkplaintag.html">linkPlainTag</a><ul><li><strong>linkTag</strong></li></ul></li></ul></li></ul></li>
+        <li><a href="../tags/tag.html">tag</a><ul><li><a href="../tags/seetag.html">seeTag</a><ul><li><a href="../tags/linkplaintag.html">linkPlainTag</a><ul><li><strong>linkTag</strong></li></ul></li>
+                        </ul></li>
+                        </ul></li>
     </ul>
 </div>
 
 
 
 <hr />
-<p class="signature">public  class <strong>linkTag</strong> extends <a href="../tags/linkplaintag.html">linkPlainTag</a></p>
+<p class="arguments">public  class <strong>linkTag</strong> extends <a href="../tags/linkplaintag.html">linkPlainTag</a></p>
 <div class="comment" id="overview_description">Represents an inline link tag.</div>
 <div class="finfo">
     <table class="hid">
@@ -63,7 +65,7 @@
             <td class="hid left w_100">Program</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
             
-                <td class="hid" colspan="2">phpapi: The PHP Documentation Creator</td>
+                <td class="hid" colspan="2">phpapi: PHP Documentation Creator</td>
             
         </tr>
     
@@ -79,7 +81,7 @@
             <td class="hid left w_100">Version</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
             
-                <td class="hid" colspan="2">4.0</td>
+                <td class="hid" colspan="2">4.1</td>
             
         </tr>
     
@@ -112,7 +114,7 @@
             <td class="hid right w_100 lilac">&nbsp;</td>
             
                 <td class="hid" colspan="2">Represents a documentation tag.
- The tag is a keyword (e.g. @version) with value (e.g. 1.0)</td>
+ Tag is a keyword (e.g. @version) with value (e.g. 1.0)</td>
             
         </tr>
     
@@ -185,17 +187,17 @@
     
         <table class="inherit">
             <tr><th colspan="2">Методы, унаследованные из tags \ linkPlainTag</th></tr>
-            <tr><td><a href="../tags/linkplaintag.html#inField../tags/linkplaintag.html#inMethod../tags/linkplaintag.html#inOverview../tags/linkplaintag.html#inPackage../tags/linkplaintag.html#inType../tags/linkplaintag.html#linkPlainTag">inField, inMethod, inOverview, inPackage, inType, linkPlainTag</a></td></tr>
+            <tr><td><a href="../../../../../../">inField, inMethod, inOverview, inPackage, inType, linkPlainTag</a></td></tr>
         </table>
     
         <table class="inherit">
             <tr><th colspan="2">Методы, унаследованные из tags \ seeTag</th></tr>
-            <tr><td><a href="../tags/seetag.html#__construct../tags/seetag.html#displayName../tags/seetag.html#inConstructor../tags/seetag.html#inField../tags/seetag.html#inMethod../tags/seetag.html#inOverview../tags/seetag.html#inPackage../tags/seetag.html#inType../tags/seetag.html#linkText../tags/seetag.html#resolveLink">__construct, displayName, inConstructor, inField, inMethod, inOverview, inPackage, inType, linkText, resolveLink</a></td></tr>
+            <tr><td><a href="../tags/seetag.html#__construct../../../../../../../../../">__construct, displayName, inConstructor, inField, inMethod, inOverview, inPackage, inType, linkText, resolveLink</a></td></tr>
         </table>
     
         <table class="inherit">
             <tr><th colspan="2">Методы, унаследованные из tags \ tag</th></tr>
-            <tr><td><a href="../tags/tag.html#displayName../tags/tag.html#firstCommentString../tags/tag.html#getInlineTags../tags/tag.html#inField../tags/tag.html#inMethod../tags/tag.html#inOverview../tags/tag.html#inPackage../tags/tag.html#inType../tags/tag.html#inlineTags../tags/tag.html#setParent../tags/tag.html#tag">displayName, firstCommentString, getInlineTags, inField, inMethod, inOverview, inPackage, inType, inlineTags, setParent, tag</a></td></tr>
+            <tr><td><a href="../../../../../../../../../../../">displayName, firstCommentString, getInlineTags, inField, inMethod, inOverview, inPackage, inType, inlineTags, setParent, tag</a></td></tr>
         </table>
     
 
@@ -203,10 +205,11 @@
 
 
     <h2 id="details_constructor">Конструктор: детали</h2>
-    <div class="location">aglets/linkTag.php at line 22</div>
-    <code class="signature" id="__construct">public  void <strong>__construct</strong>(<span class="lilac">string</span> <span class="blue">$text</span>, <span class="lilac">array</span> <span class="blue">&$data</span>, <a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">&$root</span>)</code>
+    <div class="location">taglets/linkTag.php at line 25</div>
+    <code class="arguments" id="__construct">public  void <strong>__construct</strong>(<span class="lilac">string</span> <span class="blue">$text</span>, <span class="lilac">array</span> <span class="blue">&$data</span>, <a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">&$root</span>)</code>
     <div class="details">
-        Constructor.
+        
+        <p class="description">Constructor.</p>
         <div class="finfo">
     <table class="hid">
     
@@ -214,8 +217,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$text</td>
-                <td class="hid">The contents of the tag</td>
+                <td class="hid" colspan="2">Contents of the tag</td>
             
         </tr>
     
@@ -223,8 +225,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">array</td>
             
-                <td class="hid blue w_100">&$data</td>
-                <td class="hid">The reference to the doc comment data array</td>
+                <td class="hid" colspan="2">Reference to the doc comment data array</td>
             
         </tr>
     
@@ -232,8 +233,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac"><a href="../phpapi/rootdoc.html">rootDoc</a></td>
             
-                <td class="hid blue w_100">&$root</td>
-                <td class="hid">The reference to the root object</td>
+                <td class="hid" colspan="2">Reference to the root object</td>
             
         </tr>
     
@@ -246,42 +246,47 @@
 
     <h2 id="details_methods">Методы: детали</h2>
     
-        <div class="location">aglets/linkTag.php at line 30</div>
-        <code class="signature" id="inField">public  boolean <strong>inField</strong> ()</code>
+        <div class="location">taglets/linkTag.php at line 35</div>
+        <code class="arguments" id="inField">public  boolean <strong>inField</strong> ()</code>
         <div class="details">
-            Returns TRUE if this Taglet is used in field documentation.
+            
+            <p class="description">Returns TRUE if this Taglet is used in field documentation.</p>
             
         </div>
         <hr />
     
-        <div class="location">aglets/linkTag.php at line 37</div>
-        <code class="signature" id="inMethod">public  boolean <strong>inMethod</strong> ()</code>
+        <div class="location">taglets/linkTag.php at line 44</div>
+        <code class="arguments" id="inMethod">public  boolean <strong>inMethod</strong> ()</code>
         <div class="details">
-            Returns TRUE if this Taglet is used in method documentation.
+            
+            <p class="description">Returns TRUE if this Taglet is used in method documentation.</p>
             
         </div>
         <hr />
     
-        <div class="location">aglets/linkTag.php at line 44</div>
-        <code class="signature" id="inOverview">public  boolean <strong>inOverview</strong> ()</code>
+        <div class="location">taglets/linkTag.php at line 53</div>
+        <code class="arguments" id="inOverview">public  boolean <strong>inOverview</strong> ()</code>
         <div class="details">
-            Returns TRUE if this Taglet is used in overview documentation.
+            
+            <p class="description">Returns TRUE if this Taglet is used in overview documentation.</p>
             
         </div>
         <hr />
     
-        <div class="location">aglets/linkTag.php at line 51</div>
-        <code class="signature" id="inPackage">public  boolean <strong>inPackage</strong> ()</code>
+        <div class="location">taglets/linkTag.php at line 62</div>
+        <code class="arguments" id="inPackage">public  boolean <strong>inPackage</strong> ()</code>
         <div class="details">
-            Returns TRUE if this Taglet is used in package documentation.
+            
+            <p class="description">Returns TRUE if this Taglet is used in package documentation.</p>
             
         </div>
         <hr />
     
-        <div class="location">aglets/linkTag.php at line 58</div>
-        <code class="signature" id="inType">public  boolean <strong>inType</strong> ()</code>
+        <div class="location">taglets/linkTag.php at line 71</div>
+        <code class="arguments" id="inType">public  boolean <strong>inType</strong> ()</code>
         <div class="details">
-            Returns TRUE if this Taglet is used in class or interface documentation.
+            
+            <p class="description">Returns TRUE if this Taglet is used in class or interface documentation.</p>
             
         </div>
         <hr />
@@ -290,7 +295,7 @@
 
 
         <div class="header">
-    <span style="float:right">phpAPI ver. 4.0</span>
+    <span style="float:right">phpAPI ver. 4.1</span>
     
         <ul>
         

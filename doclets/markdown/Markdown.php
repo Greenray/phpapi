@@ -1,11 +1,11 @@
 <?php
 /**
+ * Markdown  -  A text-to-HTML conversion tool for web writers.
+ *
  * @package  markdown
  * @overview A text-to-HTML convertor.
  *           Is used to process the overview file.
  */
-#
-# Markdown  -  A text-to-HTML conversion tool for web writers
 #
 # PHP Markdown
 # Copyright (c) 2004-2015 Michel Fortin
@@ -59,8 +59,8 @@ class Markdown implements MarkdownInterface {
 	public $no_entities = false;
 
 	# Predefined urls and titles for reference links and images.
-	public $predef_urls = array();
-	public $predef_titles = array();
+	public $predef_urls = [];
+	public $predef_titles = [];
 
 	# Optional filter function for URLs
 	public $url_filter_func = null;
@@ -121,9 +121,9 @@ class Markdown implements MarkdownInterface {
 
 
 	# Internal hashes used during transformation.
-	protected $urls = array();
-	protected $titles = array();
-	protected $html_hashes = array();
+	protected $urls = [];
+	protected $titles = [];
+	protected $html_hashes = [];
 
 	# Status flag to avoid invalid nesting.
 	protected $in_anchor = false;
@@ -137,7 +137,7 @@ class Markdown implements MarkdownInterface {
 		# Clear global hashes.
 		$this->urls = $this->predef_urls;
 		$this->titles = $this->predef_titles;
-		$this->html_hashes = array();
+		$this->html_hashes = [];
 
 		$this->in_anchor = false;
 	}
@@ -147,9 +147,9 @@ class Markdown implements MarkdownInterface {
 	# Called after the transformation process to clear any variable
 	# which may be taking up memory unnecessarly.
 	#
-		$this->urls = array();
-		$this->titles = array();
-		$this->html_hashes = array();
+		$this->urls = [];
+		$this->titles = [];
+		$this->html_hashes = [];
 	}
 
 
@@ -165,10 +165,10 @@ class Markdown implements MarkdownInterface {
 
 		# Standardize line endings:
 		#   DOS to Unix and Mac to Unix
-		$text = preg_replace('{\r\n?}', "\n", $text);
+		$text = preg_replace('{\r\n?}', LF, $text);
 
 		# Make sure $text ends with a couple of newlines:
-		$text .= "\n\n";
+		$text .= LF.LF;
 
 		# Convert all tabs to spaces.
 		$text = $this->detab($text);
@@ -189,7 +189,7 @@ class Markdown implements MarkdownInterface {
 
 		$this->teardown();
 
-		return $text . "\n";
+		return $text.LF;
 	}
 
 	protected $document_gamut = array(
@@ -252,7 +252,7 @@ class Markdown implements MarkdownInterface {
 		# We only want to do this for block-level HTML tags, such as headers,
 		# lists, and tables. That's because we still want to wrap <p>s around
 		# "paragraphs" that are wrapped in non-block-level tags, such as anchors,
-		# phrase emphasis, and spans. The list of tags we're looking for is
+		# phrase emphasis, and spans. List of tags we're looking for is
 		# hard-coded:
 		#
 		# *  List "a" is made of tags which can be both inline or block-level.
@@ -385,7 +385,7 @@ class Markdown implements MarkdownInterface {
 	protected function _hashHTMLBlocks_callback($matches) {
 		$text = $matches[1];
 		$key  = $this->hashBlock($text);
-		return "\n\n$key\n\n";
+		return LF.LF.$key.LF.LF;
 	}
 
 
@@ -406,7 +406,7 @@ class Markdown implements MarkdownInterface {
 
 		# Then hash the block.
 		static $i = 0;
-		$key = "$boundary\x1A" . ++$i . $boundary;
+		$key = "$boundary\x1A".++$i.$boundary;
 		$this->html_hashes[$key] = $text;
 		return $key; # String that will replace the tag.
 	}
@@ -477,7 +477,7 @@ class Markdown implements MarkdownInterface {
 				[ ]*		# Tailing spaces
 				$			# End of line.
 			}mx',
-			"\n".$this->hashBlock("<hr$this->empty_element_suffix")."\n",
+			LF.$this->hashBlock("<hr$this->empty_element_suffix").LF,
 			$text);
 	}
 
@@ -803,7 +803,7 @@ class Markdown implements MarkdownInterface {
 		$idAtt = $this->_generateIdFromHeaderValue($matches[1]);
 
 		$block = "<h$level$idAtt>".$this->runSpanGamut($matches[1])."</h$level>";
-		return "\n" . $this->hashBlock($block) . "\n\n";
+		return LF.$this->hashBlock($block).LF.LF;
 	}
 	protected function _doHeaders_callback_atx($matches) {
 
@@ -812,7 +812,7 @@ class Markdown implements MarkdownInterface {
 
 		$level = strlen($matches[1]);
 		$block = "<h$level$idAtt>".$this->runSpanGamut($matches[2])."</h$level>";
-		return "\n" . $this->hashBlock($block) . "\n\n";
+		return LF.$this->hashBlock($block).LF.LF;
 	}
 
 	protected function _generateIdFromHeaderValue($headerValue) {
@@ -828,7 +828,7 @@ class Markdown implements MarkdownInterface {
 		$idValue = call_user_func($this->header_id_func, $headerValue);
 		if (!$idValue) return "";
 
-		return ' id="' . $this->encodeAttribute($idValue) . '"';
+		return ' id="'.$this->encodeAttribute($idValue).'"';
 
 	}
 
@@ -909,14 +909,14 @@ class Markdown implements MarkdownInterface {
 
 		$marker_any_re = ( $list_type === "ul" ? $marker_ul_re : $marker_ol_re );
 
-		$list .= "\n";
+		$list .= LF;
 		$result = $this->processListItems($list, $marker_any_re);
 
 		$ol_start = 1;
 		if ($this->enhanced_ordered_list) {
 			# Get the start number for ordered list.
 			if ($list_type === 'ol') {
-				$ol_start_array = array();
+				$ol_start_array = [];
 				$ol_start_check = preg_match("/$marker_ol_start_re/", $matches[4], $ol_start_array);
 				if ($ol_start_check){
 					$ol_start = $ol_start_array[0];
@@ -925,11 +925,11 @@ class Markdown implements MarkdownInterface {
 		}
 
 		if ($ol_start > 1 && $list_type === 'ol'){
-			$result = $this->hashBlock("<$list_type start=\"$ol_start\">\n" . $result . "</$list_type>");
+			$result = $this->hashBlock("<$list_type start=\"$ol_start\">\n".$result,"</$list_type>");
 		} else {
-			$result = $this->hashBlock("<$list_type>\n" . $result . "</$list_type>");
+			$result = $this->hashBlock("<$list_type>\n".$result,"</$list_type>");
 		}
-		return "\n". $result ."\n\n";
+		return LF. $result .LF.LF;
 	}
 
 	protected $list_level = 0;
@@ -963,7 +963,7 @@ class Markdown implements MarkdownInterface {
 		$this->list_level++;
 
 		# trim trailing blank lines:
-		$list_str = preg_replace("/\n{2,}\\z/", "\n", $list_str);
+		$list_str = preg_replace("/\n{2,}\\z/", LF, $list_str);
 
 		$list_str = preg_replace_callback('{
 			(\n)?							# leading line = $1
@@ -991,8 +991,8 @@ class Markdown implements MarkdownInterface {
 			preg_match('/\n{2,}/', $item))
 		{
 			# Replace marker with the appropriate whitespace indentation
-			$item = $leading_space . str_repeat(' ', strlen($marker_space)) . $item;
-			$item = $this->runBlockGamut($this->outdent($item)."\n");
+			$item = $leading_space.str_repeat(' ', strlen($marker_space)).$item;
+			$item = $this->runBlockGamut($this->outdent($item).LF);
 		}
 		else {
 			# Recursion for sub-lists:
@@ -1001,7 +1001,7 @@ class Markdown implements MarkdownInterface {
 			$item = $this->runSpanGamut($item);
 		}
 
-		return "<li>" . $item . "</li>\n";
+		return '<li>'.$item.'</li>'.LF;
 	}
 
 
@@ -1033,7 +1033,7 @@ class Markdown implements MarkdownInterface {
 		$codeblock = preg_replace('/\A\n+|\n+\z/', '', $codeblock);
 
 		$codeblock = "<pre><code>$codeblock\n</code></pre>";
-		return "\n\n".$this->hashBlock($codeblock)."\n\n";
+		return LF.LF.$this->hashBlock($codeblock).LF.LF;
 	}
 
 
@@ -1071,7 +1071,7 @@ class Markdown implements MarkdownInterface {
 		foreach ($this->em_relist as $em => $em_re) {
 			foreach ($this->strong_relist as $strong => $strong_re) {
 				# Construct list of allowed token expressions.
-				$token_relist = array();
+				$token_relist = [];
 				if (isset($this->em_strong_relist["$em$strong"])) {
 					$token_relist[] = $this->em_strong_relist["$em$strong"];
 				}
@@ -1235,7 +1235,7 @@ class Markdown implements MarkdownInterface {
 		$bq = preg_replace_callback('{(\s*<pre>.+?</pre>)}sx',
 			array($this, '_doBlockQuotes_callback2'), $bq);
 
-		return "\n". $this->hashBlock("<blockquote>\n$bq\n</blockquote>")."\n\n";
+		return LF. $this->hashBlock("<blockquote>\n$bq\n</blockquote>").LF.LF;
 	}
 	protected function _doBlockQuotes_callback2($matches) {
 		$pre = $matches[1];
@@ -1304,13 +1304,13 @@ class Markdown implements MarkdownInterface {
 //					$div_open = preg_replace(
 //						'{\smarkdown\s*=\s*([\'"]).+?\1}', '', $div_open);
 //
-//					$graf = $div_open . "\n" . $div_content . "\n" . $div_close;
+//					$graf = $div_open,LF.$div_content,LF.$div_close;
 //				}
 				$grafs[$key] = $graf;
 			}
 		}
 
-		return implode("\n\n", $grafs);
+		return implode(LF.LF, $grafs);
 	}
 
 
@@ -1580,7 +1580,7 @@ class Markdown implements MarkdownInterface {
 			# Calculate amount of space, insert spaces, insert block.
 			$amount = $this->tab_width -
 				$strlen($line, 'UTF-8') % $this->tab_width;
-			$line .= str_repeat(" ", $amount) . $block;
+			$line .= str_repeat(" ", $amount).$block;
 		}
 		return $line;
 	}

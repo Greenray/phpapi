@@ -1,9 +1,10 @@
 <?php
-/** This generates the list of interfaces and classes for a given package.
+/**
+ * This generates the list of interfaces and classes for a given package.
  *
- * @program   phpapi: The PHP Documentation Creator
+ * @program   phpapi: PHP Documentation Creator
  * @file      doclets/html/packageWriter.php
- * @version   4.0
+ * @version   4.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -12,8 +13,10 @@
 
 class packageWriter extends htmlWriter {
 
-    /** Build the package summaries.
-     * @param object &$doclet The reference to the documentation generator
+    /**
+     * Builds the package summaries.
+     *
+     * @param object &$doclet Reference to the documentation generator
      */
     public function __construct(&$doclet, $index) {
         parent::htmlWriter($doclet);
@@ -132,10 +135,12 @@ class packageWriter extends htmlWriter {
         $this->tree(NULL, 'tree', 'Overview');
     }
 
-    /** Builds tree of a given elements.
-     * @param object $package The package to build tree from
-     * @param string $dest    The file to represent a tree
-     * @param string $name    The package to build tree for
+    /**
+     * Builds tree of a given elements.
+     *
+     * @param object $package Package to build tree from
+     * @param string $dest    File to represent a tree
+     * @param string $name    Package to build tree for
      */
     private function tree($package, $dest, $name) {
         $this->id = 'tree';
@@ -166,10 +171,12 @@ class packageWriter extends htmlWriter {
         }
     }
 
-    /** Build the package tree branch for the given element.
+    /**
+     * Build the package tree branch for the given element.
      * This function is recursive.
+     *
      * @param  array  $tree    Tree data
-     * @param  array  &$output The reference the result array
+     * @param  array  &$output Reference the result array
      * @param  string parent   Parent element (Default = NULL)
      * @return array           Element of the tree by reference
      */

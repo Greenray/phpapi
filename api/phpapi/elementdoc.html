@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>API for class elementDoc (phpAPI: The PHP Documentation Creator ver. 4.0)</title>
+    <title>API for class elementDoc (phpAPI: PHP Documentation Creator ver. 4.1)</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="generator" content="phpAPI 4.0 (https://github.com/Greenray/phpAPI/)">
+    <meta name="generator" content="phpAPI 4.1 (https://github.com/Greenray/phpAPI/)">
     <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="start" href="../index.html">
 </head>
 
     <body id="elementDoc" onload="parent.document.title=document.title;">
         <div class="header">
-    <span style="float:right">phpAPI ver. 4.0</span>
+    <span style="float:right">phpAPI ver. 4.1</span>
     
         <ul>
         
@@ -59,7 +59,7 @@
     </dl>
 
 <hr />
-<p class="signature">public abstract  class <strong>elementDoc</strong> extends <a href="../phpapi/doc.html">doc</a></p>
+<p class="arguments">public abstract  class <strong>elementDoc</strong> extends <a href="../phpapi/doc.html">doc</a></p>
 <div class="comment" id="overview_description">Represents a PHP program element: global, function, class, interface, field, constructor, or method.<br /> This is an abstract class dealing with information common to these elements.</div>
 <div class="finfo">
     <table class="hid">
@@ -68,7 +68,7 @@
             <td class="hid left w_100">Program</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
             
-                <td class="hid" colspan="2">phpapi: The PHP Documentation Creator</td>
+                <td class="hid" colspan="2">phpapi: PHP Documentation Creator</td>
             
         </tr>
     
@@ -84,7 +84,7 @@
             <td class="hid left w_100">Version</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
             
-                <td class="hid" colspan="2">4.0</td>
+                <td class="hid" colspan="2">4.1</td>
             
         </tr>
     
@@ -145,10 +145,18 @@
             </tr>
         
             <tr>
+                <td class="type w_200">public  mixed</td>
+                <td class="description">
+                    <pre><a href="#$includes"><span class="green">$includes</span></a> = []</pre>
+                    <p class="description">Описания нет</p>
+                </td>
+            </tr>
+        
+            <tr>
                 <td class="type w_200">public  integer</td>
                 <td class="description">
                     <pre><a href="#$lineNumber"><span class="green">$lineNumber</span></a> = NULL</pre>
-                    <p class="description">The line in the source file this element can be found at</p>
+                    <p class="description">Line in the source file this element can be found at</p>
                 </td>
             </tr>
         
@@ -156,7 +164,7 @@
                 <td class="type w_200">public  string</td>
                 <td class="description">
                     <pre><a href="#$package"><span class="green">$package</span></a> = NULL</pre>
-                    <p class="description">The elements package</p>
+                    <p class="description">Elements package</p>
                 </td>
             </tr>
         
@@ -164,7 +172,7 @@
                 <td class="type w_200">public  <a href="../phpapi/fielddoc.html">fieldDoc</a></td>
                 <td class="description">
                     <pre><a href="#$parameters"><span class="green">$parameters</span></a> = []</pre>
-                    <p class="description">The parameters this function takes</p>
+                    <p class="description">Parameters this function takes</p>
                 </td>
             </tr>
         
@@ -172,7 +180,7 @@
                 <td class="type w_200">public  <a href="../phpapi/doc.html">doc</a></td>
                 <td class="description">
                     <pre><a href="#$parent"><span class="green">$parent</span></a> = NULL</pre>
-                    <p class="description">The reference the parent elements</p>
+                    <p class="description">Reference the parent elements</p>
                 </td>
             </tr>
         
@@ -180,7 +188,7 @@
                 <td class="type w_200">public  string</td>
                 <td class="description">
                     <pre><a href="#$sourcePath"><span class="green">$sourcePath</span></a> = NULL</pre>
-                    <p class="description">The source path containing the source file</p>
+                    <p class="description">Source path containing the source file</p>
                 </td>
             </tr>
         
@@ -196,7 +204,7 @@
                 <td class="type w_200">public  <a href="../phpapi/classdoc.html">classDoc</a></td>
                 <td class="description">
                     <pre><a href="#$throws"><span class="green">$throws</span></a> = []</pre>
-                    <p class="description">The exceptions this function throws</p>
+                    <p class="description">Exceptions this function throws</p>
                 </td>
             </tr>
         
@@ -262,7 +270,7 @@
             <tr>
                 <td class="type w_200">public  string</td>
                 <td class="description">
-                    <p><a href="#qualifiedName"><strong><span class="black">qualifiedName</span></strong></a> ()</p>
+                    <p><a href="#fullNamespace"><strong><span class="black">fullNamespace</span></strong></a> ()</p>
                     <p class="description">Gets the fully qualified name.</p>
                 </td>
             </tr>
@@ -278,8 +286,8 @@
             <tr>
                 <td class="type w_200">public  string</td>
                 <td class="description">
-                    <p><a href="#signature"><strong><span class="black">signature</span></strong></a> ()</p>
-                    <p class="description">Gets signature.</p>
+                    <p><a href="#arguments"><strong><span class="black">arguments</span></strong></a> ()</p>
+                    <p class="description">Gets aruments of the element.</p>
                 </td>
             </tr>
         
@@ -289,7 +297,7 @@
     
         <table class="inherit">
             <tr><th colspan="2">Методы, унаследованные из phpapi \ doc</th></tr>
-            <tr><td><a href="../phpapi/doc.html#__construct../phpapi/doc.html#isClass../phpapi/doc.html#isConstructor../phpapi/doc.html#isException../phpapi/doc.html#isField../phpapi/doc.html#isFunction../phpapi/doc.html#isGlobal../phpapi/doc.html#isInterface../phpapi/doc.html#isMethod../phpapi/doc.html#isOrdinaryClass../phpapi/doc.html#isTrait../phpapi/doc.html#mergeData../phpapi/doc.html#set../phpapi/doc.html#setByRef">__construct, isClass, isConstructor, isException, isField, isFunction, isGlobal, isInterface, isMethod, isOrdinaryClass, isTrait, mergeData, set, setByRef</a></td></tr>
+            <tr><td><a href="../phpapi/doc.html#__construct../../../../../../../../../../../../../">__construct, isClass, isConstructor, isException, isField, isFunction, isGlobal, isInterface, isMethod, isOrdinaryClass, isTrait, mergeData, set, setByRef</a></td></tr>
         </table>
     
 
@@ -297,63 +305,69 @@
 
     <h2 id="details_fields">Поля: детали</h2>
     
-        <div class="location">lasses/elementDoc.php at line 18</div>
-        <pre class="signature" id="access">public string <strong><span class="green">$access</span></strong> = <span class="red">'public'</span></pre>
+        <div class="location">classes/elementDoc.php at line 19</div>
+        <pre class="arguments" id="access">public string <strong><span class="green">$access</span></strong> = <span class="red">'public'</span></pre>
         <div class="details">Access type for this element</div>
         <hr />
     
-        <div class="location">lasses/elementDoc.php at line 21</div>
-        <pre class="signature" id="filename">public string <strong><span class="green">$filename</span></strong> = NULL</pre>
+        <div class="location">classes/elementDoc.php at line 22</div>
+        <pre class="arguments" id="filename">public string <strong><span class="green">$filename</span></strong> = NULL</pre>
         <div class="details">Which source file is this element in</div>
         <hr />
     
-        <div class="location">lasses/elementDoc.php at line 24</div>
-        <pre class="signature" id="final">public boolean <strong><span class="green">$final</span></strong> = FALSE</pre>
+        <div class="location">classes/elementDoc.php at line 25</div>
+        <pre class="arguments" id="final">public boolean <strong><span class="green">$final</span></strong> = FALSE</pre>
         <div class="details">If this element is final</div>
         <hr />
     
-        <div class="location">lasses/elementDoc.php at line 27</div>
-        <pre class="signature" id="lineNumber">public integer <strong><span class="green">$lineNumber</span></strong> = NULL</pre>
-        <div class="details">The line in the source file this element can be found at</div>
+        <div class="location">classes/elementDoc.php at line 27</div>
+        <pre class="arguments" id="includes">public mixed <strong><span class="green">$includes</span></strong> = []</pre>
+        <div class="details">Описания нет</div>
         <hr />
     
-        <div class="location">lasses/elementDoc.php at line 30</div>
-        <pre class="signature" id="package">public string <strong><span class="green">$package</span></strong> = NULL</pre>
-        <div class="details">The elements package</div>
+        <div class="location">classes/elementDoc.php at line 30</div>
+        <pre class="arguments" id="lineNumber">public integer <strong><span class="green">$lineNumber</span></strong> = NULL</pre>
+        <div class="details">Line in the source file this element can be found at</div>
         <hr />
     
-        <div class="location">lasses/elementDoc.php at line 33</div>
-        <pre class="signature" id="parameters">public <a href="../phpapi/fielddoc.html">fieldDoc</a> <strong><span class="green">$parameters</span></strong> = []</pre>
-        <div class="details">The parameters this function takes</div>
+        <div class="location">classes/elementDoc.php at line 33</div>
+        <pre class="arguments" id="package">public string <strong><span class="green">$package</span></strong> = NULL</pre>
+        <div class="details">Elements package</div>
         <hr />
     
-        <div class="location">lasses/elementDoc.php at line 36</div>
-        <pre class="signature" id="parent">public <a href="../phpapi/doc.html">doc</a> <strong><span class="green">$parent</span></strong> = NULL</pre>
-        <div class="details">The reference the parent elements</div>
+        <div class="location">classes/elementDoc.php at line 36</div>
+        <pre class="arguments" id="parameters">public <a href="../phpapi/fielddoc.html">fieldDoc</a> <strong><span class="green">$parameters</span></strong> = []</pre>
+        <div class="details">Parameters this function takes</div>
         <hr />
     
-        <div class="location">lasses/elementDoc.php at line 39</div>
-        <pre class="signature" id="sourcePath">public string <strong><span class="green">$sourcePath</span></strong> = NULL</pre>
-        <div class="details">The source path containing the source file</div>
+        <div class="location">classes/elementDoc.php at line 39</div>
+        <pre class="arguments" id="parent">public <a href="../phpapi/doc.html">doc</a> <strong><span class="green">$parent</span></strong> = NULL</pre>
+        <div class="details">Reference the parent elements</div>
         <hr />
     
-        <div class="location">lasses/elementDoc.php at line 42</div>
-        <pre class="signature" id="static">public boolean <strong><span class="green">$static</span></strong> = FALSE</pre>
+        <div class="location">classes/elementDoc.php at line 42</div>
+        <pre class="arguments" id="sourcePath">public string <strong><span class="green">$sourcePath</span></strong> = NULL</pre>
+        <div class="details">Source path containing the source file</div>
+        <hr />
+    
+        <div class="location">classes/elementDoc.php at line 45</div>
+        <pre class="arguments" id="static">public boolean <strong><span class="green">$static</span></strong> = FALSE</pre>
         <div class="details">If this element is static</div>
         <hr />
     
-        <div class="location">lasses/elementDoc.php at line 45</div>
-        <pre class="signature" id="throws">public <a href="../phpapi/classdoc.html">classDoc</a> <strong><span class="green">$throws</span></strong> = []</pre>
-        <div class="details">The exceptions this function throws</div>
+        <div class="location">classes/elementDoc.php at line 48</div>
+        <pre class="arguments" id="throws">public <a href="../phpapi/classdoc.html">classDoc</a> <strong><span class="green">$throws</span></strong> = []</pre>
+        <div class="details">Exceptions this function throws</div>
         <hr />
     
 
 
     <h2 id="details_constructor">Конструктор: детали</h2>
-    <div class="location">lasses/elementDoc.php at line 48</div>
-    <code class="signature" id="__construct">public  void <strong>__construct</strong>()</code>
+    <div class="location">classes/elementDoc.php at line 51</div>
+    <code class="arguments" id="__construct">public  void <strong>__construct</strong>()</code>
     <div class="details">
-        Constructor.
+        
+        <p class="description">Constructor.</p>
         
     </div>
 
@@ -361,58 +375,65 @@
 
     <h2 id="details_methods">Методы: детали</h2>
     
-        <div class="location">lasses/elementDoc.php at line 53</div>
-        <code class="signature" id="asPath">public  string|NULL <strong>asPath</strong> ()</code>
+        <div class="location">classes/elementDoc.php at line 58</div>
+        <code class="arguments" id="asPath">public  string|NULL <strong>asPath</strong> ()</code>
         <div class="details">
-            Returns the element path or NULL.
+            
+            <p class="description">Returns the element path or NULL.</p>
             
         </div>
         <hr />
     
-        <div class="location">lasses/elementDoc.php at line 79</div>
-        <code class="signature" id="containingClass">public  classDoc|NULL <strong>containingClass</strong> ()</code>
+        <div class="location">classes/elementDoc.php at line 86</div>
+        <code class="arguments" id="containingClass">public  classDoc|NULL <strong>containingClass</strong> ()</code>
         <div class="details">
-            Gets the containing class of this program element.<br /> If the element is in the global scope and does not have a parent class, this will return null.
+            
+            <p class="description">Gets the containing class of this program element.<br /> If the element is in the global scope and does not have a parent class, this will return null.</p>
             
         </div>
         <hr />
     
-        <div class="location">lasses/elementDoc.php at line 88</div>
-        <code class="signature" id="containingPackage">public  <a href="../phpapi/packagedoc.html">packageDoc</a> <strong>containingPackage</strong> ()</code>
+        <div class="location">classes/elementDoc.php at line 97</div>
+        <code class="arguments" id="containingPackage">public  <a href="../phpapi/packagedoc.html">packageDoc</a> <strong>containingPackage</strong> ()</code>
         <div class="details">
-            Gets the package that this program element is contained in.
+            
+            <p class="description">Gets the package that this program element is contained in.</p>
             
         </div>
         <hr />
     
-        <div class="location">lasses/elementDoc.php at line 95</div>
-        <code class="signature" id="location">public  string <strong>location</strong> ()</code>
+        <div class="location">classes/elementDoc.php at line 106</div>
+        <code class="arguments" id="location">public  string <strong>location</strong> ()</code>
         <div class="details">
-            Gets the source location of this element
+            
+            <p class="description">Gets the source location of this element</p>
             
         </div>
         <hr />
     
-        <div class="location">lasses/elementDoc.php at line 108</div>
-        <code class="signature" id="qualifiedName">public  string <strong>qualifiedName</strong> ()</code>
+        <div class="location">classes/elementDoc.php at line 120</div>
+        <code class="arguments" id="fullNamespace">public  string <strong>fullNamespace</strong> ()</code>
         <div class="details">
-            Gets the fully qualified name.<br /> <pre><br /> Example:<br /> for the method bar() in class Foo in the package Baz, return:<br /> Baz\Foo\bar()<br /> </pre>
+            
+            <p class="description">Gets the fully qualified name.<br /> <pre><br /> Example:<br /> for the method bar() in class Foo in the package Baz, return:<br /> Baz\Foo\bar()<br /> </pre></p>
             
         </div>
         <hr />
     
-        <div class="location">lasses/elementDoc.php at line 125</div>
-        <code class="signature" id="modifiers">public  string <strong>modifiers</strong> ()</code>
+        <div class="location">classes/elementDoc.php at line 138</div>
+        <code class="arguments" id="modifiers">public  string <strong>modifiers</strong> ()</code>
         <div class="details">
-            Gets modifiers string.<br /> <pre><br /> Example, for:<br /> public abstract integer foo() { ... }<br /> modifiers() would return:<br /> 'public abstract'<br /> </pre>
+            
+            <p class="description">Gets modifiers string.<br /> <pre><br /> Example, for:<br /> public abstract integer foo() { ... }<br /> modifiers() would return:<br /> 'public abstract'<br /> </pre></p>
             
         </div>
         <hr />
     
-        <div class="location">lasses/elementDoc.php at line 148</div>
-        <code class="signature" id="signature">public  string <strong>signature</strong> ()</code>
+        <div class="location">classes/elementDoc.php at line 160</div>
+        <code class="arguments" id="arguments">public  string <strong>arguments</strong> ()</code>
         <div class="details">
-            Gets signature.<br /> Return a string which is the flat signiture of this function.<br /> It is the parameter list, type is not qualified.<br /> <pre><br /> for a function<br />      mymethod(foo x, integer y)<br /> it will return<br />      (foo x, integer y)<br /> </pre><br /> Recognised types are turned into HTML anchor tags to the documentation<br /> page for the class defining them.
+            
+            <p class="description">Gets aruments of the element.<br /> Return a string whith the list of arguments with their types.<br /> <pre><br /> For a function<br />      method($x, $y, &$o), where x is mixed, y is integer and o is a reference to object<br /> it will return<br />      method(mixed $x, integer $y, object &$o)<br /> </pre><br /> Recognised types are turned into HTML anchor tags to the documentation page for the class defining them.</p>
             
         </div>
         <hr />
@@ -421,7 +442,7 @@
 
 
         <div class="header">
-    <span style="float:right">phpAPI ver. 4.0</span>
+    <span style="float:right">phpAPI ver. 4.1</span>
     
         <ul>
         

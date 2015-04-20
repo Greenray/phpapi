@@ -1,41 +1,44 @@
 <?php
-/** Represents a documentation tag.
+/**
+ * Represents a documentation tag.
  * Given a tag (e.g. "@since 1.2"), holds tag name (e.g. "@since") and tag text (e.g. "1.2").
  * Tags with structure or which require special processing are handled by subclasses.
  *
- * @program   phpapi: The PHP Documentation Creator
+ * @program   phpapi: PHP Documentation Creator
  * @file      taglets/tag.php
- * @version   4.0
+ * @version   4.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
  * @package   tags
  * @overview  Represents a documentation tag.
- *            The tag is a keyword (e.g. @version) with value (e.g. 1.0)
+ *            Tag is a keyword (e.g. @version) with value (e.g. 1.0)
  */
 
 class tag {
 
-    /** @var string The name of the tag */
+    /** @var string Name of the tag */
     public $name = NULL;
 
-    /** @var elementDoc The reference the elements parent */
+    /** @var elementDoc Reference the elements parent */
     public $parent = NULL;
 
-    /** @var rootDoc The reference the root element */
+    /** @var rootDoc Reference the root element */
     public $root = NULL;
 
-    /** @var string The value of the tag as raw data, without any text processing applied */
+    /** @var string Value of the tag as raw data, without any text processing applied */
     public $text = NULL;
 
     /** @var string Type of parameter */
     public $type = NULL;
 
-    /** Constructor.
-     * @param  string  $name  The name of the tag (including @)
-     * @param  string  $text  The contents of the tag
-     * @param  rootDoc &$root The reference to the root object
-     * @paqram string  $type  The type of the element
+    /**
+     * Constructor.
+     *
+     * @param string  $name  Name of the tag (including @)
+     * @param string  $text  Contents of the tag
+     * @param rootDoc &$root Reference to the root object
+     * @param string  $type  Type of the element
      */
     public function tag($name, $text, &$root, $type = '') {
         $this->name = $name;
@@ -44,18 +47,21 @@ class tag {
         $this->type = $type;
     }
 
-    /** Gets display name of this tag.
+    /**
+     * Gets display name of this tag.
+     *
      * @return string
      */
     public function displayName() {
         return ucfirst(substr($this->name, 1));
     }
 
-    /** Returns the first sentence of the comment as tags.
+    /**
+     * Returns the first sentence of the comment as tags.
      * Includes inline tags (i.e. {@link reference} tags) but not regular tags.
      * Each section of plain text is represented as a tag of kind "Text".
      * Inline tags are represented as a SeeTag of kind "link".
-     * The sentence ends at the first period that is followed by a space, tab,
+     * Sentence ends at the first period that is followed by a space, tab,
      * or a line terminator, at the first tagline, or closing of a HTML block elements.
      *
      * @return tag Tags object representing the first sentence of the comment
@@ -69,7 +75,9 @@ class tag {
         return $return;
     }
 
-    /** Parses out inline tags from within a text string.
+    /**
+     * Parses out inline tags from within a text string.
+     *
      * @param  string $text Text for parse
      * @return tag          Tags object of parsed tags
      */
@@ -107,7 +115,8 @@ class tag {
         return $return;
     }
 
-    /** For documentation comment with embedded @link tags, return the array of tags.
+    /**
+     * For documentation comment with embedded @link tags, return the array of tags.
      * Within a comment string "This is an example of inline tags for a
      * documentaion comment {@link Doc commentlabel}", where inside the inner
      * braces, the first "Doc" carries exactly the same syntax as a SeeTag and
@@ -123,42 +132,54 @@ class tag {
         return $this->getInlineTags($this->text);
     }
 
-    /** Sets this tags parent
-     * @param elementDoc &$element The reference to the parent element
+    /**
+     * Sets this tags parent
+     *
+     * @param elementDoc &$element Reference to the parent element
      */
     public function setParent(&$element) {
         $this->parent = &$element;
     }
 
-    /** Returns TRUE if this Taglet is used in field documentation.
+    /**
+     * Returns TRUE if this Taglet is used in field documentation.
+     *
      * @return boolean
      */
     public function inField() {
         return TRUE;
     }
 
-    /** Returns TRUE if this Taglet is used in method documentation.
+    /**
+     * Returns TRUE if this Taglet is used in method documentation.
+     *
      * @return boolean
      */
     public function inMethod() {
         return TRUE;
     }
 
-    /** Returns TRUE if this Taglet is used in overview documentation.
+    /**
+     * Returns TRUE if this Taglet is used in overview documentation.
+     *
      * @return boolean
      */
     public function inOverview() {
         return TRUE;
     }
 
-    /** Returns TRUE if this Taglet is used in package documentation.
+    /**
+     * Returns TRUE if this Taglet is used in package documentation.
+     *
      * @return boolean
      */
     public function inPackage() {
         return TRUE;
     }
 
-    /** Returns TRUE if this Taglet is used in class or interface documentation.
+    /**
+     * Returns TRUE if this Taglet is used in class or interface documentation.
+     *
      * @return boolean
      */
     public function inType() {

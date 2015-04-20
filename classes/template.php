@@ -1,9 +1,10 @@
 <?php
-/** Templates parser.
+/**
+ * Templates parser.
  *
- * @program   phpapi: The PHP Documentation Creator
+ * @program   phpapi: PHP Documentation Creator
  * @file      classes/template.php
- * @version   4.0
+ * @version   4.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -15,10 +16,10 @@ class template {
     /** @var array Template patterns */
     private $patterns = [
         'each'      => "#\[each=(.*?)\](.*?)\[\/each.\\1\]#is",
-        'foreach'   => "#\[foreach=([\w\_\-]*).([\w\_\-]*).([\w\_\-]*)\](.*?)\[\/foreach.\\1\]#is",
         'for'       => "#\[for=(.*?)\](.*?)\[\/for\]#is",
+        'foreach'   => "#\[foreach=([\w\_\-]*).([\w\_\-]*).([\w\_\-]*)\](.*?)\[\/foreach.\\1\]#is",
         'if'        => "#\[if=(.*?)(|\[(.*?)\])\](.*?)\[\/if.\\1\]#is",
-        'if_else'   => "#\[if_else=(.*?)(|\[(.*?)\])\](.*)\[else\](.*?)\[\/else\]#is",
+        'if_else'   => "#\[if_else=(.*)(|\[(.*)\])\](.*)\[else\](.*)\[\/else\]#is",
         'translate' => "#\[__(.*?)\]#is",
         'value'     => "#\{([\-\#\w]+)(|\[(.*?)\])\}#is"
     ];
@@ -29,8 +30,10 @@ class template {
     /** @var array Template variables */
     private $vars = [];
 
-    /** Class initialization
-     * @param object &$doclet  The reference to the documentation generator.
+    /**
+     * Class initialization
+     *
+     * @param object &$doclet  Reference to the documentation generator.
      * @param string $template Path to template or template as variable
      */
     public function __construct(&$doclet, $template) {
@@ -40,7 +43,9 @@ class template {
         else $this->tpl = $template;
     }
 
-    /** Parses control structure FOREACH.
+    /**
+     * Parses control structure FOREACH.
+     *
      * @param  array  $matches Matches for control structure "foreach"
      * @return string          Parsed string
      */
@@ -60,7 +65,9 @@ class template {
         return str_replace($matches[0], $temp, $matches[0]);
     }
 
-    /** Parses control structure EACH.
+    /**
+     * Parses control structure EACH.
+     *
      * @param  array  $matches Matches for control structure "each"
      * @return string          Parsed string
      */
@@ -160,7 +167,9 @@ class template {
         return str_replace($matches[0], $temp, $matches[0]);
     }
 
-    /** Parses of a control structure FOR.
+    /**
+     * Parses of a control structure FOR.
+     *
      * @param  array  $matches Matches for control structure "for"
      * @return string          Parsed string
      */
@@ -175,28 +184,35 @@ class template {
         return str_replace($matches[0], $result, $matches[0]);
     }
 
-    /** Parses of a control structure IF ELSE.
+    /**
+     * Parses of a control structure IF ELSE.
+     *
      * @param  array  $matches Matches for control structure "if else"
      * @return string          Parsed string
      */
     private function __if_else($matches) {
-        if (!empty($matches[5])) {
-            if (empty($this->vars[$matches[1]])) {
-                return str_replace($matches[0], $matches[5], $matches[0]);
-            }
-            if (!empty($matches[3])) {
-                $var = $this->searchValueInArray($matches[3], $this->vars[$matches[1]]);
-                if (empty($var)) {
+        if (!empty($matches)) {
+            if (!empty($matches[5])) {
+                if (empty($this->vars[$matches[1]])) {
                     return str_replace($matches[0], $matches[5], $matches[0]);
                 }
+                if (!empty($matches[3])) {
+                    $var = $this->searchValueInArray($matches[3], $this->vars[$matches[1]]);
+                    if (empty($var)) {
+                        return str_replace($matches[0], $matches[5], $matches[0]);
+                    }
+                }
+            }
+            if (!empty($matches[4])) {
+                return str_replace($matches[0], $matches[4], $matches[0]);
             }
         }
-        if (!empty($matches[4])) {
-            return str_replace($matches[0], $matches[4], $matches[0]);
-        }
+        return;
     }
 
-    /** Parses of a control structure IF.
+    /**
+     * Parses of a control structure IF.
+     *
      * @param  array  $matches Matches for control structure "if"
      * @return string          Parsed string
      */
@@ -231,7 +247,9 @@ class template {
         return str_replace($matches[0], $matches[4], $matches[0]);
     }
 
-    /** Replaces constants and variables with their values.
+    /**
+     * Replaces constants and variables with their values.
+     *
      * @param  array  $matches Matches for control constants and variables
      * @return string          Parsed string
      */
@@ -259,8 +277,10 @@ class template {
         return $matches[0];
     }
 
-    /** Localization.
+    /**
+     * Localization.
      * Array variable $matches contains:
+     *
      * @param  array  $matches Matches for control structure "__"
      * @return string          Parsed string
      */
@@ -268,10 +288,12 @@ class template {
         return str_replace($matches[0], __($matches[1]), $matches[0]);
     }
 
-    /** Recursive search of the value in a multidimensional array.
-     * @param  mixed $needle   The desired value
+    /**
+     * Recursive search of the value in a multidimensional array.
+     *
+     * @param  mixed $needle   Desired value
      * @param  array $haystack Array to search
-     * @return mixed           The value of the key
+     * @return mixed           Value of the key
      */
     private function searchValueInArray($needle, $haystack) {
         $result = '';
@@ -282,17 +304,19 @@ class template {
         return $result;
     }
 
-    /** Parses template with given variables.
+    /**
+     * Parses template with given variables.
+     *
      * @param  array  $params Template variables
      * @return string         Parsed template
      */
     public function parse($params = NULL) {
         $this->vars = $params;
-        $this->tpl  = preg_replace_callback($this->patterns['foreach'],   [$this, '__foreach'],   $this->tpl);
         $this->tpl  = preg_replace_callback($this->patterns['each'],      [$this, '__each'],      $this->tpl);
+        $this->tpl  = preg_replace_callback($this->patterns['for'],       [$this, '__for'],       $this->tpl);
+        $this->tpl  = preg_replace_callback($this->patterns['foreach'],   [$this, '__foreach'],   $this->tpl);
         $this->tpl  = preg_replace_callback($this->patterns['if'],        [$this, '__if'],        $this->tpl);
         $this->tpl  = preg_replace_callback($this->patterns['if_else'],   [$this, '__if_else'],   $this->tpl);
-        $this->tpl  = preg_replace_callback($this->patterns['for'],       [$this, '__for'],       $this->tpl);
         $this->tpl  = preg_replace_callback($this->patterns['value'],     [$this, '__value'],     $this->tpl);
         $this->tpl  = preg_replace_callback($this->patterns['translate'], [$this, '__translate'], $this->tpl);
         return $this->tpl;

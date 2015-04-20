@@ -9,7 +9,7 @@
             <tr>
                 <td class="type w_200">{function[modifiers]} {function[type]}</td>
                 <td class="description">
-                    <p><a href="#{function[name]}"><span class="lilac">{function[name]}</span></a>{function[signature]}</p>
+                    <p><a href="#{function[name]}"><span class="lilac">{function[name]}</span></a>{function[arguments]}</p>
                     <p class="description">{function[shortDesc]}</p>
                 </td>
             </tr>
@@ -18,10 +18,10 @@
     <h2 id="details_functions">[__Функции]: [__детали]</h2>
     [each=function]
         <div class="location">{function[location]}</div>
-        <code id="{function[name]}" class="signature">{function[modifiers]} {function[type]} <strong>{function[name]}</strong> {function[signature]}</code>
+        <code id="{function[name]}" class="arguments">{function[modifiers]} {function[type]} <strong>{function[name]}</strong> {function[arguments]}</code>
         <div class="details">
             {function[fullDesc]}
-            {function[tags]}
+            {function[parameters]}
         </div>
         <hr />
     [/each.function]

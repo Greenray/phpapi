@@ -1,11 +1,12 @@
 <?php
-/** Represents a PHP package.
+/**
+ * Represents a PHP package.
  * Provides access to information about the package,
  * the package's comment and tags, and the classes in the package.
  *
- * @program   phpapi: The PHP Documentation Creator
+ * @program   phpapi: PHP Documentation Creator
  * @file      classes/packageDoc.php
- * @version   4.0
+ * @version   4.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -14,18 +15,23 @@
 
 class packageDoc extends doc {
 
-    /** @var classDoc The classes in this package */
+    /** @var classDoc Classes in this package */
     public $classes = [];
 
-    /** @var fieldDoc The globals in this package */
+    /** @var fieldDoc Globals in this package */
     public $globals = [];
 
-    /** @var methodDoc The functions in this package */
+    /** @var array Required files or files to be included */
+    public $includes = [];
+
+    /** @var methodDoc Functions in this package */
     public $functions = [];
 
-    /** Constructor.
+    /**
+     * Constructor.
+     *
      * @param string  $name     Package name
-     * @param rootDoc &$root    The reference to the root element
+     * @param rootDoc &$root    Reference to the root element
      */
     public function __construct($name, &$root, $overview = '') {
         $this->name =  $name;
@@ -37,8 +43,10 @@ class packageDoc extends doc {
         }
     }
 
-    /** Adds a class to this package.
-     * @param classDoc &$class The reference to the class
+    /**
+     * Adds a class to this package.
+     *
+     * @param classDoc &$class Reference to the class
      */
     public function addClass(&$class) {
         if (isset($this->classes[$class->name])) {
@@ -47,21 +55,27 @@ class packageDoc extends doc {
         $this->classes[$class->name] = &$class;
     }
 
-    /** Adds a global to this package.
-     * @param fieldDoc &$global The reference to the global element
+    /**
+     * Adds a global to this package.
+     *
+     * @param fieldDoc &$global Reference to the global element
      */
     public function addGlobal(&$global) {
         if (!isset($this->globals[$global->name])) $this->globals[$global->name] = &$global;
     }
 
-    /** Returns the package path.
+    /**
+     * Returns the package path.
+     *
      * @return string
      */
     public function asPath() {
         return strtolower(str_replace('.', DS, str_replace('\\', DS, $this->name)));
     }
 
-    /** Calculates the depth of this package from the root.
+    /**
+     * Calculates the depth of this package from the root.
+     *
      * @return integer
      */
     public function depth() {
@@ -71,7 +85,9 @@ class packageDoc extends doc {
         return $depth;
     }
 
-    /** Gets exceptions in this package.
+    /**
+     * Gets exceptions in this package.
+     *
      * @return array|NULL
      */
     public function &exceptions() {
@@ -82,17 +98,21 @@ class packageDoc extends doc {
         return $exceptions;
     }
 
-    /** Lookups for a class within this package.
+    /**
+     * Lookups for a class within this package.
+     *
      * @param  string $className Name of the class to lookup
      * @return classDoc|NULL
      */
     public function &findClass($className) {
         $return = NULL;
-        if (isset($this->classes[$className])) $return = &$this->classes[$className];
+        if (!empty($this->classes[$className])) $return = &$this->classes[$className];
         return $return;
     }
 
-    /** Gets interfaces in this package.
+    /**
+     * Gets interfaces in this package.
+     *
      * @return array|NULL
      */
     public function &interfaces() {
@@ -103,8 +123,10 @@ class packageDoc extends doc {
         return $interfaces;
     }
 
-    /** Gets ordinary classes (excluding exceptions and interfaces) in this package.
-      * @return array|NULL
+    /**
+     * Gets ordinary classes (excluding exceptions and interfaces) in this package.
+     *
+     *  @return array|NULL
      */
     public function &ordinaryClasses() {
         $classes = NULL;
@@ -115,7 +137,9 @@ class packageDoc extends doc {
         return $classes;
     }
 
-    /** Gets traits in this package.
+    /**
+     * Gets traits in this package.
+     *
      * @return array|NULL
      */
     public function &traits() {

@@ -1,9 +1,10 @@
 <?php
-/** This generates the HTML API documentation for each individual interface and class.
+/**
+ * This generates the HTML API documentation for each individual interface and class.
  *
- * @program   phpapi: The PHP Documentation Creator
+ * @program   phpapi: PHP Documentation Creator
  * @file      doclets/html/classWriter.php
- * @version   4.0
+ * @version   4.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -12,8 +13,10 @@
 
 class classWriter extends htmlWriter {
 
-    /** Build the class definitons.
-     * @param object &$doclet The reference to documentation generator
+    /**
+     * Builds the class definitons.
+     *
+     * @param object &$doclet Reference to documentation generator
      */
     public function __construct(&$doclet, $index) {
         parent::htmlWriter($doclet);
@@ -92,8 +95,8 @@ class classWriter extends htmlWriter {
                     $output['isname']      = $class->name;
 
                     $text = (isset($class->tags['@text'])) ? $class->tags['@text'] : __('Описания нет');
-                    $output['textag']    = $this->processInlineTags($text);
-                    $output['main_tags'] = $this->processTags($class->tags);
+                    $output['textTag']    = $this->processInlineTags($text);
+                    $output['mainParams'] = $this->parameters($class->tags);
 
                     if ($class->constants) {
                         ksort($class->constants);
@@ -128,26 +131,31 @@ class classWriter extends htmlWriter {
                         $output['constructor'] = TRUE;
                         $output['location']    = $constructor->location();
                         $output['modifiers']   = $constructor->modifiers();
-                        $output['type']        = $constructor->returnTypeAsString();
+                        $output['type']        = $constructor->returnType();
                         $output['name']        = $constructor->name;
-                        $output['signature']   = $constructor->signature();
+                        $output['arguments']   = $constructor->arguments();
                         $text = (isset($constructor->tags['@text'])) ? $constructor->tags['@text'] : __('Описания нет');
                         $output['shortDesc']   = strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>');
                         $output['fullDesc']    = $this->processInlineTags($text);
-                        $output['tags']        = $this->processTags($constructor->tags, $constructor);
+                        $output['parameters']  = $this->parameters($constructor->tags, $constructor);
+                        if (!empty($constructor->includes)) {
+                            foreach($constructor->includes as $key => $file) {
+                                $output['include'][$key] = substr(preg_replace("#[\'\"](.*?)[\'\"]#is", '<span class="red">\'\\1\'</span><br />', $file), 0, -1);
+                            }
+                        }
                     }
 
                     if ($destructor) {
                         $output['destructor'] = TRUE;
                         $output['location']   = $destructor->location();
                         $output['modifiers']  = $destructor->modifiers();
-                        $output['type']       = $destructor->returnTypeAsString();
+                        $output['type']       = $destructor->returnType();
                         $output['name']       = $destructor->name;
-                        $output['signature']  = $destructor->signature();
+                        $output['arguments']  = $destructor->arguments();
                         $text = (isset($destructor->tags['@text'])) ? $destructor->tags['@text'] : __('Описания нет');
                         $output['shortDesc']  = strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>');
                         $output['fullDesc']   = $this->processInlineTags($text);
-                        $output['tag']        = $this->processTags($destructor->tags, $destructor);
+                        $output['parameters'] = $this->parameters($destructor->tags, $destructor);
                     }
                     if ($methods) $output['method'] = $this->showObject($methods);
 
@@ -166,8 +174,10 @@ class classWriter extends htmlWriter {
         }
     }
 
-    /** Builds the class hierarchy tree which is placed at the top of the page.
-     * @param  classDoc &$class The reference the class to generate tree for
+    /**
+     * Builds the class hierarchy tree which is placed at the top of the page.
+     *
+     * @param  classDoc &$class Reference the class to generate tree for
      * @param  integer  $depth  Depth of recursion (Default = NULL)
      * @return array            Output string and depth of recursion
      */
@@ -193,8 +203,8 @@ class classWriter extends htmlWriter {
         if ($start) {
             $output .= '<li><strong>'.$class->name.'</strong></li></ul>';
             for($i = 1; $i < $depth;  $i++) {
-                $output .= '</li>'
-                    . '</ul>';
+                $output .= '</li>
+                        </ul>';
             }
             $output .= '</li>';
         } else $output .= '<li><a href="'.str_repeat('../', $this->depth).$class->asPath().'">'.$class->name.'</a>';
@@ -202,12 +212,14 @@ class classWriter extends htmlWriter {
         return [$output, $depth];
     }
 
-    /** Displays the inherited fields or methods of an element.
+    /**
+     * Displays the inherited fields or methods of an element.
      * This method calls itself recursively if the element has a parent class.
-     * @param  elementDoc &$element The reference the class to generate tree for
-     * @param  packageDoc &$package The reference the current package
+     *
+     * @param  elementDoc &$element Reference the class to generate tree for
+     * @param  packageDoc &$package Reference the current package
      * @param  string     $type     Field or method
-     * @param  string     &$output  The reference the output array
+     * @param  string     &$output  Reference the output array
      * @param  integer    $i        Iterator
      * @return string               Output data about inherit fields or methods
      */
@@ -217,7 +229,7 @@ class classWriter extends htmlWriter {
             ksort($items);
             $num = count($items);
             $foo = 0;
-            $output[$i]['qualifiedName'] = $element->qualifiedName();
+            $output[$i]['fullNamespace'] = $element->fullNamespace();
             $output[$i]['path']  = '';
             $output[$i]['name']  = '';
             $output[$i]['comma'] = '';

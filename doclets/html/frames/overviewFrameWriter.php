@@ -1,10 +1,11 @@
 <?php
-/** This generates the overview frame used for displaying the list of package links
+/**
+ * This generates the overview frame used for displaying the list of package links
  * in the upper-left frame in the frame-formatted default output.
  *
- * @program   phpapi: The PHP Documentation Creator
+ * @program   phpapi: PHP Documentation Creator
  * @file      doclets/html/frames/overviewFrameWriter.php
- * @version   4.0
+ * @version   4.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -13,8 +14,10 @@
 
 class overviewFrameWriter extends htmlWriter {
 
-    /** Build the frame of packages index.
-     * @param object &$doclet The reference to the documentation generator
+    /**
+     * Builds the frame of packages index.
+     *
+     * @param object &$doclet Reference to the documentation generator
      */
     public function __construct(&$doclet) {
         parent::htmlWriter($doclet);

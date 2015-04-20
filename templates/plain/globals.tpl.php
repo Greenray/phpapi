@@ -16,7 +16,7 @@
 <h2 id="details_globals">[__Глобальные элементы]: [__детали]</h2>
 [each=global]
     <div class="location">{global[location]}</div>
-    <code id="{global[name]}" class="signature"><pre>{global[modifiers]} {global[type]} <strong>{global[name]}</strong>{global[value]}</pre></code>
+    <code id="{global[name]}" class="arguments"><pre>{global[modifiers]} {global[type]} <strong>{global[name]}</strong>{global[value]}</pre></code>
     <div class="details">{global[fullDesc]}</div>
     <hr />
 [/each.global]

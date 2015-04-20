@@ -1,10 +1,11 @@
 <?php
-/** Represents a PHP program element: global, function, class, interface, field, constructor, or method.
+/**
+ * Represents a PHP program element: global, function, class, interface, field, constructor, or method.
  * This is an abstract class dealing with information common to these elements.
  *
- * @program   phpapi: The PHP Documentation Creator
+ * @program   phpapi: PHP Documentation Creator
  * @file      classes/elementDoc.php
- * @version   4.0
+ * @version   4.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -23,31 +24,35 @@ class elementDoc extends doc {
     /** @var boolean If this element is final */
     public $final = FALSE;
 
-    /** @var integer The line in the source file this element can be found at */
+    public $includes = [];
+
+    /** @var integer Line in the source file this element can be found at */
     public $lineNumber = NULL;
 
-    /** @var string The elements package */
+    /** @var string Elements package */
     public $package = NULL;
 
-    /** @var fieldDoc The parameters this function takes */
+    /** @var fieldDoc Parameters this function takes */
     public $parameters = [];
 
-    /** @var doc The reference the parent elements */
+    /** @var doc Reference the parent elements */
     public $parent = NULL;
 
-    /** @var string The source path containing the source file */
+    /** @var string Source path containing the source file */
     public $sourcePath = NULL;
 
     /** @var boolean If this element is static */
     public $static = FALSE;
 
-    /** @var classDoc The exceptions this function throws */
+    /** @var classDoc Exceptions this function throws */
     public $throws = [];
 
     /** Constructor. */
     public function __construct() {}
 
-    /** Returns the element path or NULL.
+    /**
+     * Returns the element path or NULL.
+     *
      * @return string|NULL
      */
     public function asPath() {
@@ -72,8 +77,10 @@ class elementDoc extends doc {
         return NULL;
     }
 
-    /** Gets the containing class of this program element.
+    /**
+     * Gets the containing class of this program element.
      * If the element is in the global scope and does not have a parent class, this will return null.
+     *
      * @return classDoc|NULL
      */
     function &containingClass() {
@@ -82,21 +89,26 @@ class elementDoc extends doc {
         return $return;
     }
 
-    /** Gets the package that this program element is contained in.
+    /**
+     * Gets the package that this program element is contained in.
+     *
      * @return packageDoc
      */
     function &containingPackage() {
         return $this->root->packageNamed($this->package);
     }
 
-    /** Gets the source location of this element
+    /**
+     * Gets the source location of this element
+     *
      * @return string
      */
     public function location() {
-        return substr($this->filename, strlen($this->sourcePath) + 1).' at line '.$this->lineNumber;
+        return substr($this->filename, mb_strlen($this->sourcePath)).' at line '.$this->lineNumber;
     }
 
-    /** Gets the fully qualified name.
+    /**
+     * Gets the fully qualified name.
      * <pre>
      * Example:
      * for the method bar() in class Foo in the package Baz, return:
@@ -105,14 +117,15 @@ class elementDoc extends doc {
      *
      * @return string
      */
-    public function qualifiedName() {
+    public function fullNamespace() {
         $parent = &$this->containingClass();
         if ($parent && ($parent->name !== '') && ($this->package !== $parent->name))
              return $this->package.' \\ '.$parent->name.' \\ '.$this->name;
         else return $this->package.' \\ '.$this->name;
     }
 
-    /** Gets modifiers string.
+    /**
+     * Gets modifiers string.
      * <pre>
      * Example, for:
      * public abstract integer foo() { ... }
@@ -131,29 +144,28 @@ class elementDoc extends doc {
         return $modifiers;
     }
 
-    /** Gets signature.
-     * Return a string which is the flat signiture of this function.
-     * It is the parameter list, type is not qualified.
+    /**
+     * Gets aruments of the element.
+     * Return a string whith the list of arguments with their types.
      * <pre>
-     * for a function
-     *      mymethod(foo x, integer y)
+     * For a function
+     *      method($x, $y, &$o), where x is mixed, y is integer and o is a reference to object
      * it will return
-     *      (foo x, integer y)
+     *      method(mixed $x, integer $y, object &$o)
      * </pre>
-     * Recognised types are turned into HTML anchor tags to the documentation
-     * page for the class defining them.
+     * Recognised types are turned into HTML anchor tags to the documentation page for the class defining them.
      *
      * @return string
      */
-    public function signature() {
-        $signature = '';
-        $package   = &$this->containingPackage();
+    public function arguments() {
+        $args    = '';
+        $package = &$this->containingPackage();
         foreach ($this->parameters as $param) {
             $classDoc = &$param->type->asClassDoc();
             if ($classDoc)
-                 $signature .= '<a href="'.str_repeat('../', $package->depth() + 1).$classDoc->asPath().'">'.$classDoc->name.'</a> <span class="blue">'.$param->name.'</span>, ';
-            else $signature .= '<span class="lilac">'.$param->type->typeName.'</span> <span class="blue">'.$param->name.'</span>, ';
+                 $args .= '<a href="'.str_repeat('../', $package->depth() + 1).$classDoc->asPath().'">'.$classDoc->name.'</a> <span class="blue">'.$param->name.'</span>, ';
+            else $args .= '<span class="lilac">'.$param->type->typeName.'</span> <span class="blue">'.$param->name.'</span>, ';
         }
-        return '('.substr($signature, 0, -2).')';
+        return '('.substr($args, 0, -2).')';
     }
 }

@@ -1,9 +1,10 @@
 <?php
-/** Generates the index of deprecated elements.
+/**
+ * Generates the index of deprecated elements.
  *
- * @program   phpapi: The PHP Documentation Creator
+ * @program   phpapi: PHP Documentation Creator
  * @file      doclets/html/deprecatedWriter.php
- * @version   4.0
+ * @version   4.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -12,8 +13,10 @@
 
 class deprecatedWriter extends htmlWriter {
 
-    /** Build the deprecated index.
-     * @param object &$doclet The reference to the documentation generator
+    /**
+     * Builds the deprecated index.
+     *
+     * @param object &$doclet Reference to the documentation generator
      */
     public function __construct(&$doclet, $index) {
         parent::htmlWriter($doclet);
@@ -35,7 +38,7 @@ class deprecatedWriter extends htmlWriter {
                 $deprecatedTag = (isset($class->tags['@deprecated'])) ? $class->tags['@deprecated'] : NULL;
                 if ($deprecatedTag) {
                     $output['class'][$i]['path'] = $class->asPath();
-                    $output['class'][$i]['name'] = $class->qualifiedName();
+                    $output['class'][$i]['name'] = $class->fullNamespace();
                     $text = (isset($class->tags['@text'])) ? $class->tags['@text'] : __('Описания нет');
                     $output['class'][$i]['desc'] = strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>');
                     $output['menu'][0]['class']  = TRUE;
@@ -46,7 +49,7 @@ class deprecatedWriter extends htmlWriter {
                         $deprecatedTag = (isset($field->tags['@deprecated'])) ? $field->tags['@deprecated'] : NULL;
                         if ($deprecatedTag) {
                             $output['field'][$k]['path'] = $field->asPath();
-                            $output['field'][$k]['name'] = $field->qualifiedName();
+                            $output['field'][$k]['name'] = $field->fullNamespace();
                             $text = (isset($field->tags['@text'])) ? $field->tags['@text'] : __('Описания нет');
                             $output['field'][$k]['desc'] = strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>');
                             $output['menu'][0]['field']  = TRUE;
@@ -59,7 +62,7 @@ class deprecatedWriter extends htmlWriter {
                         $deprecatedTag = (isset($method->tags['@deprecated'])) ? $method->tags['@deprecated'] : NULL;
                         if ($deprecatedTag) {
                             $output['method'][$k]['path'] = $method->asPath();
-                            $output['method'][$k]['name'] = $method->qualifiedName();
+                            $output['method'][$k]['name'] = $method->fullNamespace();
                             $text = (isset($method->tags['@text'])) ? $method->tags['@text'] : __('Описания нет');
                             $output['method'][$k]['desc'] = strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>');
                             $output['menu'][0]['method']  = TRUE;
@@ -77,7 +80,7 @@ class deprecatedWriter extends htmlWriter {
                 $deprecatedTag = (isset($function->tags['@deprecated'])) ? $function->tags['@deprecated'] : NULL;
                 if ($deprecatedTag) {
                     $output['function'][$k]['path'] = $function->asPath();
-                    $output['function'][$k]['name'] = $function->qualifiedName();
+                    $output['function'][$k]['name'] = $function->fullNamespace();
                     $text = (isset($function->tags['@text'])) ? $function->tags['@text'] : __('Описания нет');
                     $output['function'][$k]['desc'] = strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>');
                     $output['menu'][0]['function']  = TRUE;
@@ -91,7 +94,7 @@ class deprecatedWriter extends htmlWriter {
                 $deprecatedTag = (isset($global->tags['@deprecated'])) ? $global->tags['@deprecated'] : NULL;
                 if ($deprecatedTag) {
                     $output['global'][$k]['path'] = $global->asPath();
-                    $output['global'][$k]['name'] = $global->qualifiedName();
+                    $output['global'][$k]['name'] = $global->fullNamespace();
                     $text = (isset($global->tags['@text'])) ? $global->tags['@text'] : __('Описания нет');
                     $output['global'][$k]['desc'] = strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>');
                     $output['menu'][0]['global']  = TRUE;

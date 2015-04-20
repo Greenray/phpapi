@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>API for class classWriter (phpAPI: The PHP Documentation Creator ver. 4.0)</title>
+    <title>API for class classWriter (phpAPI: PHP Documentation Creator ver. 4.1)</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="generator" content="phpAPI 4.0 (https://github.com/Greenray/phpAPI/)">
+    <meta name="generator" content="phpAPI 4.1 (https://github.com/Greenray/phpAPI/)">
     <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="start" href="../index.html">
 </head>
 
     <body id="classWriter" onload="parent.document.title=document.title;">
         <div class="header">
-    <span style="float:right">phpAPI ver. 4.0</span>
+    <span style="float:right">phpAPI ver. 4.1</span>
     
         <ul>
         
@@ -59,7 +59,7 @@
     </dl>
 
 <hr />
-<p class="signature">public  class <strong>classWriter</strong> extends <a href="../html/htmlwriter.html">htmlWriter</a></p>
+<p class="arguments">public  class <strong>classWriter</strong> extends <a href="../html/htmlwriter.html">htmlWriter</a></p>
 <div class="comment" id="overview_description">This generates the HTML API documentation for each individual interface and class.</div>
 <div class="finfo">
     <table class="hid">
@@ -68,7 +68,7 @@
             <td class="hid left w_100">Program</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
             
-                <td class="hid" colspan="2">phpapi: The PHP Documentation Creator</td>
+                <td class="hid" colspan="2">phpapi: PHP Documentation Creator</td>
             
         </tr>
     
@@ -84,7 +84,7 @@
             <td class="hid left w_100">Version</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
             
-                <td class="hid" colspan="2">4.0</td>
+                <td class="hid" colspan="2">4.1</td>
             
         </tr>
     
@@ -129,7 +129,7 @@
     
         <table class="inherit">
             <tr><th colspan="2">Поля, унаследованные из html \ htmlWriter</th></tr>
-            <tr><td><a href="../html/htmlwriter.html#$depth../html/htmlwriter.html#$doclet../html/htmlwriter.html#$id../html/htmlwriter.html#$items../html/htmlwriter.html#$output../html/htmlwriter.html#$sections">$depth, $doclet, $id, $items, $output, $sections</a></td></tr>
+            <tr><td><a href="../html/htmlwriter.html#$depth../html/htmlwriter.html#$doclet../html/htmlwriter.html#$id../html/htmlwriter.html#$items../html/htmlwriter.html#$output../html/htmlwriter.html#$regexp../html/htmlwriter.html#$sections">$depth, $doclet, $id, $items, $output, $regexp, $sections</a></td></tr>
         </table>
     
 
@@ -140,7 +140,7 @@
             <td class="type w_200">public  void</td>
             <td class="description">
                 <p><a href="#__construct"><strong><span class="black">__construct</span></strong></a>(<span class="lilac">object</span> <span class="blue">&$doclet</span>, <span class="lilac">mixed</span> <span class="blue">$index</span>)</p>
-                <p class="description">Build the class definitons.</p>
+                <p class="description">Builds the class definitons.</p>
             </td>
         </tr>
     </table>
@@ -172,7 +172,7 @@
     
         <table class="inherit">
             <tr><th colspan="2">Методы, унаследованные из html \ htmlWriter</th></tr>
-            <tr><td><a href="../html/htmlwriter.html#htmlWriter../html/htmlwriter.html#nav../html/htmlwriter.html#packageItems../html/htmlwriter.html#processInlineTags../html/htmlwriter.html#processTags../html/htmlwriter.html#showObject../html/htmlwriter.html#write">htmlWriter, nav, packageItems, processInlineTags, processTags, showObject, write</a></td></tr>
+            <tr><td><a href="../../../../../../../">htmlWriter, nav, packageItems, parameters, processInlineTags, showObject, write</a></td></tr>
         </table>
     
 
@@ -180,10 +180,11 @@
 
 
     <h2 id="details_constructor">Конструктор: детали</h2>
-    <div class="location">oclets/html/classWriter.php at line 18</div>
-    <code class="signature" id="__construct">public  void <strong>__construct</strong>(<span class="lilac">object</span> <span class="blue">&$doclet</span>, <span class="lilac">mixed</span> <span class="blue">$index</span>)</code>
+    <div class="location">doclets/html/classWriter.php at line 21</div>
+    <code class="arguments" id="__construct">public  void <strong>__construct</strong>(<span class="lilac">object</span> <span class="blue">&$doclet</span>, <span class="lilac">mixed</span> <span class="blue">$index</span>)</code>
     <div class="details">
-        Build the class definitons.
+        
+        <p class="description">Builds the class definitons.</p>
         <div class="finfo">
     <table class="hid">
     
@@ -191,8 +192,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">object</td>
             
-                <td class="hid blue w_100">&$doclet</td>
-                <td class="hid">The reference to documentation generator</td>
+                <td class="hid" colspan="2">Reference to documentation generator</td>
             
         </tr>
     
@@ -205,10 +205,11 @@
 
     <h2 id="details_methods">Методы: детали</h2>
     
-        <div class="location">oclets/html/classWriter.php at line 174</div>
-        <code class="signature" id="buildTree">private  array <strong>buildTree</strong> (<a href="../phpapi/classdoc.html">classDoc</a> <span class="blue">&$class</span>, <span class="lilac">integer</span> <span class="blue">$depth</span>)</code>
+        <div class="location">doclets/html/classWriter.php at line 184</div>
+        <code class="arguments" id="buildTree">private  array <strong>buildTree</strong> (<a href="../phpapi/classdoc.html">classDoc</a> <span class="blue">&$class</span>, <span class="lilac">integer</span> <span class="blue">$depth</span>)</code>
         <div class="details">
-            Builds the class hierarchy tree which is placed at the top of the page.
+            
+            <p class="description">Builds the class hierarchy tree which is placed at the top of the page.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -216,8 +217,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac"><a href="../phpapi/classdoc.html">classDoc</a></td>
             
-                <td class="hid blue w_100">&$class</td>
-                <td class="hid">The reference the class to generate tree for</td>
+                <td class="hid" colspan="2">Reference the class to generate tree for</td>
             
         </tr>
     
@@ -225,8 +225,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">integer</td>
             
-                <td class="hid blue w_100">$depth</td>
-                <td class="hid">Depth of recursion (Default = NULL)</td>
+                <td class="hid" colspan="2">Depth of recursion (Default = NULL)</td>
             
         </tr>
     
@@ -244,10 +243,11 @@
         </div>
         <hr />
     
-        <div class="location">oclets/html/classWriter.php at line 214</div>
-        <code class="signature" id="inherits">private  string <strong>inherits</strong> (<a href="../phpapi/elementdoc.html">elementDoc</a> <span class="blue">&$element</span>, <a href="../phpapi/packagedoc.html">packageDoc</a> <span class="blue">&$package</span>, <span class="lilac">string</span> <span class="blue">$type</span>, <span class="lilac">string</span> <span class="blue">&$output</span>, <span class="lilac">integer</span> <span class="blue">$i</span>)</code>
+        <div class="location">doclets/html/classWriter.php at line 226</div>
+        <code class="arguments" id="inherits">private  string <strong>inherits</strong> (<a href="../phpapi/elementdoc.html">elementDoc</a> <span class="blue">&$element</span>, <a href="../phpapi/packagedoc.html">packageDoc</a> <span class="blue">&$package</span>, <span class="lilac">string</span> <span class="blue">$type</span>, <span class="lilac">string</span> <span class="blue">&$output</span>, <span class="lilac">integer</span> <span class="blue">$i</span>)</code>
         <div class="details">
-            Displays the inherited fields or methods of an element.<br /> This method calls itself recursively if the element has a parent class.
+            
+            <p class="description">Displays the inherited fields or methods of an element.<br /> This method calls itself recursively if the element has a parent class.</p>
             <div class="finfo">
     <table class="hid">
     
@@ -255,8 +255,7 @@
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac"><a href="../phpapi/elementdoc.html">elementDoc</a></td>
             
-                <td class="hid blue w_100">&$element</td>
-                <td class="hid">The reference the class to generate tree for</td>
+                <td class="hid" colspan="2">Reference the class to generate tree for</td>
             
         </tr>
     
@@ -264,8 +263,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac"><a href="../phpapi/packagedoc.html">packageDoc</a></td>
             
-                <td class="hid blue w_100">&$package</td>
-                <td class="hid">The reference the current package</td>
+                <td class="hid" colspan="2">Reference the current package</td>
             
         </tr>
     
@@ -273,8 +271,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">$type</td>
-                <td class="hid">Field or method</td>
+                <td class="hid" colspan="2">Field or method</td>
             
         </tr>
     
@@ -282,8 +279,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">string</td>
             
-                <td class="hid blue w_100">&$output</td>
-                <td class="hid">The reference the output array</td>
+                <td class="hid" colspan="2">Reference the output array</td>
             
         </tr>
     
@@ -291,8 +287,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">integer</td>
             
-                <td class="hid blue w_100">$i</td>
-                <td class="hid">Iterator</td>
+                <td class="hid" colspan="2">Iterator</td>
             
         </tr>
     
@@ -314,7 +309,7 @@
 
 
         <div class="header">
-    <span style="float:right">phpAPI ver. 4.0</span>
+    <span style="float:right">phpAPI ver. 4.1</span>
     
         <ul>
         

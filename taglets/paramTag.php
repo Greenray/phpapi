@@ -1,9 +1,10 @@
 <?php
-/** Represents a parameter tag.
+/**
+ * Represents a parameter tag.
  *
- * @program   phpapi: The PHP Documentation Creator
+ * @program   phpapi: PHP Documentation Creator
  * @file      taglets/paramTag.php
- * @version   4.0
+ * @version   4.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -12,13 +13,15 @@
 
 class paramTag extends tag {
 
-    /** @var string The variable name of the parameter */
+    /** @var string Variable name of the parameter */
     public $var = NULL;
 
-    /** Constructor.
-     * @param  string  $text  The contents of the tag
-     * @param  array   &$data The reference to the doc comment data array
-     * @param  rootDoc &$root The reference to the root object
+    /**
+     * Constructor.
+     *
+     * @param string  $text  Contents of the tag
+     * @param array   &$data Reference to the doc comment data array
+     * @param rootDoc &$root Reference to the root object
      */
     public function __construct($text, &$data, &$root) {
         $explode = preg_split('/[ \t]+/', $text);
@@ -38,42 +41,54 @@ class paramTag extends tag {
         } else parent::tag('@param', NULL, $root);
     }
 
-    /** DisplayS "Parameters"- the name of this tag.
-     * @return string
+    /**
+     * Displays the name of this tag.
+     *
+     * @return string "Parameters"
      */
     public function displayName() {
         return 'Parameters';
     }
 
-    /** Returns FALSE if this Taglet is not used in field documentation.
+    /**
+     * Returns FALSE if this Taglet is not used in field documentation.
+     *
      * @return boolean
      */
     public function inField() {
         return FALSE;
     }
 
-    /** Returns TRUE if this Taglet is used in method documentation.
+    /**
+     * Returns TRUE if this Taglet is used in method documentation.
+     *
      * @return boolean
      */
     public function inMethod() {
         return TRUE;
     }
 
-    /** Returns FALSE if this Taglet is not used in overview documentation.
+    /**
+     * Returns FALSE if this Taglet is not used in overview documentation.
+     *
      * @return boolean
      */
     public function inOverview() {
         return FALSE;
     }
 
-    /** Returns FALSE if this Taglet is not used in package documentation.
+    /**
+     * Returns FALSE if this Taglet is not used in package documentation.
+     *
      * @return boolean
      */
     public function inPackage() {
         return FALSE;
     }
 
-    /** Returns FALSE if this Taglet is not used in class or interface documentation.
+    /**
+     * Returns FALSE if this Taglet is not used in class or interface documentation.
+     *
      * @return boolean
      */
     public function inType() {

@@ -1,9 +1,10 @@
 <?php
-/** This generates the todo list.
+/**
+ * This generates the todo list.
  *
- * @program   phpapi: The PHP Documentation Creator
+ * @program   phpapi: PHP Documentation Creator
  * @file      doclets/html/todoWriter.php
- * @version   4.0
+ * @version   4.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -12,8 +13,10 @@
 
 class todoWriter extends htmlWriter {
 
-    /** Build the todo index.
-     * @param object &$doclet The reference to the documentation generator
+    /**
+     * Builds the todo index.
+     *
+     * @param object &$doclet Reference to the documentation generator
      */
     public function __construct(&$doclet, $index) {
         parent::htmlWriter($doclet);
@@ -35,7 +38,7 @@ class todoWriter extends htmlWriter {
                 $todo = (isset($class->tags['@todo'])) ? $class->tags['@todo'] : NULL;
                 if (!empty($todo)) {
                     $output['class'][$i]['path'] = $class->asPath();
-                    $output['class'][$i]['name'] = $class->qualifiedName();
+                    $output['class'][$i]['name'] = $class->fullNamespace();
                     $output['class'][$i]['desc'] = strip_tags($this->processInlineTags($todo, TRUE), '<a><b><strong><u><em>');
                     $output['menu'][0]['class']  = TRUE;
                 }
@@ -45,7 +48,7 @@ class todoWriter extends htmlWriter {
                         $todo = (isset($field->tags['@todo'])) ? $field->tags['@todo'] : NULL;
                         if (!empty($todo)) {
                             $output['field'][$k]['path'] = $field->asPath();
-                            $output['field'][$k]['name'] = $field->qualifiedName();
+                            $output['field'][$k]['name'] = $field->fullNamespace();
                             $output['field'][$k]['desc'] = strip_tags($this->processInlineTags($todo, TRUE), '<a><b><strong><u><em>');
                             $output['menu'][0]['field']  = TRUE;
                         }
@@ -58,7 +61,7 @@ class todoWriter extends htmlWriter {
                         $todo = (isset($method->tags['@todo'])) ? $method->tags['@todo'] : NULL;
                         if (!empty($todo)) {
                             $output['method'][$k]['path'] = $method->asPath();
-                            $output['method'][$k]['name'] = $method->qualifiedName();
+                            $output['method'][$k]['name'] = $method->fullNamespace();
                             $output['method'][$k]['desc'] = strip_tags($this->processInlineTags($todo, TRUE), '<a><b><strong><u><em>');
                             $output['menu'][0]['method']  = TRUE;
                         }
@@ -75,7 +78,7 @@ class todoWriter extends htmlWriter {
                 $todo = (isset($function->tags['@todo'])) ? $function->tags['@todo'] : NULL;
                 if (!empty($todo)) {
                     $output['function'][$k]['path'] = $function->asPath();
-                    $output['function'][$k]['name'] = $function->qualifiedName();
+                    $output['function'][$k]['name'] = $function->fullNamespace();
                     $output['function'][$k]['desc'] = strip_tags($this->processInlineTags($todo, TRUE), '<a><b><strong><u><em>');
                     $output['menu'][0]['function']  = TRUE;
                 }
@@ -88,7 +91,7 @@ class todoWriter extends htmlWriter {
                 $todo = (isset($global->tags['@todo'])) ? $global->tags['@todo'] : NULL;
                 if (!empty($todo)) {
                     $output['global'][$k]['path'] = $global->asPath();
-                    $output['global'][$k]['name'] = $global->qualifiedName();
+                    $output['global'][$k]['name'] = $global->fullNamespace();
                     $output['global'][$k]['desc'] = strip_tags($this->processInlineTags($todo, TRUE), '<a><b><strong><u><em>');
                     $output['menu'][0]['global']  = TRUE;
                 }

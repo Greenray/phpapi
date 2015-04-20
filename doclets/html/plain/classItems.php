@@ -1,9 +1,10 @@
 <?php
-/** This generates the HTML API documentation for each individual interface and class.
+/**
+ * This generates the HTML API documentation for each individual interface and class.
  *
- * @program   phpapi: The PHP Documentation Creator
+ * @program   phpapi: PHP Documentation Creator
  * @file      doclets/html/plain/classItems.php
- * @version   4.0
+ * @version   4.1
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -15,9 +16,11 @@ class classItems extends classWriter {
     /** Constructor. */
     public function __construct() {}
 
-    /** Builds items of the class.
-     * @param  object     &$doclet  The reference to the documentation generator
-     * @param  packageDoc &$package The reference to the current package
+    /**
+     * Builds items of the class.
+     *
+     * @param  object     &$doclet  Reference to the documentation generator
+     * @param  packageDoc &$package Reference to the current package
      * @return string               Parsed template "class-items.tpl"
      */
     public static function classItems(&$doclet, &$package, $depth) {
