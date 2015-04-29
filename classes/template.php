@@ -76,8 +76,7 @@ class template {
         $var  = '$'.$name.'_var';
         $code = $this->toPhp($code);
 
-        return '<?php '.$arr.'='.$code.';'.$arr.'=array_values('.$arr.');'.
-               'foreach('.$arr.' as '.$cur.'):'.$var.'='.$cur.';?>';
+        return '<?php '.$arr.'=array_values('.$code.');'.'foreach('.$arr.' as '.$cur.'):'.$var.'='.$cur.';?>';
     }
 
     /**
