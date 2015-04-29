@@ -53,9 +53,9 @@ class template {
 		$cur = '$'.$name.'_cur';
 		$max = '$'.$name.'_max';
 		$var = '$'.$name.'_var';
-		$code = $this->t_basic_sphp_code_in_php_code($code);
+		$code = $this->toPhp($code);
 
-		return	'<?php '.$arr.'='.$code.';'.$arr.'=array_values('.$arr.');'.$max.'=sizeof('.$arr.');'.
+		return	'<?php '.$arr.'=array_values('.$code.');'.$max.'=sizeof('.$arr.');'.
 				'for('.$cur.'=0; '.$cur.'<'.$max.'; '.$cur.'++):'.$var.'='.$ary.'['.$cur.'];?>';
 	}
 
