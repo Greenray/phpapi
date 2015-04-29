@@ -4,11 +4,11 @@
  * This doclet generates HTML output similar to that produced by the Javadoc frames doclet.
  *
  * @program   phpapi: PHP Documentation Creator
- * @file      doclets/html/frames/frames.php
- * @version   4.1
+ * @version   5.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * @license   Creative Commons — Attribution-NonCommercial-ShareAlike 4.0 International
+ * @file      doclets/html/frames/frames.php
  * @package   frames
  * @overview  Frames doclet.
  *            This doclet generates HTML output similar to that produced by the Javadoc htmlFrames doclet.
@@ -54,8 +54,8 @@ class frames {
         $frameOutputWriter     = &new frameOutputWriter($this);                           # Main frame
         $overviewSummaryWriter = &new overviewSummaryWriter($this, 'overview-summary');   # Overview summary
         $overviewFrameWriter   = &new overviewFrameWriter($this);                         # Packages overview frame
-        $packageWriter         = &new packageWriter($this,         'overview-summary');   # Package summaries
         $packageFrameWriter    = &new packageFrameWriter($this);                          # Package frame
+        $packageWriter         = &new packageWriter($this,         'overview-summary');   # Package summaries
         $classWriter           = &new classWriter($this,           'overview-summary');   # Classes
         $functionWriter        = &new functionWriter($this,        'overview-summary');   # Global functions
         $globalWriter          = &new globalWriter($this,          'overview-summary');   # Global variables
@@ -64,7 +64,7 @@ class frames {
         $todoWriter            = &new todoWriter($this,            'overview-summary');   # Todo index
 
         $phpapi->verbose('Copying stylesheet');
-        copy(TEMPLATES.$phpapi->options['doclet'].DS.'style.css', $phpapi->options['destination'].'style.css');
+        copy(TEMPLATES.$phpapi->options['generator'].DS.$phpapi->options['doclet'].DS.'style.css', $phpapi->options['destination'].'style.css');
 
         if (!is_dir($phpapi->options['destination'].'resources')) mkdir($phpapi->options['destination'].'resources');
 

@@ -4,11 +4,11 @@
  * class's comment and tags, and the members of the class.
  *
  * @program   phpapi: PHP Documentation Creator
- * @file      classes/classDoc.php
- * @version   4.1
+ * @version   5.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * @license   Creative Commons — Attribution-NonCommercial-ShareAlike 4.0 International
+ * @file      classes/classDoc.php
  * @package   phpapi
  */
 
@@ -246,7 +246,7 @@ class classDoc extends elementDoc {
      * Returns the array of methods in current class.
      *
      * @param  boolean $regularOnly Do not return constructors and destructors (default = FALSE)
-     * @return array methodDoc
+     * @return methodDoc[]
      */
     public function &methods($regularOnly = FALSE) {
         if ($regularOnly) {

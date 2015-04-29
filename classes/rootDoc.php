@@ -5,11 +5,11 @@
  * It is  the root of the parsed tokens and is passed to the doclet to be formatted into output.
  *
  * @program   phpapi: PHP Documentation Creator
- * @file      classes/rootDoc.php
- * @version   4.1
+ * @version   5.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * @license   Creative Commons — Attribution-NonCommercial-ShareAlike 4.0 International
+ * @file      classes/rootDoc.php
  * @package   phpapi
  */
 
@@ -31,7 +31,7 @@ class rootDoc extends doc {
     public function __construct(&$phpapi) {
         # Set a reference to application object
         $this->phpapi = &$phpapi;
-        $overview     = $phpapi->options['overview'];
+        $overview     = $phpapi->options['source'].$phpapi->options['overview'];
 
         # Parse overview file
         if (isset($overview)) {
@@ -39,18 +39,45 @@ class rootDoc extends doc {
                 $phpapi->verbose('Reading overview file "'.$overview.'".');
                 $text = file_get_contents($overview);
                 if (!empty($text)) {
-                    require_once MARKDOWN.'MarkdownInterface.php';
-                    require_once MARKDOWN.'Markdown.php';
-                    require_once MARKDOWN.'MarkdownExtra.php';
+                    require_once MARKDOWN.'markdownInterface.php';
+                    require_once MARKDOWN.'markdown.php';
+                    require_once MARKDOWN.'markdownExtra.php';
 
-                    $parser = new MarkdownExtra;
+                    $parser = new markdownExtra;
                     $text   = $parser->transform($text);
 
-                    $this->data = $phpapi->processDocComment('/** '.$text.' */', $this);
+                    $this->data = $phpapi->parseDocComment('/** '.$text.' */', $this);
                     $this->mergeData();
                 }
             } else $phpapi->warning('Cannot find overview file "'.$overview.'".');
         }
+    }
+
+    /**
+     * Returns a reference to a classDoc for the specified class/interface name.
+     *
+     * @param  string $name Class name
+     * @return classDoc|NULL
+     */
+    public function &classNamed($name) {
+        $class = NULL;
+        $pos   = strrpos($name, '\\');
+        if ($pos !== FALSE) {
+            $package = substr($name, 0, $pos);
+            $name    = substr($name, $pos + 1);
+        }
+        if (isset($package)) {
+            if (isset($this->packages[$package])) $class = &$this->packages[$package]->findClass($name);
+        } else {
+            $packages = $this->packages; # We do this copy so as not to upset the internal pointer of the array outside this scope
+            foreach ($packages as $packageName => $package) {
+                $class = &$package->findClass($name);
+                if ($class !== NULL) {
+                    break;
+                }
+            }
+        }
+        return $class;
     }
 
     /**
@@ -114,10 +141,9 @@ class rootDoc extends doc {
      * If a package of the requested name does not exist, this method will create the
      * package object, add it to the root and return it.
      *
-     * @param string  $name     Package name
-     * @param boolean $create   Create package if it does not exist (default = FALSE)
-     * @param string  $overview Package description                 (default = '')
-     *
+     * @param  string  $name     Package name
+     * @param  boolean $create   Create package if it does not exist (default = FALSE)
+     * @param  string  $overview Package description                 (default = '')
      * @return packageDoc|NULL
      */
     public function &packageNamed($name, $create = FALSE, $overview = '') {
@@ -125,7 +151,7 @@ class rootDoc extends doc {
         if (isset($this->packages[$name])) {
             if (!empty($overview)) {
                 preg_match('/^(.+)(\.(?: |\t|\n|<\/p>|<\/?h[1-6]>|<hr)|$)/sU', $overview, $matches);
-                $this->packages[$name]->desc     = $matches[0];
+                $this->packages[$name]->desc     = $matches[1];
                 $this->packages[$name]->overview = $overview;
             }
             $return = &$this->packages[$name];
@@ -135,33 +161,5 @@ class rootDoc extends doc {
             $return = &$newPackage;
         }
         return $return;
-    }
-
-    /**
-     * Returns a reference to a classDoc for the specified class/interface name.
-     *
-     * @param string $name Class name
-     *
-     * @return classDoc|NULL
-     */
-    public function &classNamed($name) {
-        $class = NULL;
-        $pos   = strrpos($name, '\\');
-        if ($pos !== FALSE) {
-            $package = substr($name, 0, $pos);
-            $name    = substr($name, $pos + 1);
-        }
-        if (isset($package)) {
-            if (isset($this->packages[$package])) $class = &$this->packages[$package]->findClass($name);
-        } else {
-            $packages = $this->packages; # We do this copy so as not to upset the internal pointer of the array outside this scope
-            foreach ($packages as $packageName => $package) {
-                $class = &$package->findClass($name);
-                if ($class !== NULL) {
-                    break;
-                }
-            }
-        }
-        return $class;
     }
 }

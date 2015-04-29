@@ -5,11 +5,11 @@
  * Tags with structure or which require special processing are handled by subclasses.
  *
  * @program   phpapi: PHP Documentation Creator
- * @file      taglets/tag.php
- * @version   4.1
+ * @version   5.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * @license   Creative Commons — Attribution-NonCommercial-ShareAlike 4.0 International
+ * @file      taglets/tag.php
  * @package   tags
  * @overview  Represents a documentation tag.
  *            Tag is a keyword (e.g. @version) with value (e.g. 1.0)
@@ -65,7 +65,6 @@ class tag {
      * or a line terminator, at the first tagline, or closing of a HTML block elements.
      *
      * @return tag Tags object representing the first sentence of the comment
-     * @todo   This method does not act as described but should be altered to do so
      */
     function &firstCommentString() {
         preg_match('/^(.+)(\.(?: |\t|\n|<\/p>|<\/?h[1-6]>|<hr)|$)/sU', $this->text, $matches);
@@ -126,7 +125,6 @@ class tag {
      * referenced class as "Doc" and the label for the HTML link as "commentlabel".
      *
      * @return tag  Tags object with inline tags.
-     * @todo   This method does not act as described but should be altered to do so
      */
     function &inlineTags() {
         return $this->getInlineTags($this->text);

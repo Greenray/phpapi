@@ -5,7 +5,7 @@ This is the fork of the Peej's Quick & Dirty PHPDoc Clone.
 
 #### VERSION
 
-3.2
+5.0
 
 #### DESCRIPTION
 
@@ -73,6 +73,7 @@ phpapi поддерживает следующие директивы:
     ignore             Names of files or directories to ignore. Wildcards are NOT allowed.
     subDirs = on|off - To look in each sub directory for files.
     generator        - Documentation generator.
+    formatter        - Documentation formatter.
     doclet           - The doclet to use for generating output.
     verbose = on|off - Verbose mode outputs additional messages during execution.
     defaultPackage   - It for elements without @package tag.

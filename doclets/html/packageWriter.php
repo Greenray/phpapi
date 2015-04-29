@@ -3,11 +3,11 @@
  * This generates the list of interfaces and classes for a given package.
  *
  * @program   phpapi: PHP Documentation Creator
- * @file      doclets/html/packageWriter.php
- * @version   4.1
+ * @version   5.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * @license   Creative Commons — Attribution-NonCommercial-ShareAlike 4.0 International
+ * @file      doclets/html/packageWriter.php
  * @package   html
  */
 
@@ -16,19 +16,16 @@ class packageWriter extends htmlWriter {
     /**
      * Builds the package summaries.
      *
-     * @param object &$doclet Reference to the documentation generator
+     * @param doclet &$doclet Reference to the documentation generator
      */
     public function __construct(&$doclet, $index) {
         parent::htmlWriter($doclet);
 
-        $this->id = 'package';
         $packages = &$doclet->rootDoc->packages;
         ksort($packages);
 
         foreach ($packages as $packageName => $package) {
-            $this->id = $package->name;
-
-            $output = [] ;
+            $this->id    = $package->name;
             $this->depth = $package->depth() + 1;
 
             $this->sections[0] = ['title' => 'Overview',   'url' => $index.'.html'];
@@ -39,88 +36,97 @@ class packageWriter extends htmlWriter {
             $this->sections[5] = ['title' => 'Todo',       'url' => 'todo.html'];
             $this->sections[6] = ['title' => 'Index',      'url' => 'index-all.html'];
 
-            $output['namespace'] = $package->name;
-            $output['shortView'] =  __('Описания нет');
+            $tpl = new template();
+            $tpl->set('namespace', $package->name);
+            $tpl->set('shortView', __('No description'));
             if (!empty($package->desc)) {
-                $output['shortView'] = $package->desc;
-                $output['overview']  = str_replace(LF, '<br />', $package->overview);
+                $tpl->set('shortView', $package->desc);
+                $tpl->set('overView', str_replace(LF, '<br />', $package->overview));
             }
 
             $classes = &$package->ordinaryClasses();
             if ($classes) {
+                $output = [];
                 foreach ($classes as $name => $class) {
-                    $output['class'][$name]['path'] = str_repeat('../', $this->depth).$class->asPath();
-                    $output['class'][$name]['name'] = $class->name;
-                    $text = (isset($class->tags['@text'])) ? $class->tags['@text'] : __('Описания нет');
-                    $output['class'][$name]['desc'] = strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>');
+                    $output[$name]['path'] = str_repeat('../', $this->depth).$class->asPath();
+                    $output[$name]['name'] = $class->name;
+                    $text = (isset($class->tags['@text'])) ? $class->tags['@text'] : __('No description');
+                    $output[$name]['desc'] = strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>');
                 }
+                $tpl->set('classes', $output);
             }
 
             $interfaces = &$package->interfaces();
             if ($interfaces) {
                 ksort($interfaces);
+                $output = [];
                 foreach ($interfaces as $name => $interface) {
-                    $output['interface'][$name]['path'] = str_repeat('../', $this->depth).$interface->asPath();
-                    $output['interface'][$name]['name'] = $interface->name;
-                    $text = (isset($interface->tags['@text'])) ? $interface->tags['@text'] : __('Описания нет');
-                    $output['interface'][$name]['desc'] = strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>');
+                    $output[$name]['path'] = str_repeat('../', $this->depth).$interface->asPath();
+                    $output[$name]['name'] = $interface->name;
+                    $text = (isset($interface->tags['@text'])) ? $interface->tags['@text'] : __('No description');
+                    $output[$name]['desc'] = strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>');
                 }
+                $tpl->set('interfaces', $output);
             }
 
             $traits = &$package->traits();
             if ($traits) {
                 ksort($traits);
+                $output = [];
                 foreach ($traits as $name => $trait) {
-                    $output['trait'][$name]['path'] = str_repeat('../', $this->depth).$trait->asPath();
-                    $output['trait'][$name]['name'] = $trait->name;
-                    $text = (isset($trait->tags['@text'])) ? $trait->tags['@text'] : __('Описания нет');
-                    $output['trait'][$name]['desc'] = strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>');
+                    $output[$name]['path'] = str_repeat('../', $this->depth).$trait->asPath();
+                    $output[$name]['name'] = $trait->name;
+                    $text = (isset($trait->tags['@text'])) ? $trait->tags['@text'] : __('No description');
+                    $output[$name]['desc'] = strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>');
                 }
+                $tpl->set('traits', $output);
             }
 
             $exceptions = &$package->exceptions();
             if ($exceptions) {
                 ksort($exceptions);
+                $output = [];
                 foreach ($exceptions as $name => $exception) {
-                    $output['exception'][$name]['path'] = str_repeat('../', $this->depth).$exception->asPath();
-                    $output['exception'][$name]['name'] = $exception->name;
-                    $text = (isset($exception->tags['@text'])) ? $exception->tags['@text'] : __('Описания нет');
-                    $output['exception'][$name]['desc'] = strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>');
+                    $output[$name]['path'] = str_repeat('../', $this->depth).$exception->asPath();
+                    $output[$name]['name'] = $exception->name;
+                    $text = (isset($exception->tags['@text'])) ? $exception->tags['@text'] : __('No description');
+                    $output[$name]['desc'] = strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>');
                 }
+                $tpl->set('exceptions', $output);
             }
 
             $functions = &$package->functions;
             if ($functions) {
                 ksort($functions);
+                $output = [];
                 foreach ($functions as $name => $function) {
-                    $output['function'][$name]['path'] = str_repeat('../', $this->depth).$function->asPath();
-                    $output['function'][$name]['name'] = $function->name;
-                    $text = (isset($function->tags['@text'])) ? $function->tags['@text'] : __('Описания нет');
-                    $output['function'][$name]['desc'] = strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>');
+                    $output[$name]['path'] = str_repeat('../', $this->depth).$function->asPath();
+                    $output[$name]['name'] = $function->name;
+                    $text = (isset($function->tags['@text'])) ? $function->tags['@text'] : __('No description');
+                    $output[$name]['desc'] = strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>');
                 }
+                $tpl->set('functions', $output);
             }
 
             $globals = &$package->globals;
             if ($globals) {
                 ksort($globals);
+                $output = [];
                 foreach ($globals as $name => $global) {
-                    $output['global'][$name]['path'] = str_repeat('../', $this->depth).$global->asPath();
-                    $output['global'][$name]['name'] = $global->name;
-                    $text = (isset($global->tags['@text'])) ? $global->tags['@text'] : __('Описания нет');
-                    $output['global'][$name]['desc'] = strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>');
+                    $output[$name]['path'] = str_repeat('../', $this->depth).$global->asPath();
+                    $output[$name]['name'] = $global->name;
+                    $text = (isset($global->tags['@text'])) ? $global->tags['@text'] : __('No description');
+                    $output[$name]['desc'] = strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>');
                 }
+                $tpl->set('globals', $output);
             }
 
-            $this->items = $this->packageItems($doclet->rootDoc->phpapi, $package, $this->depth);
             $this->tree($package, $package->asPath().DS.'package-tree', $package->name);
+            if ($doclet->rootDoc->phpapi->options['doclet'] === 'plain') {
+                $this->items = $this->packageItems($doclet->rootDoc->phpapi, $package);
+            }
 
-            $tpl = new template($doclet->rootDoc->phpapi->options['doclet'], 'package-summary.tpl');
-            ob_start();
-
-            echo $tpl->parse($output);
-
-            $this->output = ob_get_contents();
-            ob_end_clean();
+            $this->output = $tpl->parse($doclet->rootDoc->phpapi, 'package-summary');
             $this->write($package->asPath().DS.'package-summary.html', $package->name);
         }
         $this->sections[0] = ['title' => 'Overview',   'url' => $index.'.html'];
@@ -149,23 +155,19 @@ class packageWriter extends htmlWriter {
              $classes = &$package->ordinaryClasses();
         else $classes = &$this->doclet->rootDoc->classes();
 
-        $output['tree'] = [];
         if ($classes) {
-            $this->displayTree($classes, $output['tree']);
-
+            $tree = [];
+            $this->displayTree($classes, $tree);
+            $tpl  = new template();
+            $tpl->set('tree', $tree);
+            $file = 'tree';
             if ($package) {
-                $output['package'] = $name;
-                $tpl = new template($this->doclet->rootDoc->phpapi->options['doclet'], 'package-tree.tpl');
-            } else {
-                $tpl = new template($this->doclet->rootDoc->phpapi->options['doclet'], 'tree.tpl');
+                $tpl->set('package', $name);
+                $file = 'package-tree';
             }
-            ob_start();
-
-            echo $tpl->parse($output);
-
-            $this->output = ob_get_contents();
-            ob_end_clean();
+            $this->output = $tpl->parse($this->doclet->rootDoc->phpapi, $file);
             $this->write($dest.'.html', $name);
+
         } else {
             $this->sections[3] = ['title' => 'Tree'];
         }
@@ -175,26 +177,25 @@ class packageWriter extends htmlWriter {
      * Build the package tree branch for the given element.
      * This function is recursive.
      *
-     * @param  array  $tree    Tree data
-     * @param  array  &$output Reference the result array
-     * @param  string parent   Parent element (Default = NULL)
-     * @return array           Element of the tree by reference
+     * @param  array  $elements Elements of tree
+     * @param  array  &$output  Reference the result array
+     * @param  string parent    Parent element (Default = NULL)
+     * @return array            Element of the tree by reference
      */
-    private function displayTree($tree, &$output, $parent = NULL) {
-        $outputList = TRUE;
-        foreach ($tree as $i => $element) {
+    private function displayTree($elements, &$tree, $parent = NULL) {
+        $list = TRUE;
+        foreach ($elements as $i => $element) {
             $name = explode('.', $i);
             if ($element->superclass === $parent) {
-                if ($outputList) $output[]['item'] = '<ul>';
-                $output[]['item'] = '
-                    <li>
-                        <a href="'.str_repeat('../', $this->depth).$element->parent->asPath().DS.'package-summary.html">'.$element->parent->name.'</a> \
-                        <a href="'.str_repeat('../', $this->depth).$element->asPath().'">'.$element->name.'</a>';
-                $this->displayTree($tree, $output, $name[0]);
-                $output[]['item'] = '</li>';
-                $outputList = FALSE;
+                if ($list) $tree[]['item'] = '<ul>';
+                $tree[]['item'] = '<li>
+                    <a href="'.str_repeat('../', $this->depth).$element->parent->asPath().DS.'package-summary.html">'.$element->parent->name.'</a> \
+                    <a href="'.str_repeat('../', $this->depth).$element->asPath().'">'.$element->name.'</a>';
+                $this->displayTree($elements, $tree, $name[0]);
+                $tree[]['item'] = '</li>';
+                $list = FALSE;
             }
         }
-        if (!$outputList) $output[]['item'] = '</ul>';
+        if (!$list) $tree[]['item'] = '</ul>';
     }
 }

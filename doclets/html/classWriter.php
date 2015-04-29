@@ -3,11 +3,11 @@
  * This generates the HTML API documentation for each individual interface and class.
  *
  * @program   phpapi: PHP Documentation Creator
- * @file      doclets/html/classWriter.php
- * @version   4.1
+ * @version   5.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * @license   Creative Commons — Attribution-NonCommercial-ShareAlike 4.0 International
+ * @file      doclets/html/classWriter.php
  * @package   html
  */
 
@@ -16,7 +16,7 @@ class classWriter extends htmlWriter {
     /**
      * Builds the class definitons.
      *
-     * @param object &$doclet Reference to documentation generator
+     * @param doclet &$doclet Reference to documentation generator
      */
     public function __construct(&$doclet, $index) {
         parent::htmlWriter($doclet);
@@ -39,68 +39,75 @@ class classWriter extends htmlWriter {
                 ksort($classes);
                 foreach ($classes as $name => $class) {
                     $this->id = $class->name;
-                    $output   = [];
-                    $output['package']  = $class->package;
-                    $output['location'] = $class->location();
+
+                    $tpl = new template();
+                    $tpl->set('package',  $class->package);
+                    $tpl->set('location', $class->location());
                     if ($class->isInterface())
-                         $output['qualified'] = 'Interface '.$class->name;
-                    else $output['qualified'] = 'Class '.$class->name;
+                         $tpl->set('qualified', 'Interface '.$class->name);
+                    else $tpl->set('qualified', 'Class '.$class->name);
 
                     $result = $this->buildTree($class);
-                    $output['tree'] = $result[0];
+                    $tpl->set('tree', $result[0]);
 
                     if (count($class->interfaces) > 0) {
+                        $output = [];
                         $i = 0;
                         foreach ($class->interfaces as $interface) {
-                            $output['implements'][$i]['name'] = '<a href="'.str_repeat('../', $this->depth).$interface->asPath().'">';
+                            $output[$i]['name'] = '<a href="'.str_repeat('../', $this->depth).$interface->asPath().'">';
                             if ($interface->package !==$class->package) {
-                                $output['implements'][$i]['name'] .= $interface->package.'\\';
+                                $output[$i]['name'] .= $interface->package.'\\';
                             }
-                            $output['implements'][$i]['name'] .= $interface->name.'</a> ';
+                            $output[$i]['name'] .= $interface->name.'</a> ';
                             $i++;
                         }
+                        $tpl->set('implements', $output);
                     }
 
                     $traits = &$class->traits;
                     if (count($traits) > 0) {
+                        $output = [];
                         $i = 0;
                         foreach ($traits as $trait) {
-                            $output['trait'][$i]['name'] = '<a href="'.str_repeat('../', $this->depth).$trait->asPath().'">';
+                            $output[$i]['name'] = '<a href="'.str_repeat('../', $this->depth).$trait->asPath().'">';
                             if ($trait->package !==$class->package) {
-                                $output['trait'][$i]['name'] .= $trait->package.'\\';
+                                $output[$i]['name'] .= $trait->package.'\\';
                             }
-                            $output['trait'][$i]['name'] .= $trait->name.'</a> ';
+                            $output[$i]['name'] .= $trait->name.'</a> ';
                             $i++;
                         }
+                        $tpl->set('traits', $output);
                     }
 
                     $subclasses = $class->subclasses();
                     if ($subclasses) {
+                        $output = [];
                         $i = 0;
                         foreach ($subclasses as $i => $subclass) {
-                            $output['subclass'][$i]['name'] = '<a href="'.str_repeat('../', $this->depth).$subclass->asPath().'">';
+                            $output[$i]['name'] = '<a href="'.str_repeat('../', $this->depth).$subclass->asPath().'">';
                             if ($subclass->package !==$class->package) {
-                                $output['subclass'][$i]['name'] .= $subclass->package.'\\';
+                                $output[$i]['name'] .= $subclass->package.'\\';
                             }
-                            $output['subclass'][$i]['name'] .= $subclass->name.'</a> ';
+                            $output[$i]['name'] .= $subclass->name.'</a> ';
                             $i++;
                         }
+                        $tpl->set('subclasses', $output);
                     }
 
-                    if     ($class->isInterface()) $output['is'] = 'interface';
-                    elseif ($class->trait)
-                         $output['is'] = 'trait';
-                    else $output['is'] = 'class';
-                    $output['ismodifiers'] = $class->modifiers();
-                    $output['isname']      = $class->name;
+                    if     ($class->isInterface()) $tpl->set('is', 'interface');
+                    elseif ($class->trait)         $tpl->set('is', 'trait');
+                    else                           $tpl->set('is', 'class');
 
-                    $text = (isset($class->tags['@text'])) ? $class->tags['@text'] : __('Описания нет');
-                    $output['textTag']    = $this->processInlineTags($text);
-                    $output['mainParams'] = $this->parameters($class->tags);
+                    $tpl->set('ismodifiers', $class->modifiers());
+                    $tpl->set('isname',      $class->name);
+
+                    $text = (isset($class->tags['@text'])) ? $class->tags['@text'] : __('No description');
+                    $tpl->set('textTag',    $this->processInlineTags($text));
+                    $tpl->set('mainParams', $this->parameters($class->tags));
 
                     if ($class->constants) {
                         ksort($class->constants);
-                        $output['constant'] = $this->showObject($class->constants);
+                        $tpl->set('constants', $this->showObject($class->constants));
                     }
 
                     $constructor = &$class->constructor();
@@ -110,64 +117,59 @@ class classWriter extends htmlWriter {
 
                     if ($class->fields) {
                         ksort($class->fields);
-                        $output['field'] = $this->showObject($class->fields);
+                        $tpl->set('fields', $this->showObject($class->fields));
                     }
 
                     if ($class->superclass) {
                         $superclass = &$doclet->rootDoc->classNamed($class->superclass);
                         if ($superclass) {
                             $i = 0;
-                            $output['inheritFields']  = [];
-                            $output['inheritMethods'] = [];
-                            $this->inherits($superclass, $package, 'fields',  $output['inheritFields'],  $i);
-                            $this->inherits($superclass, $package, 'methods', $output['inheritMethods'], $i);
-                            $output['extends'] = ' extends <a href="'.str_repeat('../', $this->depth).$superclass->asPath().'">'.$superclass->name.'</a>';
+                            $inherits = [];
+                            $this->inherits($superclass, $package, 'fields',  $inherits,  $i);
+                            $tpl->set('inheritFields',  $inherits);
+                            $this->inherits($superclass, $package, 'methods', $inherits, $i);
+                            $tpl->set('inheritMethods', $inherits);
+                            $tpl->set('extends', ' extends <a href="'.str_repeat('../', $this->depth).$superclass->asPath().'">'.$superclass->name.'</a>');
                         } else {
-                            $output['extends'] = ' extends '.$class->superclass.LF;
+                            $tpl->set('extends', ' extends '.$class->superclass.LF);
                         }
                     }
 
                     if ($constructor) {
-                        $output['constructor'] = TRUE;
-                        $output['location']    = $constructor->location();
-                        $output['modifiers']   = $constructor->modifiers();
-                        $output['type']        = $constructor->returnType();
-                        $output['name']        = $constructor->name;
-                        $output['arguments']   = $constructor->arguments();
-                        $text = (isset($constructor->tags['@text'])) ? $constructor->tags['@text'] : __('Описания нет');
-                        $output['shortDesc']   = strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>');
-                        $output['fullDesc']    = $this->processInlineTags($text);
-                        $output['parameters']  = $this->parameters($constructor->tags, $constructor);
+                        $tpl->set('constructor', TRUE);
+                        $tpl->set('c_location',  $constructor->location());
+                        $tpl->set('c_modifiers', $constructor->modifiers());
+                        $tpl->set('c_type',      $constructor->returnType());
+                        $tpl->set('c_name',      $constructor->name);
+                        $tpl->set('c_arguments', $constructor->arguments());
+                        $text = (isset($constructor->tags['@text'])) ? $constructor->tags['@text'] : __('No description');
+                        $tpl->set('c_shortDesc', strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>'));
+                        $tpl->set('c_fullDesc',   $this->processInlineTags($text));
+                        $tpl->set('c_parameters', $this->parameters($constructor->tags, $constructor));
                         if (!empty($constructor->includes)) {
                             foreach($constructor->includes as $key => $file) {
-                                $output['include'][$key] = substr(preg_replace("#[\'\"](.*?)[\'\"]#is", '<span class="red">\'\\1\'</span><br />', $file), 0, -1);
+                                $output[$key] = substr(preg_replace("#[\'\"](.*?)[\'\"]#is", '<span class="red">\'\\1\'</span><br />', $file), 0, -1);
                             }
+                            $tpl->set('c_includes', substr(preg_replace("#[\'\"](.*?)[\'\"]#is", '<span class="red">\'\\1\'</span><br />', $file), 0, -1));
                         }
                     }
 
                     if ($destructor) {
-                        $output['destructor'] = TRUE;
-                        $output['location']   = $destructor->location();
-                        $output['modifiers']  = $destructor->modifiers();
-                        $output['type']       = $destructor->returnType();
-                        $output['name']       = $destructor->name;
-                        $output['arguments']  = $destructor->arguments();
-                        $text = (isset($destructor->tags['@text'])) ? $destructor->tags['@text'] : __('Описания нет');
-                        $output['shortDesc']  = strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>');
-                        $output['fullDesc']   = $this->processInlineTags($text);
-                        $output['parameters'] = $this->parameters($destructor->tags, $destructor);
+                        $tpl->set('destructor', TRUE);
+                        $tpl->set('d_location',  $constructor->location());
+                        $tpl->set('d_modifiers', $constructor->modifiers());
+                        $tpl->set('d_type',      $constructor->returnType());
+                        $tpl->set('d_name',      $constructor->name);
+                        $tpl->set('d_arguments', $constructor->arguments());
+                        $text = (isset($constructor->tags['@text'])) ? $destructor->tags['@text'] : __('No description');
+                        $tpl->set('d_shortDesc', strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>'));
+                        $tpl->set('d_fullDesc',   $this->processInlineTags($text));
+                        $tpl->set('d_parameters', $this->parameters($destructor->tags, $destructor));
                     }
-                    if ($methods) $output['method'] = $this->showObject($methods);
+                    if ($methods) $tpl->set('methods', $this->showObject($methods));
 
                     if (method_exists('classItems', 'classItems')) $this->items = classItems::classItems($this->doclet, $package, $this->depth);
-
-                    $tpl = new template($doclet->rootDoc->phpapi->options['doclet'], 'class.tpl');
-                    ob_start();
-
-                    echo $tpl->parse($output);
-
-                    $this->output = ob_get_contents();
-                    ob_end_clean();
+                    $this->output = $tpl->parse($doclet->rootDoc->phpapi, 'class');
                     $this->write($package->asPath().DS.strtolower($class->name).'.html', 'API for class '.$class->name);
                 }
             }
@@ -230,13 +232,10 @@ class classWriter extends htmlWriter {
             $num = count($items);
             $foo = 0;
             $output[$i]['fullNamespace'] = $element->fullNamespace();
-            $output[$i]['path']  = '';
-            $output[$i]['name']  = '';
-            $output[$i]['comma'] = '';
-            foreach ($items as $item) {
-                $output[$i]['path'] .= str_repeat('../', $this->depth).$item->asPath();
-                $output[$i]['name'] .= $item->name;
-                if (++$foo < $num) $output[$i]['name'] .= ', ';
+            $output[$i]['name'] = [];
+            foreach ($items as $k => $item) {
+                $output[$i]['name'][$k]['path'] = str_repeat('../', $this->depth).$item->asPath();
+                $output[$i]['name'][$k]['name'] = (++$foo < $num) ? $item->name.', ' : $item->name;
             }
             if ($element->superclass) {
                 $superclass = &$this->doclet->rootDoc->classNamed($element->superclass);

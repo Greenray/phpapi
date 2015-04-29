@@ -3,11 +3,11 @@
  * Generates menu and writes html pages.
  *
  * @program   phpapi: PHP Documentation Creator
- * @file      doclets/html/globalWriter.php
- * @version   4.1
+ * @version   5.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * @license   Creative Commons — Attribution-NonCommercial-ShareAlike 4.0 International
+ * @file      doclets/html/globalWriter.php
  * @package   html
  * @overview  HTML documentation generator.
  */
@@ -42,7 +42,7 @@ class htmlWriter {
     /**
      * Constructor.
      *
-     * @param object &$doclet Reference to documentation generator
+     * @param doclet &$doclet Reference to documentation generator
      */
     public function htmlWriter(&$doclet) {
         $this->doclet = &$doclet;
@@ -56,30 +56,32 @@ class htmlWriter {
      * @return string       Navigation for documentation
      */
     public function nav($path, $file = '') {
+        $tpl = new template();
+
+        $tpl->set('header', $this->doclet->header);
+        $tpl->set('path',   $path);
+        $tpl->set('file',   $file);
+
         $output = [];
-        $output['header'] = $this->doclet->header;
-        $output['path']   = $path;
-        $output['file']   = $file;
-        if ($this->sections) {
-            foreach ($this->sections as $key => $section) {
-                $output['section'][$key]['title'] = $section['title'];
-                if (isset($section['selected']) && $section['selected']) {
-                    $output['section'][$key]['selected'] = $section['selected'];
-                } else {
-                    if (isset($section['url']))
-                         $output['section'][$key]['title'] = '<a href="'.$path.$section['url'].'">'.$section['title'].'</a>';
-                    else $output['section'][$key]['title'] = $section['title'];
-                }
+        foreach ($this->sections as $key => $section) {
+            $output[$key]['title'] = $section['title'];
+            if (isset($section['selected']) && $section['selected']) {
+                $output[$key]['selected'] = $section['selected'];
+            } else {
+                if (isset($section['url']))
+                     $output[$key]['title'] = '<a href="'.$path.$section['url'].'">'.$section['title'].'</a>';
+                else $output[$key]['title'] = $section['title'];
             }
         }
+        $tpl->set('sections', $output);
+
         $thisClass = get_class($this);
 
-        $output['class']    = ($thisClass === 'classWriter')    ? TRUE : FALSE;
-        $output['function'] = ($thisClass === 'functionWriter') ? TRUE : FALSE;
-        $output['global']   = ($thisClass === 'globalWriter')   ? TRUE : FALSE;
+        $tpl->set('class',    ($thisClass === 'classWriter')    ? TRUE : FALSE);
+        $tpl->set('function', ($thisClass === 'functionWriter') ? TRUE : FALSE);
+        $tpl->set('global',   ($thisClass === 'globalWriter')   ? TRUE : FALSE);
 
-        $tpl = new template($this->doclet->rootDoc->phpapi->options['doclet'], 'navigation.tpl');
-        return $tpl->parse($output);
+        return $tpl->parse($this->doclet->rootDoc->phpapi, 'navigation');
     }
 
     /**
@@ -92,77 +94,89 @@ class htmlWriter {
     public function packageItems(&$phpapi, &$package) {
         $output   = [];
         $path     = str_repeat('../', $this->depth);
+        $tpl      = new template();
         $packages = &$this->doclet->rootDoc->packages;
         ksort($packages);
         foreach ($packages as $name => $pack) {
-            $output['package'][$name]['path'] = $path.$pack->asPath().DS;
-            $output['package'][$name]['name'] = $pack->name;
+            $output[$name]['path'] = $path.$pack->asPath().DS;
+            $output[$name]['name'] = $pack->name;
         }
+        $tpl->set('packages', $output);
+        $tpl->set('current',  $package->name);
 
-        $output['current'] = $package->name;
         $classes = $package->classes;
-
         if ($classes) {
             ksort($classes);
+            $output = [];
             foreach ($classes as $i => $class) {
-                $output['class'][$i]['path']    = $path.$class->asPath();
-                $output['class'][$i]['name']    = $class->name;
-                $output['class'][$i]['package'] = $class->package;
+                $output[$i]['path']    = $path.$class->asPath();
+                $output[$i]['name']    = $class->name;
+                $output[$i]['package'] = $class->package;
             }
+            $tpl->set('classes', $output);
         }
 
         $interfaces = $package->interfaces();
         if ($interfaces) {
             ksort($interfaces);
+            $output = [];
             foreach ($interfaces as $i => $interface) {
-                $output['interface'][$i]['path']    = $path.$interface->asPath();
-                $output['interface'][$i]['name']    = $interface->name;
-                $output['interface'][$i]['package'] = $interface->package;
+                $output[$i]['path']    = $path.$interface->asPath();
+                $output[$i]['name']    = $interface->name;
+                $output[$i]['package'] = $interface->package;
             }
+            $tpl->set('interfaces', $output);
         }
 
         $traits = $package->traits();
         if ($traits) {
             ksort($traits);
+            $output = [];
             foreach ($traits as $i => $trait) {
-                $output['trait'][$i]['path']    = $path.$trait->asPath();
-                $output['trait'][$i]['name']    = $trait->name;
-                $output['trait'][$i]['package'] = $trait->package;
+                $output[$i]['path']    = $path.$trait->asPath();
+                $output[$i]['name']    = $trait->name;
+                $output[$i]['package'] = $trait->package;
             }
+            $tpl->set('traits', $output);
         }
 
         $exceptions = $package->exceptions();
         if ($exceptions) {
             ksort($exceptions);
+            $output = [];
             foreach ($exceptions as $i => $exception) {
-                $output['exception'][$i]['path']    = $path.$exception->asPath();
-                $output['exception'][$i]['name']    = $exception->name;
-                $output['exception'][$i]['package'] = $exception->package;
+                $output[$i]['path']    = $path.$exception->asPath();
+                $output[$i]['name']    = $exception->name;
+                $output[$i]['package'] = $exception->package;
             }
+            $tpl->set('exceptions', $output);
         }
 
         $functions = $package->functions;
         if ($functions) {
             ksort($functions);
+            $output = [];
             foreach ($functions as $i => $function) {
-                $output['function'][$i]['path']    = $path.$function->asPath();
-                $output['function'][$i]['name']    = $function->name;
-                $output['function'][$i]['package'] = $function->package;
+                $output[$i]['path']    = $path.$function->asPath();
+                $output[$i]['name']    = $function->name;
+                $output[$i]['package'] = $function->package;
             }
+            $tpl->set('functions', $output);
         }
 
         $globals = $package->globals;
         if ($globals) {
             ksort($globals);
+            $output = [];
             foreach ($globals as $i => $global) {
-                $output['global'][$i]['path']    = $path.$global->asPath();
-                $output['global'][$i]['name']    = $global->name;
-                $output['global'][$i]['package'] = $global->package;
+                $output[$i]['path']    = $path.$global->asPath();
+                $output[$i]['name']    = $global->name;
+                $output[$i]['package'] = $global->package;
             }
+            $tpl->set('globals', $output);
         }
 
-        $tpl = new template($phpapi->options['doclet'], 'package-items.tpl');
-        return $tpl->parse($output);
+        return $tpl->parse($phpapi, 'package-items');
     }
 
     /**
@@ -214,26 +228,25 @@ class htmlWriter {
                             $param = explode('+', $tagFromGroup->text);
 
                             if ($tag[0]->displayName() !== $usedTag)
-                                 $output['tag'][$k]['name'] = $tag[0]->displayName();
-                            else $output['tag'][$k]['name'] = '&nbsp';
+                                 $output[$k]['name'] = $tag[0]->displayName();
+                            else $output[$k]['name'] = '&nbsp';
 
-                            $output['tag'][$k]['type'] = $tagFromGroup->type;
+                            $output[$k]['type'] = $tagFromGroup->type;
                             if ($obj) {
                                 if (!empty($obj->parameters[$param[0]]->type->typeName)) {
                                     if (class_exists($obj->parameters[$param[0]]->type->typeName)) {
                                         $classDoc = &$obj->parameters[$param[0]]->type->asClassDoc();
                                         if ($classDoc) {
-                                            $output['tag'][$k]['type'] = '<a href="'.str_repeat('../', $this->depth).$classDoc->asPath().'">'.$tagFromGroup->type.'</a>';
+                                            $output[$k]['type'] = '<a href="'.str_repeat('../', $this->depth).$classDoc->asPath().'">'.$tagFromGroup->type.'</a>';
                                         }
                                     }
                                 }
                             }
                             if (!empty($param[1])) {
-                                $output['tag'][$k]['var']     = $param[0];
-                                $output['tag'][$k]['comment'] = preg_replace(array_keys($this->regexp), array_values($this->regexp), htmlspecialchars(trim($param[1])));
+                                $output[$k]['var']     = $param[0];
+                                $output[$k]['comment'] = preg_replace(array_keys($this->regexp), array_values($this->regexp), htmlspecialchars(trim($param[1])));
                             } else {
-                                $output['tag'][$k]['var']     = '';
-                                $output['tag'][$k]['comment'] = preg_replace(array_keys($this->regexp), array_values($this->regexp), htmlspecialchars(trim($param[0])));
+                                $output[$k]['comment'] = preg_replace(array_keys($this->regexp), array_values($this->regexp), htmlspecialchars(trim($param[0])));
                             }
                             $usedTag = $tag[0]->displayName();
                         }
@@ -242,35 +255,35 @@ class htmlWriter {
                     $text = $tag->text;
                     if ($text !== '') {
                         $param = explode('+', $text);
-                        $output['tag'][$key]['name'] = $tag->displayName();
+                        $output[$key]['name'] = $tag->displayName();
                         if (!empty($tag->type)) {
-                            $output['tag'][$key]['type'] = $tag->type;
+                            $output[$key]['type'] = $tag->type;
                             if ($obj) {
                                 if (!empty($obj->parameters[$param[0]]->type->typeName)) {
                                     if (class_exists($obj->parameters[$param[0]]->type->typeName)) {
                                         $classDoc = &$obj->parameters[$param[0]]->type->asClassDoc();
                                         if ($classDoc) {
-                                            $output['tag'][$key]['type'] = '<a href="'.str_repeat('../', $this->depth).$classDoc->asPath().'">'.$tag->type.'</a>';
+                                            $output[$key]['type'] = '<a href="'.str_repeat('../', $this->depth).$classDoc->asPath().'">'.$tag->type.'</a>';
                                         }
                                     }
                                 }
                             }
-                        } else $output['tag'][$key]['type'] = '&nbsp;';
+                        } else $output[$key]['type'] = '&nbsp;';
 
                         if (!empty($param[1])) {
-                             $output['tag'][$key]['var']     = $param[0];
-                             $output['tag'][$key]['comment'] = preg_replace(array_keys($this->regexp), array_values($this->regexp), htmlspecialchars(trim($param[1])));
+                             $output[$key]['var']     = $param[0];
+                             $output[$key]['comment'] = preg_replace(array_keys($this->regexp), array_values($this->regexp), htmlspecialchars(trim($param[1])));
                         } else {
-                             $output['tag'][$key]['var']     = '';
-                             $output['tag'][$key]['comment'] = preg_replace(array_keys($this->regexp), array_values($this->regexp), htmlspecialchars(trim($param[0])));
+                             $output[$key]['comment'] = preg_replace(array_keys($this->regexp), array_values($this->regexp), htmlspecialchars(trim($param[0])));
                         }
                     }
                 }
             }
         }
         if (!empty($output)) {
-            $tpl    = new template($this->doclet->rootDoc->phpapi->options['doclet'], 'tags.tpl');
-            $output = $tpl->parse($output);
+            $tpl = new template();
+            $tpl->set('tags', $output);
+            $output = $tpl->parse($this->doclet->rootDoc->phpapi, 'tags');
         }
         return $output;
     }
@@ -282,7 +295,7 @@ class htmlWriter {
      * @return array          Result
      */
     public function showObject($object) {
-        $output  = [];
+        $output = [];
         foreach ($object as $key => $element) {
             $output[$key]['id']        = trim($element->name, '&$');
             $output[$key]['name']      = $element->name;
@@ -292,22 +305,23 @@ class htmlWriter {
             elseif (method_exists($element, 'returnType')) $output[$key]['type'] = $element->returnType();
 
             if (method_exists($element, 'arguments')) $output[$key]['arguments'] = $element->arguments();
-            if (isset($element->value) && !is_null($element->value)) {
+            if (isset($element->value) && !is_NULL($element->value)) {
                    $value = $element->value;
                    if ((strlen($value) > 100) && (substr($value, 0, 5) === 'array') || (substr($value, 0, 1) === '[') && (substr($value, -1, 1) === ']')) {
-                       $value  = str_replace(["\r\n", "\n\r", "\r", LF], '<br />', $value);
+                       $value  = str_replace(["\r\n", "\n\r", "\r", "\n"], '<br />', $value);
                    }
                    $output[$key]['value'] = ' = '.preg_replace(array_keys($this->regexp), array_values($this->regexp), $value);
             } else $output[$key]['value'] = '';
 
-            $text = (isset($element->tags['@text'])) ? $element->tags['@text'] : __('Описания нет');
+            $text = (isset($element->tags['@text'])) ? $element->tags['@text'] : __('No description');
             $output[$key]['shortDesc']  = strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>');
             $output[$key]['fullDesc']   = $this->processInlineTags($text);
             $output[$key]['parameters'] = $this->parameters($element->tags, $element);
             if (method_exists($element, 'location')) $output[$key]['location'] = $element->location();
             if (!empty($element->includes)) {
-                foreach($element->includes as $key => $file) {
-                    $output['include'][$key] = substr(preg_replace(array_keys($this->regexp), array_values($this->regexp), $file), 0, -1);
+                $output[$key]['includes'] = '';
+                foreach($element->includes as $i => $file) {
+                    $output[$key]['includes'] .= substr(preg_replace(array_keys($this->regexp), array_values($this->regexp), $file), 0, -1).'<br />';
                 }
             }
         }
@@ -338,39 +352,31 @@ class htmlWriter {
                 }
             }
         }
+
+        $path = !empty($dirs) ? str_repeat('../', $this->depth) : './';
+        $tpl  = new template();
+        $tpl->set('id',       $this->id);
+        $tpl->set('path',     $path);
+        $tpl->set('header',   $phpapi->options['docTitle']);
+        $tpl->set('docTitle', $phpapi->options['docTitle']);
+
+        if ($title) $tpl->set('docTitle', $title.' ('.$phpapi->options['docTitle'].')');
+        if ($menu)  $tpl->set('menu', $this->nav($path, $file));
+
+        if (!empty($this->items)) {
+            $tpl->set('items', $this->items);
+            unset($this->items);
+
+        } else $tpl->set('items', ($phpapi->options['doclet'] === 'plain') ? items::items($phpapi, $this->doclet, $path) : NULL);
+
+        $tpl->set('page', $this->output);
         #
         # Write file
         #
         $fp = fopen($phpapi->options['destination'].$file, 'w');
         if ($fp) {
             $phpapi->verbose('Writing "'.$file.'"');
-
-            $output['id'] = $this->id;
-
-            if (!empty($dirs))
-                 $output['path'] = str_repeat('../', $this->depth);
-            else $output['path'] = '';
-
-            if ($title)
-                 $output['docTitle'] = $title.' ('.$phpapi->options['docTitle'].')';
-            else $output['docTitle'] = $phpapi->options['docTitle'];
-            $output['header'] = $phpapi->options['docTitle'];
-
-            if ($menu) {
-                $output['menu'] = $this->nav($output['path'], $file);
-            }
-
-            if (!empty($this->items)) {
-                $output['items'] = $this->items;
-                unset($this->items);
-            } else {
-                $output['items'] = ($phpapi->options['doclet'] === 'plain') ? items::items($phpapi, $this->doclet, $output['path']) : NULL;
-            }
-
-            $output['page'] = $this->output;
-
-            $tpl = new template($phpapi->options['doclet'], 'main.tpl');
-            fwrite($fp, $tpl->parse($output));
+            fwrite($fp, $tpl->parse($phpapi, 'main'));
             fclose($fp);
 
         } else {

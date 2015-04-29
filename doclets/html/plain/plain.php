@@ -5,10 +5,10 @@
  *
  * @program   phpapi: PHP Documentation Creator
  * @file      doclets/html/plain/plain.php
- * @version   4.1
+ * @version   5.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * @license   Creative Commons — Attribution-NonCommercial-ShareAlike 4.0 International
  * @package   plain
  * @overview  Frames doclet.
  *            This doclet generates HTML output without frames.
@@ -34,7 +34,7 @@ class plain {
      */
     public function __construct(&$rootDoc, $formatter) {
 
-        $this->rootDoc   = &$rootDoc;
+        $this->rootDoc   = $rootDoc;
         $this->formatter = $formatter;
         $phpapi = &$rootDoc->phpapi;
 
@@ -59,7 +59,7 @@ class plain {
         $todoWriter            = &new todoWriter($this,            'index');    # Todo index
 
         $phpapi->verbose('Copying stylesheet');
-        copy(TEMPLATES.$phpapi->options['doclet'].DS.'style.css', $phpapi->options['destination'].'style.css');
+        copy(TEMPLATES.$phpapi->options['generator'].DS.$phpapi->options['doclet'].DS.'style.css', $phpapi->options['destination'].'style.css');
 
         if (!is_dir($phpapi->options['destination'].'resources')) mkdir($phpapi->options['destination'].'resources');
 

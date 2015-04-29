@@ -3,11 +3,11 @@
  * Represents a PHP function or method (member function).
  *
  * @program   phpapi: PHP Documentation Creator
- * @file      classes/methodDoc.php
- * @version   4.1
+ * @version   5.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * @license   Creative Commons — Attribution-NonCommercial-ShareAlike 4.0 International
+ * @file      classes/methodDoc.php
  * @package   phpapi
  */
 
@@ -67,6 +67,16 @@ class methodDoc extends elementDoc {
      */
     public function isFunction() {
         return (get_class($this->parent) === 'rootDoc' && !$this->containingClass()) ? TRUE : FALSE;
+    }
+
+    /**
+     * Constructs a method.
+     * False until overridden.
+     *
+     * @return boolean
+     */
+    public function isMethod() {
+        return !$this->isFunction();
     }
 
     /**

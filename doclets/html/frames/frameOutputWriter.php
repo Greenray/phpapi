@@ -1,13 +1,13 @@
 <?php
 /**
- * This generates the file used for presenting the frame-formated "cover page" of the API documentation.
+ * This generates files used for presenting the frame-formated "cover page" of the API documentation.
  *
  * @program   phpapi: PHP Documentation Creator
- * @file      doclets/html/frames/frameOutputWriter.php
- * @version   4.1
+ * @version   5.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * @license   Creative Commons — Attribution-NonCommercial-ShareAlike 4.0 International
+ * @file      doclets/html/frames/frameOutputWriter.php
  * @package   frames
  */
 
@@ -16,43 +16,31 @@ class frameOutputWriter extends htmlWriter {
     /**
      * Builds the HTML frameset.
      *
-     * @param object &$doclet Reference to the documentation generator
+     * @param doclet &$doclet Reference to the documentation generator
      * @return string
      */
     public function __construct(&$doclet) {
         parent::htmlWriter($doclet);
 
         $phpapi = &$doclet->rootDoc->phpapi;
-        $tpl    = new template($phpapi->options['doclet'], 'frame-output.tpl');
-        ob_start();
-
-        echo $tpl->parse();
-
-        $this->output = ob_get_contents();
-        ob_end_clean();
+        $tpl = new template();
+        #
+        # Builds the main frameset
+        #
+        $this->output = $tpl->parse($phpapi, 'frame-output');
         $this->write('index.html', FALSE, FALSE);
         #
         # Builds the header frame
         #
-        $tpl = new template($phpapi->options['doclet'], 'header.tpl');
-        $output['title'] = $phpapi->options['docTitle'];
-        ob_start();
-
-        echo $tpl->parse($output);
-
-        $this->output = ob_get_contents();
-        ob_end_clean();
+        $tpl = new template();
+        $tpl->set('title', $phpapi->options['docTitle']);
+        $this->output = $tpl->parse($phpapi, 'header');
         $this->write('header.html', 'Header', FALSE);
         #
         # Builds the footer frame
         #
-        $tpl = new template($phpapi->options['doclet'], 'footer.tpl');
-        ob_start();
-
-        echo $tpl->parse();
-
-        $this->output = ob_get_contents();
-        ob_end_clean();
+        $tpl = new template();
+        $this->output = $tpl->parse($phpapi, 'footer');
         $this->write('footer.html', 'Footer', FALSE);
     }
 }

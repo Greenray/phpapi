@@ -4,11 +4,11 @@
  * Basic implementation, just deals with unordered lists for now.
  *
  * @program   phpapi: PHP Documentation Creator
- * @file      doclets/formatters/htmlFormatter.php
- * @version   4.1
+ * @version   5.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * @license   Creative Commons — Attribution-NonCommercial-ShareAlike 4.0 International
+ * @file      doclets/formatters/htmlFormatter.php
  * @package   formatters
  * @overview  Formatts output for doclets.
  *            At present time it works only with HTML.

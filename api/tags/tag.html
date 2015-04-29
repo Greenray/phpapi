@@ -1,557 +1,377 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>API for class tag (phpAPI: PHP Documentation Creator ver. 4.1)</title>
+    <title>API for class tag (phpAPI: PHP Documentation Creator ver. 5.0)</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="generator" content="phpAPI 4.1 (https://github.com/Greenray/phpAPI/)">
+    <meta name="generator" content="phpAPI 5.0 (https://github.com/Greenray/phpAPI/)">
     <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="start" href="../index.html">
 </head>
-
     <body id="tag" onload="parent.document.title=document.title;">
-        <div class="header">
-    <span style="float:right">phpAPI ver. 4.1</span>
-    
-        <ul>
-        
-            <li><a href="../overview-summary.html">Overview</a></li>
-        
-            <li><a href="../tags/package-summary.html">Namespace</a></li>
-        
-            <li class="active">Class</li>
-        
-            <li><a href="../tags/package-tree.html">tags\Tree</a></li>
-        
-            <li><a href="../deprecated.html">Deprecated</a></li>
-        
-            <li><a href="../todo.html">Todo</a></li>
-        
-            <li><a href="../index-all.html">Index</a></li>
-        
-        </ul>
-    
-</div>
-<div class="small_links">Фреймы: <a href="../index.html" target="_top"> Включить</a> | <a href="../tags/tag.html" target="_top"> Выключить</a></div>
-
+    <div class="header">
+    <span style="float:right">phpAPI ver. 5.0</span>
+            <ul>
+                    <li><a href="../overview-summary.html">Overview</a></li>
+                    <li><a href="../tags/package-summary.html">Namespace</a></li>
+                    <li class="active">Class</li>
+                    <li><a href="../tags/package-tree.html">tags\Tree</a></li>
+                    <li><a href="../deprecated.html">Deprecated</a></li>
+                    <li><a href="../todo.html">Todo</a></li>
+                    <li><a href="../index-all.html">Index</a></li>
+                </ul>
+    </div>
+<hr />
+<div class="small_links">Фреймы: <a href="../index.html" target="_top"> Включить</a> | <a href="" target="_top"> Выключить</a></div>
+<hr />
     <div class="small_links">
         Общий обзор: <a href="#summary_fields">Поля</a> | <a href="#summary_methods">Методы</a> | <a href="#summary_constructor">Конструктор</a>
         Детали: <a href="#details_fields">Поля</a> | <a href="#details_methods">Методы</a> | <a href="#details_constructor">Конструктор</a>
     </div>
-
-
-
-
-
-<hr />
+    <hr />
 <div class="package">Пространство имен tags</div>
 <h1>Class tag</h1>
 <div id="list">
     <ul>
-        <li><strong>tag</strong></li></ul></li>
-    </ul>
+        <li><strong>tag</strong></li></ul></li>    </ul>
 </div>
-
-
-
-    <dl>
-        <dt>Подклассы:</dt>
-        <dd><a href="../tags/paramtag.html">paramTag</a> </dd><dd><a href="../tags/returntag.html">returnTag</a> </dd><dd><a href="../tags/seetag.html">seeTag</a> </dd>
-    </dl>
-
 <hr />
 <p class="arguments">public  class <strong>tag</strong></p>
 <div class="comment" id="overview_description">Represents a documentation tag.<br /> Given a tag (e.g. "@since 1.2"), holds tag name (e.g. "@since") and tag text (e.g. "1.2").<br /> Tags with structure or which require special processing are handled by subclasses.</div>
 <div class="finfo">
     <table class="hid">
-    
-        <tr>
+            <tr>
             <td class="hid left w_100">Program</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
-            
-                <td class="hid" colspan="2">phpapi: PHP Documentation Creator</td>
-            
-        </tr>
-    
-        <tr>
-            <td class="hid left w_100">File</td>
-            <td class="hid right w_100 lilac">&nbsp;</td>
-            
-                <td class="hid" colspan="2">taglets/tag.php</td>
-            
-        </tr>
-    
-        <tr>
+                            <td class="hid" colspan="2">phpapi: PHP Documentation Creator</td>
+                    </tr>
+            <tr>
             <td class="hid left w_100">Version</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
-            
-                <td class="hid" colspan="2">4.1</td>
-            
-        </tr>
-    
-        <tr>
+                            <td class="hid" colspan="2">5.0</td>
+                    </tr>
+            <tr>
             <td class="hid left w_100">Author</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
-            
-                <td class="hid" colspan="2">Victor Nabatov greenray.spb@gmail.com</td>
-            
-        </tr>
-    
-        <tr>
+                            <td class="hid" colspan="2">Victor Nabatov greenray.spb@gmail.com</td>
+                    </tr>
+            <tr>
             <td class="hid left w_100">Copyright</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
-            
-                <td class="hid" colspan="2">(c) 2015 Victor Nabatov</td>
-            
-        </tr>
-    
-        <tr>
+                            <td class="hid" colspan="2">(c) 2015 Victor Nabatov</td>
+                    </tr>
+            <tr>
             <td class="hid left w_100">License</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
-            
-                <td class="hid" colspan="2">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</td>
-            
-        </tr>
-    
-        <tr>
+                            <td class="hid" colspan="2">Creative Commons — Attribution-NonCommercial-ShareAlike 4.0 International</td>
+                    </tr>
+            <tr>
+            <td class="hid left w_100">File</td>
+            <td class="hid right w_100 lilac">&nbsp;</td>
+                            <td class="hid" colspan="2">taglets/tag.php</td>
+                    </tr>
+            <tr>
             <td class="hid left w_100">Overview</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
-            
-                <td class="hid" colspan="2">Represents a documentation tag.
+                            <td class="hid" colspan="2">Represents a documentation tag.
  Tag is a keyword (e.g. @version) with value (e.g. 1.0)</td>
-            
-        </tr>
-    
-    </table>
+                    </tr>
+        </table>
 </div>
-
-
-
     <table id="summary_fields">
-        <tr><th colspan="2">Поля: общий обзор</th></tr>
-        
-            <tr>
+        <tr><th colspan="2">Fiels: общий обзор</th></tr>
+                    <tr>
                 <td class="type w_200">public  string</td>
                 <td class="description">
                     <pre><a href="#$name"><span class="green">$name</span></a> = NULL</pre>
                     <p class="description">Name of the tag</p>
                 </td>
             </tr>
-        
-            <tr>
+                    <tr>
                 <td class="type w_200">public  <a href="../phpapi/elementdoc.html">elementDoc</a></td>
                 <td class="description">
                     <pre><a href="#$parent"><span class="green">$parent</span></a> = NULL</pre>
                     <p class="description">Reference the elements parent</p>
                 </td>
             </tr>
-        
-            <tr>
+                    <tr>
                 <td class="type w_200">public  <a href="../phpapi/rootdoc.html">rootDoc</a></td>
                 <td class="description">
                     <pre><a href="#$root"><span class="green">$root</span></a> = NULL</pre>
                     <p class="description">Reference the root element</p>
                 </td>
             </tr>
-        
-            <tr>
+                    <tr>
                 <td class="type w_200">public  string</td>
                 <td class="description">
                     <pre><a href="#$text"><span class="green">$text</span></a> = NULL</pre>
                     <p class="description">Value of the tag as raw data, without any text processing applied</p>
                 </td>
             </tr>
-        
-            <tr>
+                    <tr>
                 <td class="type w_200">public  string</td>
                 <td class="description">
                     <pre><a href="#$type"><span class="green">$type</span></a> = NULL</pre>
                     <p class="description">Type of parameter</p>
                 </td>
             </tr>
-        
-    </table>
-
-
-
-
-
+            </table>
     <table id="summary_methods">
         <tr><th colspan="2">Методы: общий обзор</th></tr>
-        
-            <tr>
+                    <tr>
                 <td class="type w_200">public  void</td>
                 <td class="description">
                     <p><a href="#tag"><strong><span class="black">tag</span></strong></a> (<span class="lilac">string</span> <span class="blue">$name</span>, <span class="lilac">string</span> <span class="blue">$text</span>, <a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">&$root</span>, <span class="lilac">string</span> <span class="blue">$type</span>)</p>
                     <p class="description">Constructor.</p>
                 </td>
             </tr>
-        
-            <tr>
+                    <tr>
                 <td class="type w_200">public  string</td>
                 <td class="description">
                     <p><a href="#displayName"><strong><span class="black">displayName</span></strong></a> ()</p>
                     <p class="description">Gets display name of this tag.</p>
                 </td>
             </tr>
-        
-            <tr>
+                    <tr>
                 <td class="type w_200">public  <a href="../tags/tag.html">tag</a></td>
                 <td class="description">
                     <p><a href="#firstCommentString"><strong><span class="black">firstCommentString</span></strong></a> ()</p>
                     <p class="description">Returns the first sentence of the comment as tags.</p>
                 </td>
             </tr>
-        
-            <tr>
+                    <tr>
                 <td class="type w_200">public  <a href="../tags/tag.html">tag</a></td>
                 <td class="description">
                     <p><a href="#getInlineTags"><strong><span class="black">getInlineTags</span></strong></a> (<span class="lilac">string</span> <span class="blue">$text</span>)</p>
                     <p class="description">Parses out inline tags from within a text string.</p>
                 </td>
             </tr>
-        
-            <tr>
+                    <tr>
                 <td class="type w_200">public  <a href="../tags/tag.html">tag</a></td>
                 <td class="description">
                     <p><a href="#inlineTags"><strong><span class="black">inlineTags</span></strong></a> ()</p>
                     <p class="description">For documentation comment with embedded @link tags, return the array of tags.</p>
                 </td>
             </tr>
-        
-            <tr>
+                    <tr>
                 <td class="type w_200">public  void</td>
                 <td class="description">
                     <p><a href="#setParent"><strong><span class="black">setParent</span></strong></a> (<a href="../phpapi/elementdoc.html">elementDoc</a> <span class="blue">&$element</span>)</p>
                     <p class="description">Sets this tags parent</p>
                 </td>
             </tr>
-        
-            <tr>
+                    <tr>
                 <td class="type w_200">public  boolean</td>
                 <td class="description">
                     <p><a href="#inField"><strong><span class="black">inField</span></strong></a> ()</p>
                     <p class="description">Returns TRUE if this Taglet is used in field documentation.</p>
                 </td>
             </tr>
-        
-            <tr>
+                    <tr>
                 <td class="type w_200">public  boolean</td>
                 <td class="description">
                     <p><a href="#inMethod"><strong><span class="black">inMethod</span></strong></a> ()</p>
                     <p class="description">Returns TRUE if this Taglet is used in method documentation.</p>
                 </td>
             </tr>
-        
-            <tr>
+                    <tr>
                 <td class="type w_200">public  boolean</td>
                 <td class="description">
                     <p><a href="#inOverview"><strong><span class="black">inOverview</span></strong></a> ()</p>
                     <p class="description">Returns TRUE if this Taglet is used in overview documentation.</p>
                 </td>
             </tr>
-        
-            <tr>
+                    <tr>
                 <td class="type w_200">public  boolean</td>
                 <td class="description">
                     <p><a href="#inPackage"><strong><span class="black">inPackage</span></strong></a> ()</p>
                     <p class="description">Returns TRUE if this Taglet is used in package documentation.</p>
                 </td>
             </tr>
-        
-            <tr>
+                    <tr>
                 <td class="type w_200">public  boolean</td>
                 <td class="description">
                     <p><a href="#inType"><strong><span class="black">inType</span></strong></a> ()</p>
                     <p class="description">Returns TRUE if this Taglet is used in class or interface documentation.</p>
                 </td>
             </tr>
-        
-    </table>
-
-
-
-
+            </table>
     <h2 id="details_fields">Поля: детали</h2>
-    
-        <div class="location">taglets/tag.php at line 21</div>
-        <pre class="arguments" id="name">public string <strong><span class="green">$name</span></strong> = NULL</pre>
+            <div class="location">taglets/tag.php at line 21</div>
+        <pre class="arguments" id="$name">public  string <strong><span class="green">$name</span></strong> = NULL</pre>
         <div class="details">Name of the tag</div>
         <hr />
-    
-        <div class="location">taglets/tag.php at line 24</div>
-        <pre class="arguments" id="parent">public <a href="../phpapi/elementdoc.html">elementDoc</a> <strong><span class="green">$parent</span></strong> = NULL</pre>
+            <div class="location">taglets/tag.php at line 24</div>
+        <pre class="arguments" id="$parent">public  <a href="../phpapi/elementdoc.html">elementDoc</a> <strong><span class="green">$parent</span></strong> = NULL</pre>
         <div class="details">Reference the elements parent</div>
         <hr />
-    
-        <div class="location">taglets/tag.php at line 27</div>
-        <pre class="arguments" id="root">public <a href="../phpapi/rootdoc.html">rootDoc</a> <strong><span class="green">$root</span></strong> = NULL</pre>
+            <div class="location">taglets/tag.php at line 27</div>
+        <pre class="arguments" id="$root">public  <a href="../phpapi/rootdoc.html">rootDoc</a> <strong><span class="green">$root</span></strong> = NULL</pre>
         <div class="details">Reference the root element</div>
         <hr />
-    
-        <div class="location">taglets/tag.php at line 30</div>
-        <pre class="arguments" id="text">public string <strong><span class="green">$text</span></strong> = NULL</pre>
+            <div class="location">taglets/tag.php at line 30</div>
+        <pre class="arguments" id="$text">public  string <strong><span class="green">$text</span></strong> = NULL</pre>
         <div class="details">Value of the tag as raw data, without any text processing applied</div>
         <hr />
-    
-        <div class="location">taglets/tag.php at line 33</div>
-        <pre class="arguments" id="type">public string <strong><span class="green">$type</span></strong> = NULL</pre>
+            <div class="location">taglets/tag.php at line 33</div>
+        <pre class="arguments" id="$type">public  string <strong><span class="green">$type</span></strong> = NULL</pre>
         <div class="details">Type of parameter</div>
         <hr />
-    
-
-
-
-
-    <h2 id="details_methods">Методы: детали</h2>
-    
-        <div class="location">taglets/tag.php at line 43</div>
+        <h2 id="details_methods">Методы: детали</h2>
+            <div class="location">taglets/tag.php at line 43</div>
         <code class="arguments" id="tag">public  void <strong>tag</strong> (<span class="lilac">string</span> <span class="blue">$name</span>, <span class="lilac">string</span> <span class="blue">$text</span>, <a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">&$root</span>, <span class="lilac">string</span> <span class="blue">$type</span>)</code>
         <div class="details">
-            
-            <p class="description">Constructor.</p>
+                    <p class="description">Constructor.</p>
             <div class="finfo">
     <table class="hid">
-    
-        <tr>
+            <tr>
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">string</td>
-            
-                <td class="hid" colspan="2">Name of the tag (including @)</td>
-            
-        </tr>
-    
-        <tr>
+                            <td class="hid blue w_100">$name</td>
+                <td class="hid">Name of the tag (including @)</td>
+                    </tr>
+            <tr>
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">string</td>
-            
-                <td class="hid" colspan="2">Contents of the tag</td>
-            
-        </tr>
-    
-        <tr>
+                            <td class="hid blue w_100">$text</td>
+                <td class="hid">Contents of the tag</td>
+                    </tr>
+            <tr>
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac"><a href="../phpapi/rootdoc.html">rootDoc</a></td>
-            
-                <td class="hid" colspan="2">Reference to the root object</td>
-            
-        </tr>
-    
-        <tr>
+                            <td class="hid blue w_100">&$root</td>
+                <td class="hid">Reference to the root object</td>
+                    </tr>
+            <tr>
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">string</td>
-            
-                <td class="hid" colspan="2">Type of the element</td>
-            
-        </tr>
-    
-    </table>
+                            <td class="hid blue w_100">$type</td>
+                <td class="hid">Type of the element</td>
+                    </tr>
+        </table>
 </div>
-
         </div>
         <hr />
-    
-        <div class="location">taglets/tag.php at line 55</div>
+            <div class="location">taglets/tag.php at line 55</div>
         <code class="arguments" id="displayName">public  string <strong>displayName</strong> ()</code>
         <div class="details">
-            
-            <p class="description">Gets display name of this tag.</p>
-            
-        </div>
+                    <p class="description">Gets display name of this tag.</p>
+                    </div>
         <hr />
-    
-        <div class="location">taglets/tag.php at line 70</div>
+            <div class="location">taglets/tag.php at line 69</div>
         <code class="arguments" id="firstCommentString">public  <a href="../tags/tag.html">tag</a> <strong>firstCommentString</strong> ()</code>
         <div class="details">
-            
-            <p class="description">Returns the first sentence of the comment as tags.<br /> Includes inline tags (i.e.  tags) but not regular tags.<br /> Each section of plain text is represented as a tag of kind "Text".<br /> Inline tags are represented as a SeeTag of kind "link".<br /> Sentence ends at the first period that is followed by a space, tab,<br /> or a line terminator, at the first tagline, or closing of a HTML block elements.</p>
+                    <p class="description">Returns the first sentence of the comment as tags.<br /> Includes inline tags (i.e.  tags) but not regular tags.<br /> Each section of plain text is represented as a tag of kind "Text".<br /> Inline tags are represented as a SeeTag of kind "link".<br /> Sentence ends at the first period that is followed by a space, tab,<br /> or a line terminator, at the first tagline, or closing of a HTML block elements.</p>
             <div class="finfo">
     <table class="hid">
-    
-        <tr>
+            <tr>
             <td class="hid left w_100">Return</td>
             <td class="hid right w_100 lilac">tag</td>
-            
-                <td class="hid" colspan="2">Tags object representing the first sentence of the comment</td>
-            
-        </tr>
-    
-        <tr>
-            <td class="hid left w_100">Todo</td>
-            <td class="hid right w_100 lilac">&nbsp;</td>
-            
-                <td class="hid" colspan="2">This method does not act as described but should be altered to do so</td>
-            
-        </tr>
-    
-    </table>
+                            <td class="hid" colspan="2">Tags object representing the first sentence of the comment</td>
+                    </tr>
+        </table>
 </div>
-
         </div>
         <hr />
-    
-        <div class="location">taglets/tag.php at line 84</div>
+            <div class="location">taglets/tag.php at line 83</div>
         <code class="arguments" id="getInlineTags">public  <a href="../tags/tag.html">tag</a> <strong>getInlineTags</strong> (<span class="lilac">string</span> <span class="blue">$text</span>)</code>
         <div class="details">
-            
-            <p class="description">Parses out inline tags from within a text string.</p>
+                    <p class="description">Parses out inline tags from within a text string.</p>
             <div class="finfo">
     <table class="hid">
-    
-        <tr>
+            <tr>
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">string</td>
-            
-                <td class="hid" colspan="2">Text for parse</td>
-            
-        </tr>
-    
-        <tr>
+                            <td class="hid blue w_100">$text</td>
+                <td class="hid">Text for parse</td>
+                    </tr>
+            <tr>
             <td class="hid left w_100">Return</td>
             <td class="hid right w_100 lilac">tag</td>
-            
-                <td class="hid" colspan="2">Tags object of parsed tags</td>
-            
-        </tr>
-    
-    </table>
+                            <td class="hid" colspan="2">Tags object of parsed tags</td>
+                    </tr>
+        </table>
 </div>
-
         </div>
         <hr />
-    
-        <div class="location">taglets/tag.php at line 131</div>
+            <div class="location">taglets/tag.php at line 129</div>
         <code class="arguments" id="inlineTags">public  <a href="../tags/tag.html">tag</a> <strong>inlineTags</strong> ()</code>
         <div class="details">
-            
-            <p class="description">For documentation comment with embedded @link tags, return the array of tags.<br /> Within a comment string "This is an example of inline tags for a<br /> documentaion comment commentlabel", where inside the inner<br /> braces, the first "Doc" carries exactly the same syntax as a SeeTag and<br /> the second "commentlabel" is label for the HTML link, will return an array<br /> of tags with first element as tag with comment text "This is an example of<br /> inline tags for a documentation comment" and second element as SeeTag with<br /> referenced class as "Doc" and the label for the HTML link as "commentlabel".</p>
+                    <p class="description">For documentation comment with embedded @link tags, return the array of tags.<br /> Within a comment string "This is an example of inline tags for a<br /> documentaion comment commentlabel", where inside the inner<br /> braces, the first "Doc" carries exactly the same syntax as a SeeTag and<br /> the second "commentlabel" is label for the HTML link, will return an array<br /> of tags with first element as tag with comment text "This is an example of<br /> inline tags for a documentation comment" and second element as SeeTag with<br /> referenced class as "Doc" and the label for the HTML link as "commentlabel".</p>
             <div class="finfo">
     <table class="hid">
-    
-        <tr>
+            <tr>
             <td class="hid left w_100">Return</td>
             <td class="hid right w_100 lilac">tag</td>
-            
-                <td class="hid" colspan="2">Tags object with inline tags.</td>
-            
-        </tr>
-    
-        <tr>
-            <td class="hid left w_100">Todo</td>
-            <td class="hid right w_100 lilac">&nbsp;</td>
-            
-                <td class="hid" colspan="2">This method does not act as described but should be altered to do so</td>
-            
-        </tr>
-    
-    </table>
+                            <td class="hid" colspan="2">Tags object with inline tags.</td>
+                    </tr>
+        </table>
 </div>
-
         </div>
         <hr />
-    
-        <div class="location">taglets/tag.php at line 140</div>
+            <div class="location">taglets/tag.php at line 138</div>
         <code class="arguments" id="setParent">public  void <strong>setParent</strong> (<a href="../phpapi/elementdoc.html">elementDoc</a> <span class="blue">&$element</span>)</code>
         <div class="details">
-            
-            <p class="description">Sets this tags parent</p>
+                    <p class="description">Sets this tags parent</p>
             <div class="finfo">
     <table class="hid">
-    
-        <tr>
+            <tr>
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac"><a href="../phpapi/elementdoc.html">elementDoc</a></td>
-            
-                <td class="hid" colspan="2">Reference to the parent element</td>
-            
-        </tr>
-    
-    </table>
+                            <td class="hid blue w_100">&$element</td>
+                <td class="hid">Reference to the parent element</td>
+                    </tr>
+        </table>
 </div>
-
         </div>
         <hr />
-    
-        <div class="location">taglets/tag.php at line 149</div>
+            <div class="location">taglets/tag.php at line 147</div>
         <code class="arguments" id="inField">public  boolean <strong>inField</strong> ()</code>
         <div class="details">
-            
-            <p class="description">Returns TRUE if this Taglet is used in field documentation.</p>
-            
-        </div>
+                    <p class="description">Returns TRUE if this Taglet is used in field documentation.</p>
+                    </div>
         <hr />
-    
-        <div class="location">taglets/tag.php at line 158</div>
+            <div class="location">taglets/tag.php at line 156</div>
         <code class="arguments" id="inMethod">public  boolean <strong>inMethod</strong> ()</code>
         <div class="details">
-            
-            <p class="description">Returns TRUE if this Taglet is used in method documentation.</p>
-            
-        </div>
+                    <p class="description">Returns TRUE if this Taglet is used in method documentation.</p>
+                    </div>
         <hr />
-    
-        <div class="location">taglets/tag.php at line 167</div>
+            <div class="location">taglets/tag.php at line 165</div>
         <code class="arguments" id="inOverview">public  boolean <strong>inOverview</strong> ()</code>
         <div class="details">
-            
-            <p class="description">Returns TRUE if this Taglet is used in overview documentation.</p>
-            
-        </div>
+                    <p class="description">Returns TRUE if this Taglet is used in overview documentation.</p>
+                    </div>
         <hr />
-    
-        <div class="location">taglets/tag.php at line 176</div>
+            <div class="location">taglets/tag.php at line 174</div>
         <code class="arguments" id="inPackage">public  boolean <strong>inPackage</strong> ()</code>
         <div class="details">
-            
-            <p class="description">Returns TRUE if this Taglet is used in package documentation.</p>
-            
-        </div>
+                    <p class="description">Returns TRUE if this Taglet is used in package documentation.</p>
+                    </div>
         <hr />
-    
-        <div class="location">taglets/tag.php at line 185</div>
+            <div class="location">taglets/tag.php at line 183</div>
         <code class="arguments" id="inType">public  boolean <strong>inType</strong> ()</code>
         <div class="details">
-            
-            <p class="description">Returns TRUE if this Taglet is used in class or interface documentation.</p>
-            
-        </div>
+                    <p class="description">Returns TRUE if this Taglet is used in class or interface documentation.</p>
+                    </div>
         <hr />
-    
-
-
-
         <div class="header">
-    <span style="float:right">phpAPI ver. 4.1</span>
-    
-        <ul>
-        
-            <li><a href="../overview-summary.html">Overview</a></li>
-        
-            <li><a href="../tags/package-summary.html">Namespace</a></li>
-        
-            <li class="active">Class</li>
-        
-            <li><a href="../tags/package-tree.html">tags\Tree</a></li>
-        
-            <li><a href="../deprecated.html">Deprecated</a></li>
-        
-            <li><a href="../todo.html">Todo</a></li>
-        
-            <li><a href="../index-all.html">Index</a></li>
-        
-        </ul>
-    
-</div>
-<div class="small_links">Фреймы: <a href="../index.html" target="_top"> Включить</a> | <a href="../tags/tag.html" target="_top"> Выключить</a></div>
-
+    <span style="float:right">phpAPI ver. 5.0</span>
+            <ul>
+                    <li><a href="../overview-summary.html">Overview</a></li>
+                    <li><a href="../tags/package-summary.html">Namespace</a></li>
+                    <li class="active">Class</li>
+                    <li><a href="../tags/package-tree.html">tags\Tree</a></li>
+                    <li><a href="../deprecated.html">Deprecated</a></li>
+                    <li><a href="../todo.html">Todo</a></li>
+                    <li><a href="../index-all.html">Index</a></li>
+                </ul>
+    </div>
+<hr />
+<div class="small_links">Фреймы: <a href="../index.html" target="_top"> Включить</a> | <a href="" target="_top"> Выключить</a></div>
+<hr />
     <div class="small_links">
         Общий обзор: <a href="#summary_fields">Поля</a> | <a href="#summary_methods">Методы</a> | <a href="#summary_constructor">Конструктор</a>
         Детали: <a href="#details_fields">Поля</a> | <a href="#details_methods">Методы</a> | <a href="#details_constructor">Конструктор</a>
     </div>
-
-
-
-
-        <hr />
     </body>
-
 </html>

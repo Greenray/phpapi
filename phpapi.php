@@ -23,11 +23,11 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  * @program   phpapi: PHP Documentation Creator
- * @file      phpapi.php
- * @version   4.1
+ * @version   5.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
  * @license   Creative Commons Attribution-NonCommercial-Share Alike 4.1 Unported License
+ * @file      phpapi.php
  * @package   phpapi
  */
 #
@@ -79,7 +79,7 @@ define('MARKDOWN',   DOCLETS.'markdown'.DS);
 if (!defined('STDERR')) define('STDERR', fopen("php://stderr", "wb"));
 
 /** Version of the system */
-define('VERSION', '4.1');
+define('VERSION', '5.0');
 /** Copyright */
 define('COPYRIGHT', '&copy; 2015 Greenray');
 /** System generator */
@@ -128,9 +128,11 @@ if (!isset($argv[1])) {
 
 $phpdoc = new phpapi($argv[1]);
 
-if ($phpdoc->options['lang'] !== 'russian') {
+if ($phpdoc->options['lang'] !== 'english') {
     include 'locales'.DS.$phpdoc->options['lang'].'.php';
 }
 
 $rootDoc = $phpdoc->parse();
 $phpdoc->execute($rootDoc);
+
+restore_error_handler();

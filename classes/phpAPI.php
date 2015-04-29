@@ -5,11 +5,11 @@
  * It is the root of the parsed tokens and is passed to the doclet to be formatted into output.
  *
  * @program   phpapi: PHP Documentation Creator
- * @file      classes/phpapi.php
- * @version   4.1
+ * @version   5.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * @license   Creative Commons — Attribution-NonCommercial-ShareAlike 4.0 International
+ * @file      classes/phpapi.php
  * @package   phpapi
  * @overview  Main program package.
  *            It sets global variables, loads classes, tokenizes and parses php files.
@@ -74,7 +74,7 @@ class phpapi {
         else $files = ['*.php'];
 
         if (!empty($this->options['ignore'])) {
-            $this->options['ignore'] = explode(',', $this->options['ignore']);
+            $this->options['ignore'] = explode(', ', $this->options['ignore']);
         }
         $this->doclet = $this->options['doclet'];
 
@@ -82,58 +82,12 @@ class phpapi {
 
         $this->files = [];
         foreach ($this->source as $path) {
-            $this->files[$path] = $this->buildFileList($files, $path);
+            $this->files[$path] = $this->getFiles($files, $path);
         }
         if (count($this->files) === 0) {
             $this->error('Cannot find any files to parse');
             exit;
         }
-    }
-
-    /**
-     * Builds a complete list of files to parse.
-     * Expands out wildcards and traverse directories if asked to.
-     * This function is recursive.
-     *
-     * @param  array  $files Filenames or wildcards
-     * @param  string $dir   Directory to scan
-     * @return array         List of files to parse
-     */
-    private function buildFileList($files, $dir) {
-        $list = [];
-//        $dir  = realpath($dir);
-        if (!$dir) {
-            return $list;
-        }
-
-        $dir = $this->fixPath($dir);
-        foreach ($files as $filename) {
-//            $filename    = $this->makeAbsolutePath(trim($filename), $dir);
-            $globResults = glob($dir.$filename);
-            if ($globResults) {
-                foreach ($globResults as $file) {
-                    $okay = TRUE;
-                    if (in_array($file, $this->options['ignore'])) {
-                        $okay = FALSE;
-                    }
-                    if ($okay) $list[] = $file;
-                }
-            } elseif (!$this->options['subDirs']) $this->error('Cannot find file "'.$filename.'"');
-        }
-        #
-        # Recurse into subdir
-        #
-        if ($this->options['subDirs']) {
-            $globResults = glob($dir.'*', GLOB_ONLYDIR);
-            if ($globResults) {
-                foreach ($globResults as $dirName) {
-                    $okay = TRUE;
-                    if (in_array($dirName, $this->options['ignore'])) $okay = FALSE;
-                    if ($okay && (GLOB_ONLYDIR || is_dir($dirName)))  $list = array_merge($list, $this->buildFileList($files, $dirName));
-                }
-            }
-        }
-        return $list;
     }
 
     /**
@@ -225,53 +179,13 @@ class phpapi {
     }
 
     /**
-     * Gets next token of a certain type from token array.
+     * Gets element name from the token list.
      *
-     * @param  array   &$tokens   Reference to the array of tokens to search
-     * @param  integer $key       Key to start searching from
-     * @param  integer $whatToGet Type of token to look for
-     * @param  integer $maxDist   Optional max distance from key to look at (default is 0 for all)
-     * @return array|boolean      Value of found token or FALSE
-     */
-    private function getNext(&$tokens, $key, $whatToGet, $maxDist = 0) {
-        $start = $key;
-        $key++;
-        if (!is_array($whatToGet)) $whatToGet = [$whatToGet];
-        while (!is_array($tokens[$key]) || !in_array($tokens[$key][0], $whatToGet)) {
-            $key++;
-            if (!isset($tokens[$key]) || (0 < $maxDist && (($key - $start) > $maxDist))) {
-                return FALSE;
-            }
-        }
-        return $tokens[$key][1];
-    }
-
-    /**
-     * Gets previous token of a certain type from token array.
-     *
-     * @param  array   &$tokens   Reference the array of tokens to search
-     * @param  integer $key       Key to start searching from
-     * @param  integer $whatToGet Type of token to look for
-     * @return array|boolean      Value of found token or FALSE
-     */
-    private function getPrev(&$tokens, $key, $whatToGet) {
-        $key--;
-        if (!is_array($whatToGet)) $whatToGet = [$whatToGet];
-        while (!is_array($tokens[$key]) || !in_array($tokens[$key][0], $whatToGet)) {
-            $key--;
-            if (!isset($tokens[$key])) return FALSE;
-        }
-        return $tokens[$key][1];
-    }
-
-    /**
-     * Gets program element name from the token list.
-     *
-     * @param  array   &$tokens Reference the array of tokens
+     * @param  array   &$tokens Reference to the array of tokens
      * @param  integer $key     Key to start searching from
      * @return string           Name of the program element
      */
-    private function getProgramElementName(&$tokens, $key) {
+    private function getElementName(&$tokens, $key) {
         $name = '';
         $key++;
         while (
@@ -302,6 +216,54 @@ class phpapi {
     }
 
     /**
+     * Builds a complete list of files to parse.
+     * Expands out wildcards and traverse directories if asked to.
+     * This function is recursive.
+     *
+     * @param  array  $files Filenames or wildcards
+     * @param  string $dir   Directory to scan
+     * @return array         List of files to parse
+     */
+    private function getFiles($files, $dir) {
+        $list = [];
+        if (!$dir) {
+            return $list;
+        }
+
+        $dir = $this->fixPath($dir);
+        foreach ($files as $filename) {
+            $globResults = glob($dir.$filename);
+            if ($globResults) {
+                foreach ($globResults as $file) {
+                    $path_parts = pathinfo($file);
+                    if (!in_array($path_parts['basename'], $this->options['ignore'])) {
+                        $list[] = $file;
+                    }
+                }
+            } elseif (!$this->options['subDirs']) $this->error('Cannot find file "'.$filename.'"');
+        }
+        #
+        # Recurse into subdir
+        #
+        if ($this->options['subDirs']) {
+            $globResults = glob($dir.'*', GLOB_ONLYDIR);
+            if ($globResults) {
+                foreach ($globResults as $dirName) {
+                    $parts = explode(DS, $dirName);
+                    $okay = TRUE;
+                    foreach($parts as $part) {
+                        if (in_array($part, $this->options['ignore'])) {
+                            $okay = FALSE;
+                        }
+                    }
+                    if ($okay && (GLOB_ONLYDIR || is_dir($dirName))) $list = array_merge($list, $this->getFiles($files, $dirName));
+                }
+            }
+        }
+        return $list;
+    }
+
+    /**
      * Gets the type of the variable.
      *
      * @param  mixed $var Variable
@@ -313,7 +275,7 @@ class phpapi {
         }
         if (is_numeric($var)) {
             return 'integer';
-        } elseif ((strtolower($var) === 'true') || (strtolower($var) === 'false')) {
+        } elseif ((strtolower($var) === 'TRUE') || (strtolower($var) === 'FALSE')) {
             return 'boolean';
         } elseif (is_string($var)) {
             return 'string';
@@ -322,7 +284,7 @@ class phpapi {
     }
 
     /**
-     * Adds a trailing slash to a path if it does not have one.
+     * Addss a trailing slash to a path if it does not have one.
      *
      * @param  string $path Path to fix
      * @return string       Fixed path
@@ -356,6 +318,28 @@ class phpapi {
                 $this->mergeSuperClassData($rootDoc, $class->name);
             }
         }
+    }
+
+    /**
+     * Gets next token of a certain type from token array.
+     *
+     * @param  array   &$tokens   Reference to the array of tokens to search
+     * @param  integer $key       Key to start searching from
+     * @param  integer $whatToGet Type of token to look for
+     * @param  integer $maxDist   Optional max distance from key to look at (default is 0 for all)
+     * @return array|boolean      Value of found token or FALSE
+     */
+    private function next(&$tokens, $key, $whatToGet, $maxDist = 0) {
+        $start = $key;
+        $key++;
+        if (!is_array($whatToGet)) $whatToGet = [$whatToGet];
+        while (!is_array($tokens[$key]) || !in_array($tokens[$key][0], $whatToGet)) {
+            $key++;
+            if (!isset($tokens[$key]) || (0 < $maxDist && (($key - $start) > $maxDist))) {
+                return FALSE;
+            }
+        }
+        return $tokens[$key][1];
     }
 
     /**
@@ -401,21 +385,11 @@ class phpapi {
                             $token = $tokens[$key];
                             if (!$in_parsed_string && is_array($token)) {
                                 $lineNumber += substr_count($token[1], LF);
-                                if ($commentNumber === 1 && (
-                                    $token[0] === T_CLASS     ||
-                                    $token[0] === T_INTERFACE ||
-                                    $token[0] === T_FUNCTION  ||
-                                    $token[0] === T_VARIABLE
-                                   )) {
-                                      #
-                                      # We have a code block after the 1st comment, so it is not a file level comment
-                                      #
-                    //                $fileData = [];
-                                }
+
                                 switch ($token[0]) {
 
                                     case T_DOC_COMMENT:
-                                        $currentData = array_merge($currentData, $this->processDocComment($token[1], $rootDoc));
+                                        $currentData = array_merge($currentData, $this->parseDocComment($token[1], $rootDoc));
                                         if ($currentData) {
                                             $commentNumber++;
                                             if ($commentNumber === 1) {
@@ -435,7 +409,7 @@ class phpapi {
                                         break;
 
                                     case T_CLASS:
-                                        $class = &new classDoc($this->getProgramElementName($tokens, $key), $rootDoc, $filename, $lineNumber, $this->sourcePath());
+                                        $class = &new classDoc($this->getElementName($tokens, $key), $rootDoc, $filename, $lineNumber, $this->sourcePath());
 
                                         $this->verbose('Found class: '.$class->name);
 
@@ -459,7 +433,7 @@ class phpapi {
                                         break;
 
                                     case T_INTERFACE:
-                                        $interface = &new classDoc($this->getProgramElementName($tokens, $key), $rootDoc, $filename, $lineNumber, $this->sourcePath());
+                                        $interface = &new classDoc($this->getElementName($tokens, $key), $rootDoc, $filename, $lineNumber, $this->sourcePath());
 
                                         $this->verbose('Found interface: '.$interface->name);
 
@@ -482,7 +456,7 @@ class phpapi {
                                         break;
 
                                     case T_TRAIT:
-                                        $trait = &new classDoc($this->getProgramElementName($tokens, $key), $rootDoc, $filename, $lineNumber, $this->sourcePath());
+                                        $trait = &new classDoc($this->getElementName($tokens, $key), $rootDoc, $filename, $lineNumber, $this->sourcePath());
 
                                         $this->verbose('Found trait: '.$trait->name);
 
@@ -505,7 +479,7 @@ class phpapi {
                                         break;
 
                                     case T_EXTENDS:
-                                        $superClassName = $this->getProgramElementName($tokens, $key);
+                                        $superClassName = $this->getElementName($tokens, $key);
                                         $ce->set('superclass', $superClassName);
                                         if ($superClass = &$rootDoc->classNamed($superClassName) &&
                                             $commentTag = (isset($superClass->tags['@text'])) ? $superClass->tags['@text'] : NULL) {
@@ -534,7 +508,7 @@ class phpapi {
                                         break;
 
                                     case T_FUNCTION:
-                                        $name   = $this->getProgramElementName($tokens, $key);
+                                        $name   = $this->getElementName($tokens, $key);
                                         $method = &new methodDoc($name, $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath());
                                         unset($name);
 
@@ -588,7 +562,7 @@ class phpapi {
                                         break;
 
                                     case T_IMPLEMENTS:
-                                        $interfaceName = $this->getProgramElementName($tokens, $key);
+                                        $interfaceName = $this->getElementName($tokens, $key);
                                         $interface     = &$rootDoc->classNamed($interfaceName);
                                         if ($interface) $ce->set('interfaces', $interface);
                                         break;
@@ -638,7 +612,7 @@ class phpapi {
                                     case T_STRING:
                                         $value = '';
                                         if ($token[1] === 'define') {
-                                            $const = &new fieldDoc($this->getNext($tokens, $key, T_CONSTANT_ENCAPSED_STRING), $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath());
+                                            $const = &new fieldDoc($this->next($tokens, $key, T_CONSTANT_ENCAPSED_STRING), $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath());
                                             $const->set('final', TRUE);
 
                                             do {
@@ -685,7 +659,7 @@ class phpapi {
                                             do {
                                                 $key++;
                                                 if ($tokens[$key] === '=') {
-                                                    $name = $this->getPrev($tokens, $key, [T_VARIABLE, T_STRING]);
+                                                    $name = $this->previous($tokens, $key, [T_VARIABLE, T_STRING]);
 
                                                 } elseif (isset($value) && $tokens[$key] !== ',' && $tokens[$key] !== ';') {
 
@@ -693,7 +667,7 @@ class phpapi {
                                                          $value .= $tokens[$key][1];
                                                     else $value .= $tokens[$key];
                                                 } elseif ($tokens[$key] === ',' || $tokens[$key] === ';') {
-                                                    if (!isset($name)) $name = $this->getPrev($tokens, $key, [T_VARIABLE, T_STRING]);
+                                                    if (!isset($name)) $name = $this->previous($tokens, $key, [T_VARIABLE, T_STRING]);
                                                     $const = &new fieldDoc($name, $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath());
                                                     unset($name);
 
@@ -774,7 +748,7 @@ class phpapi {
                                         break;
 
                                     case T_THROW:
-                                        $className = $this->getNext($tokens, $key, T_STRING);
+                                        $className = $this->next($tokens, $key, T_STRING);
                                         $class = &$rootDoc->classNamed($className);
                                         if ($class)
                                              $ce->setByRef('throws', $class);
@@ -869,7 +843,7 @@ class phpapi {
                                                     #
                                                     # Start value
                                                     #
-                                                    $name  = $this->getPrev($tokens, $key, T_VARIABLE);
+                                                    $name  = $this->previous($tokens, $key, T_VARIABLE);
                                                     $bracketCount = 0;
                                                 } elseif (isset($value) && ($tokens[$key] !==',' || $bracketCount > 0) && $tokens[$key] !==';') {
                                                     #
@@ -883,7 +857,7 @@ class phpapi {
                                                     else $value .= $tokens[$key];
 
                                                 } elseif ($tokens[$key] === ',' || $tokens[$key] === ';') {
-                                                    if (!isset($name)) $name = $this->getPrev($tokens, $key, T_VARIABLE);
+                                                    if (!isset($name)) $name = $this->previous($tokens, $key, T_VARIABLE);
                                                     $field = &new fieldDoc($name, $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath());
                                                     unset($name);
 
@@ -988,7 +962,7 @@ class phpapi {
      * @param  array  $rootDoc Reference the root of the parsed tokens
      * @return array           Array of doc comment data
      */
-    public function processDocComment($comment, &$root) {
+    public function parseDocComment($comment, &$root) {
         $data = [
             'docComment' => $comment,
             'tags' => []
@@ -1068,6 +1042,24 @@ class phpapi {
     }
 
     /**
+     * Gets previous token of a certain type from token array.
+     *
+     * @param  array   &$tokens   Reference the array of tokens to search
+     * @param  integer $key       Key to start searching from
+     * @param  integer $whatToGet Type of token to look for
+     * @return array|boolean      Value of found token or FALSE
+     */
+    private function previous(&$tokens, $key, $whatToGet) {
+        $key--;
+        if (!is_array($whatToGet)) $whatToGet = [$whatToGet];
+        while (!is_array($tokens[$key]) || !in_array($tokens[$key][0], $whatToGet)) {
+            $key--;
+            if (!isset($tokens[$key])) return FALSE;
+        }
+        return $tokens[$key][1];
+    }
+
+    /**
      * Returns the path of sources.
      *
      * @return string Path to processing source file
@@ -1102,5 +1094,4 @@ class phpapi {
     public function warning($msg) {
         fwrite(STDERR, 'WARNING: '.$msg.LF);
     }
-
 }

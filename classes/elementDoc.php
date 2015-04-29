@@ -4,11 +4,11 @@
  * This is an abstract class dealing with information common to these elements.
  *
  * @program   phpapi: PHP Documentation Creator
- * @file      classes/elementDoc.php
- * @version   4.1
+ * @version   5.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * @license   Creative Commons — Attribution-NonCommercial-ShareAlike 4.0 International
+ * @file      classes/elementDoc.php
  * @package   phpapi
  * @abstract
  */
@@ -51,6 +51,31 @@ class elementDoc extends doc {
     public function __construct() {}
 
     /**
+     * Gets aruments of the element.
+     * Return a string whith the list of arguments with their types.
+     * <pre>
+     * For a function
+     *      method($x, $y, &$o), where x is mixed, y is integer and o is a reference to object
+     * it will return
+     *      method(mixed $x, integer $y, object &$o)
+     * </pre>
+     * Recognised types are turned into HTML anchor tags to the documentation page for the class defining them.
+     *
+     * @return string
+     */
+    public function arguments() {
+        $args    = '';
+        $package = &$this->containingPackage();
+        foreach ($this->parameters as $param) {
+            $classDoc = &$param->type->asClassDoc();
+            if ($classDoc)
+                 $args .= '<a href="'.str_repeat('../', $package->depth() + 1).$classDoc->asPath().'">'.$classDoc->name.'</a> <span class="blue">'.$param->name.'</span>, ';
+            else $args .= '<span class="lilac">'.$param->type->typeName.'</span> <span class="blue">'.$param->name.'</span>, ';
+        }
+        return '('.substr($args, 0, -2).')';
+    }
+
+    /**
      * Returns the element path or NULL.
      *
      * @return string|NULL
@@ -79,7 +104,7 @@ class elementDoc extends doc {
 
     /**
      * Gets the containing class of this program element.
-     * If the element is in the global scope and does not have a parent class, this will return null.
+     * If the element is in the global scope and does not have a parent class, this will return NULL.
      *
      * @return classDoc|NULL
      */
@@ -96,15 +121,6 @@ class elementDoc extends doc {
      */
     function &containingPackage() {
         return $this->root->packageNamed($this->package);
-    }
-
-    /**
-     * Gets the source location of this element
-     *
-     * @return string
-     */
-    public function location() {
-        return substr($this->filename, mb_strlen($this->sourcePath)).' at line '.$this->lineNumber;
     }
 
     /**
@@ -125,6 +141,15 @@ class elementDoc extends doc {
     }
 
     /**
+     * Gets the source location of this element
+     *
+     * @return string
+     */
+    public function location() {
+        return substr($this->filename, mb_strlen($this->sourcePath)).' at line '.$this->lineNumber;
+    }
+
+    /**
      * Gets modifiers string.
      * <pre>
      * Example, for:
@@ -142,30 +167,5 @@ class elementDoc extends doc {
         if ($this->static)           $modifiers .= 'static ';
 
         return $modifiers;
-    }
-
-    /**
-     * Gets aruments of the element.
-     * Return a string whith the list of arguments with their types.
-     * <pre>
-     * For a function
-     *      method($x, $y, &$o), where x is mixed, y is integer and o is a reference to object
-     * it will return
-     *      method(mixed $x, integer $y, object &$o)
-     * </pre>
-     * Recognised types are turned into HTML anchor tags to the documentation page for the class defining them.
-     *
-     * @return string
-     */
-    public function arguments() {
-        $args    = '';
-        $package = &$this->containingPackage();
-        foreach ($this->parameters as $param) {
-            $classDoc = &$param->type->asClassDoc();
-            if ($classDoc)
-                 $args .= '<a href="'.str_repeat('../', $package->depth() + 1).$classDoc->asPath().'">'.$classDoc->name.'</a> <span class="blue">'.$param->name.'</span>, ';
-            else $args .= '<span class="lilac">'.$param->type->typeName.'</span> <span class="blue">'.$param->name.'</span>, ';
-        }
-        return '('.substr($args, 0, -2).')';
     }
 }

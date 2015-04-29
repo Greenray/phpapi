@@ -3,11 +3,11 @@
  * This generates the HTML API documentation for each global variable.
  *
  * @program   phpapi: PHP Documentation Creator
- * @file      doclets/html/globalWriter.php
- * @version   4.1
+ * @version   5.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * @license   Creative Commons — Attribution-NonCommercial-ShareAlike 4.0 International
+ * @file      doclets/html/globalWriter.php
  * @package   html
  */
 
@@ -16,7 +16,7 @@ class globalWriter extends htmlWriter {
     /**
      * Builds the function definitons.
      *
-     * @param object &$doclet Reference to the documentation generator
+     * @param doclet &$doclet Reference to the documentation generator
      */
     public function __construct(&$doclet, $index) {
         parent::htmlWriter($doclet);
@@ -37,23 +37,18 @@ class globalWriter extends htmlWriter {
 
             if (empty($package->classes)) $this->sections[3] = ['title' => 'Tree'];
 
-            $output  = [];
             $globals = &$package->globals;
             if ($globals) {
                 ksort($globals);
-                $output['package'] = $package->name;
-                $output['global']  = $this->showObject($globals);
+                $tpl = new template();
+                $tpl->set('package', $package->name);
+                $tpl->set('globals', $this->showObject($globals));
 
-                $this->items = $this->packageItems($doclet->rootDoc->phpapi, $package, $this->depth);
-
-                $tpl = new template($doclet->rootDoc->phpapi->options['doclet'], 'globals.tpl');
-                ob_start();
-
-                echo $tpl->parse($output);
-
-                $this->output = ob_get_contents();
-                ob_end_clean();
-                $this->write($package->asPath().DS.'package-globals.html', __('Глобальные элементы'));
+                if ($doclet->rootDoc->phpapi->options['doclet'] === 'plain') {
+                    $this->items = $this->packageItems($doclet->rootDoc->phpapi, $package, $this->depth);
+                }
+                $this->output = $tpl->parse($doclet->rootDoc->phpapi, 'globals');
+                $this->write($package->asPath().DS.'package-globals.html', __('Globals'));
             }
         }
     }

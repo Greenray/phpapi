@@ -5,11 +5,11 @@
  * which have comments and have been processed by this run of phpapi.
  *
  * @program   phpapi: PHP Documentation Creator
- * @file      classes/doc.php
- * @version   4.1
+ * @version   5.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * @license   Creative Commons — Attribution-NonCommercial-ShareAlike 4.0 International
+ * @file      classes/doc.php
  * @package   phpapi
  */
 
@@ -95,16 +95,6 @@ class doc {
     }
 
     /**
-     * Constructs an ordinary class (not an interface or an exception).
-     * False until overridden.
-     *
-     * @return boolean
-     */
-    public function isOrdinaryClass() {
-        return FALSE;
-    }
-
-    /**
      * Constructs a constructor.
      * False until overridden.
      *
@@ -121,16 +111,6 @@ class doc {
      * @return boolean
      */
     public function isException() {
-        return FALSE;
-    }
-
-    /**
-     * Constructs a global variable.
-     * False until overridden.
-     *
-     * @return boolean
-     */
-    public function isGlobal() {
         return FALSE;
     }
 
@@ -165,12 +145,32 @@ class doc {
     }
 
     /**
+     * Constructs a global variable.
+     * False until overridden.
+     *
+     * @return boolean
+     */
+    public function isGlobal() {
+        return FALSE;
+    }
+
+    /**
      * Constructs a method.
      * False until overridden.
      *
      * @return boolean
      */
     public function isMethod() {
+        return FALSE;
+    }
+
+    /**
+     * Constructs an ordinary class (not an interface or an exception).
+     * False until overridden.
+     *
+     * @return boolean
+     */
+    public function isOrdinaryClass() {
         return FALSE;
     }
 

@@ -5,11 +5,11 @@
  * the package's comment and tags, and the classes in the package.
  *
  * @program   phpapi: PHP Documentation Creator
- * @file      classes/packageDoc.php
- * @version   4.1
+ * @version   5.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * @license   Creative Commons — Attribution-NonCommercial-ShareAlike 4.0 International
+ * @file      classes/packageDoc.php
  * @package   phpapi
  */
 
@@ -38,13 +38,13 @@ class packageDoc extends doc {
         $this->root = &$root;
         if (!empty($overview)) {
             preg_match('/^(.+)(\.(?: |\t|\n|<\/p>|<\/?h[1-6]>|<hr)|$)/sU', $overview, $matches);
-            $this->desc     = $matches[0];
+            $this->desc     = $matches[1];
             $this->overview = $overview;
         }
     }
 
     /**
-     * Adds a class to this package.
+     * Addss a class to this package.
      *
      * @param classDoc &$class Reference to the class
      */
@@ -56,7 +56,7 @@ class packageDoc extends doc {
     }
 
     /**
-     * Adds a global to this package.
+     * Addss a global to this package.
      *
      * @param fieldDoc &$global Reference to the global element
      */

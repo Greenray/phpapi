@@ -4,10 +4,10 @@
  *
  * @program   phpapi: PHP Documentation Creator
  * @file      doclets/html/plain/classItems.php
- * @version   4.1
+ * @version   5.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * @license   Creative Commons — Attribution-NonCommercial-ShareAlike 4.0 International
  * @package   plain
  */
 
@@ -19,52 +19,59 @@ class classItems extends classWriter {
     /**
      * Builds items of the class.
      *
-     * @param  object     &$doclet  Reference to the documentation generator
+     * @param  doclet     &$doclet  Reference to the documentation generator
      * @param  packageDoc &$package Reference to the current package
-     * @return string               Parsed template "class-items.tpl"
+     * @return string               Parsed template "package-items.tpl"
      */
     public static function classItems(&$doclet, &$package, $depth) {
-        $output  = [];
-
+        $output   = [];
+        $depth    = str_repeat('../', $depth);
+        $tpl      = new template();
         $packages = &$doclet->rootDoc->packages;
         ksort($packages);
         foreach ($packages as $name => $pack) {
-            $output['package'][$name]['path'] = str_repeat('../', $depth).$pack->asPath().DS;
-            $output['package'][$name]['name'] = $pack->name;
+            $output[$name]['path'] = $depth.$pack->asPath().DS;
+            $output[$name]['name'] = $pack->name;
         }
+        $tpl->set('packages', $output);
+        $tpl->set('current',  $pack->name);
 
-        $output['current'] = $package->name;
         $classes = $package->classes;
-
         if ($classes) {
             ksort($classes);
+            $output = [];
             foreach ($classes as $name => $class) {
-                $output['class'][$name]['path']    = str_repeat('../', $depth).$class->asPath();
-                $output['class'][$name]['name']    = $class->name;
-                $output['class'][$name]['package'] = $class->package;
+                $output[$name]['path']    = $depth.$class->asPath();
+                $output[$name]['name']    = $class->name;
+                $output[$name]['package'] = $class->package;
             }
+            $tpl->set('classes', $output);
         }
 
         $functions = $package->functions;
         if ($functions) {
             ksort($functions);
+            $output = [];
             foreach ($functions as $name => $function) {
-                $output['function'][$name]['path']    = str_repeat('../', $depth).$function->asPath();
-                $output['function'][$name]['name']    = $function->name;
-                $output['function'][$name]['package'] = $function->package;
+                $output[$name]['path']    = $depth.$function->asPath();
+                $output[$name]['name']    = $function->name;
+                $output[$name]['package'] = $function->package;
             }
+            $tpl->set('functions', $output);
         }
 
         $globals = $package->globals;
         if ($globals) {
             ksort($globals);
+            $output = [];
             foreach ($globals as $name => $global) {
-                $output['global'][$name]['path']    = str_repeat('../', $depth).$global->asPath();
-                $output['global'][$name]['name']    = $global->name;
-                $output['global'][$name]['package'] = $global->package;
+                $output[$name]['path']    = $depth.$global->asPath();
+                $output[$name]['name']    = $global->name;
+                $output[$name]['package'] = $global->package;
             }
+            $tpl->set('globals', $output);
         }
-        $tpl = new template($doclet->rootDoc->phpapi->options['doclet'], 'class-items.tpl');
-        return $tpl->parse($output);
+
+        return $tpl->parse($doclet->rootDoc->phpapi, 'class-items');
     }
 }

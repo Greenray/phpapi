@@ -3,11 +3,11 @@
  * This generates the todo list.
  *
  * @program   phpapi: PHP Documentation Creator
- * @file      doclets/html/todoWriter.php
- * @version   4.1
+ * @version   5.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * @license   Creative Commons — Attribution-NonCommercial-ShareAlike 4.0 International
+ * @file      doclets/html/todoWriter.php
  * @package   html
  */
 
@@ -16,7 +16,7 @@ class todoWriter extends htmlWriter {
     /**
      * Builds the todo index.
      *
-     * @param object &$doclet Reference to the documentation generator
+     * @param doclet &$doclet Reference to the documentation generator
      */
     public function __construct(&$doclet, $index) {
         parent::htmlWriter($doclet);
@@ -30,9 +30,10 @@ class todoWriter extends htmlWriter {
         $this->sections[6] = ['title' => 'Index',      'url' => 'index-all.html'];
 
         $this->id = 'todo';
-        $classes  = &$doclet->rootDoc->classes();
-        $output   = [];
+        $output = $menu = [];
+        $tpl = new template();
 
+        $classes = &$doclet->rootDoc->classes();
         if ($classes) {
             foreach ($classes as $i => $class) {
                 $todo = (isset($class->tags['@todo'])) ? $class->tags['@todo'] : NULL;
@@ -40,7 +41,8 @@ class todoWriter extends htmlWriter {
                     $output['class'][$i]['path'] = $class->asPath();
                     $output['class'][$i]['name'] = $class->fullNamespace();
                     $output['class'][$i]['desc'] = strip_tags($this->processInlineTags($todo, TRUE), '<a><b><strong><u><em>');
-                    $output['menu'][0]['class']  = TRUE;
+                    $menu[0]['class']   = TRUE;
+                    $tpl->set('classes', $output['class']);
                 }
 
                 if ($class->fields) {
@@ -50,7 +52,8 @@ class todoWriter extends htmlWriter {
                             $output['field'][$k]['path'] = $field->asPath();
                             $output['field'][$k]['name'] = $field->fullNamespace();
                             $output['field'][$k]['desc'] = strip_tags($this->processInlineTags($todo, TRUE), '<a><b><strong><u><em>');
-                            $output['menu'][0]['field']  = TRUE;
+                            $menu[0]['field']   = TRUE;
+                            $tpl->set('fields', $output['field']);
                         }
                     }
                 }
@@ -63,7 +66,8 @@ class todoWriter extends htmlWriter {
                             $output['method'][$k]['path'] = $method->asPath();
                             $output['method'][$k]['name'] = $method->fullNamespace();
                             $output['method'][$k]['desc'] = strip_tags($this->processInlineTags($todo, TRUE), '<a><b><strong><u><em>');
-                            $output['menu'][0]['method']  = TRUE;
+                            $menu[0]['method']  = TRUE;
+                            $tpl->set('methods', $output['method']);
                         }
                     }
                 }
@@ -77,10 +81,11 @@ class todoWriter extends htmlWriter {
             foreach ($functions as $k => $function) {
                 $todo = (isset($function->tags['@todo'])) ? $function->tags['@todo'] : NULL;
                 if (!empty($todo)) {
-                    $output['function'][$k]['path'] = $function->asPath();
-                    $output['function'][$k]['name'] = $function->fullNamespace();
-                    $output['function'][$k]['desc'] = strip_tags($this->processInlineTags($todo, TRUE), '<a><b><strong><u><em>');
-                    $output['menu'][0]['function']  = TRUE;
+                    $output['function'][$k]['path']  = $function->asPath();
+                    $output['function'][$k]['name']  = $function->fullNamespace();
+                    $output['function'][$k]['desc']  = strip_tags($this->processInlineTags($todo, TRUE), '<a><b><strong><u><em>');
+                    $menu[0]['function'] = TRUE;
+                    $tpl->set('functions', $output['function']);
                 }
             }
         }
@@ -93,18 +98,13 @@ class todoWriter extends htmlWriter {
                     $output['global'][$k]['path'] = $global->asPath();
                     $output['global'][$k]['name'] = $global->fullNamespace();
                     $output['global'][$k]['desc'] = strip_tags($this->processInlineTags($todo, TRUE), '<a><b><strong><u><em>');
-                    $output['menu'][0]['global']  = TRUE;
+                    $menu[0]['global']  = TRUE;
+                    $tpl->set('globals', $output);
                 }
             }
         }
-
-        $tpl = new template($doclet->rootDoc->phpapi->options['doclet'], 'todo.tpl');
-        ob_start();
-
-        echo $tpl->parse($output);
-
-        $this->output = ob_get_contents();
-        ob_end_clean();
+        $tpl->set('menu', $menu);
+        $this->output = $tpl->parse($doclet->rootDoc->phpapi, 'todo');
         $this->write('todo.html', 'Todo');
     }
 }

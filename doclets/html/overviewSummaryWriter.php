@@ -3,11 +3,11 @@
  * This class generates the list of all parsed packages.
  *
  * @program   phpapi: PHP Documentation Creator
- * @file      doclets/html/overviewSummaryWriter.php
- * @version   4.1
+ * @version   5.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * @license   Creative Commons — Attribution-NonCommercial-ShareAlike 4.0 International
+ * @file      doclets/html/overviewSummaryWriter.php
  * @package   html
  */
 
@@ -16,10 +16,12 @@ class overviewSummaryWriter extends htmlWriter {
     /**
      * Builds the package index.
      *
-     * @param object &$doclet Reference to the documentation generator
+     * @param doclet &$doclet Reference to the documentation generator
      */
-    public function __construct(&$doclet, $index) {
+    public function __construct(&$doclet, $page) {
         parent::htmlWriter($doclet);
+
+        $rootDoc = &$doclet->rootDoc;
 
         $this->sections[0] = ['title' => 'Overview', 'selected' => TRUE];
         $this->sections[1] = ['title' => 'Namespace'];
@@ -29,29 +31,25 @@ class overviewSummaryWriter extends htmlWriter {
         $this->sections[5] = ['title' => 'Todo',       'url' => 'todo.html'];
         $this->sections[6] = ['title' => 'Index',      'url' => 'index-all.html'];
 
-        $output['title'] = $doclet->rootDoc->phpapi->options['docTitle'];
+        $overview = (isset($rootDoc->tags['@text'])) ? $rootDoc->tags['@text'] : __('No description');
 
-        $overview = (isset($doclet->rootDoc->tags['@text'])) ? $doclet->rootDoc->tags['@text'] : __('Описания нет');
-        $output['description']  = $this->processInlineTags($overview, TRUE);
-        $output['overview']     = $this->processInlineTags($overview);
-        $output['overviewFile'] = basename($doclet->rootDoc->phpapi->options['overview']);
+        $tpl = new template();
+        $tpl->set('title',        $rootDoc->phpapi->options['docTitle']);
+        $tpl->set('description',  $this->processInlineTags($overview, TRUE));
+        $tpl->set('overview',     $this->processInlineTags($overview));
+        $tpl->set('overviewFile', basename($rootDoc->phpapi->options['overview']));
 
-        $packages = &$doclet->rootDoc->packages;
+        $output   = [];
+        $packages = &$rootDoc->packages;
         ksort($packages);
         foreach ($packages as $name => $package) {
-            $text = (isset($package->desc)) ? $package->desc : __('Описания нет');
-            $output['package'][$name]['path'] = $package->asPath().DS;
-            $output['package'][$name]['name'] = $package->name;
-            $output['package'][$name]['desc'] = strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>');
+            $text = (isset($package->desc)) ? $package->desc : __('No description');
+            $output[$name]['path'] = $package->asPath().DS;
+            $output[$name]['name'] = $package->name;
+            $output[$name]['desc'] = strip_tags($this->processInlineTags($text, TRUE), '<a><b><strong><u><em>');
         }
-
-        $tpl = new template($doclet->rootDoc->phpapi->options['doclet'], $index.'.tpl');
-        ob_start();
-
-        echo $tpl->parse($output);
-
-        $this->output = ob_get_contents();
-        ob_end_clean();
-        $this->write($index.'.html', 'Overview');
+        $tpl->set('packages', $output);
+        $this->output = $tpl->parse($rootDoc->phpapi, $page);
+        $this->write($page.'.html', 'Overview');
     }
 }

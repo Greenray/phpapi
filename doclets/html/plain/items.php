@@ -4,10 +4,10 @@
  *
  * @program   phpapi: PHP Documentation Creator
  * @file      doclets/html/plain/items.php
- * @version   4.1
+ * @version   5.0
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+ * @license   Creative Commons — Attribution-NonCommercial-ShareAlike 4.0 International
  * @package   plain
  */
 
@@ -20,26 +20,27 @@ class items extends htmlWriter {
      * Builds all items section.
      *
      * @param  phpapi &$phpapi Reference to the application object
-     * @param  object &$doclet Reference to the documentation generator
+     * @param  doclet &$doclet Reference to the documentation generator
      * @param  string $path    Path to directory for output
      * @return string          Parsed template "items.tpl"
      */
     public static function items(&$phpapi, &$doclet, $path) {
-        $output   = [];
+        $output   = $pack = $all = [];
+        $tpl      = new template();
         $packages = &$doclet->rootDoc->packages;
         ksort($packages);
         foreach ($packages as $name => $package) {
             $packagePath = $path.$package->asPath().DS;
-            $output['package'][$name]['path'] = $packagePath;
-            $output['package'][$name]['name'] = $package->name;
+            $output['packages'][$name]['path'] = $packagePath;
+            $output['packages'][$name]['name'] = $package->name;
 
             $classes = &$package->ordinaryClasses();
             if ($classes) {
                 foreach ($classes as $i => $class) {
-                    $output['class'][$i]['path']     = $path.$class->asPath();
-                    $output['class'][$i]['name']     = $class->name;
-                    $output['class'][$i]['packpath'] = $packagePath;
-                    $output['class'][$i]['packname'] = $class->package;
+                    $output['classes'][$i]['path']     = $path.$class->asPath();
+                    $output['classes'][$i]['name']     = $class->name;
+                    $output['classes'][$i]['packpath'] = $packagePath;
+                    $output['classes'][$i]['packname'] = $class->package;
                 }
             }
 
@@ -47,10 +48,10 @@ class items extends htmlWriter {
             if ($interfaces && is_array($interfaces)) {
                 ksort($interfaces);
                 foreach ($interfaces as $i => $interface) {
-                    $output['interface'][$i]['path']     = $path.$interface->asPath();
-                    $output['interface'][$i]['name']     = $interface->name;
-                    $output['interface'][$i]['packpath'] = $packagePath;
-                    $output['interface'][$i]['packname'] = $interface->package;
+                    $output['interfaces'][$i]['path']     = $path.$interface->asPath();
+                    $output['interfaces'][$i]['name']     = $interface->name;
+                    $output['interfaces'][$i]['packpath'] = $packagePath;
+                    $output['interfaces'][$i]['packname'] = $interface->package;
                 }
             }
 
@@ -58,10 +59,10 @@ class items extends htmlWriter {
             if ($traits && is_array($traits)) {
                 ksort($traits);
                 foreach ($traits as $i => $trait) {
-                    $output['trait'][$i]['path']     = $path.$trait->asPath();
-                    $output['trait'][$i]['name']     = $trait->name;
-                    $output['trait'][$i]['packpath'] = $packagePath;
-                    $output['trait'][$i]['packname'] = $trait->package;
+                    $output['traits'][$i]['path']     = $path.$trait->asPath();
+                    $output['traits'][$i]['name']     = $trait->name;
+                    $output['traits'][$i]['packpath'] = $packagePath;
+                    $output['traits'][$i]['packname'] = $trait->package;
                 }
             }
 
@@ -69,10 +70,10 @@ class items extends htmlWriter {
             if ($exceptions && is_array($exceptions)) {
                 ksort($exceptions);
                 foreach ($exceptions as $i => $exception) {
-                    $output['exception'][$i]['path']     = $path.$exception->asPath();
-                    $output['exception'][$i]['name']     = $exception->name;
-                    $output['exception'][$i]['packpath'] = $packagePath;
-                    $output['exception'][$i]['packname'] = $exception->package;
+                    $output['exceptions'][$i]['path']     = $path.$exception->asPath();
+                    $output['exceptions'][$i]['name']     = $exception->name;
+                    $output['exceptions'][$i]['packpath'] = $packagePath;
+                    $output['exceptions'][$i]['packname'] = $exception->package;
                 }
             }
 
@@ -80,10 +81,10 @@ class items extends htmlWriter {
             if ($functions) {
                 ksort($functions);
                 foreach ($functions as $i => $function) {
-                    $output['function'][$i]['path']     = $path.$function->asPath();
-                    $output['function'][$i]['name']     = $function->name;
-                    $output['function'][$i]['packpath'] = $packagePath;
-                    $output['function'][$i]['packname'] = $function->package;
+                    $output['functions'][$i]['path']     = $path.$function->asPath();
+                    $output['functions'][$i]['name']     = $function->name;
+                    $output['functions'][$i]['packpath'] = $packagePath;
+                    $output['functions'][$i]['packname'] = $function->package;
                 }
             }
 
@@ -91,14 +92,13 @@ class items extends htmlWriter {
             if ($globals) {
                 ksort($globals);
                 foreach ($globals as $i => $global) {
-                    $output['global'][$i]['path'] = $path.$global->asPath();
-                    $output['global'][$i]['name'] = $global->name;
+                    $output['globals'][$i]['path'] = $path.$global->asPath();
+                    $output['globals'][$i]['name'] = $global->name;
                 }
             }
         }
 
-        $tpl   = new template($phpapi->options['doclet'], 'items.tpl');
-        $items = $tpl->parse($output);
-        return $items;
+        $tpl->set($output);
+        return $tpl->parse($phpapi, 'items');
     }
 }
