@@ -42,7 +42,7 @@ class template {
     }
 
     /**
-	 * Trasnform the "for" structure in php code.
+	 * Trasnforms the "for" structure in php code.
      *
 	 * @param string  $name "For" name.
 	 * @param string  $code Code for "for" structure.
@@ -56,7 +56,7 @@ class template {
 		$code = $this->toPhp($code);
 
 		return	'<?php '.$arr.'=array_values('.$code.');'.$max.'=sizeof('.$arr.');'.
-				'for('.$cur.'=0; '.$cur.'<'.$max.'; '.$cur.'++):'.$var.'='.$ary.'['.$cur.'];?>';
+				'for('.$cur.'=0; '.$cur.'<'.$max.'; '.$cur.'++):'.$var.'='.$arr.'['.$cur.'];?>';
 	}
 
     /**
@@ -140,7 +140,7 @@ class template {
     }
 
     /**
-     * Parse the code (HTML & template) and transform the template code in php code.
+     * Parses the code (HTML & template) and transform the template code in php code.
      *
      * @param  phpapi    &$phpapi  Reference the application object
      * @param  string    $template Template file or HTML code
@@ -188,7 +188,7 @@ class template {
     }
 
     /**
-     * Parse a line of code.
+     * Parses a line of code.
      *
      * @param  string $codeline Code line
      * @return return           Template Code transformed in php code
@@ -282,7 +282,7 @@ class template {
     }
 
     /**
-     * Store a template code string in array.
+     * Stores a template code string in array.
      *
      * @param  array  $strings Array used for store the string
      * @param  string $quot    Type of quote (' or ")
@@ -385,7 +385,7 @@ class template {
     }
 
     /**
-     * Transform a template variable in a php variable.
+     * Transforms a template variable in a php variable.
      *
      * @param  string $prefix   Prefix of a template variable
      * @param  string $name     Name of a template variable
@@ -410,7 +410,7 @@ class template {
             return sprintf($result, $name, $var, $var);
         }
         #
-        # Foreach variables.
+        # Foreach variables
         #
         if ($prefix) {
             switch ($name) {
