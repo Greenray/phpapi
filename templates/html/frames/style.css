@@ -10,7 +10,7 @@ h1,h2,h3,h4,
 h5,h6,ol,p,ul { padding: 5px }
 h1            { font-size: 140% }
 h2            { font-size: 120% }
-hr            { border: 0; border-top: 1px solid #000; display: block; height: 1px; margin: 5px 0; padding: 0 }
+hr            { border-top: 1px solid #000 }
 input,select  { vertical-align: middle }
 nav ul        { list-style: none }
 

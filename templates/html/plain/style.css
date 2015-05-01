@@ -23,7 +23,7 @@ caption { background: #ecede5; border: 1px solid #ccc; font-weight: bold; font-s
 .content ul li { padding: 2px 10px 0 5px }
 .main .content { background: #fff }
 
-div.comment           { margin: 10px 30px }
+div.comment           {}
 div.details           { margin: 10px 20px }
 div.menu              { padding: 5px 0 }
 div.menu h1           { font-size: 120%; font-style: italic; padding: 0 4px; margin: 0 }
@@ -52,7 +52,7 @@ table, th, td { border: 1px solid #000 }
 td            { padding: 2px 4px }
 td p          { margin: 0; padding: 0 }
 td.type       { text-align: right; vertical-align: top }
-table         { border-collapse: collapse; border-spacing: 0; margin: 1px 0; width: 100% }
+table         { border-collapse: collapse; border-spacing: 0; margin: 10px 0; width: 100% }
 table.hid     { padding: 5px; width: 100% }
 th,
 #details_globals, #details_functions, #details_fields, #details_constructor, #details_constants,
