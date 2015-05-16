@@ -13,14 +13,14 @@
 
 class template {
 
-    /** @var errors Template errors */
+    /** @var string Format of names */
+    const NAME = "[_a-zA-Z0-9]*";
+
+    /** @var string Template errors */
     public $errors = '';
 
     /** @var integer Code line parsed */
     private $line;
-
-    /** @var string Format for names and function names */
-    private static $name = "[_a-zA-Z][_a-zA-Z0-9]*";
 
     /** @var array Template variables */
     private $vars = [];
@@ -48,7 +48,7 @@ class template {
 	 * @param string  $code Code for "for" structure.
 	 * @return string       Php code.
 	 */
-	private function _for($name, $code){
+	private function _for($name, $code) {
 		$arr = '$'.$name;
 		$cur = '$'.$name.'_cur';
 		$max = '$'.$name.'_max';
@@ -100,7 +100,7 @@ class template {
                 return '$this->_empty('.$args.')';
 
             case 'array':
-                return 'array('.$args.')';
+                return '['.$args.']';
 
             default:
                 return;
@@ -117,7 +117,7 @@ class template {
      * <!-- IF isset($var) -->
      *    <div>$var</div>
      * <!-- ELSE -->
-     *    <div>"$var" is not set</div>
+     *    <div>$var is not set</div>
      * <!-- ENDIF -->
      *
      * @param  string  $code   Code for 'if' structure
@@ -125,7 +125,7 @@ class template {
      * @return string          Php code
      */
     private function _if($code, $elseif) {
-        $else = ($elseif) ? 'else' : '';
+        $else = $elseif ? 'else' : '';
         return '<?php '.$else.'if('.$this->toPhp($code).'): ?>';
     }
 
@@ -149,7 +149,7 @@ class template {
      */
     public function parse(&$phpapi, $template) {
         $code = $template;
-        $tpl = TEMPLATES.$phpapi->options['generator'].DS.$template.'.tpl.php';
+        $tpl  = TEMPLATES.$phpapi->options['generator'].DS.$template.'.tpl.php';
         if (file_exists($tpl)) {
             $code = file_get_contents($tpl);
         } else {
@@ -181,6 +181,7 @@ class template {
         if (!eval('?>'.$code.'<?php return TRUE; ?>')) {
             $this->errors = $this->errors.ob_get_clean();
             file_put_contents('errors.txt', $this->errors);
+            die;
         }
         $result = ob_get_contents();
         ob_end_clean();
@@ -202,8 +203,8 @@ class template {
         #
         $html     = [];
         $lines    = 0;
-        $search   = '#(<!--.*?(?:(\'|\\\\*")(.*?)(?<!\\\\)\2.*?)*?-->)#e';
-        $replace  = '(($html[$lines]=\'$1\')&&FALSE).\';;;HTML_COMMENT_\'.($lines++).\';;;\'';
+        $search   = '#(<!-- (.*?) -->)#e';
+        $replace  = '(($html[$lines]=\'$1\')&&FALSE).\'-HTML_COMMENT_\'.($lines++).\'-\'';
         $codeline = preg_replace($search, $replace, $codeline);
         #
         # Transform the html comments in php code
@@ -218,7 +219,7 @@ class template {
             '#<!-- CASE (.+?) -->#e',
             '#<!-- DEFAULT -->#',
             '#<!-- BREAK -->#',
-            '#<!-- FOREACH ('.self::$name.')[\t ]*=[\t ]*(.+?) -->#e',
+            '#<!-- FOREACH ('.self::NAME.')[\t ]*=[\t ]*(.+?) -->#e',
             '#<!-- ENDFOREACH -->#',
             '#<!-- EXIT -->#',
             '#<!-- CONTINUE -->#',
@@ -248,8 +249,8 @@ class template {
 
         $keys     = [];
         $keys_i   = 0;
-        $search   = '#\{([^\n\r{]*?(?:(\'|\\\\*")(?:.*?)(?<!\\\\)\2.*?)*?)\:([a-zA-Z]*)\}#e';
-        $replace  = '(($keys[$keys_i]=array(\'$1\', \'$3\'))&&FALSE).\'KEY_STRUCTURE_\'.($keys_i++).\'\'';
+        $search   = '#\{[^\n\r{]*?(.*?)\:('.self::NAME.')\}#e';
+        $replace  = '(($keys[$keys_i]=[\'$1\', \'$3\'])&&FALSE).\'KEY_STRUCTURE_\'.($keys_i++).\'\'';
         $codeline = preg_replace($search, $replace, $codeline);
 
         for ($i = 0; $i < $keys_i; $i++) {
@@ -257,20 +258,21 @@ class template {
         }
         $codeline = preg_replace($search, $replace, $codeline);
 
-        $search   = '#(\$(?:'.self::$name.'\.)?'.self::$name.')#e';
+        $search   = '#(\$(?:'.self::NAME.'\.)?'.self::NAME.')#e';
         $replace  = '\'<?php echo \'.($this->toPhp(\'$1\')).\'; ?>\'';
         $codeline = preg_replace($search, $replace, $codeline);
         #
         # Transform the key in php code
         #
-        $search  = ['#;;;HTML_COMMENT_([0-9]+);;;#e', '#KEY_STRUCTURE_([0-9]+)#e'];
+        $search  = ['#-HTML_COMMENT_([0-9]+)-#e', '#KEY_STRUCTURE_([0-9]+)#e'];
         $replace = ['$html[$1]', '$keys[$1]'];
 
-        return preg_replace($search, $replace, $codeline);
+        $r = preg_replace($search, $replace, $codeline);
+        return $r;
     }
 
     /**
-     * Adds a variable to the template framework.
+     * Sets a variable of the template.
      *
      * @param string $name  Variable name
      * @param mixed  $value Variable value
@@ -284,16 +286,16 @@ class template {
     /**
      * Stores a template code string in array.
      *
-     * @param  array  $strings Array used for store the string
-     * @param  string $quot    Type of quote (' or ")
-     * @param  string $string  String stored in array
-     * @return string          Empty string
+     * @param  array  &$strings Reference to the array used for store the string
+     * @param  string $quot     Type of quote (' or ")
+     * @param  string $string   String stored in array
+     * @return string           Empty string
      */
     private function store_string(&$strings, $quot, $string) {
         #
         # Delete the \ character
         #
-        $quot = strlen($quot) > 1 ? substr($quot, -1) : $quot;
+        $quot = str_replace('\\', '', $quot);
         #
         # Delete the var parser.
         #
@@ -307,14 +309,14 @@ class template {
     /**
      * Transforms the 'switch' structure in php code.
      *
-     * @param  string  $code_switch Code for the 'switch' structure
-     * @param  unknown $code_case   Code for the first 'case' structure
+     * @param  string  $switch Code for the 'switch' structure
+     * @param  unknown $case   Code for the first 'case' structure
      * @return string               Php code
      */
-    private function _switch($code_switch, $code_case) {
-        $code_switch = $this->toPhp($code_switch);
-        $code_case   = $this->toPhp($code_case);
-        return '<?php switch('.$code_switch.'): case '.$code_case.': ?>';
+    private function _switch($switch, $case) {
+        $switch = $this->toPhp($switch);
+        $case   = $this->toPhp($case);
+        return '<?php switch('.$switch.'): case '.$case.': ?>';
     }
 
     /**
@@ -334,18 +336,18 @@ class template {
         #
         # Transform variables in key
         #
+        $i = 0;
         $vars    = [];
-        $vars_i  = 0;
-        $search  = '#\$(?:('.self::$name.')\.)?('.self::$name.')#e';
-        $replace = '(($vars[$vars_i]=array(\'$1\', \'$2\'))&&FALSE).\'VARIABLE_\'.($vars_i++).\'\'';
+        $search  = '#\$(?:('.self::NAME.')\.)?('.self::NAME.')#e';
+        $replace = '(($vars[$i]=[\'$1\', \'$2\'])&&FALSE).\'VARIABLE_\'.($i++).\'\'';
         $code    = preg_replace($search, $replace, $code);
         #
         # Transform functions in key
         #
-        $functions   = [];
-        $functions_i = 0;
-        $search      = '#('.self::$name.'[ \t]*)?\(([^(]*?)\)#e';
-        $replace     = '(($functions[$functions_i] = array(\'$1\',\'$2\'))&&FALSE).\'FUNCTION_\'.($functions_i++).\'\'';
+        $i = 0;
+        $functions = [];
+        $search    = '#('.self::NAME.'[ \t]*)?\(([^(]*?)\)#e';
+        $replace   = '(($functions[$i] = [\'$1\',\'$2\'])&&FALSE).\'FUNCTION_\'.($i++).\'\'';
 
         while (preg_match($search, $code)) {
             $code = preg_replace($search, $replace, $code);
@@ -360,7 +362,7 @@ class template {
             $code = preg_replace($search, $replace, $code);
         }
         #
-        # Transform the template keys in Php vars
+        # Transform the template keys in php vars
         #
         $search = [
             '#VARIABLE_ISSET_([0-9]+)#e',
@@ -376,11 +378,11 @@ class template {
 
         $code = preg_replace($search, $replace, $code);
         #
-        # Transform the template keys in Php vars
+        # Transform the template keys in php vars
         #
-        $strings_i = 0;
-        $search    = '#STRING#e';
-        $replace   = '$strings[$strings_i][0].$strings[$strings_i][1].$strings[$strings_i++][0]';
+        $i = 0;
+        $search  = '#STRING#e';
+        $replace = '$strings[$i][0].$strings[$i][1].$strings[$i++][0]';
         return preg_replace($search, $replace, $code);
     }
 
@@ -389,7 +391,7 @@ class template {
      *
      * @param  string $prefix   Prefix of a template variable
      * @param  string $name     Name of a template variable
-     * @param  string $function String indicating if this variable will use in a special function (isset or empty)
+     * @param  string $function String indicating if this variable will use in a special function (isset() or empty())
      * @return string           Php variable
      */
     private function toPhpVar($prefix, $name, $function = '') {
@@ -419,19 +421,19 @@ class template {
                     return sprintf($result, $prefix.'._CUR_', $var, $var);
 
                 case '_EVEN_':
-                    $var_iss = '$'.$prefix.'_cur';
-                    $expr    = '$'.$prefix.'_cur%2!=0';
-                    return sprintf($result, $prefix.'._EVEN_', $var_iss, $expr);
+                    $var  = '$'.$prefix.'_cur';
+                    $expr = '$'.$prefix.'_cur%2!=0';
+                    return sprintf($result, $prefix.'._EVEN_', $var, $expr);
 
                 case '_FIRST_':
-                    $var_iss = '$'.$prefix.'_cur';
-                    $expr    = '$'.$prefix.'_cur==0';
-                    return sprintf($result, $prefix.'._FIRST_', $var_iss, $expr);
+                    $var  = '$'.$prefix.'_cur';
+                    $expr = '$'.$prefix.'_cur==0';
+                    return sprintf($result, $prefix.'._FIRST_', $var, $expr);
 
                 case '_LAST_':
-                    $var_iss = '$'.$prefix.'_cur';
-                    $expr    = '$'.$prefix.'_cur+1==$'.$prefix.'_max';
-                    return sprintf($result, $prefix.'._LAST_', $var_iss, $expr);
+                    $var  = '$'.$prefix.'_cur';
+                    $expr = '$'.$prefix.'_cur+1==$'.$prefix.'_max';
+                    return sprintf($result, $prefix.'._LAST_', $var, $expr);
 
                 case '_MAX_':
                     $var = '$'.$prefix.'_max';
@@ -444,11 +446,11 @@ class template {
                 default:
                     $var      = '$'.$prefix.'_var';
                     $var_name = $var.'[\''.$name.'\']';
-                    if ($function == 'empty')
+                    if ($function === 'empty')
                         return 'empty('.$var_name.') || !is_array('.$var.')';
 
                     $iss = 'isset('.$var_name.')&&is_array('.$var.')';
-                    return $function == 'isset' ? '('.$iss.')' : '('.$iss.'?'.$var_name.':'.sprintf($error, $prefix.'.'.$name).')';
+                    return $function === 'isset' ? '('.$iss.')' : '('.$iss.'?'.$var_name.':'.sprintf($error, $prefix.'.'.$name).')';
             }
         }
     }

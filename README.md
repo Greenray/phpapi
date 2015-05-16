@@ -30,7 +30,7 @@ phpapi использует PHP-расширение tokenizer, анализир
 - Parsing of any valid PHP file, with multiple classes and functions in the same file.
 - Simple output template layer, allowing easy changing of the output format by copying and editing of a few simple PHP template files.
 - Simple to install and use, instant results.
-- Documents global variables and constants.
+- Documents global constants.
 - Original template system for output.
 
 #### INSTALLATION

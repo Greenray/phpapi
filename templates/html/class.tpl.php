@@ -50,12 +50,12 @@
 <!-- ENDIF -->
 <!-- IF !empty($fields) -->
     <table id="summary_fields">
-        <tr><th colspan="2">[__Fiels]: [__summary]</th></tr>
+        <tr><th colspan="2">[__Fields]: [__summary]</th></tr>
         <!-- FOREACH field = $fields -->
             <tr>
                 <td class="type w_200">$field.modifiers $field.type</td>
                 <td class="description">
-                    <pre><a href="#$field.name"><span class="green">$field.name</span></a><!-- IF !empty($fields) -->$field.value<!-- ENDIF --></pre>
+                    <pre><a href="#$field.name"><span class="green">$field.name</span></a><!-- IF !empty($field.value) -->$field.value<!-- ENDIF --></pre>
                     <p class="description">$field.shortDesc</p>
                 </td>
             </tr>

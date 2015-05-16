@@ -76,10 +76,20 @@
                     </tr>
         </table>
 </div>
-    <table id="summary_fields">
-        <tr><th colspan="2">Fiels: общий обзор</th></tr>
+    <table id="summary_constants">
+        <tr><th colspan="2">Константы: общий обзор</th></tr>
                     <tr>
-                <td class="type w_200">public  errors</td>
+                <td class="type w_200">public final static  string</td>
+                <td class="description">
+                    <pre><a href="#NAME"><span class="lilac">NAME</span></a> = <span class="red">"[_a-zA-Z0-9]*"</span></pre>
+                    <p class="description">Format of names</p>
+                </td>
+            </tr>
+            </table>
+    <table id="summary_fields">
+        <tr><th colspan="2">Поля: общий обзор</th></tr>
+                    <tr>
+                <td class="type w_200">public  string</td>
                 <td class="description">
                     <pre><a href="#$errors"><span class="green">$errors</span></a> = <span class="red">''</span></pre>
                     <p class="description">Template errors</p>
@@ -90,13 +100,6 @@
                 <td class="description">
                     <pre><a href="#$line"><span class="green">$line</span></a></pre>
                     <p class="description">Code line parsed</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">private static  string</td>
-                <td class="description">
-                    <pre><a href="#$name"><span class="green">$name</span></a> = <span class="red">"[_a-zA-Z][_a-zA-Z0-9]*"</span></pre>
-                    <p class="description">Format for names and function names</p>
                 </td>
             </tr>
                     <tr>
@@ -179,20 +182,20 @@
                 <td class="type w_200">public  void</td>
                 <td class="description">
                     <p><a href="#set"><strong><span class="black">set</span></strong></a> (<span class="lilac">string</span> <span class="blue">$name</span>, <span class="lilac">mixed</span> <span class="blue">$value</span>)</p>
-                    <p class="description">Adds a variable to the template framework.</p>
+                    <p class="description">Sets a variable of the template.</p>
                 </td>
             </tr>
                     <tr>
                 <td class="type w_200">private  string</td>
                 <td class="description">
-                    <p><a href="#store_string"><strong><span class="black">store_string</span></strong></a> (<span class="lilac">array</span> <span class="blue">$strings</span>, <span class="lilac">string</span> <span class="blue">$quot</span>, <span class="lilac">string</span> <span class="blue">$string</span>, <span class="lilac">mixed</span> <span class="blue">&$strings</span>)</p>
+                    <p><a href="#store_string"><strong><span class="black">store_string</span></strong></a> (<span class="lilac">array</span> <span class="blue">&$strings</span>, <span class="lilac">string</span> <span class="blue">$quot</span>, <span class="lilac">string</span> <span class="blue">$string</span>)</p>
                     <p class="description">Stores a template code string in array.</p>
                 </td>
             </tr>
                     <tr>
                 <td class="type w_200">private  string</td>
                 <td class="description">
-                    <p><a href="#_switch"><strong><span class="black">_switch</span></strong></a> (<span class="lilac">string</span> <span class="blue">$code_switch</span>, <span class="lilac">unknown</span> <span class="blue">$code_case</span>)</p>
+                    <p><a href="#_switch"><strong><span class="black">_switch</span></strong></a> (<span class="lilac">string</span> <span class="blue">$switch</span>, <span class="lilac">unknown</span> <span class="blue">$case</span>)</p>
                     <p class="description">Transforms the 'switch' structure in php code.</p>
                 </td>
             </tr>
@@ -225,21 +228,22 @@
                 </td>
             </tr>
             </table>
-    <h2 id="details_fields">Поля: детали</h2>
+    <h2 id="details_constants">Константы: детали</h2>
             <div class="location">classes/template.php at line 17</div>
-        <pre class="arguments" id="$errors">public  errors <strong><span class="green">$errors</span></strong> = <span class="red">''</span></pre>
+        <pre class="arguments" id="NAME">public final static  string <strong>NAME</strong> = <span class="red">"[_a-zA-Z0-9]*"</span></pre>
+        <div class="details">Format of names</div>
+        <hr />
+        <h2 id="details_fields">Поля: детали</h2>
+            <div class="location">classes/template.php at line 20</div>
+        <pre class="arguments" id="Undefined $errors">public  string <strong><span class="green">$errors</span></strong> = <span class="red">''</span></pre>
         <div class="details">Template errors</div>
         <hr />
-            <div class="location">classes/template.php at line 20</div>
-        <pre class="arguments" id="$line">private  integer <strong><span class="green">$line</span></strong></pre>
+            <div class="location">classes/template.php at line 23</div>
+        <pre class="arguments" id="Undefined $line">private  integer <strong><span class="green">$line</span></strong></pre>
         <div class="details">Code line parsed</div>
         <hr />
-            <div class="location">classes/template.php at line 23</div>
-        <pre class="arguments" id="$name">private static  string <strong><span class="green">$name</span></strong> = <span class="red">"[_a-zA-Z][_a-zA-Z0-9]*"</span></pre>
-        <div class="details">Format for names and function names</div>
-        <hr />
             <div class="location">classes/template.php at line 26</div>
-        <pre class="arguments" id="$vars">private  array <strong><span class="green">$vars</span></strong> = []</pre>
+        <pre class="arguments" id="Undefined $vars">private  array <strong><span class="green">$vars</span></strong> = []</pre>
         <div class="details">Template variables</div>
         <hr />
         <h2 id="details_constructor">Конструктор: детали</h2>
@@ -401,7 +405,7 @@
 </div>
         </div>
         <hr />
-            <div class="location">classes/template.php at line 196</div>
+            <div class="location">classes/template.php at line 197</div>
         <code class="arguments" id="parse_line">private  return <strong>parse_line</strong> (<span class="lilac">string</span> <span class="blue">$codeline</span>)</code>
         <div class="details">
                     <p class="description">Parses a line of code.</p>
@@ -422,10 +426,10 @@
 </div>
         </div>
         <hr />
-            <div class="location">classes/template.php at line 278</div>
+            <div class="location">classes/template.php at line 280</div>
         <code class="arguments" id="set">public  void <strong>set</strong> (<span class="lilac">string</span> <span class="blue">$name</span>, <span class="lilac">mixed</span> <span class="blue">$value</span>)</code>
         <div class="details">
-                    <p class="description">Adds a variable to the template framework.</p>
+                    <p class="description">Sets a variable of the template.</p>
             <div class="finfo">
     <table class="hid">
             <tr>
@@ -444,8 +448,8 @@
 </div>
         </div>
         <hr />
-            <div class="location">classes/template.php at line 292</div>
-        <code class="arguments" id="store_string">private  string <strong>store_string</strong> (<span class="lilac">array</span> <span class="blue">$strings</span>, <span class="lilac">string</span> <span class="blue">$quot</span>, <span class="lilac">string</span> <span class="blue">$string</span>, <span class="lilac">mixed</span> <span class="blue">&$strings</span>)</code>
+            <div class="location">classes/template.php at line 294</div>
+        <code class="arguments" id="store_string">private  string <strong>store_string</strong> (<span class="lilac">array</span> <span class="blue">&$strings</span>, <span class="lilac">string</span> <span class="blue">$quot</span>, <span class="lilac">string</span> <span class="blue">$string</span>)</code>
         <div class="details">
                     <p class="description">Stores a template code string in array.</p>
             <div class="finfo">
@@ -453,8 +457,8 @@
             <tr>
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">array</td>
-                            <td class="hid blue w_100">$strings</td>
-                <td class="hid">Array used for store the string</td>
+                            <td class="hid blue w_100">&$strings</td>
+                <td class="hid">Reference to the array used for store the string</td>
                     </tr>
             <tr>
             <td class="hid left w_100">&nbsp</td>
@@ -477,8 +481,8 @@
 </div>
         </div>
         <hr />
-            <div class="location">classes/template.php at line 314</div>
-        <code class="arguments" id="_switch">private  string <strong>_switch</strong> (<span class="lilac">string</span> <span class="blue">$code_switch</span>, <span class="lilac">unknown</span> <span class="blue">$code_case</span>)</code>
+            <div class="location">classes/template.php at line 317</div>
+        <code class="arguments" id="_switch">private  string <strong>_switch</strong> (<span class="lilac">string</span> <span class="blue">$switch</span>, <span class="lilac">unknown</span> <span class="blue">$case</span>)</code>
         <div class="details">
                     <p class="description">Transforms the 'switch' structure in php code.</p>
             <div class="finfo">
@@ -486,13 +490,13 @@
             <tr>
             <td class="hid left w_100">Parameters</td>
             <td class="hid right w_100 lilac">string</td>
-                            <td class="hid blue w_100">$code_switch</td>
+                            <td class="hid blue w_100">$switch</td>
                 <td class="hid">Code for the <span class="red">'switch'</span> structure</td>
                     </tr>
             <tr>
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">unknown</td>
-                            <td class="hid blue w_100">$code_case</td>
+                            <td class="hid blue w_100">$case</td>
                 <td class="hid">Code for the first <span class="red">'case'</span> structure</td>
                     </tr>
             <tr>
@@ -504,7 +508,7 @@
 </div>
         </div>
         <hr />
-            <div class="location">classes/template.php at line 326</div>
+            <div class="location">classes/template.php at line 329</div>
         <code class="arguments" id="toPhp">private  string <strong>toPhp</strong> (<span class="lilac">string</span> <span class="blue">$code</span>)</code>
         <div class="details">
                     <p class="description">Trasnforms a template basic code(function, strings, variables & operators) in php code.</p>
@@ -525,7 +529,7 @@
 </div>
         </div>
         <hr />
-            <div class="location">classes/template.php at line 395</div>
+            <div class="location">classes/template.php at line 398</div>
         <code class="arguments" id="toPhpVar">private  string <strong>toPhpVar</strong> (<span class="lilac">string</span> <span class="blue">$prefix</span>, <span class="lilac">string</span> <span class="blue">$name</span>, <span class="lilac">string</span> <span class="blue">$function</span>)</code>
         <div class="details">
                     <p class="description">Transforms a template variable in a php variable.</p>
@@ -547,7 +551,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">string</td>
                             <td class="hid blue w_100">$function</td>
-                <td class="hid">String indicating if this variable will use in a special function (isset or empty)</td>
+                <td class="hid">String indicating if this variable will use in a special function (isset() or empty())</td>
                     </tr>
             <tr>
             <td class="hid left w_100">Return</td>
@@ -558,7 +562,7 @@
 </div>
         </div>
         <hr />
-            <div class="location">classes/template.php at line 469</div>
+            <div class="location">classes/template.php at line 472</div>
         <code class="arguments" id="translate">private  string <strong>translate</strong> (<span class="lilac">array</span> <span class="blue">$matches</span>)</code>
         <div class="details">
                     <p class="description">Localization.<br /> <pre><br /> The template is:<br />   [__string]<br /> </pre><br /> Array variable $matches contains:<br />  - $matches[0] = part of template between control structures including them;<br />  - $matches[1] = part of template between control structures excluding them.</p>
@@ -579,7 +583,7 @@
 </div>
         </div>
         <hr />
-            <div class="location">classes/template.php at line 483</div>
+            <div class="location">classes/template.php at line 486</div>
         <code class="arguments" id="value">private  string <strong>value</strong> (<span class="lilac">array</span> <span class="blue">$matches</span>)</code>
         <div class="details">
                     <p class="description">Replaces constants and variables with their values.<br /> <pre><br /> The template is:<br />   {CONST} - global constant<br /> </pre></p>
