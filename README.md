@@ -1,4 +1,4 @@
-#### NAME/НАЗВАНИЕ
+#### NAME / НАЗВАНИЕ
 
 phpapi: The PHP Documentation Creator.
 This is the fork of the Peej's Quick & Dirty PHPDoc Clone.
@@ -7,23 +7,23 @@ This is the fork of the Peej's Quick & Dirty PHPDoc Clone.
 
 5.0
 
-#### DESCRIPTION/ОПИСАНИЕ
+#### DESCRIPTION / ОПИСАНИЕ
 
 phpapi is a Javadoc style comment parser for PHP, written with an emphasis on speed and simplicity.
 It is designed to be as close a clone to Javadoc as possible.
 phpapi - это парсер комментариев в стиле Javadoc для PHP, написан с акцентом на скорость и простоту как можно ближе к клону Javadoc.
 
-#### REQUIREMENTS/ТРЕБОВАНИЯ
+#### REQUIREMENTS / ТРЕБОВАНИЯ
 
 PHP 5.4+ is required.
 
-#### ABOUT/О ПРОГРАММЕ
+#### ABOUT / О ПРОГРАММЕ
 
 phpapi uses the PHP tokenizer extension, this means that it lets PHP do the parsing of your source code.
 phpAPI just takes the tokens PHP parses out and turns them into API documentation.
 phpapi использует PHP-расширение tokenizer, анализирует токены PHP и транслирует их в документацию по API.
 
-#### FEATURES/ВОЗМОЖНОСТИ
+#### FEATURES / ВОЗМОЖНОСТИ
 
 - Fast speed.
 - Uses PHP tokenizer to take advantage of PHPs internal parsing functionality.
@@ -32,19 +32,19 @@ phpapi использует PHP-расширение tokenizer, анализир
 - Documents global constants.
 - Original template system for output.
 
-- Быстрая скорость.
+- Высокая скорость.
 - Использует PHP tokenizer для облегчения внутреннего разбора функциональности.
 - Парсит любой корректный PHP-файл, с несколькими классами и функциями в одном файле.
 - Простой в установке и использовании, мгновенный результат.
 - Документирует глобальные константы.
 - Оригинальная система шаблонов для вывода.
 
-#### INSTALLATION/УСТАНОВКА
+#### INSTALLATION / УСТАНОВКА
 
 Unzip the archive somewhere, edit the config file and then run phpapi.php.
 Распакуйте архив, отредактируйте конфигурационный файл и запустите phpapi.php.
 
-#### FILES/ФАЙЛЫ
+#### FILES / ФАЙЛЫ
 
     phpapi.php            - main executable
     phpapi.ini            - Default config file
@@ -59,7 +59,7 @@ Unzip the archive somewhere, edit the config file and then run phpapi.php.
     templates/frames/     - Templates for output with frames
     templates/plain/      - Templates for output without frames
 
-#### USAGE/ИСПОЛЬЗОВАНИЕ
+#### USAGE / ИСПОЛЬЗОВАНИЕ
 
     ./phpapi.php (if your config file is phpapi.ini)
     ./phpapi.php config.ini (if your config file is config.ini)
@@ -68,7 +68,7 @@ Unzip the archive somewhere, edit the config file and then run phpapi.php.
 To create a config file for your project, copy, rename the phpini.ini to project.ini file and edit it to your needs, it's fully commented.
 Для созданияя конфигурационного файла вашего проекта, скопируйте, переименуйте phpapi.ini в project.ini и отредактируйте его в соответствие с имеющемися комментариями.
 
-#### CONFIGURATION/КОНФИГУРАЦИЯ
+#### CONFIGURATION / КОНФИГУРАЦИЯ
 
 phpapi supports a number of configuration directives:
 phpapi поддерживает следующие директивы:
@@ -110,7 +110,7 @@ or
 
 /** __@var__ integer Comment */
 
-#### TAGS/ТЭГИ
+#### TAGS / ТЭГИ
 
 phpapi supports the following tags:
 phpapi поддерживает следующие теги:
