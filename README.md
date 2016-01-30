@@ -140,15 +140,16 @@ phpapi поддерживает следующие теги:
 #### COPYRIGHT AND LICENSE
 
 This program is a fork of the PHPDoctor: The PHP Documentation Creator v2.0.5
+
 Copyright (C) 2005 Paul James <paul@peej.co.uk>
-Copyright (C) 2015 Victor Nabatov <greenray.spb@gmail.com>
+Copyright (C) 2016 Victor Nabatov <greenray.spb@gmail.com>
 
 This program is free software.
-You can redistribute it and/or modify it under the terms of the [Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License](http://creativecommons.org/licenses/by-nc-sa/4.0/) .
+You can redistribute it and/or modify it under the terms of the [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/legalcode) .
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 Эта программа является свободной.
-Вы можете распространять и/или модифицировать ее в соответствии c условиями [Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License](http://creativecommons.org/licenses/by-nc-sa/4.0/) .
+Вы можете распространять и/или модифицировать ее в соответствии c условиями [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/legalcode) .
 Эта программа распространяется в надежде что она будет полезной, но БЕЗ КАКИХ-ЛИБО ГАРАНТИЙ;
 даже без подразумеваемых гарантий КОММЕРЧЕСКОЙ ЦЕННОСТИ или ПРИГОДНОСТИ ДЛЯ КОНКРЕТНОЙ ЦЕЛИ.

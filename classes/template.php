@@ -5,8 +5,8 @@
  * @author    Victor Nabatov greenray.spb@gmail.com
  * @author    David Casado Martínez <tokkara@gmail.com>
  * @link      http://www.simphple.com
- * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons — Attribution-NonCommercial-ShareAlike 4.0 International
+ * @copyright (c) 2016 Victor Nabatov
+ * @license   Creative Commons Attribution-ShareAlike 4.0 International
  * @file      classes/template.php
  * @package   template
  */

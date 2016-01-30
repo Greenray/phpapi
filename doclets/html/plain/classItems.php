@@ -6,8 +6,8 @@
  * @file      doclets/html/plain/classItems.php
  * @version   5.0
  * @author    Victor Nabatov greenray.spb@gmail.com
- * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons — Attribution-NonCommercial-ShareAlike 4.0 International
+ * @copyright (c) 2016 Victor Nabatov
+ * @license   Creative Commons Attribution-ShareAlike 4.0 International
  * @package   plain
  */
 

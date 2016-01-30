@@ -7,8 +7,8 @@
  * @program   phpapi: PHP Documentation Creator
  * @version   5.0
  * @author    Victor Nabatov greenray.spb@gmail.com
- * @copyright (c) 2015 Victor Nabatov
- * @license   Creative Commons — Attribution-NonCommercial-ShareAlike 4.0 International
+ * @copyright (c) 2016 Victor Nabatov
+ * @license   Creative Commons Attribution-ShareAlike 4.0 International
  * @file      classes/phpapi.php
  * @package   phpapi
  * @overview  Main program package.
@@ -788,24 +788,31 @@ class phpapi {
                                                 break;
                                             }
 
-                                            if (isset($tokens[$key - 1][0]) && isset($tokens[$key - 2][0]) && $tokens[$key - 2][0] === T_STRING && $tokens[$key - 1][0] === T_WHITESPACE) {
+                                            if (isset($tokens[$key - 1][0]) &&
+                                                isset($tokens[$key - 2][0]) &&
+                                                      $tokens[$key - 1][0] === T_WHITESPACE &&
+                                                      $tokens[$key - 2][0] === T_STRING)
+                                            {
                                                 $global->set('type', new type($tokens[$key - 2][1], $rootDoc));
                                             } else {
                                                 unset ($global);
                                                 break;
                                             }
-                                            while (isset($tokens[$key]) && $tokens[$key] !=='=' && $tokens[$key] !==';') {
+                                            while (isset($tokens[$key]) && $tokens[$key] !== '=' &&
+                                                                           $tokens[$key] !== ';')
+                                            {
                                                 $key++;
                                             }
                                             if (isset($tokens[$key]) && $tokens[$key] === '=') {
-                                                $key2  = $key + 1;
+                                                $key2 = $key + 1;
                                                 do {
                                                     if (is_array($tokens[$key2]))
-                                                        if ($tokens[$key2][1] !=='=') $value .= $tokens[$key2][1];
-                                                    elseif ($tokens[$key2]    !=='=') $value .= $tokens[$key2];
+                                                        if ($tokens[$key2][1] !== '=') $value .= $tokens[$key2][1];
+                                                    elseif ($tokens[$key2]    !== '=') $value .= $tokens[$key2];
                                                     $key2++;
-                                                } while (isset($tokens[$key2]) && $tokens[$key2] !==';' && $tokens[$key2] !==',' && $tokens[$key2] !==')');
-
+                                                } while (isset($tokens[$key2]) && $tokens[$key2] !== ';' &&
+                                                                                  $tokens[$key2] !== ',' &&
+                                                                                  $tokens[$key2] !== ')');
                                                 $value = trim($value);
                                                 if (!empty($value)) {
                                                     $global->set('value', $value);
@@ -818,7 +825,7 @@ class phpapi {
                                             else $global->set('package', $currentPackage);
                                             $global->mergeData();
 
-                                            $this->verbose('Found global variable: '.$global->name.' in package '.$const->package);
+//                                            $this->verbose('Found global variable: '.$global->name.' in package '.$const->package);
 
                                             $parentPackage = &$rootDoc->packageNamed($global->package, TRUE);
                                             $parentPackage->addGlobal($global);
@@ -843,7 +850,7 @@ class phpapi {
                                                     #
                                                     # Start value
                                                     #
-                                                    $name  = $this->previous($tokens, $key, T_VARIABLE);
+                                                    $name = $this->previous($tokens, $key, T_VARIABLE);
                                                     $bracketCount = 0;
                                                 } elseif (isset($value) && ($tokens[$key] !==',' || $bracketCount > 0) && $tokens[$key] !==';') {
                                                     #
@@ -857,7 +864,9 @@ class phpapi {
                                                     else $value .= $tokens[$key];
 
                                                 } elseif ($tokens[$key] === ',' || $tokens[$key] === ';') {
-                                                    if (!isset($name)) $name = $this->previous($tokens, $key, T_VARIABLE);
+                                                    if (!isset($name)) {
+                                                        $name = $this->previous($tokens, $key, T_VARIABLE);
+                                                    }
                                                     $field = &new fieldDoc($name, $ce, $rootDoc, $filename, $lineNumber, $this->sourcePath());
                                                     unset($name);
 
