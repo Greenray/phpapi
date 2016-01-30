@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>API for class methodDoc (phpAPI: PHP Documentation Creator ver. 5.0)</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="generator" content="phpAPI 5.0 (https://github.com/Greenray/phpAPI/)">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="start" href="../index.html">
+</head>
+    <body id="methodDoc" onload="parent.document.title=document.title;">
+    <div class="header">
+    <span style="float:right">phpAPI ver. 5.0</span>
+            <ul>
+                    <li><a href="../overview-summary.html">Overview</a></li>
+                    <li><a href="../phpapi/package-summary.html">Namespace</a></li>
+                    <li class="active">Class</li>
+                    <li><a href="../phpapi/package-tree.html">phpapi\Tree</a></li>
+                    <li><a href="../deprecated.html">Deprecated</a></li>
+                    <li><a href="../todo.html">Todo</a></li>
+                    <li><a href="../index-all.html">Index</a></li>
+                </ul>
+    </div>
+<hr />
+<div class="small_links">Фреймы: <a href="../index.html" target="_top"> Включить</a> | <a href="" target="_top"> Выключить</a></div>
+<hr />
+    <div class="small_links">
+        Общий обзор: <a href="#summary_fields">Поля</a> | <a href="#summary_methods">Методы</a> | <a href="#summary_constructor">Конструктор</a>
+        Детали: <a href="#details_fields">Поля</a> | <a href="#details_methods">Методы</a> | <a href="#details_constructor">Конструктор</a>
+    </div>
+    <hr />
+<div class="package">Пространство имен phpapi</div>
+<h1>Class methodDoc</h1>
+<div id="list">
+    <ul>
+        <li><a href="../phpapi/doc.html">doc</a><ul><li><a href="../phpapi/elementdoc.html">elementDoc</a><ul><li><strong>methodDoc</strong></li></ul></li>
+                        </ul></li>    </ul>
+</div>
+<hr />
+<p class="arguments">public  class <strong>methodDoc</strong> extends <a href="../phpapi/elementdoc.html">elementDoc</a></p>
+<div class="comment" id="overview_description">Represents a PHP function or method (member function).</div>
+<div class="finfo">
+    <table class="hid">
+            <tr>
+            <td class="hid left w_100">Program</td>
+            <td class="hid right w_100 lilac">&nbsp;</td>
+                            <td class="hid" colspan="2">phpapi: PHP Documentation Creator</td>
+                    </tr>
+            <tr>
+            <td class="hid left w_100">Version</td>
+            <td class="hid right w_100 lilac">&nbsp;</td>
+                            <td class="hid" colspan="2">5.0</td>
+                    </tr>
+            <tr>
+            <td class="hid left w_100">Author</td>
+            <td class="hid right w_100 lilac">&nbsp;</td>
+                            <td class="hid" colspan="2">Victor Nabatov greenray.spb@gmail.com</td>
+                    </tr>
+            <tr>
+            <td class="hid left w_100">Copyright</td>
+            <td class="hid right w_100 lilac">&nbsp;</td>
+                            <td class="hid" colspan="2">(c) 2016 Victor Nabatov</td>
+                    </tr>
+            <tr>
+            <td class="hid left w_100">License</td>
+            <td class="hid right w_100 lilac">&nbsp;</td>
+                            <td class="hid" colspan="2">Creative Commons Attribution-ShareAlike 4.0 International</td>
+                    </tr>
+            <tr>
+            <td class="hid left w_100">File</td>
+            <td class="hid right w_100 lilac">&nbsp;</td>
+                            <td class="hid" colspan="2">classes/methodDoc.php</td>
+                    </tr>
+        </table>
+</div>
+    <table id="summary_fields">
+        <tr><th colspan="2">Поля: общий обзор</th></tr>
+                    <tr>
+                <td class="type w_200">public  boolean</td>
+                <td class="description">
+                    <pre><a href="#$abstract"><span class="green">$abstract</span></a> = FALSE</pre>
+                    <p class="description">Is this method abstract</p>
+                </td>
+            </tr>
+                    <tr>
+                <td class="type w_200">public  array</td>
+                <td class="description">
+                    <pre><a href="#$includes"><span class="green">$includes</span></a> = []</pre>
+                    <p class="description">Required files or files to be included</p>
+                </td>
+            </tr>
+                    <tr>
+                <td class="type w_200">public  <a href="../phpapi/type.html">type</a></td>
+                <td class="description">
+                    <pre><a href="#$returnType"><span class="green">$returnType</span></a></pre>
+                    <p class="description">Type of returns variable</p>
+                </td>
+            </tr>
+            </table>
+            <table class="inherit">
+            <tr><th>Поля, унаследованные из phpapi \ elementDoc</th></tr>
+            <tr>
+                <td>
+                                <span><a href="../phpapi/elementdoc.html#$access"><span class="green">$access, </span></a>&nbsp;</span>
+                                <span><a href="../phpapi/elementdoc.html#$filename"><span class="green">$filename, </span></a>&nbsp;</span>
+                                <span><a href="../phpapi/elementdoc.html#$final"><span class="green">$final, </span></a>&nbsp;</span>
+                                <span><a href="../phpapi/elementdoc.html#$includes"><span class="green">$includes, </span></a>&nbsp;</span>
+                                <span><a href="../phpapi/elementdoc.html#$lineNumber"><span class="green">$lineNumber, </span></a>&nbsp;</span>
+                                <span><a href="../phpapi/elementdoc.html#$package"><span class="green">$package, </span></a>&nbsp;</span>
+                                <span><a href="../phpapi/elementdoc.html#$parameters"><span class="green">$parameters, </span></a>&nbsp;</span>
+                                <span><a href="../phpapi/elementdoc.html#$parent"><span class="green">$parent, </span></a>&nbsp;</span>
+                                <span><a href="../phpapi/elementdoc.html#$sourcePath"><span class="green">$sourcePath, </span></a>&nbsp;</span>
+                                <span><a href="../phpapi/elementdoc.html#$static"><span class="green">$static, </span></a>&nbsp;</span>
+                                <span><a href="../phpapi/elementdoc.html#$throws"><span class="green">$throws</span></a>&nbsp;</span>
+                                </td>
+            </tr>
+        </table>
+            <table class="inherit">
+            <tr><th>Поля, унаследованные из phpapi \ doc</th></tr>
+            <tr>
+                <td>
+                                <span><a href="../phpapi/doc.html#$data"><span class="green">$data, </span></a>&nbsp;</span>
+                                <span><a href="../phpapi/doc.html#$desc"><span class="green">$desc, </span></a>&nbsp;</span>
+                                <span><a href="../phpapi/doc.html#$docComment"><span class="green">$docComment, </span></a>&nbsp;</span>
+                                <span><a href="../phpapi/doc.html#$inBody"><span class="green">$inBody, </span></a>&nbsp;</span>
+                                <span><a href="../phpapi/doc.html#$name"><span class="green">$name, </span></a>&nbsp;</span>
+                                <span><a href="../phpapi/doc.html#$overview"><span class="green">$overview, </span></a>&nbsp;</span>
+                                <span><a href="../phpapi/doc.html#$root"><span class="green">$root, </span></a>&nbsp;</span>
+                                <span><a href="../phpapi/doc.html#$tags"><span class="green">$tags</span></a>&nbsp;</span>
+                                </td>
+            </tr>
+        </table>
+        <table id="summary_constructor">
+        <tr><th colspan="2">Конструктор: общий обзор</th></tr>
+        <tr>
+            <td class="type w_200">public  void</td>
+            <td class="description">
+                <p><a href="#__construct"><strong><span class="black">__construct</span></strong></a>(<span class="lilac">string</span> <span class="blue">$name</span>, <span class="lilac">classDoc|methodDoc</span> <span class="blue">&$parent</span>, <a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">&$root</span>, <span class="lilac">string</span> <span class="blue">$filename</span>, <span class="lilac">integer</span> <span class="blue">$lineNumber</span>, <span class="lilac">string</span> <span class="blue">$sourcePath</span>)</p>
+                <p class="description">Constructor.</p>
+            </td>
+        </tr>
+    </table>
+    <table id="summary_methods">
+        <tr><th colspan="2">Методы: общий обзор</th></tr>
+                    <tr>
+                <td class="type w_200">public  boolean</td>
+                <td class="description">
+                    <p><a href="#isConstructor"><strong><span class="black">isConstructor</span></strong></a> ()</p>
+                    <p class="description">Returns TRUE if this class is an constructor.</p>
+                </td>
+            </tr>
+                    <tr>
+                <td class="type w_200">public  boolean</td>
+                <td class="description">
+                    <p><a href="#isDestructor"><strong><span class="black">isDestructor</span></strong></a> ()</p>
+                    <p class="description">Returns TRUE if this class is an destructor.</p>
+                </td>
+            </tr>
+                    <tr>
+                <td class="type w_200">public  boolean</td>
+                <td class="description">
+                    <p><a href="#isFunction"><strong><span class="black">isFunction</span></strong></a> ()</p>
+                    <p class="description">Is this construct a function.</p>
+                </td>
+            </tr>
+                    <tr>
+                <td class="type w_200">public  boolean</td>
+                <td class="description">
+                    <p><a href="#isMethod"><strong><span class="black">isMethod</span></strong></a> ()</p>
+                    <p class="description">Constructs a method.</p>
+                </td>
+            </tr>
+                    <tr>
+                <td class="type w_200">public  string</td>
+                <td class="description">
+                    <p><a href="#returnType"><strong><span class="black">returnType</span></strong></a> ()</p>
+                    <p class="description">Formats a return type for outputting.</p>
+                </td>
+            </tr>
+            </table>
+            <table class="inherit">
+            <tr><th>Методы, унаследованные из phpapi \ elementDoc</th></tr>
+            <tr>
+                <td>
+                                    <span><a href="../phpapi/elementdoc.html#__construct">__construct, </a>&nbsp;</span>
+                                    <span><a href="../phpapi/elementdoc.html#arguments">arguments, </a>&nbsp;</span>
+                                    <span><a href="../phpapi/elementdoc.html#asPath">asPath, </a>&nbsp;</span>
+                                    <span><a href="../phpapi/elementdoc.html#containingClass">containingClass, </a>&nbsp;</span>
+                                    <span><a href="../phpapi/elementdoc.html#containingPackage">containingPackage, </a>&nbsp;</span>
+                                    <span><a href="../phpapi/elementdoc.html#fullNamespace">fullNamespace, </a>&nbsp;</span>
+                                    <span><a href="../phpapi/elementdoc.html#location">location, </a>&nbsp;</span>
+                                    <span><a href="../phpapi/elementdoc.html#modifiers">modifiers</a>&nbsp;</span>
+                                </td>
+            </tr>
+        </table>
+            <table class="inherit">
+            <tr><th>Методы, унаследованные из phpapi \ doc</th></tr>
+            <tr>
+                <td>
+                                    <span><a href="../phpapi/doc.html#__construct">__construct, </a>&nbsp;</span>
+                                    <span><a href="../phpapi/doc.html#isClass">isClass, </a>&nbsp;</span>
+                                    <span><a href="../phpapi/doc.html#isConstructor">isConstructor, </a>&nbsp;</span>
+                                    <span><a href="../phpapi/doc.html#isException">isException, </a>&nbsp;</span>
+                                    <span><a href="../phpapi/doc.html#isField">isField, </a>&nbsp;</span>
+                                    <span><a href="../phpapi/doc.html#isFunction">isFunction, </a>&nbsp;</span>
+                                    <span><a href="../phpapi/doc.html#isGlobal">isGlobal, </a>&nbsp;</span>
+                                    <span><a href="../phpapi/doc.html#isInterface">isInterface, </a>&nbsp;</span>
+                                    <span><a href="../phpapi/doc.html#isMethod">isMethod, </a>&nbsp;</span>
+                                    <span><a href="../phpapi/doc.html#isOrdinaryClass">isOrdinaryClass, </a>&nbsp;</span>
+                                    <span><a href="../phpapi/doc.html#isTrait">isTrait, </a>&nbsp;</span>
+                                    <span><a href="../phpapi/doc.html#mergeData">mergeData, </a>&nbsp;</span>
+                                    <span><a href="../phpapi/doc.html#set">set, </a>&nbsp;</span>
+                                    <span><a href="../phpapi/doc.html#setByRef">setByRef</a>&nbsp;</span>
+                                </td>
+            </tr>
+        </table>
+        <h2 id="details_fields">Поля: детали</h2>
+            <div class="location">classes/methodDoc.php at line 17</div>
+        <pre class="arguments" id="Undefined $abstract">public  boolean <strong><span class="green">$abstract</span></strong> = FALSE</pre>
+        <div class="details">Is this method abstract</div>
+        <hr />
+            <div class="location">classes/methodDoc.php at line 20</div>
+        <pre class="arguments" id="Undefined $includes">public  array <strong><span class="green">$includes</span></strong> = []</pre>
+        <div class="details">Required files or files to be included</div>
+        <hr />
+            <div class="location">classes/methodDoc.php at line 23</div>
+        <pre class="arguments" id="Undefined $returnType">public  <a href="../phpapi/type.html">type</a> <strong><span class="green">$returnType</span></strong></pre>
+        <div class="details">Type of returns variable</div>
+        <hr />
+        <h2 id="details_constructor">Конструктор: детали</h2>
+    <div class="location">classes/methodDoc.php at line 35</div>
+    <code class="arguments" id="__construct">public  void <strong>__construct</strong>(<span class="lilac">string</span> <span class="blue">$name</span>, <span class="lilac">classDoc|methodDoc</span> <span class="blue">&$parent</span>, <a href="../phpapi/rootdoc.html">rootDoc</a> <span class="blue">&$root</span>, <span class="lilac">string</span> <span class="blue">$filename</span>, <span class="lilac">integer</span> <span class="blue">$lineNumber</span>, <span class="lilac">string</span> <span class="blue">$sourcePath</span>)</code>
+    <div class="details">
+            <p class="description">Constructor.</p>
+        <div class="finfo">
+    <table class="hid">
+            <tr>
+            <td class="hid left w_100">Parameters</td>
+            <td class="hid right w_100 lilac">string</td>
+                            <td class="hid blue w_100">$name</td>
+                <td class="hid">Name of this element</td>
+                    </tr>
+            <tr>
+            <td class="hid left w_100">&nbsp</td>
+            <td class="hid right w_100 lilac">classDoc|methodDoc</td>
+                            <td class="hid blue w_100">&$parent</td>
+                <td class="hid">Reference to the parent of this element</td>
+                    </tr>
+            <tr>
+            <td class="hid left w_100">&nbsp</td>
+            <td class="hid right w_100 lilac"><a href="../phpapi/rootdoc.html">rootDoc</a></td>
+                            <td class="hid blue w_100">&$root</td>
+                <td class="hid">Reference to the root element</td>
+                    </tr>
+            <tr>
+            <td class="hid left w_100">&nbsp</td>
+            <td class="hid right w_100 lilac">string</td>
+                            <td class="hid blue w_100">$filename</td>
+                <td class="hid">Filename of the source file this element is in</td>
+                    </tr>
+            <tr>
+            <td class="hid left w_100">&nbsp</td>
+            <td class="hid right w_100 lilac">integer</td>
+                            <td class="hid blue w_100">$lineNumber</td>
+                <td class="hid">Line number of the source file this element is at</td>
+                    </tr>
+            <tr>
+            <td class="hid left w_100">&nbsp</td>
+            <td class="hid right w_100 lilac">string</td>
+                            <td class="hid blue w_100">$sourcePath</td>
+                <td class="hid">Source path containing the source file</td>
+                    </tr>
+        </table>
+</div>
+    </div>
+    <h2 id="details_methods">Методы: детали</h2>
+            <div class="location">classes/methodDoc.php at line 50</div>
+        <code class="arguments" id="isConstructor">public  boolean <strong>isConstructor</strong> ()</code>
+        <div class="details">
+                    <p class="description">Returns TRUE if this class is an constructor.</p>
+                    </div>
+        <hr />
+            <div class="location">classes/methodDoc.php at line 59</div>
+        <code class="arguments" id="isDestructor">public  boolean <strong>isDestructor</strong> ()</code>
+        <div class="details">
+                    <p class="description">Returns TRUE if this class is an destructor.</p>
+                    </div>
+        <hr />
+            <div class="location">classes/methodDoc.php at line 68</div>
+        <code class="arguments" id="isFunction">public  boolean <strong>isFunction</strong> ()</code>
+        <div class="details">
+                    <p class="description">Is this construct a function.</p>
+                    </div>
+        <hr />
+            <div class="location">classes/methodDoc.php at line 78</div>
+        <code class="arguments" id="isMethod">public  boolean <strong>isMethod</strong> ()</code>
+        <div class="details">
+                    <p class="description">Constructs a method.<br /> False until overridden.</p>
+                    </div>
+        <hr />
+            <div class="location">classes/methodDoc.php at line 88</div>
+        <code class="arguments" id="returnType">public  string <strong>returnType</strong> ()</code>
+        <div class="details">
+                    <p class="description">Formats a return type for outputting.<br /> Recognised types are turned into HTML anchor tags to the documentation page for the class defining them.</p>
+                    </div>
+        <hr />
+        <div class="header">
+    <span style="float:right">phpAPI ver. 5.0</span>
+            <ul>
+                    <li><a href="../overview-summary.html">Overview</a></li>
+                    <li><a href="../phpapi/package-summary.html">Namespace</a></li>
+                    <li class="active">Class</li>
+                    <li><a href="../phpapi/package-tree.html">phpapi\Tree</a></li>
+                    <li><a href="../deprecated.html">Deprecated</a></li>
+                    <li><a href="../todo.html">Todo</a></li>
+                    <li><a href="../index-all.html">Index</a></li>
+                </ul>
+    </div>
+<hr />
+<div class="small_links">Фреймы: <a href="../index.html" target="_top"> Включить</a> | <a href="" target="_top"> Выключить</a></div>
+<hr />
+    <div class="small_links">
+        Общий обзор: <a href="#summary_fields">Поля</a> | <a href="#summary_methods">Методы</a> | <a href="#summary_constructor">Конструктор</a>
+        Детали: <a href="#details_fields">Поля</a> | <a href="#details_methods">Методы</a> | <a href="#details_constructor">Конструктор</a>
+    </div>
+    </body>
+</html>
