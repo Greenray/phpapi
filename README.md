@@ -3,15 +3,14 @@
 phpapi: The PHP Documentation Creator.
 This is the fork of the Peej's Quick & Dirty PHPDoc Clone.
 
-#### VERSION/ВЕРСИЯ
+#### VERSION / ВЕРСИЯ
 
 5.0
 
 #### DESCRIPTION / ОПИСАНИЕ
 
 phpapi is a Javadoc style comment parser for PHP, written with an emphasis on speed and simplicity.
-It is designed to be as close a clone to Javadoc as possible.
-phpapi - это парсер комментариев в стиле Javadoc для PHP, написан с акцентом на скорость и простоту как можно ближе к клону Javadoc.
+phpapi - это парсер комментариев в стиле Javadoc для PHP, написан с акцентом на скорость и простоту.
 
 #### REQUIREMENTS / ТРЕБОВАНИЯ
 
@@ -19,8 +18,7 @@ PHP 5.4+ is required.
 
 #### ABOUT / О ПРОГРАММЕ
 
-phpapi uses the PHP tokenizer extension, this means that it lets PHP do the parsing of your source code.
-phpAPI just takes the tokens PHP parses out and turns them into API documentation.
+phpapi uses the PHP tokenizer extension, parses the tokens and translates them into API documentation.
 phpapi использует PHP-расширение tokenizer, анализирует токены PHP и транслирует их в документацию по API.
 
 #### FEATURES / ВОЗМОЖНОСТИ
@@ -32,17 +30,13 @@ phpapi использует PHP-расширение tokenizer, анализир
 - Documents global constants.
 - Original template system for output.
 
+
 - Высокая скорость.
 - Использует PHP tokenizer для облегчения внутреннего разбора функциональности.
 - Парсит любой корректный PHP-файл, с несколькими классами и функциями в одном файле.
 - Простой в установке и использовании, мгновенный результат.
 - Документирует глобальные константы.
 - Оригинальная система шаблонов для вывода.
-
-#### INSTALLATION / УСТАНОВКА
-
-Unzip the archive somewhere, edit the config file and then run phpapi.php.
-Распакуйте архив, отредактируйте конфигурационный файл и запустите phpapi.php.
 
 #### FILES / ФАЙЛЫ
 
@@ -58,6 +52,11 @@ Unzip the archive somewhere, edit the config file and then run phpapi.php.
     resources/            - Illustrations, javascript and so on
     templates/frames/     - Templates for output with frames
     templates/plain/      - Templates for output without frames
+
+#### INSTALLATION / УСТАНОВКА
+
+Unzip the archive somewhere, edit the config file and then run phpapi.php.
+Распакуйте архив, отредактируйте конфигурационный файл и запустите phpapi.php.
 
 #### USAGE / ИСПОЛЬЗОВАНИЕ
 
@@ -96,7 +95,7 @@ Doc comments for phpAPI are look like this:
 /** <br />
  \* This is the typical format of a simple documentation comment<br />
  \* in two lines.<br />
- \*<br />
+ \* <br />
  \* __@param__ string $var Description<br />
  \*/
 
