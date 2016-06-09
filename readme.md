@@ -41,15 +41,17 @@ phpapi использует PHP-расширение tokenizer, анализир
     phpapi.php            - main executable
     phpapi.ini            - Default config file
     README.md             - This file
-    classes/              - Classes used by phpapi
-    doclets/html/frames/  - HTML doclet for output with frames
-    doclets/html/plain/   - HTML doclet for output without frames
+    system/classes/       - Classes used by phpapi
+    system/frames/        - HTML doclet for output with frames
+    system/plain/         - HTML doclet for output without frames
+    system/markdown/      - Markdown parser
+    system/taglets/       - Doc Comment tags parsers
     docs/                 - some docs and licenses
-    formatters/           - Formatters
     locales/              - Translation files
     resources/            - Illustrations, javascript and so on
     templates/frames/     - Templates for output with frames
     templates/plain/      - Templates for output without frames
+    api/                  - Developer documentation
 
 #### INSTALLATION / УСТАНОВКА
 
