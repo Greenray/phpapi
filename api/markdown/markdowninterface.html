@@ -1,15 +1,15 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>API for class markdownInterface (phpAPI: PHP Documentation Creator ver. 5.0)</title>
+    <title>API for class markdownInterface (phpAPI: PHP Documentation Creator version 6.0)</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="generator" content="phpAPI 5.0 (https://github.com/Greenray/phpAPI/)">
+    <meta name="generator" content="phpAPI 6.0 (https://github.com/Greenray/phpAPI/)">
     <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="start" href="../index.html">
 </head>
     <body id="markdownInterface" onload="parent.document.title=document.title;">
     <div class="header">
-    <span style="float:right">phpAPI ver. 5.0</span>
+    <span style="float:right">phpAPI v6.0</span>
             <ul>
                     <li><a href="../overview-summary.html">Overview</a></li>
                     <li><a href="../markdown/package-summary.html">Namespace</a></li>
@@ -24,8 +24,7 @@
 <div class="small_links">Фреймы: <a href="../index.html" target="_top"> Включить</a> | <a href="" target="_top"> Выключить</a></div>
 <hr />
     <div class="small_links">
-        Общий обзор: <a href="#summary_fields">Поля</a> | <a href="#summary_methods">Методы</a> | <a href="#summary_constructor">Конструктор</a>
-        Детали: <a href="#details_fields">Поля</a> | <a href="#details_methods">Методы</a> | <a href="#details_constructor">Конструктор</a>
+        <a href="#details_fields">Поля</a> | <a href="#details_methods">Методы</a> | <a href="#details_constructor">Конструктор</a>
     </div>
     <hr />
 <div class="package">Пространство имен markdown</div>
@@ -36,59 +35,51 @@
 </div>
 <hr />
 <p class="arguments">public  interface <strong>markdownInterface</strong></p>
-<div class="comment" id="overview_description">Markdown Parser Interface</div>
-    <table id="summary_methods">
-        <tr><th colspan="2">Методы: общий обзор</th></tr>
-                    <tr>
-                <td class="type w_200">public static  void</td>
-                <td class="description">
-                    <p><a href="#defaultTransform"><strong><span class="black">defaultTransform</span></strong></a> (<span class="lilac">string</span> <span class="blue">$text</span>)</p>
-                    <p class="description">Initialize the parser and return the result of its transform method.</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">public  void</td>
-                <td class="description">
-                    <p><a href="#transform"><strong><span class="black">transform</span></strong></a> (<span class="lilac">string</span> <span class="blue">$text</span>)</p>
-                    <p class="description">Main function.</p>
-                </td>
-            </tr>
-            </table>
-    <h2 id="details_methods">Методы: детали</h2>
-            <div class="location">doclets/markdown/markdownInterface.php at line 28</div>
-        <code class="arguments" id="defaultTransform">public static  void <strong>defaultTransform</strong> (<span class="lilac">string</span> <span class="blue">$text</span>)</code>
-        <div class="details">
-                    <p class="description">Initialize the parser and return the result of its transform method.<br /> This will work fine for derived classes too.</p>
-            <div class="finfo">
+<div class="comment" id="overview_description">Markdown interface -  A text-to-HTML conversion tool for web writers.</div>
+<div class="finfo">
     <table class="hid">
             <tr>
-            <td class="hid left w_100">Parameters</td>
-            <td class="hid right w_100 lilac">string</td>
-                            <td class="hid blue w_100">$text</td>
-                <td class="hid">Text to transform</td>
+            <td class="hid left w_100">Program</td>
+            <td class="hid right w_100 lilac">&nbsp;</td>
+                            <td class="hid" colspan="2">Markdown: A text-to-HTML conversion tool</td>
+                    </tr>
+            <tr>
+            <td class="hid left w_100">Version</td>
+            <td class="hid right w_100 lilac">&nbsp;</td>
+                            <td class="hid" colspan="2">1.6.0</td>
+                    </tr>
+            <tr>
+            <td class="hid left w_100">Autor</td>
+            <td class="hid right w_100 lilac">&nbsp;</td>
+                            <td class="hid" colspan="2">Michel Fortin https://michelf.ca/projects/php-markdown/</td>
+                    </tr>
+            <tr>
+            <td class="hid left w_100">Copyright</td>
+            <td class="hid right w_100 lilac">&nbsp;</td>
+                            <td class="hid" colspan="2">Copyright (c) 2004-2015 Michel Fortin</td>
+                    </tr>
+            <tr>
+            <td class="hid left w_100">File</td>
+            <td class="hid right w_100 lilac">&nbsp;</td>
+                            <td class="hid" colspan="2">/system/markdown/markdownInterface.php</td>
                     </tr>
         </table>
 </div>
-        </div>
+    <h2 id="details_methods">Методы</h2>
+            <div class="location">system/markdown/markdownInterface.php at line 21</div>
+        <code class="arguments" id="defaultTransform">public static  void <strong>defaultTransform</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
+        <div class="details">
+                    <p class="description">No description</p>
+                    </div>
         <hr />
-            <div class="location">doclets/markdown/markdownInterface.php at line 36</div>
-        <code class="arguments" id="transform">public  void <strong>transform</strong> (<span class="lilac">string</span> <span class="blue">$text</span>)</code>
+            <div class="location">system/markdown/markdownInterface.php at line 26</div>
+        <code class="arguments" id="transform">public  void <strong>transform</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
         <div class="details">
-                    <p class="description">Main function.<br /> Performs some preprocessing on the input text and pass it through the document gamut.</p>
-            <div class="finfo">
-    <table class="hid">
-            <tr>
-            <td class="hid left w_100">Parameters</td>
-            <td class="hid right w_100 lilac">string</td>
-                            <td class="hid blue w_100">$text</td>
-                <td class="hid">Text to transform</td>
-                    </tr>
-        </table>
-</div>
-        </div>
+                    <p class="description">No description</p>
+                    </div>
         <hr />
         <div class="header">
-    <span style="float:right">phpAPI ver. 5.0</span>
+    <span style="float:right">phpAPI v6.0</span>
             <ul>
                     <li><a href="../overview-summary.html">Overview</a></li>
                     <li><a href="../markdown/package-summary.html">Namespace</a></li>
@@ -103,8 +94,7 @@
 <div class="small_links">Фреймы: <a href="../index.html" target="_top"> Включить</a> | <a href="" target="_top"> Выключить</a></div>
 <hr />
     <div class="small_links">
-        Общий обзор: <a href="#summary_fields">Поля</a> | <a href="#summary_methods">Методы</a> | <a href="#summary_constructor">Конструктор</a>
-        Детали: <a href="#details_fields">Поля</a> | <a href="#details_methods">Методы</a> | <a href="#details_constructor">Конструктор</a>
+        <a href="#details_fields">Поля</a> | <a href="#details_methods">Методы</a> | <a href="#details_constructor">Конструктор</a>
     </div>
     </body>
 </html>

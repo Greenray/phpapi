@@ -1,1175 +1,910 @@
 Searching for files to parse...
-Reading overview file "/var/www/html/idxCMS/README.md".
-File "/var/www/html/idxCMS/index.php"
-Found global constant idxCMS in package Core
-Found global constant DS in package Core
-Found global constant LF in package Core
-Found global constant ROOT in package Core
-Found global constant CONTENT in package Core
-Found global constant SKINS in package Core
-Found global constant SYS in package Core
-Found global constant TOOLS in package Core
-Found global constant MODULES in package Core
-Found global constant LOGS in package Core
-Found global constant TEMP in package Core
-Found global constant USERS in package Core
-Found global constant IMAGES in package Core
-Found global constant SMILES in package Core
-Found global constant CACHE_STORE in package Core
-Found global constant MODULE in package Core
-Found global constant SECTION in package Core
-Found global constant CATEGORY in package Core
-Found global constant ITEM in package Core
-Found global constant COMMENT in package Core
-Found global constant PAGE in package Core
-Found global constant IDX_VERSION in package Core
-Found global constant IDX_COPYRIGHT in package Core
-Found global constant IDX_POWERED in package Core
-Found function: idxErrorHandler
-		parameter: $num
-		parameter: $msg
-		parameter: $file
-		parameter: $line
-Found global constant ADMIN in package Core
-Found global constant ADMINLIBS in package Core
-Found global constant TEMPLATES in package Core
-Found global constant idxADMIN in package Core
-Found global constant TEMPLATES in package Core
-Found global constant CURRENT_MODULE in package Core
-File "/var/www/html/idxCMS/admin/libs/categories.php"
-File "/var/www/html/idxCMS/admin/libs/functions.php"
-Found global constant BACKUPS in package Administration
-Found function: FormatSize
-		parameter: $i
-Found function: GetDirSize
-		parameter: $dir
-Found function: InArrayRecursive
-		parameter: $needle
-		parameter: $haystack
-Found function: GetColor
-		parameter: $name
-		parameter: $def_color
-Found function: SaveSortedSections
-		parameter: $obj
-		parameter: $params
-Found function: ShowMessage
-		parameter: $message
-		parameter: $url
-Found function: ShowError
-		parameter: $message
-		parameter: $url
-File "/var/www/html/idxCMS/admin/libs/sections.php"
-File "/var/www/html/idxCMS/admin/modules/index.php"
-File "/var/www/html/idxCMS/admin/modules/aphorisms/aphorisms.php"
-File "/var/www/html/idxCMS/admin/modules/aphorisms/aphorisms.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/aphorisms/module.php"
-File "/var/www/html/idxCMS/admin/modules/banners/banners.php"
-File "/var/www/html/idxCMS/admin/modules/banners/banners.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/banners/module.php"
-File "/var/www/html/idxCMS/admin/modules/catalogs/config.php"
-File "/var/www/html/idxCMS/admin/modules/catalogs/config.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/catalogs/items.php"
-File "/var/www/html/idxCMS/admin/modules/catalogs/item.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/catalogs/link.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/catalogs/module.php"
-File "/var/www/html/idxCMS/admin/modules/forum/config.php"
-File "/var/www/html/idxCMS/admin/modules/forum/config.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/forum/items.php"
-File "/var/www/html/idxCMS/admin/modules/forum/module.php"
-File "/var/www/html/idxCMS/admin/modules/forum/topic.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/gallery/config.php"
-File "/var/www/html/idxCMS/admin/modules/gallery/config.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/gallery/image.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/gallery/items.php"
-File "/var/www/html/idxCMS/admin/modules/gallery/module.php"
-File "/var/www/html/idxCMS/admin/modules/_general/backup.php"
-File "/var/www/html/idxCMS/admin/modules/_general/backup.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/_general/config.php"
-File "/var/www/html/idxCMS/admin/modules/_general/config.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/_general/edit.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/_general/filemanager.php"
-Found function: ConvertRightsString
-		parameter: $mode
-Found function: GetRights
-		parameter: $file
-		parameter: $if
-Found function: SetRights
-		parameter: $file
-		parameter: $value
-		parameter: $recursive
-Found function: CheckSerialized
-		parameter: $file
-		parameter: &$content
-File "/var/www/html/idxCMS/admin/modules/_general/filemanager.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/_general/module.php"
-File "/var/www/html/idxCMS/admin/modules/_general/rights.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/guestbook/config.php"
-File "/var/www/html/idxCMS/admin/modules/guestbook/config.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/guestbook/module.php"
-File "/var/www/html/idxCMS/admin/modules/minichat/config.php"
-File "/var/www/html/idxCMS/admin/modules/minichat/config.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/minichat/module.php"
-File "/var/www/html/idxCMS/admin/modules/_modules/module.php"
-File "/var/www/html/idxCMS/admin/modules/_modules/modules.php"
-File "/var/www/html/idxCMS/admin/modules/_modules/modules.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/_modules/output.php"
-File "/var/www/html/idxCMS/admin/modules/_modules/output.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/polls/archive.php"
-File "/var/www/html/idxCMS/admin/modules/polls/archive.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/polls/module.php"
-File "/var/www/html/idxCMS/admin/modules/polls/polls.php"
-File "/var/www/html/idxCMS/admin/modules/polls/polls.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/posts/config.php"
-File "/var/www/html/idxCMS/admin/modules/posts/config.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/posts/items.php"
-File "/var/www/html/idxCMS/admin/modules/posts/module.php"
-File "/var/www/html/idxCMS/admin/modules/posts/post.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/rss/aggregator.php"
-File "/var/www/html/idxCMS/admin/modules/rss/module.php"
-File "/var/www/html/idxCMS/admin/modules/rss/rss-aggregator.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/_statistics/config.php"
-File "/var/www/html/idxCMS/admin/modules/_statistics/config.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/_statistics/logs.php"
-File "/var/www/html/idxCMS/admin/modules/_statistics/logs.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/_statistics/log.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/_statistics/module.php"
-File "/var/www/html/idxCMS/admin/modules/_statistics/searchwords.php"
-File "/var/www/html/idxCMS/admin/modules/_statistics/searchwords.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/_statistics/statistics.php"
-Found function: StatisticsClean
-		parameter: $file
-		parameter: $field
-File "/var/www/html/idxCMS/admin/modules/_statistics/statistics.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/tagcloud/config.php"
-Found function: GetKeywords
-		parameter: $words
-		parameter: $config
-		parameter: &$target
-Found function: CreateTags
-File "/var/www/html/idxCMS/admin/modules/tagcloud/config.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/tagcloud/module.php"
-File "/var/www/html/idxCMS/admin/modules/_user/bans.php"
-File "/var/www/html/idxCMS/admin/modules/_user/bans.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/_user/config.php"
-File "/var/www/html/idxCMS/admin/modules/_user/config.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/_user/feedback.php"
-File "/var/www/html/idxCMS/admin/modules/_user/feedback.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/_user/list.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/_user/message.php"
-File "/var/www/html/idxCMS/admin/modules/_user/message.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/_user/module.php"
-File "/var/www/html/idxCMS/admin/modules/_user/profile.php"
-File "/var/www/html/idxCMS/admin/modules/_user/profile.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/_user/rights.tpl.php"
-File "/var/www/html/idxCMS/admin/modules/_user/search.tpl.php"
-File "/var/www/html/idxCMS/admin/skins/Default/default.tpl.php"
-File "/var/www/html/idxCMS/skins/css.php"
-File "/var/www/html/idxCMS/skins/Default/main.tpl.php"
-File "/var/www/html/idxCMS/skins/Default/skin.php"
-File "/var/www/html/idxCMS/skins/Moonlight/main.tpl.php"
-File "/var/www/html/idxCMS/skins/Moonlight/skin.php"
-File "/var/www/html/idxCMS/system/calendar.class.php"
-Found class: CALENDAR
-	field: $today is a member variable of class CALENDAR
-	field: $events is a member variable of class CALENDAR
-	field: $temp is a member variable of class CALENDAR
-	method : __construct
-		parameter: $month
-		parameter: $year
-		parameter: $datetime
-	method : create
-		parameter: $current_year
-		parameter: $selected_year
-		parameter: $selected_month
-	method : event
-		parameter: $day
-		parameter: $link
-	method : highlight
-		parameter: $day
-		parameter: $style
-	method : localiseDate
-		parameter: $string
-File "/var/www/html/idxCMS/system/catalogs.class.php"
-Found class: CATALOGS
-	method : __construct
-	method : uploadFile
-		parameter: $id
-		parameter: $file
-File "/var/www/html/idxCMS/system/categories.class.php"
-Found class: CATEGORIES
-	method : __construct
-	method : getCategories
-		parameter: $section
-	method : getCategory
-		parameter: $id
-	method : saveCategories
-		parameter: $section
-		parameter: $categories
-	method : saveCategory
-	method : moveCategory
-		parameter: $id
-		parameter: $source
-		parameter: $dest
-	method : removeCategory
-		parameter: $id
-	method : setIcon
-		parameter: $path
-		parameter: $icon
-File "/var/www/html/idxCMS/system/cms.class.php"
-Found class: CMS
-	field: $obj is a member variable of class CMS
-	method : __construct
-	method : __clone
-	method : register
-		parameter: $class
-	method : call
-		parameter: $class
-	method : remove
-		parameter: $class
-File "/var/www/html/idxCMS/system/comments.class.php"
-Found class: COMMENTS
-	method : __construct
-	method : getComments
-		parameter: $item
-	method : getComment
-		parameter: $id
-		parameter: $page
-	method : getLastComment
-	method : showComments
-		parameter: $item
-		parameter: $page
-		parameter: $perpage
-		parameter: $path
-	method : showCommentForm
-		parameter: $action
-		parameter: $for
-	method : newComment
-		parameter: $item
-		parameter: $text
-	method : saveComment
-		parameter: $id
-		parameter: $item
-	method : removeComment
-		parameter: $id
-File "/var/www/html/idxCMS/system/config.class.php"
-Found class: CONFIG
-	field: $ini is a member variable of class CONFIG
-	field: $config is a member variable of class CONFIG
-	method : __construct
-	method : getSection
-		parameter: $section
-	method : getValue
-		parameter: $section
-		parameter: $param
-	method : setSection
-		parameter: $section
-		parameter: $values
-	method : setValue
-		parameter: $section
-		parameter: $param
-		parameter: $value
-	method : unsetSection
-		parameter: $section
-	method : save
-File "/var/www/html/idxCMS/system/content.class.php"
-Found class: CONTENT
-	method : __construct
-	method : setValue
-		parameter: $id
-		parameter: $field
-		parameter: $value
-	method : getContent
-		parameter: $category
-	method : saveContent
-		parameter: $content
-	method : incCount
-		parameter: $id
-		parameter: $field
-	method : getStat
-		parameter: $param
-	method : cutText
-		parameter: $text
-		parameter: $length
-	method : copyTree
-		parameter: $source
-		parameter: $dest
-File "/var/www/html/idxCMS/system/dbase.class.php"
-Found class: DBASE
-	field: $category is a member variable of class DBASE
-	field: $comments is a member variable of class DBASE
-	field: $container is a member variable of class DBASE
-	field: $content is a member variable of class DBASE
-	field: $desc is a member variable of class DBASE
-	field: $index is a member variable of class DBASE
-	field: $item is a member variable of class DBASE
-	field: $module is a member variable of class DBASE
-	field: $section is a member variable of class DBASE
-	field: $sections is a member variable of class DBASE
-	field: $text is a member variable of class DBASE
-	method : __construct
-	method : setIndex
-		parameter: $name
-	method : getIndex
-		parameter: $path
-	method : saveIndex
-		parameter: $path
-		parameter: $array
-	method : newId
-		parameter: $array
-File "/var/www/html/idxCMS/system/filter.class.php"
-Found class: FILTER
-	field: $REQUEST is a member variable of class FILTER
-	field: $COOKIE is a member variable of class FILTER
-	field: $types is a member variable of class FILTER
-	method : __construct
-	method : __clone
-	method : cleanValue
-		parameter: $value
-	method : clear
-		parameter: $vars
-	method : sanitate
-	method : getAll
-		parameter: $type
-	method : get
-		parameter: $type
-		parameter: $param
-	method : remove
-		parameter: $type
-		parameter: $param
-	method : validEmail
-		parameter: $email
-	method : ban
-	method : ids
-File "/var/www/html/idxCMS/system/forum.class.php"
-Found class: FORUM
-	method : __construct
-	method : getItem
-		parameter: $id
-		parameter: $type
-		parameter: $parse
-	method : saveTopic
-		parameter: $id
-File "/var/www/html/idxCMS/system/functions.php"
-Found function: AdvScanDir
-		parameter: $directory
-		parameter: $mask
-		parameter: $type
-		parameter: $filter
-		parameter: $except
-Found function: DeleteTree
-		parameter: $object
-		parameter: $recursive
-Found function: GetFilesList
-		parameter: $directory
-		parameter: $except
-Found function: GetUnserialized
-		parameter: $file
-Found function: gzfile_get_contents
-		parameter: $file
-Found function: gzfile_put_contents
-		parameter: $file
-		parameter: $text
-		parameter: $mode
+Reading overview file ./readme.md
+File ./phpapi.php
+Found global constant DS in package phpapi
+Found global constant LF in package phpapi
+Found global constant ROOT in package phpapi
+Found global constant SYSTEM in package phpapi
+Found global constant CLASSES in package phpapi
+Found global constant LOCALES in package phpapi
+Found global constant RESOURCES in package phpapi
+Found global constant TAGLETS in package phpapi
+Found global constant TEMPLATES in package phpapi
+Found global constant MARKDOWN in package phpapi
+Found global constant STDERR in package phpapi
+Found global constant VERSION in package phpapi
+Found global constant COPYRIGHT in package phpapi
+Found global constant GENERATOR in package phpapi
 Found function: __
 		parameter: $string
-Found function: OnlyLatin
-		parameter: $string
-Found function: RandomString
-		parameter: $num_chars
-Found function: UnifyBr
+File ./system/classWriter.php
+Found class: classWriter
+	method : __construct
+		parameter: &$doclet
+		parameter: $index
+	method : buildTree
+		parameter: &$class
+		parameter: $depth
+	method : inherits
+		parameter: &$element
+		parameter: &$package
+		parameter: $type
+		parameter: &$output
+		parameter: $i
+File ./system/deprecatedWriter.php
+Found class: deprecatedWriter
+	method : __construct
+		parameter: &$doclet
+		parameter: $index
+File ./system/functionWriter.php
+Found class: functionWriter
+	method : __construct
+		parameter: &$doclet
+		parameter: $index
+File ./system/globalWriter.php
+Found class: globalWriter
+	method : __construct
+		parameter: &$doclet
+		parameter: $index
+File ./system/htmlFormatter.php
+Found class: htmlFormatter
+	method : toPlainText
 		parameter: $text
-Found function: FormatTime
-		parameter: $format
-		parameter: $date
-Found function: SendMail
-		parameter: $to
-		parameter: $from
-		parameter: $sender
-		parameter: $subj
-		parameter: $text
-Found function: AdvancedPagination
-		parameter: $total
-		parameter: $current
-		parameter: $last
-Found function: Pagination
-		parameter: $total
-		parameter: $perpage
-		parameter: $current
-		parameter: $link
-Found function: GetPagination
-		parameter: $page
-		parameter: $perpage
-		parameter: $count
-Found function: SelectTimeZone
-		parameter: $name
-		parameter: $points
-		parameter: $default
-Found function: ShowCaptcha
-		parameter: $param
-Found function: CheckCaptcha
-Found function: Redirect
-		parameter: $module
-		parameter: $section
-		parameter: $category
-		parameter: $post
-		parameter: $comment
-		parameter: $page
-Found function: CreateUrl
-		parameter: $module
-		parameter: $section
-		parameter: $category
-		parameter: $item
-		parameter: $comment
-		parameter: $page
-Found function: Sitemap
-File "/var/www/html/idxCMS/system/gallery.class.php"
-Found class: GALLERY
-	method : __construct
-	method : getComment
-		parameter: $id
-		parameter: $page
-	method : getImage
-		parameter: $id
-		parameter: $type
-		parameter: $parse
-	method : getRandomImage
-		parameter: $id
-	method : saveImage
-		parameter: $id
-	method : uploadImage
-		parameter: $id
-		parameter: $image
-File "/var/www/html/idxCMS/system/highlighter.class.php"
-Found class: HIGHLIGHTER
-	field: $_attr is a member variable of class HIGHLIGHTER
-	field: $_comment is a member variable of class HIGHLIGHTER
-	field: $_current is a member variable of class HIGHLIGHTER
-	field: $_output is a member variable of class HIGHLIGHTER
-	field: $_php is a member variable of class HIGHLIGHTER
-	field: $_tag is a member variable of class HIGHLIGHTER
-	field: $_text is a member variable of class HIGHLIGHTER
-	field: $_value is a member variable of class HIGHLIGHTER
-	method : __construct
-		parameter: $code
-	method : highlightComment
-	method : highlightPhp
-	method : highlightTag
-	method : highlight
-File "/var/www/html/idxCMS/system/image.class.php"
-Found class: IMAGE
-	field: $allowed_types is a member variable of class IMAGE
-	field: $image_height is a member variable of class IMAGE
-	field: $image_name is a member variable of class IMAGE
-	field: $image_size is a member variable of class IMAGE
-	field: $image_tmp is a member variable of class IMAGE
-	field: $image_type is a member variable of class IMAGE
-	field: $image_width is a member variable of class IMAGE
-	field: $max_size is a member variable of class IMAGE
-	field: $thumb_height is a member variable of class IMAGE
-	field: $thumb_width is a member variable of class IMAGE
-	field: $upload_dir is a member variable of class IMAGE
-	method : __construct
-		parameter: $upload_dir
-		parameter: $max_size
-		parameter: $thumb_width
-		parameter: $thumb_height
-	method : calcResizeParams
-	method : generateIcon
-		parameter: $name
-	method : generateThumbnail
-		parameter: $file
-	method : setImage
-		parameter: $image
-		parameter: $info
-	method : upload
-		parameter: $image
-File "/var/www/html/idxCMS/system/items.class.php"
-Found class: ITEMS
-	method : __construct
-	method : getItem
-		parameter: $id
-		parameter: $type
-		parameter: $parse
-	method : saveItem
-		parameter: $id
-	method : moveItem
-		parameter: $id
-		parameter: $section
-		parameter: $category
-	method : removeItem
-		parameter: $id
-	method : getSectionsLastItems
-		parameter: $sections
-	method : getCategoryLastItems
-		parameter: $format
-	method : getLastItems
-		parameter: $items
-File "/var/www/html/idxCMS/system/log.class.php"
-Found class: LOG
-	method : __construct
-	method : logError
-		parameter: $message
-		parameter: $info
-	method : logPut
-		parameter: $type
-		parameter: $user
-		parameter: $message
-	method : logMerge
-		parameter: $title
-		parameter: $day
-		parameter: $month
-		parameter: $year
-		parameter: $first_month
-		parameter: $first_year
-	method : logMergeByMonth
-File "/var/www/html/idxCMS/system/message.class.php"
-Found class: MESSAGE
-	field: $config is a member variable of class MESSAGE
-	field: $messages is a member variable of class MESSAGE
-	field: $path is a member variable of class MESSAGE
-	method : __construct
+File ./system/htmlWriter.php
+Found class: htmlWriter
+	field: $depth is a member variable of class htmlWriter
+	field: $doclet is a member variable of class htmlWriter
+	field: $id is a member variable of class htmlWriter
+	field: $items is a member variable of class htmlWriter
+	field: $output is a member variable of class htmlWriter
+	field: $regexp is a member variable of class htmlWriter
+	field: $sections is a member variable of class htmlWriter
+	method : htmlWriter
+		parameter: &$doclet
+	method : nav
 		parameter: $path
 		parameter: $file
-	method : checkNewMessages
-	method : checkText
-		parameter: $text
-	method : getMessages
-		parameter: $from
-	method : removeMessage
-		parameter: $id
-		parameter: $from
-	method : saveMessage
-		parameter: $id
-		parameter: $text
-	method : sendFeedback
-		parameter: $text
-		parameter: $email
-	method : sendMessage
-		parameter: $text
-	method : sendPrivateMessage
-		parameter: $for
-		parameter: $text
-	method : setAllNoNew
-File "/var/www/html/idxCMS/system/parser.class.php"
-Found class: PARSER
-	field: $text is a member variable of class PARSER
-	field: $temp is a member variable of class PARSER
-	field: $regexp is a member variable of class PARSER
-	method : __construct
-	method : showBbcodesPanel
-		parameter: $textarea
-		parameter: $moderator
-		parameter: $dir
-	method : parseSmiles
-	method : parseCode
-	method : parsePhp
-	method : parseHtml
-	method : parseQuote
-	method : parseSpoiler
-		parameter: $matches
-	method : parseImage
-		parameter: $path
-	method : parseMP3
-	method : parseYouTube
-	method : parse
-		parameter: $text
-		parameter: $path
-	method : parseText
-		parameter: $text
-		parameter: $path
-File "/var/www/html/idxCMS/system/polls.class.php"
-Found class: POLLS
-	field: $active is a member variable of class POLLS
-	field: $old is a member variable of class POLLS
-	field: $_cookie is a member variable of class POLLS
-	method : __construct
-	method : getActivePolls
-	method : getArchivedPolls
-	method : getPolls
-		parameter: $polls
-	method : startPoll
-		parameter: $question
-		parameter: $answers
-	method : stopPoll
-		parameter: $id
-	method : removePoll
-		parameter: $id
-	method : removePollFromArchive
-		parameter: $id
-	method : voteInPoll
-		parameter: $poll
-		parameter: $answer
-	method : isVotedInPoll
-		parameter: $poll
-	method : showPolls
-		parameter: $polls
-	method : savePolls
-		parameter: $active
-		parameter: $old
-File "/var/www/html/idxCMS/system/posts.class.php"
-Found class: POSTS
-	method : __construct
-File "/var/www/html/idxCMS/system/rss_aggregator.class.php"
-Found class: RSS_AGGREGATOR
-	field: $date_format is a member variable of class RSS_AGGREGATOR
-	field: $default_cp is a member variable of class RSS_AGGREGATOR
-	field: $channeltags is a member variable of class RSS_AGGREGATOR
-	field: $CDATA is a member variable of class RSS_AGGREGATOR
-	field: $cp is a member variable of class RSS_AGGREGATOR
-	field: $imagetags is a member variable of class RSS_AGGREGATOR
-	field: $items_limit is a member variable of class RSS_AGGREGATOR
-	field: $itemtags is a member variable of class RSS_AGGREGATOR
-	field: $stripHTML is a member variable of class RSS_AGGREGATOR
-	field: $textinputtags is a member variable of class RSS_AGGREGATOR
-	method : get
-		parameter: $rss_url
-	method : myPregMatch
-		parameter: $pattern
-		parameter: $subject
-	method : UnHtmlEntities
-		parameter: $string
-	method : parse
-		parameter: $rss_url
-File "/var/www/html/idxCMS/system/rss_feeds.class.php"
-Found class: RSS_FEEDS
-	field: $title is a member variable of class RSS_FEEDS
-	field: $url is a member variable of class RSS_FEEDS
-	field: $description is a member variable of class RSS_FEEDS
-	field: $language is a member variable of class RSS_FEEDS
-	field: $copyright is a member variable of class RSS_FEEDS
-	field: $generator is a member variable of class RSS_FEEDS
-	field: $items is a member variable of class RSS_FEEDS
-	method : __construct
-		parameter: $title
-		parameter: $description
-	method : addItem
-		parameter: $item
-	method : addFeed
-	method : showFeed
-	method : getFeed
-		parameter: $feed
-File "/var/www/html/idxCMS/system/sections.class.php"
-Found class: SECTIONS
-	method : __construct
-	method : getSections
-	method : getSection
-		parameter: $id
-	method : showSections
-	method : showSection
-		parameter: $section
-	method : saveSections
-		parameter: $sections
-	method : saveSection
-	method : removeSection
-		parameter: $id
-File "/var/www/html/idxCMS/system/statistics.class.php"
-Found class: STATISTICS
-	field: $bots is a member variable of class STATISTICS
-	field: $search_queries is a member variable of class STATISTICS
-	field: $spiders is a member variable of class STATISTICS
-	method : __construct
-	method : detect
-		parameter: $agent
+	method : packageItems
+		parameter: &$phpapi
+		parameter: &$package
+	method : processInlineTags
+		parameter: &$tag
+		parameter: $first
+	method : parameters
+		parameter: &$tags
+		parameter: $obj
+	method : showObject
 		parameter: $object
-	method : extractKeyword
-		parameter: $url
-File "/var/www/html/idxCMS/system/system.class.php"
-Found class: SYSTEM
-	field: $current_point is a member variable of class SYSTEM
-	field: $feeds is a member variable of class SYSTEM
-	field: $language is a member variable of class SYSTEM
-	field: $languages is a member variable of class SYSTEM
-	field: $locale is a member variable of class SYSTEM
-	field: $menu is a member variable of class SYSTEM
-	field: $meta is a member variable of class SYSTEM
-	field: $modules is a member variable of class SYSTEM
-	field: $output is a member variable of class SYSTEM
-	field: $pagename is a member variable of class SYSTEM
-	field: $search is a member variable of class SYSTEM
-	field: $sitemap is a member variable of class SYSTEM
-	field: $skin is a member variable of class SYSTEM
-	field: $skins is a member variable of class SYSTEM
-	field: $url is a member variable of class SYSTEM
+	method : write
+		parameter: $file
+		parameter: $title
+		parameter: $menu
+File ./system/indexWriter.php
+Found class: indexWriter
 	method : __construct
-Found global constant CURRENT_SKIN in package Core
-	method : createMainMenu
-	method : getMainMenu
-	method : get
-		parameter: $param
-	method : initModules
-		parameter: $ignore_disabled
-	method : registerFeed
-		parameter: $section
-		parameter: $title
-		parameter: $desc
-		parameter: $module
-	method : registerMainMenu
-		parameter: $module
-	method : registerModule
-		parameter: $module
-		parameter: $title
-		parameter: $type
-		parameter: $system
-	method : registerSearch
-		parameter: $module
-	method : registerSiteMap
-		parameter: $module
-	method : registerSkin
+		parameter: &$doclet
+		parameter: $index
+	method : compareElements
+		parameter: $element1
+		parameter: $element2
+File ./system/overviewSummaryWriter.php
+Found class: overviewSummaryWriter
+	method : __construct
+		parameter: &$doclet
+		parameter: $page
+File ./system/packageWriter.php
+Found class: packageWriter
+	method : __construct
+		parameter: &$doclet
+		parameter: $index
+	method : tree
+		parameter: $package
+		parameter: $dest
 		parameter: $name
-		parameter: $skin
+	method : displayTree
+		parameter: $elements
+		parameter: &$tree
+		parameter: $parent
+File ./system/todoWriter.php
+Found class: todoWriter
+	method : __construct
+		parameter: &$doclet
+		parameter: $index
+File ./system/classes/classDoc.php
+Found class: classDoc
+	field: $abstract is a member variable of class classDoc
+	field: $constants is a member variable of class classDoc
+	field: $fields is a member variable of class classDoc
+	field: $includes is a member variable of class classDoc
+	field: $interface is a member variable of class classDoc
+	field: $interfaces is a member variable of class classDoc
+	field: $methods is a member variable of class classDoc
+	field: $superclass is a member variable of class classDoc
+	field: $trait is a member variable of class classDoc
+	field: $traits is a member variable of class classDoc
+	method : __construct
+		parameter: $name
+		parameter: &$root
+		parameter: $filename
+		parameter: $lineNumber
+		parameter: $sourcePath
+	method : constructor
+	method : destructor
+	method : isClass
+	method : isException
+	method : isInterface
+	method : isOrdinaryClass
+	method : mergeSuperClassData
+		parameter: $superClassName
+	method : methods
+		parameter: $regularOnly
+	method : subclasses
+File ./system/classes/doc.php
+Found class: doc
+	field: $data is a member variable of class doc
+	field: $desc is a member variable of class doc
+	field: $docComment is a member variable of class doc
+	field: $inBody is a member variable of class doc
+	field: $name is a member variable of class doc
+	field: $overview is a member variable of class doc
+	field: $root is a member variable of class doc
+	field: $tags is a member variable of class doc
+	method : __construct
 	method : set
-		parameter: $param
+		parameter: $member
 		parameter: $value
-	method : setCurrentPoint
-		parameter: $point
-	method : setPageKeywords
-		parameter: $keywords
-	method : setPageDescription
-		parameter: $desc
-	method : defineWindow
-		parameter: $title
-		parameter: $content
-	method : showWindow
-		parameter: $title
-		parameter: $content
-		parameter: $template
-	method : showMessage
-		parameter: $message
-		parameter: $url
-	method : showError
-		parameter: $message
-		parameter: $url
-File "/var/www/html/idxCMS/system/template.class.php"
-Found class: TEMPLATE
-	field: $code is a member variable of class TEMPLATE
-	field: $errors is a member variable of class TEMPLATE
-	field: $file is a member variable of class TEMPLATE
-	field: $line is a member variable of class TEMPLATE
-	field: $modifiers is a member variable of class TEMPLATE
-	field: $options is a member variable of class TEMPLATE
-	field: $sphp_code is a member variable of class TEMPLATE
-	field: $vars is a member variable of class TEMPLATE
-	field: $warnings is a member variable of class TEMPLATE
+	method : setByRef
+		parameter: $member
+		parameter: &$value
+	method : isClass
+	method : isConstructor
+	method : isException
+	method : isField
+	method : isFunction
+	method : isInterface
+	method : isGlobal
+	method : isMethod
+	method : isOrdinaryClass
+	method : isTrait
+	method : mergeData
+File ./system/classes/elementDoc.php
+Found class: elementDoc
+	field: $access is a member variable of class elementDoc
+	field: $filename is a member variable of class elementDoc
+	field: $final is a member variable of class elementDoc
+	field: $includes is a member variable of class elementDoc
+	field: $lineNumber is a member variable of class elementDoc
+	field: $package is a member variable of class elementDoc
+	field: $parameters is a member variable of class elementDoc
+	field: $parent is a member variable of class elementDoc
+	field: $sourcePath is a member variable of class elementDoc
+	field: $static is a member variable of class elementDoc
+	field: $throws is a member variable of class elementDoc
 	method : __construct
-		parameter: $template
-		parameter: $options
+	method : arguments
+	method : path
+	method : containingClass
+	method : containingPackage
+	method : fullNamespace
+	method : location
+	method : modifiers
+File ./system/classes/fieldDoc.php
+Found class: fieldDoc
+	field: $type is a member variable of class fieldDoc
+	field: $value is a member variable of class fieldDoc
+	method : __construct
+		parameter: $name
+		parameter: &$parent
+		parameter: &$root
+		parameter: $filename
+		parameter: $lineNumber
+		parameter: $sourcePath
+	method : isField
+	method : isGlobal
+	method : type
+File ./system/classes/methodDoc.php
+Found class: methodDoc
+	field: $abstract is a member variable of class methodDoc
+	field: $includes is a member variable of class methodDoc
+	field: $returnType is a member variable of class methodDoc
+	method : __construct
+		parameter: $name
+		parameter: &$parent
+		parameter: &$root
+		parameter: $filename
+		parameter: $lineNumber
+		parameter: $sourcePath
+	method : isConstructor
+	method : isDestructor
+	method : isFunction
+	method : isMethod
+	method : returnType
+File ./system/classes/packageDoc.php
+Found class: packageDoc
+	field: $classes is a member variable of class packageDoc
+	field: $globals is a member variable of class packageDoc
+	field: $includes is a member variable of class packageDoc
+	field: $functions is a member variable of class packageDoc
+	method : __construct
+		parameter: $name
+		parameter: &$root
+		parameter: $overview
+	method : addClass
+		parameter: &$class
+	method : addGlobal
+		parameter: &$global
+	method : path
+	method : depth
+	method : exceptions
+	method : findClass
+		parameter: $className
+	method : interfaces
+	method : ordinaryClasses
+	method : traits
+File ./system/classes/phpAPI.php
+Found class: phpapi
+	field: $doclet is a member variable of class phpapi
+	field: $files is a member variable of class phpapi
+	field: $options is a member variable of class phpapi
+	field: $path is a member variable of class phpapi
+	field: $sourceIndex is a member variable of class phpapi
+	field: $source is a member variable of class phpapi
+	field: $startTime is a member variable of class phpapi
+	method : __construct
+		parameter: $config
+	method : createTag
+		parameter: $name
+		parameter: $text
+		parameter: &$data
+		parameter: &$root
+	method : execute
+		parameter: &$rootDoc
+	method : getElementName
+		parameter: &$tokens
+		parameter: $key
+	method : getTime
+	method : getFiles
+		parameter: $files
+		parameter: $dir
+	method : getType
+		parameter: $var
+	method : fixPath
+		parameter: $path
+	method : hasPrivateName
+		parameter: $name
+	method : mergeSuperClassData
+		parameter: &$rootDoc
+		parameter: $parent
+	method : next
+		parameter: &$tokens
+		parameter: $key
+		parameter: $whatToGet
+		parameter: $maxDist
+	method : parse
+	method : parseDocComment
+		parameter: $comment
+		parameter: &$root
+	method : previous
+		parameter: &$tokens
+		parameter: $key
+		parameter: $whatToGet
+	method : sourcePath
+	method : verbose
+		parameter: $msg
+	method : error
+		parameter: $msg
+	method : warning
+		parameter: $msg
+File ./system/classes/rootDoc.php
+Found class: rootDoc
+	field: $packages is a member variable of class rootDoc
+	field: $phpapi is a member variable of class rootDoc
+	method : __construct
+		parameter: &$phpapi
+	method : classNamed
+		parameter: $name
+	method : classes
+	method : functions
+	method : globals
+	method : packageNamed
+		parameter: $name
+		parameter: $create
+		parameter: $overview
+File ./system/classes/template.php
+Found class: template
+	field: $code is a member variable of class template
+	field: $file is a member variable of class template
+	field: $line is a member variable of class template
+	field: $statements is a member variable of class template
+	field: $temp is a member variable of class template
+	field: $translations is a member variable of class template
+	field: $vars is a member variable of class template
+	method : __construct
 	method : getTemplate
+		parameter: &$phpapi
 		parameter: $template
 	method : set
-		parameter: $name
+		parameter: $var
 		parameter: $value
 	method : parse
-	method : start
+		parameter: &$phpapi
+		parameter: $template
 	method : parseLine
 		parameter: $code
-	method : htmlCommentsInKey
+	method : 
+	method : createVar
 		parameter: $code
-		parameter: &$htmlc
-	method : toPhpCode
-		parameter: $code
-		parameter: $modifiers
-	method : toPhpVar
-		parameter: $prefix
-		parameter: $name
-		parameter: $function_name
-	method : _empty
+	method : 
 	method : _foreach
-		parameter: $name
-		parameter: $code
+		parameter: $param
 	method : _if
 		parameter: $code
 		parameter: $elseif
-	method : _include
-		parameter: $code
-	method : _isset
 	method : _switch
-		parameter: $code_switch
-		parameter: $code_case
+		parameter: $param
 	method : _case
-		parameter: $code
-	method : checkIllegalCharacters
-		parameter: $code
-	method : checkPhpCode
-		parameter: $code
-	method : executeModifier
-		parameter: $modifier
-		parameter: $expr1
-	method : includeFile
-		parameter: $file
+		parameter: $param
 	method : translate
-		parameter: $matches
+		parameter: $match
 	method : value
-		parameter: $matches
-	method : showElement
-		parameter: $element
-		parameter: $parameters
-	method : show
-		parameter: $matches
-	method : storeString
-		parameter: &$strings
-		parameter: $quot
-		parameter: $string
-	method : _error
-		parameter: $errno
-		parameter: $err_msg
-		parameter: $err_file
-		parameter: $err_line
-	method : executeErrorFunction
-		parameter: $errno
-		parameter: $err_msg
-		parameter: $err_file
-		parameter: $err_line
-	method : templateErrorHandler
-		parameter: $errno
-		parameter: $err_msg
-		parameter: $err_file
-		parameter: $err_line
-	method : getEvalError
-		parameter: &$err_msg
-		parameter: &$err_line
-	method : getFromCache
-		parameter: $file
-		parameter: &$code
-	method : getDataFromCache
-		parameter: $data_name
-		parameter: &$data
-	method : toCache
-		parameter: $file
-		parameter: $code
-	method : storeInCache
-		parameter: $data_name
+		parameter: $match
+	method : compact
 		parameter: $data
-		parameter: $expired
-File "/var/www/html/idxCMS/system/uploader.class.php"
-Found class: UPLOADER
-	field: $allowed_types is a member variable of class UPLOADER
-	field: $file_tmp is a member variable of class UPLOADER
-	field: $file_size is a member variable of class UPLOADER
-	field: $file_type is a member variable of class UPLOADER
-	field: $max_size is a member variable of class UPLOADER
-	field: $upload_dir is a member variable of class UPLOADER
+	method : randomString
+		parameter: $num_chars
+File ./system/classes/type.php
+Found class: type
+	field: $root is a member variable of class type
+	field: $typeName is a member variable of class type
 	method : __construct
-		parameter: $upload_dir
-	method : upload
-		parameter: $file
-File "/var/www/html/idxCMS/system/user.class.php"
-Found class: USER
-	field: $cookie_nick is a member variable of class USER
-	field: $cookie_user is a member variable of class USER
-	field: $disallowed_names is a member variable of class USER
-	field: $logged_in is a member variable of class USER
-	field: $system_rights is a member variable of class USER
-	field: $root is a member variable of class USER
-	field: $user is a member variable of class USER
-	field: $user_fields is a member variable of class USER
-	method : __construct
-	method : initUser
-	method : checkAccess
-		parameter: $object
-	method : checkPassword
-		parameter: $password
-		parameter: $confirm
-	method : checkRight
-		parameter: $right
-		parameter: $user
-		parameter: $userdata
-	method : checkUser
-		parameter: $username
-		parameter: $password
-		parameter: $hash
-		parameter: &$user
-	method : checkUserName
 		parameter: $name
-		parameter: $type
-	method : changeProfileField
-		parameter: $user
-		parameter: $field
-		parameter: $value
-	method : clearCookie
-	method : getUser
-		parameter: $field
-	method : getUserData
-		parameter: $name
-	method : getUserRights
-		parameter: $user
 		parameter: &$root
-		parameter: &$userdata
-	method : getUsersList
-		parameter: $mask
-	method : loginSuccess
-		parameter: $user
-	method : logInUser
-	method : logOutUser
-	method : moderator
-		parameter: $module
-		parameter: $item
-	method : registerUser
-	method : setSystemRights
-		parameter: $rights
-	method : saveUserData
-		parameter: $user
-		parameter: $userdata
-	method : updateUser
-		parameter: $username
-		parameter: $nickname
-		parameter: $userdata
-File "/var/www/html/idxCMS/system/modules/aphorisms/aphorisms.php"
-File "/var/www/html/idxCMS/system/modules/aphorisms/aphorisms.tpl.php"
-File "/var/www/html/idxCMS/system/modules/aphorisms/module.php"
-Found global constant APHORISMS in package No Package
-File "/var/www/html/idxCMS/system/modules/banners/banners.php"
-File "/var/www/html/idxCMS/system/modules/banners/banners.tpl.php"
-File "/var/www/html/idxCMS/system/modules/banners/module.php"
-Found global constant BANNERS in package No Package
-File "/var/www/html/idxCMS/system/modules/catalogs/catalogs.php"
-File "/var/www/html/idxCMS/system/modules/catalogs/last.php"
-File "/var/www/html/idxCMS/system/modules/catalogs/module.php"
-Found global constant CATALOGS in package No Package
-File "/var/www/html/idxCMS/system/modules/counter/counter.php"
-File "/var/www/html/idxCMS/system/modules/counter/counter.tpl.php"
-File "/var/www/html/idxCMS/system/modules/counter/module.php"
-File "/var/www/html/idxCMS/system/modules/forum/category.tpl.php"
-File "/var/www/html/idxCMS/system/modules/forum/forum.php"
-File "/var/www/html/idxCMS/system/modules/forum/forum.tpl.php"
-File "/var/www/html/idxCMS/system/modules/forum/last.php"
-File "/var/www/html/idxCMS/system/modules/forum/module.php"
-Found global constant FORUM in package Forum
-Found function: ArraySort
-		parameter: &$array
-Found function: ArraySortFunc
-		parameter: $a
-		parameter: $b
-File "/var/www/html/idxCMS/system/modules/forum/post.tpl.php"
-File "/var/www/html/idxCMS/system/modules/forum/section.tpl.php"
-File "/var/www/html/idxCMS/system/modules/forum/topic.tpl.php"
-File "/var/www/html/idxCMS/system/modules/gallery/gallery.php"
-File "/var/www/html/idxCMS/system/modules/gallery/images.tpl.php"
-File "/var/www/html/idxCMS/system/modules/gallery/last.php"
-File "/var/www/html/idxCMS/system/modules/gallery/module.php"
-Found global constant GALLERY in package No Package
-File "/var/www/html/idxCMS/system/modules/gallery/preview.php"
-File "/var/www/html/idxCMS/system/modules/gallery/preview.tpl.php"
-File "/var/www/html/idxCMS/system/modules/gallery/randimage.php"
-File "/var/www/html/idxCMS/system/modules/gallery/randimage.tpl.php"
-File "/var/www/html/idxCMS/system/modules/guestbook/guestbook.php"
-File "/var/www/html/idxCMS/system/modules/guestbook/module.php"
-File "/var/www/html/idxCMS/system/modules/index/index.php"
-File "/var/www/html/idxCMS/system/modules/index/index.tpl.php"
-File "/var/www/html/idxCMS/system/modules/index/module.php"
-File "/var/www/html/idxCMS/system/modules/menu/menu.php"
-File "/var/www/html/idxCMS/system/modules/menu/menu.tpl.php"
-File "/var/www/html/idxCMS/system/modules/menu/module.php"
-File "/var/www/html/idxCMS/system/modules/menu/simple.php"
-File "/var/www/html/idxCMS/system/modules/menu/simple.tpl.php"
-File "/var/www/html/idxCMS/system/modules/minichat/minichat.php"
-File "/var/www/html/idxCMS/system/modules/minichat/minichat.tpl.php"
-File "/var/www/html/idxCMS/system/modules/minichat/module.php"
-File "/var/www/html/idxCMS/system/modules/polls/archive.php"
-File "/var/www/html/idxCMS/system/modules/polls/archive.tpl.php"
-File "/var/www/html/idxCMS/system/modules/polls/module.php"
-File "/var/www/html/idxCMS/system/modules/polls/polls.php"
-File "/var/www/html/idxCMS/system/modules/polls/polls.tpl.php"
-File "/var/www/html/idxCMS/system/modules/posts/calendar.php"
-File "/var/www/html/idxCMS/system/modules/posts/calendar.tpl.php"
-File "/var/www/html/idxCMS/system/modules/posts/last.php"
-File "/var/www/html/idxCMS/system/modules/posts/module.php"
-Found global constant POSTS in package Posts
-File "/var/www/html/idxCMS/system/modules/posts/news.php"
-File "/var/www/html/idxCMS/system/modules/posts/post.php"
-File "/var/www/html/idxCMS/system/modules/posts/posts.php"
-File "/var/www/html/idxCMS/system/modules/posts/post.tpl.php"
-File "/var/www/html/idxCMS/system/modules/posts/print.php"
-File "/var/www/html/idxCMS/system/modules/rate/module.php"
-Found function: RateComment
-		parameter: $user
-		parameter: $act
-		parameter: $id
-Found function: GetRate
-		parameter: $for
-		parameter: &$item
-Found function: ShowRate
-		parameter: $for
-File "/var/www/html/idxCMS/system/modules/rate/rate.php"
-File "/var/www/html/idxCMS/system/modules/rate/rate.tpl.php"
-File "/var/www/html/idxCMS/system/modules/rss/aggregator.php"
-File "/var/www/html/idxCMS/system/modules/rss/list.php"
-File "/var/www/html/idxCMS/system/modules/rss/list.tpl.php"
-File "/var/www/html/idxCMS/system/modules/rss/module.php"
-File "/var/www/html/idxCMS/system/modules/rss/rss.php"
-File "/var/www/html/idxCMS/system/modules/search/module.php"
-Found function: SearchResult
+	method : isClass
+File ./system/frames/frameOutputWriter.php
+Found class: frameOutputWriter
+	method : __construct
+		parameter: &$doclet
+File ./system/frames/frames.php
+Found class: frames
+	field: $header is a member variable of class frames
+	field: $rootDoc is a member variable of class frames
+	method : __construct
+		parameter: &$rootDoc
+		parameter: $formatter
+File ./system/frames/overviewFrameWriter.php
+Found class: overviewFrameWriter
+	method : __construct
+		parameter: &$doclet
+File ./system/frames/packageFrameWriter.php
+Found class: packageFrameWriter
+	method : __construct
+		parameter: &$doclet
+File ./system/markdown/markdownExtra.php
+Found class: markdownExtra
+	field: $fn_id_prefix is a member variable of class markdownExtra
+	field: $fn_link_title is a member variable of class markdownExtra
+	field: $fn_backlink_title is a member variable of class markdownExtra
+	field: $fn_link_class is a member variable of class markdownExtra
+	field: $fn_backlink_class is a member variable of class markdownExtra
+	field: $fn_backlink_html is a member variable of class markdownExtra
+	field: $table_align_class_tmpl is a member variable of class markdownExtra
+	field: $code_class_prefix is a member variable of class markdownExtra
+	field: $code_attr_on_pre is a member variable of class markdownExtra
+	field: $predef_abbr is a member variable of class markdownExtra
+	method : __construct
+	field: $footnotes is a member variable of class markdownExtra
+	field: $footnotes_ordered is a member variable of class markdownExtra
+	field: $footnotes_ref_count is a member variable of class markdownExtra
+	field: $footnotes_numbers is a member variable of class markdownExtra
+	field: $abbr_desciptions is a member variable of class markdownExtra
+	field: $abbr_word_re is a member variable of class markdownExtra
+	field: $footnote_counter is a member variable of class markdownExtra
+	method : setup
+	method : teardown
+	field: $id_class_attr_catch_re is a member variable of class markdownExtra
+	field: $id_class_attr_nocatch_re is a member variable of class markdownExtra
+	method : doExtraAttributes
+		parameter: $tag_name
+		parameter: $attr
+		parameter: $defaultIdValue
+		parameter: $classes
+	method : stripLinkDefinitions
 		parameter: $text
-		parameter: $title
-		parameter: $word
-		parameter: $link
-		parameter: &$result
-Found function: FormatFound
+	method : _stripLinkDefinitions_callback
+		parameter: $matches
+	field: $block_tags_re is a member variable of class markdownExtra
+	field: $context_block_tags_re is a member variable of class markdownExtra
+	field: $contain_span_tags_re is a member variable of class markdownExtra
+	field: $clean_tags_re is a member variable of class markdownExtra
+	field: $auto_close_tags_re is a member variable of class markdownExtra
+	method : hashHTMLBlocks
 		parameter: $text
-		parameter: $word
-		parameter: $config
-File "/var/www/html/idxCMS/system/modules/search/results.tpl.php"
-File "/var/www/html/idxCMS/system/modules/search/search.php"
-File "/var/www/html/idxCMS/system/modules/search/search.tpl.php"
-File "/var/www/html/idxCMS/system/modules/sitemap/module.php"
-File "/var/www/html/idxCMS/system/modules/sitemap/sitemap.php"
-File "/var/www/html/idxCMS/system/modules/sitemap/sitemap.tpl.php"
-File "/var/www/html/idxCMS/system/modules/tagcloud/module.php"
-Found function: ArrayInvert
-		parameter: $array
-Found function: ArrayNormalize
-		parameter: $array
-Found function: PrepareTags
-Found function: scmp
-		parameter: $a
-		parameter: $b
-File "/var/www/html/idxCMS/system/modules/tagcloud/tagcloud.php"
-File "/var/www/html/idxCMS/system/modules/tagcloud/tagcloud.tpl.php"
-File "/var/www/html/idxCMS/system/modules/user/feedback.php"
-File "/var/www/html/idxCMS/system/modules/user/feedback.tpl.php"
-File "/var/www/html/idxCMS/system/modules/user/module.php"
-Found global constant PM_DATA in package User
-Found global constant AVATARS in package User
-Found function: CreateUserLink
-		parameter: $user
-		parameter: $nick
-Found function: GetAvatar
-		parameter: $user
-Found function: SelectPoint
-		parameter: $name
-		parameter: $points
-		parameter: $default
-		parameter: $script
-File "/var/www/html/idxCMS/system/modules/user/panel.php"
-File "/var/www/html/idxCMS/system/modules/user/panel.tpl.php"
-File "/var/www/html/idxCMS/system/modules/user/pm.php"
-File "/var/www/html/idxCMS/system/modules/user/pm.tpl.php"
-File "/var/www/html/idxCMS/system/modules/user/profile.tpl.php"
-File "/var/www/html/idxCMS/system/modules/user/registration.tpl.php"
-File "/var/www/html/idxCMS/system/modules/user/user.php"
-File "/var/www/html/idxCMS/system/modules/user/view.tpl.php"
-File "/var/www/html/idxCMS/tools/captcha.php"
-Found class: CAPTCHA
-	method : CAPTCHA
+	method : _hashHTMLBlocks_inMarkdown
+		parameter: $text
+		parameter: $indent
+		parameter: $enclosing_tag_re
+		parameter: $span
+	method : _hashHTMLBlocks_inHTML
+		parameter: $text
+		parameter: $hash_method
+		parameter: $md_attr
+	method : hashClean
+		parameter: $text
+	method : doAnchors
+		parameter: $text
+	method : _doAnchors_reference_callback
+		parameter: $matches
+	method : _doAnchors_inline_callback
+		parameter: $matches
+	method : doImages
+		parameter: $text
+	method : _doImages_reference_callback
+		parameter: $matches
+	method : _doImages_inline_callback
+		parameter: $matches
+	method : doHeaders
+		parameter: $text
+	method : _doHeaders_callback_setext
+		parameter: $matches
+	method : _doHeaders_callback_atx
+		parameter: $matches
+	method : doTables
+		parameter: $text
+	method : _doTable_leadingPipe_callback
+		parameter: $matches
+	method : _doTable_makeAlignAttr
+		parameter: $alignname
+	method : _doTable_callback
+		parameter: $matches
+	method : doDefLists
+		parameter: $text
+	method : _doDefLists_callback
+		parameter: $matches
+	method : processDefListItems
+		parameter: $list_str
+	method : _processDefListItems_callback_dt
+		parameter: $matches
+	method : _processDefListItems_callback_dd
+		parameter: $matches
+	method : doFencedCodeBlocks
+		parameter: $text
+	method : _doFencedCodeBlocks_callback
+		parameter: $matches
+	method : _doFencedCodeBlocks_newlines
+		parameter: $matches
+	field: $em_relist is a member variable of class markdownExtra
+	field: $strong_relist is a member variable of class markdownExtra
+	field: $em_strong_relist is a member variable of class markdownExtra
+	method : formParagraphs
+		parameter: $text
+	method : stripFootnotes
+		parameter: $text
+	method : _stripFootnotes_callback
+		parameter: $matches
+	method : doFootnotes
+		parameter: $text
+	method : appendFootnotes
+		parameter: $text
+	method : _appendFootnotes_callback
+		parameter: $matches
+	method : stripAbbreviations
+		parameter: $text
+	method : _stripAbbreviations_callback
+		parameter: $matches
+	method : doAbbreviations
+		parameter: $text
+	method : _doAbbreviations_callback
+		parameter: $matches
+File ./system/markdown/markdownInterface.php
+Found interface: markdownInterface
+	method : defaultTransform
+		parameter: $text
+	method : transform
+		parameter: $text
+File ./system/markdown/markdown.php
+Found class: markdown
+	const: MARKDOWNLIB_VERSION
+	method : defaultTransform
+		parameter: $text
+	field: $empty_element_suffix is a member variable of class markdown
+	field: $tab_width is a member variable of class markdown
+	field: $no_markup is a member variable of class markdown
+	field: $no_entities is a member variable of class markdown
+	field: $predef_urls is a member variable of class markdown
+	field: $predef_titles is a member variable of class markdown
+	field: $url_filter_func is a member variable of class markdown
+	field: $header_id_func is a member variable of class markdown
+	field: $code_block_content_func is a member variable of class markdown
+	field: $enhanced_ordered_list is a member variable of class markdown
+	field: $nested_brackets_depth is a member variable of class markdown
+	field: $nested_brackets_re is a member variable of class markdown
+	field: $nested_url_parenthesis_depth is a member variable of class markdown
+	field: $nested_url_parenthesis_re is a member variable of class markdown
+	field: $escape_chars is a member variable of class markdown
+	field: $escape_chars_re is a member variable of class markdown
+	method : __construct
+	field: $urls is a member variable of class markdown
+	field: $titles is a member variable of class markdown
+	field: $html_hashes is a member variable of class markdown
+	field: $in_anchor is a member variable of class markdown
+	method : setup
+	method : teardown
+	method : transform
+		parameter: $text
+	field: $document_gamut is a member variable of class markdown
+	method : stripLinkDefinitions
+		parameter: $text
+	method : _stripLinkDefinitions_callback
+		parameter: $matches
+	method : hashHTMLBlocks
+		parameter: $text
+	method : _hashHTMLBlocks_callback
+		parameter: $matches
+	method : hashPart
+		parameter: $text
+		parameter: $boundary
+	method : hashBlock
+		parameter: $text
+	field: $block_gamut is a member variable of class markdown
+	method : runBlockGamut
+		parameter: $text
+	method : runBasicBlockGamut
+		parameter: $text
+	method : doHorizontalRules
+		parameter: $text
+	field: $span_gamut is a member variable of class markdown
+	method : runSpanGamut
+		parameter: $text
+	method : doHardBreaks
+		parameter: $text
+	method : _doHardBreaks_callback
+		parameter: $matches
+	method : doAnchors
+		parameter: $text
+	method : _doAnchors_reference_callback
+		parameter: $matches
+	method : _doAnchors_inline_callback
+		parameter: $matches
+	method : doImages
+		parameter: $text
+	method : _doImages_reference_callback
+		parameter: $matches
+	method : _doImages_inline_callback
+		parameter: $matches
+	method : doHeaders
+		parameter: $text
+	method : _doHeaders_callback_setext
+		parameter: $matches
+	method : _doHeaders_callback_atx
+		parameter: $matches
+	method : _generateIdFromHeaderValue
+		parameter: $headerValue
+	method : doLists
+		parameter: $text
+	method : _doLists_callback
+		parameter: $matches
+	field: $list_level is a member variable of class markdown
+	method : processListItems
+		parameter: $list_str
+		parameter: $marker_any_re
+	method : _processListItems_callback
+		parameter: $matches
+	method : doCodeBlocks
+		parameter: $text
+	method : _doCodeBlocks_callback
+		parameter: $matches
+	method : makeCodeSpan
 		parameter: $code
-File "/var/www/html/idxCMS/tools/editor.php"
-> Merging method MESSAGE:__construct with return type from parent DBASE:__construct
-> Merging method SECTIONS:__construct with return type from parent DBASE:__construct
-> Merging method CATEGORIES:__construct with return type from parent DBASE:__construct
-> Merging method CATEGORIES:__construct with return type from parent SECTIONS:__construct
-> Merging method ITEMS:__construct with return type from parent DBASE:__construct
-> Merging method ITEMS:__construct with return type from parent SECTIONS:__construct
-> Merging method ITEMS:__construct with return type from parent CATEGORIES:__construct
-> Merging method COMMENTS:__construct with return type from parent DBASE:__construct
-> Merging method COMMENTS:__construct with return type from parent SECTIONS:__construct
-> Merging method COMMENTS:__construct with return type from parent CATEGORIES:__construct
-> Merging method COMMENTS:__construct with return type from parent ITEMS:__construct
-> Merging method CONTENT:__construct with return type from parent DBASE:__construct
-> Merging method CONTENT:__construct with return type from parent SECTIONS:__construct
-> Merging method CONTENT:__construct with return type from parent CATEGORIES:__construct
-> Merging method CONTENT:__construct with return type from parent ITEMS:__construct
-> Merging method CONTENT:__construct with return type from parent COMMENTS:__construct
-> Merging method CATALOGS:__construct with return type from parent DBASE:__construct
-> Merging method CATALOGS:__construct with return type from parent SECTIONS:__construct
-> Merging method CATALOGS:__construct with return type from parent CATEGORIES:__construct
-> Merging method CATALOGS:__construct with return type from parent ITEMS:__construct
-> Merging method CATALOGS:__construct with return type from parent COMMENTS:__construct
-> Merging method CATALOGS:__construct with return type from parent CONTENT:__construct
-> Merging method FORUM:__construct with return type from parent DBASE:__construct
-> Merging method FORUM:__construct with return type from parent SECTIONS:__construct
-> Merging method FORUM:__construct with return type from parent CATEGORIES:__construct
-> Merging method FORUM:__construct with return type from parent ITEMS:__construct
-> Merging method FORUM:__construct with return type from parent COMMENTS:__construct
-> Merging method FORUM:__construct with return type from parent CONTENT:__construct
-> Merging method GALLERY:__construct with return type from parent DBASE:__construct
-> Merging method GALLERY:__construct with return type from parent SECTIONS:__construct
-> Merging method GALLERY:__construct with return type from parent CATEGORIES:__construct
-> Merging method GALLERY:__construct with return type from parent ITEMS:__construct
-> Merging method GALLERY:__construct with return type from parent COMMENTS:__construct
-> Merging method GALLERY:__construct with return type from parent CONTENT:__construct
-> Merging method POSTS:__construct with return type from parent DBASE:__construct
-> Merging method POSTS:__construct with return type from parent SECTIONS:__construct
-> Merging method POSTS:__construct with return type from parent CATEGORIES:__construct
-> Merging method POSTS:__construct with return type from parent ITEMS:__construct
-> Merging method POSTS:__construct with return type from parent COMMENTS:__construct
-> Merging method POSTS:__construct with return type from parent CONTENT:__construct
-> Merging method HIGHLIGHTER:__construct with return type from parent PARSER:__construct
-Loading doclet "plain"
-Loading formatter "htmlFormatter"
-Setting output directory to "/var/www/html/idxCMS/api/"
-Writing "index.html"
-Writing "administration/package-summary.html"
-Writing "catalogs/package-tree.html"
-Writing "catalogs/package-summary.html"
-Writing "core/package-tree.html"
-Writing "core/package-summary.html"
-Writing "forum/package-tree.html"
-Writing "forum/package-summary.html"
-Writing "gallery/package-tree.html"
-Writing "gallery/package-summary.html"
-Writing "no package/package-summary.html"
-Writing "polls/package-tree.html"
-Writing "polls/package-summary.html"
-Writing "posts/package-tree.html"
-Writing "posts/package-summary.html"
-Writing "rss/package-tree.html"
-Writing "rss/package-summary.html"
-Writing "rate/package-summary.html"
-Writing "search/package-summary.html"
-Writing "statistics/package-tree.html"
-Writing "statistics/package-summary.html"
-Writing "tagcloud/package-summary.html"
-Writing "template/package-tree.html"
-Writing "template/package-summary.html"
-Writing "tools/package-tree.html"
-Writing "tools/package-summary.html"
-Writing "user/package-tree.html"
-Writing "user/package-summary.html"
-Writing "tree.html"
-Writing "catalogs/catalogs.html"
-Writing "core/categories.html"
-Writing "core/cms.html"
-Writing "core/comments.html"
-Writing "core/config.html"
-Writing "core/content.html"
-Writing "core/dbase.html"
-Writing "core/filter.html"
-Writing "core/highlighter.html"
-Writing "core/image.html"
-Writing "core/items.html"
-Writing "core/log.html"
-Writing "core/parser.html"
-Writing "core/sections.html"
-Writing "core/system.html"
-Writing "core/uploader.html"
-Writing "forum/forum.html"
-Writing "gallery/gallery.html"
-Writing "polls/polls.html"
-Writing "posts/calendar.html"
-Writing "posts/posts.html"
-Writing "rss/rss_aggregator.html"
-Writing "rss/rss_feeds.html"
-Writing "statistics/statistics.html"
-Writing "template/template.html"
-Writing "tools/captcha.html"
-Writing "user/message.html"
-Writing "user/user.html"
-Writing "administration/package-functions.html"
-Writing "core/package-functions.html"
-Writing "forum/package-functions.html"
-Writing "no package/package-functions.html"
-Writing "rate/package-functions.html"
-Writing "search/package-functions.html"
-Writing "tagcloud/package-functions.html"
-Writing "user/package-functions.html"
-Writing "administration/package-globals.html"
-Writing "core/package-globals.html"
-Writing "forum/package-globals.html"
-Writing "no package/package-globals.html"
-Writing "posts/package-globals.html"
-Writing "user/package-globals.html"
-Writing "index-all.html"
-Writing "deprecated.html"
-Writing "todo.html"
+	field: $em_relist is a member variable of class markdown
+	field: $strong_relist is a member variable of class markdown
+	field: $em_strong_relist is a member variable of class markdown
+	field: $em_strong_prepared_relist is a member variable of class markdown
+	method : prepareItalicsAndBold
+	method : doItalicsAndBold
+		parameter: $text
+	method : doBlockQuotes
+		parameter: $text
+	method : _doBlockQuotes_callback
+		parameter: $matches
+	method : _doBlockQuotes_callback2
+		parameter: $matches
+	method : formParagraphs
+		parameter: $text
+	method : encodeAttribute
+		parameter: $text
+	method : encodeURLAttribute
+		parameter: $url
+		parameter: &$text
+	method : encodeAmpsAndAngles
+		parameter: $text
+	method : doAutoLinks
+		parameter: $text
+	method : _doAutoLinks_url_callback
+		parameter: $matches
+	method : _doAutoLinks_email_callback
+		parameter: $matches
+	method : encodeEntityObfuscatedAttribute
+		parameter: $text
+		parameter: &$tail
+		parameter: $head_length
+	method : parseSpan
+		parameter: $str
+	method : handleSpanToken
+		parameter: $token
+		parameter: &$str
+	method : outdent
+		parameter: $text
+	field: $utf8_strlen is a member variable of class markdown
+	method : detab
+		parameter: $text
+	method : _detab_callback
+		parameter: $matches
+	method : _initDetab
+	method : unhash
+		parameter: $text
+	method : _unhash_callback
+		parameter: $matches
+File ./system/plain/classItems.php
+Found class: classItems
+	method : __construct
+	method : classItems
+		parameter: &$doclet
+		parameter: &$package
+		parameter: $depth
+File ./system/plain/items.php
+Found class: items
+	method : __construct
+	method : items
+		parameter: &$phpapi
+		parameter: &$doclet
+		parameter: $path
+File ./system/plain/plain.php
+Found class: plain
+	field: $header is a member variable of class plain
+	field: $rootDoc is a member variable of class plain
+	method : __construct
+		parameter: &$rootDoc
+		parameter: $formatter
+File ./system/taglets/linkPlainTag.php
+Found class: linkPlainTag
+	method : linkPlainTag
+		parameter: $text
+		parameter: &$data
+		parameter: &$root
+	method : inField
+	method : inMethod
+	method : inOverview
+	method : inPackage
+	method : inType
+File ./system/taglets/linkTag.php
+Found class: linkTag
+	method : __construct
+		parameter: $text
+		parameter: &$data
+		parameter: &$root
+	method : inField
+	method : inMethod
+	method : inOverview
+	method : inPackage
+	method : inType
+File ./system/taglets/paramTag.php
+Found class: paramTag
+	field: $var is a member variable of class paramTag
+	method : __construct
+		parameter: $text
+		parameter: &$data
+		parameter: &$root
+	method : displayName
+	method : inField
+	method : inMethod
+	method : inOverview
+	method : inPackage
+	method : inType
+File ./system/taglets/returnTag.php
+Found class: returnTag
+	method : __construct
+		parameter: $text
+		parameter: &$data
+		parameter: &$root
+	method : displayName
+	method : inField
+	method : inMethod
+	method : inOverview
+	method : inPackage
+	method : inType
+File ./system/taglets/seeTag.php
+Found class: seeTag
+	field: $link is a member variable of class seeTag
+	method : __construct
+		parameter: $text
+		parameter: &$data
+		parameter: &$root
+	method : displayName
+	method : linkText
+		parameter: $link
+	method : resolveLink
+	method : inConstructor
+	method : inField
+	method : inMethod
+	method : inOverview
+	method : inPackage
+	method : inType
+File ./system/taglets/tag.php
+Found class: tag
+	field: $name is a member variable of class tag
+	field: $parent is a member variable of class tag
+	field: $root is a member variable of class tag
+	field: $text is a member variable of class tag
+	field: $type is a member variable of class tag
+	method : tag
+		parameter: $name
+		parameter: $text
+		parameter: &$root
+		parameter: $type
+	method : displayName
+	method : firstCommentString
+	method : getInlineTags
+		parameter: $text
+	method : inlineTags
+	method : setParent
+		parameter: &$element
+	method : inField
+	method : inMethod
+	method : inOverview
+	method : inPackage
+	method : inType
+File ./system/taglets/throwsTag.php
+Found class: throwsTag
+	method : __construct
+		parameter: $text
+		parameter: &$data
+		parameter: &$root
+	method : displayName
+	method : inField
+	method : inMethod
+	method : inOverview
+	method : inPackage
+	method : inType
+> Merging method elementDoc:__construct with return type from parent doc:__construct
+> Merging method classDoc:__construct with return type from parent doc:__construct
+> Merging method classDoc:__construct with return type from parent elementDoc:__construct
+> Merging method fieldDoc:__construct with return type from parent doc:__construct
+> Merging method fieldDoc:__construct with return type from parent elementDoc:__construct
+> Merging method methodDoc:__construct with return type from parent doc:__construct
+> Merging method methodDoc:__construct with return type from parent elementDoc:__construct
+> Merging method packageDoc:__construct with return type from parent doc:__construct
+> Merging method rootDoc:__construct with return type from parent doc:__construct
+> Merging class classWriter with tags from parent htmlWriter
+> Merging class classItems with tags from parent htmlWriter
+> Merging method classItems:__construct with tag @param from parent classWriter:__construct
+> Merging method classItems:__construct with parameter &$doclet from parent classWriter:__construct
+> Merging method classItems:__construct with parameter $index from parent classWriter:__construct
+> Merging method classItems:__construct with return type from parent classWriter:__construct
+> Merging class deprecatedWriter with tags from parent htmlWriter
+> Merging class frameOutputWriter with tags from parent htmlWriter
+> Merging class functionWriter with tags from parent htmlWriter
+> Merging class globalWriter with tags from parent htmlWriter
+> Merging class indexWriter with tags from parent htmlWriter
+> Merging class items with tags from parent htmlWriter
+> Merging class overviewFrameWriter with tags from parent htmlWriter
+> Merging class overviewSummaryWriter with tags from parent htmlWriter
+> Merging class packageFrameWriter with tags from parent htmlWriter
+> Merging class packageWriter with tags from parent htmlWriter
+> Merging class todoWriter with tags from parent htmlWriter
+> Merging class markdownExtra with tags from parent markdown
+> Merging method markdownExtra:__construct with return type from parent markdown:__construct
+> Merging method markdownExtra:setup with return type from parent markdown:setup
+> Merging method markdownExtra:teardown with return type from parent markdown:teardown
+> Merging method markdownExtra:stripLinkDefinitions with parameter $text from parent markdown:stripLinkDefinitions
+> Merging method markdownExtra:stripLinkDefinitions with return type from parent markdown:stripLinkDefinitions
+> Merging method markdownExtra:_stripLinkDefinitions_callback with parameter $matches from parent markdown:_stripLinkDefinitions_callback
+> Merging method markdownExtra:_stripLinkDefinitions_callback with return type from parent markdown:_stripLinkDefinitions_callback
+> Merging method markdownExtra:hashHTMLBlocks with parameter $text from parent markdown:hashHTMLBlocks
+> Merging method markdownExtra:hashHTMLBlocks with return type from parent markdown:hashHTMLBlocks
+> Merging method markdownExtra:doAnchors with parameter $text from parent markdown:doAnchors
+> Merging method markdownExtra:doAnchors with return type from parent markdown:doAnchors
+> Merging method markdownExtra:_doAnchors_reference_callback with parameter $matches from parent markdown:_doAnchors_reference_callback
+> Merging method markdownExtra:_doAnchors_reference_callback with return type from parent markdown:_doAnchors_reference_callback
+> Merging method markdownExtra:_doAnchors_inline_callback with parameter $matches from parent markdown:_doAnchors_inline_callback
+> Merging method markdownExtra:_doAnchors_inline_callback with return type from parent markdown:_doAnchors_inline_callback
+> Merging method markdownExtra:doImages with parameter $text from parent markdown:doImages
+> Merging method markdownExtra:doImages with return type from parent markdown:doImages
+> Merging method markdownExtra:_doImages_reference_callback with parameter $matches from parent markdown:_doImages_reference_callback
+> Merging method markdownExtra:_doImages_reference_callback with return type from parent markdown:_doImages_reference_callback
+> Merging method markdownExtra:_doImages_inline_callback with parameter $matches from parent markdown:_doImages_inline_callback
+> Merging method markdownExtra:_doImages_inline_callback with return type from parent markdown:_doImages_inline_callback
+> Merging method markdownExtra:doHeaders with parameter $text from parent markdown:doHeaders
+> Merging method markdownExtra:doHeaders with return type from parent markdown:doHeaders
+> Merging method markdownExtra:_doHeaders_callback_setext with parameter $matches from parent markdown:_doHeaders_callback_setext
+> Merging method markdownExtra:_doHeaders_callback_setext with return type from parent markdown:_doHeaders_callback_setext
+> Merging method markdownExtra:_doHeaders_callback_atx with parameter $matches from parent markdown:_doHeaders_callback_atx
+> Merging method markdownExtra:_doHeaders_callback_atx with return type from parent markdown:_doHeaders_callback_atx
+> Merging method markdownExtra:formParagraphs with parameter $text from parent markdown:formParagraphs
+> Merging method markdownExtra:formParagraphs with return type from parent markdown:formParagraphs
+> Merging class paramTag with tags from parent tag
+> Merging class returnTag with tags from parent tag
+> Merging class seeTag with tags from parent tag
+> Merging class linkPlainTag with tags from parent tag
+> Merging class linkTag with tags from parent tag
+> Merging method linkTag:__construct with return type from parent seeTag:__construct
+> Merging class throwsTag with tags from parent tag
+> Merging method throwsTag:__construct with return type from parent seeTag:__construct
+Loading doclet frames
+Loading formatter htmlFormatter
+Setting output directory to ./api/
+Writing index.html
+Writing header.html
+Writing footer.html
+Writing overview-summary.html
+Writing overview-frame.html
+Writing formatters/package-frame.html
+Writing frames/package-frame.html
+Writing html/package-frame.html
+Writing markdown/package-frame.html
+Writing phpapi/package-frame.html
+Writing plain/package-frame.html
+Writing tags/package-frame.html
+Writing template/package-frame.html
+Writing all-items.html
+Writing formatters/package-tree.html
+Writing formatters/package-summary.html
+Writing frames/package-tree.html
+Writing frames/package-summary.html
+Writing html/package-tree.html
+Writing html/package-summary.html
+Writing markdown/package-tree.html
+Writing markdown/package-summary.html
+Writing phpapi/package-tree.html
+Writing phpapi/package-summary.html
+Writing plain/package-tree.html
+Writing plain/package-summary.html
+Writing tags/package-tree.html
+Writing tags/package-summary.html
+Writing template/package-tree.html
+Writing template/package-summary.html
+Writing tree.html
+Writing formatters/htmlformatter.html
+Writing frames/frameoutputwriter.html
+Writing frames/frames.html
+Writing frames/overviewframewriter.html
+Writing frames/packageframewriter.html
+Writing html/classwriter.html
+Writing html/deprecatedwriter.html
+Writing html/functionwriter.html
+Writing html/globalwriter.html
+Writing html/htmlwriter.html
+Writing html/indexwriter.html
+Writing html/overviewsummarywriter.html
+Writing html/packagewriter.html
+Writing html/todowriter.html
+Writing markdown/markdown.html
+Writing markdown/markdownextra.html
+Writing markdown/markdowninterface.html
+Writing phpapi/classdoc.html
+Writing phpapi/doc.html
+Writing phpapi/elementdoc.html
+Writing phpapi/fielddoc.html
+Writing phpapi/methoddoc.html
+Writing phpapi/packagedoc.html
+Writing phpapi/phpapi.html
+Writing phpapi/rootdoc.html
+Writing phpapi/type.html
+Writing plain/classitems.html
+Writing plain/items.html
+Writing plain/plain.html
+Writing tags/linkplaintag.html
+Writing tags/linktag.html
+Writing tags/paramtag.html
+Writing tags/returntag.html
+Writing tags/seetag.html
+Writing tags/tag.html
+Writing tags/throwstag.html
+Writing template/template.html
+Writing phpapi/package-functions.html
+Writing phpapi/package-globals.html
+Writing index-all.html
+Writing deprecated.html
+Writing todo.html
 Copying stylesheet
 Copying resources
-Done (27,75 seconds)
+Done (2,16 seconds)

@@ -1,15 +1,15 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>API for class classItems (phpAPI: PHP Documentation Creator ver. 5.0)</title>
+    <title>API for class classItems (phpAPI: PHP Documentation Creator version 6.0)</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="generator" content="phpAPI 5.0 (https://github.com/Greenray/phpAPI/)">
+    <meta name="generator" content="phpAPI 6.0 (https://github.com/Greenray/phpAPI/)">
     <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="start" href="../index.html">
 </head>
     <body id="classItems" onload="parent.document.title=document.title;">
     <div class="header">
-    <span style="float:right">phpAPI ver. 5.0</span>
+    <span style="float:right">phpAPI v6.0</span>
             <ul>
                     <li><a href="../overview-summary.html">Overview</a></li>
                     <li><a href="../plain/package-summary.html">Namespace</a></li>
@@ -24,8 +24,7 @@
 <div class="small_links">Фреймы: <a href="../index.html" target="_top"> Включить</a> | <a href="" target="_top"> Выключить</a></div>
 <hr />
     <div class="small_links">
-        Общий обзор: <a href="#summary_fields">Поля</a> | <a href="#summary_methods">Методы</a> | <a href="#summary_constructor">Конструктор</a>
-        Детали: <a href="#details_fields">Поля</a> | <a href="#details_methods">Методы</a> | <a href="#details_constructor">Конструктор</a>
+        <a href="#details_fields">Поля</a> | <a href="#details_methods">Методы</a> | <a href="#details_constructor">Конструктор</a>
     </div>
     <hr />
 <div class="package">Пространство имен plain</div>
@@ -48,12 +47,12 @@
             <tr>
             <td class="hid left w_100">File</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
-                            <td class="hid" colspan="2">doclets/html/plain/classItems.php</td>
+                            <td class="hid" colspan="2">/system/plain/classItems.php</td>
                     </tr>
             <tr>
             <td class="hid left w_100">Version</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
-                            <td class="hid" colspan="2">5.0</td>
+                            <td class="hid" colspan="2">6.0</td>
                     </tr>
             <tr>
             <td class="hid left w_100">Author</td>
@@ -63,7 +62,7 @@
             <tr>
             <td class="hid left w_100">Copyright</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
-                            <td class="hid" colspan="2">(c) 2016 Victor Nabatov</td>
+                            <td class="hid" colspan="2">(c) 2015-2016 Victor Nabatov</td>
                     </tr>
             <tr>
             <td class="hid left w_100">License</td>
@@ -77,31 +76,11 @@
                     </tr>
         </table>
 </div>
-    <table id="summary_constructor">
-        <tr><th colspan="2">Конструктор: общий обзор</th></tr>
-        <tr>
-            <td class="type w_200">public  void</td>
-            <td class="description">
-                <p><a href="#__construct"><strong><span class="black">__construct</span></strong></a>(<span class="lilac">doclet</span> <span class="blue">&$doclet</span>, <span class="lilac">mixed</span> <span class="blue">$index</span>)</p>
-                <p class="description">Constructor.</p>
-            </td>
-        </tr>
-    </table>
-    <table id="summary_methods">
-        <tr><th colspan="2">Методы: общий обзор</th></tr>
-                    <tr>
-                <td class="type w_200">public static  string</td>
-                <td class="description">
-                    <p><a href="#classItems"><strong><span class="black">classItems</span></strong></a> (<span class="lilac">doclet</span> <span class="blue">&$doclet</span>, <a href="../phpapi/packagedoc.html">packageDoc</a> <span class="blue">&$package</span>, <span class="lilac">mixed</span> <span class="blue">$depth</span>)</p>
-                    <p class="description">Builds items of the class.</p>
-                </td>
-            </tr>
-            </table>
             <table class="inherit">
             <tr><th>Методы, унаследованные из html \ classWriter</th></tr>
             <tr>
                 <td>
-                                    <span><a href="../html/classwriter.html#__construct">__construct, </a>&nbsp;</span>
+                                    <span><a href="../html/classwriter.html#construct">construct, </a>&nbsp;</span>
                                     <span><a href="../html/classwriter.html#buildTree">buildTree, </a>&nbsp;</span>
                                     <span><a href="../html/classwriter.html#inherits">inherits</a>&nbsp;</span>
                                 </td>
@@ -121,9 +100,9 @@
                                 </td>
             </tr>
         </table>
-        <h2 id="details_constructor">Конструктор: детали</h2>
-    <div class="location">doclets/html/plain/classItems.php at line 17</div>
-    <code class="arguments" id="__construct">public  void <strong>__construct</strong>(<span class="lilac">doclet</span> <span class="blue">&$doclet</span>, <span class="lilac">mixed</span> <span class="blue">$index</span>)</code>
+        <h2 id="details_constructor">Конструктор</h2>
+    <div class="location">system/plain/classItems.php at line 17</div>
+    <code class="arguments" id="construct">public  void <strong>construct</strong>(<span class="lilac">doclet</span> <span class="blue">&$doclet</span>, <span class="lilac">string</span> <span class="blue">$index</span>)</code>
     <div class="details">
             <p class="description">Constructor.</p>
         <div class="finfo">
@@ -134,11 +113,17 @@
                             <td class="hid blue w_100">&$doclet</td>
                 <td class="hid">Reference to documentation generator</td>
                     </tr>
+            <tr>
+            <td class="hid left w_100">&nbsp</td>
+            <td class="hid right w_100 lilac">string</td>
+                            <td class="hid blue w_100">$index</td>
+                <td class="hid">Page name</td>
+                    </tr>
         </table>
 </div>
     </div>
-    <h2 id="details_methods">Методы: детали</h2>
-            <div class="location">doclets/html/plain/classItems.php at line 26</div>
+    <h2 id="details_methods">Методы</h2>
+            <div class="location">system/plain/classItems.php at line 26</div>
         <code class="arguments" id="classItems">public static  string <strong>classItems</strong> (<span class="lilac">doclet</span> <span class="blue">&$doclet</span>, <a href="../phpapi/packagedoc.html">packageDoc</a> <span class="blue">&$package</span>, <span class="lilac">mixed</span> <span class="blue">$depth</span>)</code>
         <div class="details">
                     <p class="description">Builds items of the class.</p>
@@ -166,7 +151,7 @@
         </div>
         <hr />
         <div class="header">
-    <span style="float:right">phpAPI ver. 5.0</span>
+    <span style="float:right">phpAPI v6.0</span>
             <ul>
                     <li><a href="../overview-summary.html">Overview</a></li>
                     <li><a href="../plain/package-summary.html">Namespace</a></li>
@@ -181,8 +166,7 @@
 <div class="small_links">Фреймы: <a href="../index.html" target="_top"> Включить</a> | <a href="" target="_top"> Выключить</a></div>
 <hr />
     <div class="small_links">
-        Общий обзор: <a href="#summary_fields">Поля</a> | <a href="#summary_methods">Методы</a> | <a href="#summary_constructor">Конструктор</a>
-        Детали: <a href="#details_fields">Поля</a> | <a href="#details_methods">Методы</a> | <a href="#details_constructor">Конструктор</a>
+        <a href="#details_fields">Поля</a> | <a href="#details_methods">Методы</a> | <a href="#details_constructor">Конструктор</a>
     </div>
     </body>
 </html>

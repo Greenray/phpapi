@@ -1,15 +1,15 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>API for class htmlWriter (phpAPI: PHP Documentation Creator ver. 5.0)</title>
+    <title>API for class htmlWriter (phpAPI: PHP Documentation Creator version 6.0)</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="generator" content="phpAPI 5.0 (https://github.com/Greenray/phpAPI/)">
+    <meta name="generator" content="phpAPI 6.0 (https://github.com/Greenray/phpAPI/)">
     <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="start" href="../index.html">
 </head>
     <body id="htmlWriter" onload="parent.document.title=document.title;">
     <div class="header">
-    <span style="float:right">phpAPI ver. 5.0</span>
+    <span style="float:right">phpAPI v6.0</span>
             <ul>
                     <li><a href="../overview-summary.html">Overview</a></li>
                     <li><a href="../html/package-summary.html">Namespace</a></li>
@@ -24,8 +24,7 @@
 <div class="small_links">Фреймы: <a href="../index.html" target="_top"> Включить</a> | <a href="" target="_top"> Выключить</a></div>
 <hr />
     <div class="small_links">
-        Общий обзор: <a href="#summary_fields">Поля</a> | <a href="#summary_methods">Методы</a> | <a href="#summary_constructor">Конструктор</a>
-        Детали: <a href="#details_fields">Поля</a> | <a href="#details_methods">Методы</a> | <a href="#details_constructor">Конструктор</a>
+        <a href="#details_fields">Поля</a> | <a href="#details_methods">Методы</a> | <a href="#details_constructor">Конструктор</a>
     </div>
     <hr />
 <div class="package">Пространство имен html</div>
@@ -47,7 +46,7 @@
             <tr>
             <td class="hid left w_100">Version</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
-                            <td class="hid" colspan="2">5.0</td>
+                            <td class="hid" colspan="2">6.0</td>
                     </tr>
             <tr>
             <td class="hid left w_100">Author</td>
@@ -57,7 +56,7 @@
             <tr>
             <td class="hid left w_100">Copyright</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
-                            <td class="hid" colspan="2">(c) 2016 Victor Nabatov</td>
+                            <td class="hid" colspan="2">(c) 2015-2016 Victor Nabatov</td>
                     </tr>
             <tr>
             <td class="hid left w_100">License</td>
@@ -67,7 +66,7 @@
             <tr>
             <td class="hid left w_100">File</td>
             <td class="hid right w_100 lilac">&nbsp;</td>
-                            <td class="hid" colspan="2">doclets/html/globalWriter.php</td>
+                            <td class="hid" colspan="2">/system/globalWriter.php</td>
                     </tr>
             <tr>
             <td class="hid left w_100">Overview</td>
@@ -76,141 +75,37 @@
                     </tr>
         </table>
 </div>
-    <table id="summary_fields">
-        <tr><th colspan="2">Поля: общий обзор</th></tr>
-                    <tr>
-                <td class="type w_200">public  integer</td>
-                <td class="description">
-                    <pre><a href="#$depth"><span class="green">$depth</span></a> = 0</pre>
-                    <p class="description">Directory structure depth. </p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">public  doclet</td>
-                <td class="description">
-                    <pre><a href="#$doclet"><span class="green">$doclet</span></a></pre>
-                    <p class="description">Doclet that created this object</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">public  string</td>
-                <td class="description">
-                    <pre><a href="#$id"><span class="green">$id</span></a> = <span class="red">'overview'</span></pre>
-                    <p class="description">The  id attribute value, used for selecting style</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">public  string</td>
-                <td class="description">
-                    <pre><a href="#$items"><span class="green">$items</span></a> = <span class="red">''</span></pre>
-                    <p class="description">List of package, functions, globals...</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">public  string</td>
-                <td class="description">
-                    <pre><a href="#$output"><span class="green">$output</span></a> = <span class="red">''</span></pre>
-                    <p class="description">Output body</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">private  mixed</td>
-                <td class="description">
-                    <pre><a href="#$regexp"><span class="green">$regexp</span></a> = [<br />        <span class="red">"#[\"</span>](.*?)[\<span class="red">"]#is"</span>     => <span class="red">'<span class=<span class="red">"red"</span>><span class="red">"\\1"</span></span>'</span>,<br />        <span class="red">"#<span class="red">"(.*?)"</span>#is"</span> => <span class="red">'<span class=<span class="red">"red"</span>><span class="red">"\\1"</span></span>'</span>,<br />        <span class="red">"#[\<span class="red">'](.*?)[\'</span>]#is"</span>     => <span class="red">'<span class=<span class="red">"red"</span>>\'</span>\\1\<span class="red">'</span>'</span>,<br />        <span class="red">"#(.*?)#is"</span>  => <span class="red">'\\2'</span><br />    ]</pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">public  array</td>
-                <td class="description">
-                    <pre><a href="#$sections"><span class="green">$sections</span></a> = []</pre>
-                    <p class="description">Section titles to place in the header</p>
-                </td>
-            </tr>
-            </table>
-    <table id="summary_methods">
-        <tr><th colspan="2">Методы: общий обзор</th></tr>
-                    <tr>
-                <td class="type w_200">public  void</td>
-                <td class="description">
-                    <p><a href="#htmlWriter"><strong><span class="black">htmlWriter</span></strong></a> (<span class="lilac">doclet</span> <span class="blue">&$doclet</span>)</p>
-                    <p class="description">Constructor.</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">public  string</td>
-                <td class="description">
-                    <p><a href="#nav"><strong><span class="black">nav</span></strong></a> (<span class="lilac">string</span> <span class="blue">$path</span>, <span class="lilac">string</span> <span class="blue">$file</span>)</p>
-                    <p class="description">Builds the navigation bar.</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">public  string</td>
-                <td class="description">
-                    <p><a href="#packageItems"><strong><span class="black">packageItems</span></strong></a> (<a href="../phpapi/phpapi.html">phpapi</a> <span class="blue">&$phpapi</span>, <a href="../phpapi/packagedoc.html">packageDoc</a> <span class="blue">&$package</span>)</p>
-                    <p class="description">Builds all items of the class.</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  string</td>
-                <td class="description">
-                    <p><a href="#processInlineTags"><strong><span class="black">processInlineTags</span></strong></a> (<a href="../tags/tag.html">tag</a> <span class="blue">&$tag</span>, <span class="lilac">boolean</span> <span class="blue">$first</span>)</p>
-                    <p class="description">Converts inline tags into a string for outputting.</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  array</td>
-                <td class="description">
-                    <p><a href="#parameters"><strong><span class="black">parameters</span></strong></a> (<a href="../tags/tag.html">tag</a> <span class="blue">&$tag</span>, <span class="lilac">object</span> <span class="blue">$obj</span>, <span class="lilac">mixed</span> <span class="blue">&$tags</span>)</p>
-                    <p class="description">Formats parameters for output.</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">public  array</td>
-                <td class="description">
-                    <p><a href="#showObject"><strong><span class="black">showObject</span></strong></a> (<span class="lilac">object</span> <span class="blue">$object</span>)</p>
-                    <p class="description">Preparation of the object for html template.</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">public  void</td>
-                <td class="description">
-                    <p><a href="#write"><strong><span class="black">write</span></strong></a> (<span class="lilac">string</span> <span class="blue">$file</span>, <span class="lilac">string</span> <span class="blue">$title</span>, <span class="lilac">boolean</span> <span class="blue">$menu</span>)</p>
-                    <p class="description">Writes the HTML page to disk using the given path.</p>
-                </td>
-            </tr>
-            </table>
-    <h2 id="details_fields">Поля: детали</h2>
-            <div class="location">doclets/html/htmlWriter.php at line 18</div>
-        <pre class="arguments" id="Undefined $depth">public  integer <strong><span class="green">$depth</span></strong> = 0</pre>
+    <h2 id="details_fields">Поля</h2>
+            <div class="location">system/htmlWriter.php at line 18</div>
+        <pre class="arguments" id="depth">public  integer <strong><span class="green">$depth</span></strong> = 0</pre>
         <div class="details">Directory structure depth. Used to calculate relative paths</div>
         <hr />
-            <div class="location">doclets/html/htmlWriter.php at line 21</div>
-        <pre class="arguments" id="Undefined $doclet">public  doclet <strong><span class="green">$doclet</span></strong></pre>
+            <div class="location">system/htmlWriter.php at line 21</div>
+        <pre class="arguments" id="doclet">public  doclet <strong><span class="green">$doclet</span></strong></pre>
         <div class="details">Doclet that created this object</div>
         <hr />
-            <div class="location">doclets/html/htmlWriter.php at line 24</div>
-        <pre class="arguments" id="Undefined $id">public  string <strong><span class="green">$id</span></strong> = <span class="red">'overview'</span></pre>
+            <div class="location">system/htmlWriter.php at line 24</div>
+        <pre class="arguments" id="id">public  string <strong><span class="green">$id</span></strong> = <span class="red">"overview"</span></pre>
         <div class="details">The <body> id attribute value, used for selecting style</div>
         <hr />
-            <div class="location">doclets/html/htmlWriter.php at line 27</div>
-        <pre class="arguments" id="Undefined $items">public  string <strong><span class="green">$items</span></strong> = <span class="red">''</span></pre>
+            <div class="location">system/htmlWriter.php at line 27</div>
+        <pre class="arguments" id="items">public  string <strong><span class="green">$items</span></strong> = <span class="red">""</span></pre>
         <div class="details">List of package, functions, globals...</div>
         <hr />
-            <div class="location">doclets/html/htmlWriter.php at line 30</div>
-        <pre class="arguments" id="Undefined $output">public  string <strong><span class="green">$output</span></strong> = <span class="red">''</span></pre>
+            <div class="location">system/htmlWriter.php at line 30</div>
+        <pre class="arguments" id="output">public  string <strong><span class="green">$output</span></strong> = <span class="red">""</span></pre>
         <div class="details">Output body</div>
         <hr />
-            <div class="location">doclets/html/htmlWriter.php at line 32</div>
-        <pre class="arguments" id="Undefined $regexp">private  mixed <strong><span class="green">$regexp</span></strong> = [<br />        <span class="red">"#[\"</span>](.*?)[\<span class="red">"]#is"</span>     => <span class="red">'<span class=<span class="red">"red"</span>><span class="red">"\\1"</span></span>'</span>,<br />        <span class="red">"#<span class="red">"(.*?)"</span>#is"</span> => <span class="red">'<span class=<span class="red">"red"</span>><span class="red">"\\1"</span></span>'</span>,<br />        <span class="red">"#[\<span class="red">'](.*?)[\'</span>]#is"</span>     => <span class="red">'<span class=<span class="red">"red"</span>>\'</span>\\1\<span class="red">'</span>'</span>,<br />        <span class="red">"#(.*?)#is"</span>  => <span class="red">'\\2'</span><br />    ]</pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/htmlWriter.php at line 32</div>
+        <pre class="arguments" id="regexp">private  mixed <strong><span class="green">$regexp</span></strong> = [<br />        <span class="red">"#[\"</span>](.*?)[\<span class="red">"]#is"</span>     => <span class="red">"<span class=<span class="red">"red"</span>><span class="red">"\\1"</span></span>"</span>,<br />        <span class="red">"#<span class="red">"(.*?)"</span>#is"</span> => <span class="red">"<span class=<span class="red">"red"</span>><span class="red">"\\1"</span></span>"</span>,<br />        <span class="red">"#[\<span class="red">"](.*?)[\"</span>]#is"</span>     => <span class="red">"<span class=<span class="red">"red"</span>><span class="red">"\\1"</span></span>"</span>,<br />        <span class="red">"#(.*?)#is"</span>  => <span class="red">"\\2"</span><br />    ]</pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/html/htmlWriter.php at line 35</div>
-        <pre class="arguments" id="Undefined $sections">public  array <strong><span class="green">$sections</span></strong> = []</pre>
+            <div class="location">system/htmlWriter.php at line 35</div>
+        <pre class="arguments" id="sections">public  array <strong><span class="green">$sections</span></strong> = []</pre>
         <div class="details">Section titles to place in the header</div>
         <hr />
-        <h2 id="details_methods">Методы: детали</h2>
-            <div class="location">doclets/html/htmlWriter.php at line 42</div>
+        <h2 id="details_methods">Методы</h2>
+            <div class="location">system/htmlWriter.php at line 42</div>
         <code class="arguments" id="htmlWriter">public  void <strong>htmlWriter</strong> (<span class="lilac">doclet</span> <span class="blue">&$doclet</span>)</code>
         <div class="details">
                     <p class="description">Constructor.</p>
@@ -226,7 +121,7 @@
 </div>
         </div>
         <hr />
-            <div class="location">doclets/html/htmlWriter.php at line 53</div>
+            <div class="location">system/htmlWriter.php at line 53</div>
         <code class="arguments" id="nav">public  string <strong>nav</strong> (<span class="lilac">string</span> <span class="blue">$path</span>, <span class="lilac">string</span> <span class="blue">$file</span>)</code>
         <div class="details">
                     <p class="description">Builds the navigation bar.</p>
@@ -242,7 +137,7 @@
             <td class="hid left w_100">&nbsp</td>
             <td class="hid right w_100 lilac">string</td>
                             <td class="hid blue w_100">$file</td>
-                <td class="hid">Filename for which navigation to create (default = <span class="red">''</span>)</td>
+                <td class="hid">Filename for which navigation to create (default = <span class="red">""</span>)</td>
                     </tr>
             <tr>
             <td class="hid left w_100">Return</td>
@@ -253,7 +148,7 @@
 </div>
         </div>
         <hr />
-            <div class="location">doclets/html/htmlWriter.php at line 89</div>
+            <div class="location">system/htmlWriter.php at line 89</div>
         <code class="arguments" id="packageItems">public  string <strong>packageItems</strong> (<a href="../phpapi/phpapi.html">phpapi</a> <span class="blue">&$phpapi</span>, <a href="../phpapi/packagedoc.html">packageDoc</a> <span class="blue">&$package</span>)</code>
         <div class="details">
                     <p class="description">Builds all items of the class.</p>
@@ -280,7 +175,7 @@
 </div>
         </div>
         <hr />
-            <div class="location">doclets/html/htmlWriter.php at line 184</div>
+            <div class="location">system/htmlWriter.php at line 184</div>
         <code class="arguments" id="processInlineTags">protected  string <strong>processInlineTags</strong> (<a href="../tags/tag.html">tag</a> <span class="blue">&$tag</span>, <span class="lilac">boolean</span> <span class="blue">$first</span>)</code>
         <div class="details">
                     <p class="description">Converts inline tags into a string for outputting.</p>
@@ -307,7 +202,7 @@
 </div>
         </div>
         <hr />
-            <div class="location">doclets/html/htmlWriter.php at line 211</div>
+            <div class="location">system/htmlWriter.php at line 211</div>
         <code class="arguments" id="parameters">protected  array <strong>parameters</strong> (<a href="../tags/tag.html">tag</a> <span class="blue">&$tag</span>, <span class="lilac">object</span> <span class="blue">$obj</span>, <span class="lilac">mixed</span> <span class="blue">&$tags</span>)</code>
         <div class="details">
                     <p class="description">Formats parameters for output.<br /> Returns the list of parameters with their types.<br /> Recognised types are turned into HTML anchor tags to the documentation page for the class defining them.</p>
@@ -334,7 +229,7 @@
 </div>
         </div>
         <hr />
-            <div class="location">doclets/html/htmlWriter.php at line 292</div>
+            <div class="location">system/htmlWriter.php at line 292</div>
         <code class="arguments" id="showObject">public  array <strong>showObject</strong> (<span class="lilac">object</span> <span class="blue">$object</span>)</code>
         <div class="details">
                     <p class="description">Preparation of the object for html template.</p>
@@ -355,7 +250,7 @@
 </div>
         </div>
         <hr />
-            <div class="location">doclets/html/htmlWriter.php at line 333</div>
+            <div class="location">system/htmlWriter.php at line 333</div>
         <code class="arguments" id="write">public  void <strong>write</strong> (<span class="lilac">string</span> <span class="blue">$file</span>, <span class="lilac">string</span> <span class="blue">$title</span>, <span class="lilac">boolean</span> <span class="blue">$menu</span>)</code>
         <div class="details">
                     <p class="description">Writes the HTML page to disk using the given path.</p>
@@ -384,7 +279,7 @@
         </div>
         <hr />
         <div class="header">
-    <span style="float:right">phpAPI ver. 5.0</span>
+    <span style="float:right">phpAPI v6.0</span>
             <ul>
                     <li><a href="../overview-summary.html">Overview</a></li>
                     <li><a href="../html/package-summary.html">Namespace</a></li>
@@ -399,8 +294,7 @@
 <div class="small_links">Фреймы: <a href="../index.html" target="_top"> Включить</a> | <a href="" target="_top"> Выключить</a></div>
 <hr />
     <div class="small_links">
-        Общий обзор: <a href="#summary_fields">Поля</a> | <a href="#summary_methods">Методы</a> | <a href="#summary_constructor">Конструктор</a>
-        Детали: <a href="#details_fields">Поля</a> | <a href="#details_methods">Методы</a> | <a href="#details_constructor">Конструктор</a>
+        <a href="#details_fields">Поля</a> | <a href="#details_methods">Методы</a> | <a href="#details_constructor">Конструктор</a>
     </div>
     </body>
 </html>

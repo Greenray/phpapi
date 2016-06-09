@@ -1,15 +1,15 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>API for class markdownExtra (phpAPI: PHP Documentation Creator ver. 5.0)</title>
+    <title>API for class markdownExtra (phpAPI: PHP Documentation Creator version 6.0)</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="generator" content="phpAPI 5.0 (https://github.com/Greenray/phpAPI/)">
+    <meta name="generator" content="phpAPI 6.0 (https://github.com/Greenray/phpAPI/)">
     <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="start" href="../index.html">
 </head>
     <body id="markdownExtra" onload="parent.document.title=document.title;">
     <div class="header">
-    <span style="float:right">phpAPI ver. 5.0</span>
+    <span style="float:right">phpAPI v6.0</span>
             <ul>
                     <li><a href="../overview-summary.html">Overview</a></li>
                     <li><a href="../markdown/package-summary.html">Namespace</a></li>
@@ -24,8 +24,7 @@
 <div class="small_links">Фреймы: <a href="../index.html" target="_top"> Включить</a> | <a href="" target="_top"> Выключить</a></div>
 <hr />
     <div class="small_links">
-        Общий обзор: <a href="#summary_fields">Поля</a> | <a href="#summary_methods">Методы</a> | <a href="#summary_constructor">Конструктор</a>
-        Детали: <a href="#details_fields">Поля</a> | <a href="#details_methods">Методы</a> | <a href="#details_constructor">Конструктор</a>
+        <a href="#details_fields">Поля</a> | <a href="#details_methods">Методы</a> | <a href="#details_constructor">Конструктор</a>
     </div>
     <hr />
 <div class="package">Пространство имен markdown</div>
@@ -36,525 +35,83 @@
 </div>
 <hr />
 <p class="arguments">public  class <strong>markdownExtra</strong> extends <a href="../markdown/markdown.html">markdown</a></p>
-<div class="comment" id="overview_description">Markdown Extra Parser Class</div>
-    <table id="summary_fields">
-        <tr><th colspan="2">Поля: общий обзор</th></tr>
-                    <tr>
-                <td class="type w_200">protected  mixed</td>
-                <td class="description">
-                    <pre><a href="#$abbr_desciptions"><span class="green">$abbr_desciptions</span></a> = []</pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  mixed</td>
-                <td class="description">
-                    <pre><a href="#$abbr_word_re"><span class="green">$abbr_word_re</span></a> = <span class="red">''</span></pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  mixed</td>
-                <td class="description">
-                    <pre><a href="#$auto_close_tags_re"><span class="green">$auto_close_tags_re</span></a> = <span class="red">'hr|img|param|source|track'</span></pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  mixed</td>
-                <td class="description">
-                    <pre><a href="#$block_tags_re"><span class="green">$block_tags_re</span></a> = <span class="red">'p|div|h[1-6]|blockquote|pre|table|dl|ol|ul|address|form|fieldset|iframe|hr|legend|article|section|nav|aside|hgroup|header|footer|figcaption|figure'</span></pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  mixed</td>
-                <td class="description">
-                    <pre><a href="#$clean_tags_re"><span class="green">$clean_tags_re</span></a> = <span class="red">'script|style|math|svg'</span></pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">public  mixed</td>
-                <td class="description">
-                    <pre><a href="#$code_attr_on_pre"><span class="green">$code_attr_on_pre</span></a> = FALSE</pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">public  mixed</td>
-                <td class="description">
-                    <pre><a href="#$code_class_prefix"><span class="green">$code_class_prefix</span></a> = <span class="red">''</span></pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  mixed</td>
-                <td class="description">
-                    <pre><a href="#$contain_span_tags_re"><span class="green">$contain_span_tags_re</span></a> = <span class="red">'p|h[1-6]|li|dd|dt|td|th|legend|address'</span></pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  mixed</td>
-                <td class="description">
-                    <pre><a href="#$context_block_tags_re"><span class="green">$context_block_tags_re</span></a> = <span class="red">'script|noscript|style|ins|del|iframe|object|source|track|param|math|svg|canvas|audio|video'</span></pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  mixed</td>
-                <td class="description">
-                    <pre><a href="#$em_relist"><span class="green">$em_relist</span></a> = [<br />		<span class="red">''</span>  => <span class="red">'(?:(?<!\*)\*(?!\*)|(?<![a-zA-Z0-9_])_(?!_))(?![\.,:;]?\s)'</span>,<br />		<span class="red">'*'</span> => <span class="red">'(?<![\s*])\*(?!\*)'</span>,<br />		<span class="red">'_'</span> => <span class="red">'(?<![\s_])_(?![a-zA-Z0-9_])'</span><br />	]</pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  mixed</td>
-                <td class="description">
-                    <pre><a href="#$em_strong_relist"><span class="green">$em_strong_relist</span></a> = [<br />		<span class="red">''</span>    => <span class="red">'(?:(?<!\*)\*\*\*(?!\*)|(?<![a-zA-Z0-9_])___(?!_))(?![\.,:;]?\s)'</span>,<br />		<span class="red">'***'</span> => <span class="red">'(?<![\s*])\*\*\*(?!\*)'</span>,<br />		<span class="red">'___'</span> => <span class="red">'(?<![\s_])___(?![a-zA-Z0-9_])'</span><br />	]</pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">public  mixed</td>
-                <td class="description">
-                    <pre><a href="#$fn_backlink_class"><span class="green">$fn_backlink_class</span></a> = <span class="red">'footnote-backref'</span></pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">public  mixed</td>
-                <td class="description">
-                    <pre><a href="#$fn_backlink_title"><span class="green">$fn_backlink_title</span></a> = <span class="red">''</span></pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">public  mixed</td>
-                <td class="description">
-                    <pre><a href="#$fn_id_prefix"><span class="green">$fn_id_prefix</span></a> = <span class="red">''</span></pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">public  mixed</td>
-                <td class="description">
-                    <pre><a href="#$fn_link_class"><span class="green">$fn_link_class</span></a> = <span class="red">'footnote-ref'</span></pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">public  mixed</td>
-                <td class="description">
-                    <pre><a href="#$fn_link_title"><span class="green">$fn_link_title</span></a> = <span class="red">''</span></pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  mixed</td>
-                <td class="description">
-                    <pre><a href="#$footnote_counter"><span class="green">$footnote_counter</span></a> = 1</pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  mixed</td>
-                <td class="description">
-                    <pre><a href="#$footnotes"><span class="green">$footnotes</span></a> = []</pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  mixed</td>
-                <td class="description">
-                    <pre><a href="#$footnotes_numbers"><span class="green">$footnotes_numbers</span></a> = []</pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  mixed</td>
-                <td class="description">
-                    <pre><a href="#$footnotes_ordered"><span class="green">$footnotes_ordered</span></a> = []</pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  mixed</td>
-                <td class="description">
-                    <pre><a href="#$footnotes_ref_count"><span class="green">$footnotes_ref_count</span></a> = []</pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  mixed</td>
-                <td class="description">
-                    <pre><a href="#$id_class_attr_catch_re"><span class="green">$id_class_attr_catch_re</span></a> = <span class="red">'\{((?:[ ]*[#.a-z][-_:a-zA-Z0-9=]+){1,})[ ]*\}'</span></pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  mixed</td>
-                <td class="description">
-                    <pre><a href="#$id_class_attr_nocatch_re"><span class="green">$id_class_attr_nocatch_re</span></a> = <span class="red">'\{(?:[ ]*[#.a-z][-_:a-zA-Z0-9=]+){1,}[ ]*\}'</span></pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">public  mixed</td>
-                <td class="description">
-                    <pre><a href="#$predef_abbr"><span class="green">$predef_abbr</span></a> = []</pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  mixed</td>
-                <td class="description">
-                    <pre><a href="#$strong_relist"><span class="green">$strong_relist</span></a> = [<br />		<span class="red">''</span>   => <span class="red">'(?:(?<!\*)\*\*(?!\*)|(?<![a-zA-Z0-9_])__(?!_))(?![\.,:;]?\s)'</span>,<br />		<span class="red">'**'</span> => <span class="red">'(?<![\s*])\*\*(?!\*)'</span>,<br />		<span class="red">'__'</span> => <span class="red">'(?<![\s_])__(?![a-zA-Z0-9_])'</span><br />	]</pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">public  mixed</td>
-                <td class="description">
-                    <pre><a href="#$table_align_class_tmpl"><span class="green">$table_align_class_tmpl</span></a> = <span class="red">''</span></pre>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-            </table>
+<div class="comment" id="overview_description">Markdown Extra  -  A text-to-HTML conversion tool.</div>
+<div class="finfo">
+    <table class="hid">
+            <tr>
+            <td class="hid left w_100">Program</td>
+            <td class="hid right w_100 lilac">&nbsp;</td>
+                            <td class="hid" colspan="2">Markdown: A text-to-HTML conversion tool</td>
+                    </tr>
+            <tr>
+            <td class="hid left w_100">Version</td>
+            <td class="hid right w_100 lilac">&nbsp;</td>
+                            <td class="hid" colspan="2">1.6.0</td>
+                    </tr>
+            <tr>
+            <td class="hid left w_100">Autor</td>
+            <td class="hid right w_100 lilac">&nbsp;</td>
+                            <td class="hid" colspan="2">Michel Fortin https://michelf.ca/projects/php-markdown/</td>
+                    </tr>
+            <tr>
+            <td class="hid left w_100">Copyright</td>
+            <td class="hid right w_100 lilac">&nbsp;</td>
+                            <td class="hid" colspan="2">Copyright (c) 2004-2015 Michel Fortin</td>
+                    </tr>
+            <tr>
+            <td class="hid left w_100">File</td>
+            <td class="hid right w_100 lilac">&nbsp;</td>
+                            <td class="hid" colspan="2">/system/markdown/markdownExtra.php</td>
+                    </tr>
+            <tr>
+            <td class="hid left w_100">Overview</td>
+            <td class="hid right w_100 lilac">&nbsp;</td>
+                            <td class="hid" colspan="2">A text-to-HTML convertor.
+ Is used to process the overview file.</td>
+                    </tr>
+        </table>
+</div>
             <table class="inherit">
             <tr><th>Поля, унаследованные из markdown \ markdown</th></tr>
             <tr>
                 <td>
-                                <span><a href="../markdown/markdown.html#$block_gamut"><span class="green">$block_gamut, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$document_gamut"><span class="green">$document_gamut, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$em_relist"><span class="green">$em_relist, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$em_strong_prepared_relist"><span class="green">$em_strong_prepared_relist, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$em_strong_relist"><span class="green">$em_strong_relist, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$empty_element_suffix"><span class="green">$empty_element_suffix, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$enhanced_ordered_list"><span class="green">$enhanced_ordered_list, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$escape_chars"><span class="green">$escape_chars, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$escape_chars_re"><span class="green">$escape_chars_re, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$header_id_func"><span class="green">$header_id_func, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$html_hashes"><span class="green">$html_hashes, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$in_anchor"><span class="green">$in_anchor, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$list_level"><span class="green">$list_level, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$nested_brackets_depth"><span class="green">$nested_brackets_depth, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$nested_brackets_re"><span class="green">$nested_brackets_re, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$nested_url_parenthesis_depth"><span class="green">$nested_url_parenthesis_depth, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$nested_url_parenthesis_re"><span class="green">$nested_url_parenthesis_re, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$no_entities"><span class="green">$no_entities, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$no_markup"><span class="green">$no_markup, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$predef_titles"><span class="green">$predef_titles, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$predef_urls"><span class="green">$predef_urls, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$span_gamut"><span class="green">$span_gamut, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$strong_relist"><span class="green">$strong_relist, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$tab_width"><span class="green">$tab_width, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$titles"><span class="green">$titles, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$url_filter_func"><span class="green">$url_filter_func, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$urls"><span class="green">$urls, </span></a>&nbsp;</span>
-                                <span><a href="../markdown/markdown.html#$utf8_strlen"><span class="green">$utf8_strlen</span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$block_gamut"><span class="green">$block_gamut, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$code_block_content_func"><span class="green">$code_block_content_func, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$document_gamut"><span class="green">$document_gamut, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$em_relist"><span class="green">$em_relist, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$em_strong_prepared_relist"><span class="green">$em_strong_prepared_relist, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$em_strong_relist"><span class="green">$em_strong_relist, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$empty_element_suffix"><span class="green">$empty_element_suffix, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$enhanced_ordered_list"><span class="green">$enhanced_ordered_list, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$escape_chars"><span class="green">$escape_chars, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$escape_chars_re"><span class="green">$escape_chars_re, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$header_id_func"><span class="green">$header_id_func, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$html_hashes"><span class="green">$html_hashes, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$in_anchor"><span class="green">$in_anchor, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$list_level"><span class="green">$list_level, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$nested_brackets_depth"><span class="green">$nested_brackets_depth, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$nested_brackets_re"><span class="green">$nested_brackets_re, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$nested_url_parenthesis_depth"><span class="green">$nested_url_parenthesis_depth, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$nested_url_parenthesis_re"><span class="green">$nested_url_parenthesis_re, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$no_entities"><span class="green">$no_entities, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$no_markup"><span class="green">$no_markup, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$predef_titles"><span class="green">$predef_titles, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$predef_urls"><span class="green">$predef_urls, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$span_gamut"><span class="green">$span_gamut, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$strong_relist"><span class="green">$strong_relist, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$tab_width"><span class="green">$tab_width, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$titles"><span class="green">$titles, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$url_filter_func"><span class="green">$url_filter_func, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$urls"><span class="green">$urls, </span></a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#$utf8_strlen"><span class="green">$utf8_strlen</span></a>&nbsp;</span>
                                 </td>
             </tr>
         </table>
-        <table id="summary_constructor">
-        <tr><th colspan="2">Конструктор: общий обзор</th></tr>
-        <tr>
-            <td class="type w_200">public  void</td>
-            <td class="description">
-                <p><a href="#__construct"><strong><span class="black">__construct</span></strong></a>()</p>
-                <p class="description">Описания нет</p>
-            </td>
-        </tr>
-    </table>
-    <table id="summary_methods">
-        <tr><th colspan="2">Методы: общий обзор</th></tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#setup"><strong><span class="black">setup</span></strong></a> ()</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#teardown"><strong><span class="black">teardown</span></strong></a> ()</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#doExtraAttributes"><strong><span class="black">doExtraAttributes</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$tag_name</span>, <span class="lilac">mixed</span> <span class="blue">$attr</span>, <span class="lilac">string</span> <span class="blue">$defaultIdValue</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#stripLinkDefinitions"><strong><span class="black">stripLinkDefinitions</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#_stripLinkDefinitions_callback"><strong><span class="black">_stripLinkDefinitions_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#hashHTMLBlocks"><strong><span class="black">hashHTMLBlocks</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#_hashHTMLBlocks_inMarkdown"><strong><span class="black">_hashHTMLBlocks_inMarkdown</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>, <span class="lilac">mixed</span> <span class="blue">$indent</span>, <span class="lilac">string</span> <span class="blue">$enclosing_tag_re</span>, <span class="lilac">string</span> <span class="blue">$span</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#_hashHTMLBlocks_inHTML"><strong><span class="black">_hashHTMLBlocks_inHTML</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>, <span class="lilac">mixed</span> <span class="blue">$hash_method</span>, <span class="lilac">mixed</span> <span class="blue">$md_attr</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#hashClean"><strong><span class="black">hashClean</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#doAnchors"><strong><span class="black">doAnchors</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#_doAnchors_reference_callback"><strong><span class="black">_doAnchors_reference_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#_doAnchors_inline_callback"><strong><span class="black">_doAnchors_inline_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#doImages"><strong><span class="black">doImages</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#_doImages_reference_callback"><strong><span class="black">_doImages_reference_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#_doImages_inline_callback"><strong><span class="black">_doImages_inline_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#doHeaders"><strong><span class="black">doHeaders</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#_doHeaders_callback_setext"><strong><span class="black">_doHeaders_callback_setext</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#_doHeaders_callback_atx"><strong><span class="black">_doHeaders_callback_atx</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#doTables"><strong><span class="black">doTables</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#_doTable_leadingPipe_callback"><strong><span class="black">_doTable_leadingPipe_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#_doTable_makeAlignAttr"><strong><span class="black">_doTable_makeAlignAttr</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$alignname</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#_doTable_callback"><strong><span class="black">_doTable_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#doDefLists"><strong><span class="black">doDefLists</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#_doDefLists_callback"><strong><span class="black">_doDefLists_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#processDefListItems"><strong><span class="black">processDefListItems</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$list_str</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#_processDefListItems_callback_dt"><strong><span class="black">_processDefListItems_callback_dt</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#_processDefListItems_callback_dd"><strong><span class="black">_processDefListItems_callback_dd</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#doFencedCodeBlocks"><strong><span class="black">doFencedCodeBlocks</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#_doFencedCodeBlocks_callback"><strong><span class="black">_doFencedCodeBlocks_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#_doFencedCodeBlocks_newlines"><strong><span class="black">_doFencedCodeBlocks_newlines</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#formParagraphs"><strong><span class="black">formParagraphs</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#stripFootnotes"><strong><span class="black">stripFootnotes</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#_stripFootnotes_callback"><strong><span class="black">_stripFootnotes_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#doFootnotes"><strong><span class="black">doFootnotes</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#appendFootnotes"><strong><span class="black">appendFootnotes</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#_appendFootnotes_callback"><strong><span class="black">_appendFootnotes_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#stripAbbreviations"><strong><span class="black">stripAbbreviations</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#_stripAbbreviations_callback"><strong><span class="black">_stripAbbreviations_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#doAbbreviations"><strong><span class="black">doAbbreviations</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-                    <tr>
-                <td class="type w_200">protected  void</td>
-                <td class="description">
-                    <p><a href="#_doAbbreviations_callback"><strong><span class="black">_doAbbreviations_callback</span></strong></a> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</p>
-                    <p class="description">Описания нет</p>
-                </td>
-            </tr>
-            </table>
-            <table class="inherit">
+                <table class="inherit">
             <tr><th>Методы, унаследованные из markdown \ markdown</th></tr>
             <tr>
                 <td>
-                                    <span><a href="../markdown/markdown.html#__construct">__construct, </a>&nbsp;</span>
+                                    <span><a href="../markdown/markdown.html#construct">construct, </a>&nbsp;</span>
                                     <span><a href="../markdown/markdown.html#_detab_callback">_detab_callback, </a>&nbsp;</span>
                                     <span><a href="../markdown/markdown.html#_doAnchors_inline_callback">_doAnchors_inline_callback, </a>&nbsp;</span>
                                     <span><a href="../markdown/markdown.html#_doAnchors_reference_callback">_doAnchors_reference_callback, </a>&nbsp;</span>
@@ -612,360 +169,364 @@
                                 </td>
             </tr>
         </table>
-        <h2 id="details_fields">Поля: детали</h2>
-            <div class="location">doclets/markdown/markdownExtra.php at line 87</div>
-        <pre class="arguments" id="Undefined $abbr_desciptions">protected  mixed <strong><span class="green">$abbr_desciptions</span></strong> = []</pre>
-        <div class="details">Описания нет</div>
+        <h2 id="details_fields">Поля</h2>
+            <div class="location">system/markdown/markdownExtra.php at line 88</div>
+        <pre class="arguments" id="abbr_desciptions">protected  mixed <strong><span class="green">$abbr_desciptions</span></strong> = array()</pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 88</div>
-        <pre class="arguments" id="Undefined $abbr_word_re">protected  mixed <strong><span class="green">$abbr_word_re</span></strong> = <span class="red">''</span></pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 89</div>
+        <pre class="arguments" id="abbr_word_re">protected  mixed <strong><span class="green">$abbr_word_re</span></strong> = <span class="red">""</span></pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 247</div>
-        <pre class="arguments" id="Undefined $auto_close_tags_re">protected  mixed <strong><span class="green">$auto_close_tags_re</span></strong> = <span class="red">'hr|img|param|source|track'</span></pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 247</div>
+        <pre class="arguments" id="auto_close_tags_re">protected  mixed <strong><span class="green">$auto_close_tags_re</span></strong> = <span class="red">"hr|img|param|source|track"</span></pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 234</div>
-        <pre class="arguments" id="Undefined $block_tags_re">protected  mixed <strong><span class="green">$block_tags_re</span></strong> = <span class="red">'p|div|h[1-6]|blockquote|pre|table|dl|ol|ul|address|form|fieldset|iframe|hr|legend|article|section|nav|aside|hgroup|header|footer|figcaption|figure'</span></pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 234</div>
+        <pre class="arguments" id="block_tags_re">protected  mixed <strong><span class="green">$block_tags_re</span></strong> = <span class="red">"p|div|h[1-6]|blockquote|pre|table|dl|ol|ul|address|form|fieldset|iframe|hr|legend|article|section|nav|aside|hgroup|header|footer|figcaption|figure"</span></pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 244</div>
-        <pre class="arguments" id="Undefined $clean_tags_re">protected  mixed <strong><span class="green">$clean_tags_re</span></strong> = <span class="red">'script|style|math|svg'</span></pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 244</div>
+        <pre class="arguments" id="clean_tags_re">protected  mixed <strong><span class="green">$clean_tags_re</span></strong> = <span class="red">"script|style|math|svg"</span></pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 44</div>
-        <pre class="arguments" id="Undefined $code_attr_on_pre">public  mixed <strong><span class="green">$code_attr_on_pre</span></strong> = FALSE</pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 45</div>
+        <pre class="arguments" id="code_attr_on_pre">public  mixed <strong><span class="green">$code_attr_on_pre</span></strong> = false</pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 41</div>
-        <pre class="arguments" id="Undefined $code_class_prefix">public  mixed <strong><span class="green">$code_class_prefix</span></strong> = <span class="red">''</span></pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 42</div>
+        <pre class="arguments" id="code_class_prefix">public  mixed <strong><span class="green">$code_class_prefix</span></strong> = <span class="red">""</span></pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 240</div>
-        <pre class="arguments" id="Undefined $contain_span_tags_re">protected  mixed <strong><span class="green">$contain_span_tags_re</span></strong> = <span class="red">'p|h[1-6]|li|dd|dt|td|th|legend|address'</span></pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 240</div>
+        <pre class="arguments" id="contain_span_tags_re">protected  mixed <strong><span class="green">$contain_span_tags_re</span></strong> = <span class="red">"p|h[1-6]|li|dd|dt|td|th|legend|address"</span></pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 237</div>
-        <pre class="arguments" id="Undefined $context_block_tags_re">protected  mixed <strong><span class="green">$context_block_tags_re</span></strong> = <span class="red">'script|noscript|style|ins|del|iframe|object|source|track|param|math|svg|canvas|audio|video'</span></pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 237</div>
+        <pre class="arguments" id="context_block_tags_re">protected  mixed <strong><span class="green">$context_block_tags_re</span></strong> = <span class="red">"script|noscript|style|ins|del|iframe|object|source|track|param|math|svg|canvas|audio|video"</span></pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1343</div>
-        <pre class="arguments" id="Undefined $em_relist">protected  mixed <strong><span class="green">$em_relist</span></strong> = [<br />		<span class="red">''</span>  => <span class="red">'(?:(?<!\*)\*(?!\*)|(?<![a-zA-Z0-9_])_(?!_))(?![\.,:;]?\s)'</span>,<br />		<span class="red">'*'</span> => <span class="red">'(?<![\s*])\*(?!\*)'</span>,<br />		<span class="red">'_'</span> => <span class="red">'(?<![\s_])_(?![a-zA-Z0-9_])'</span><br />	]</pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1353</div>
+        <pre class="arguments" id="em_relist">protected  mixed <strong><span class="green">$em_relist</span></strong> = array(<br />		<span class="red">""</span>  => <span class="red">"(?:(?<!\*)\*(?!\*)|(?<![a-zA-Z0-9_])_(?!_))(?![\.,:;]?\s)"</span>,<br />		<span class="red">"*"</span> => <span class="red">"(?<![\s*])\*(?!\*)"</span>,<br />		<span class="red">"_"</span> => <span class="red">"(?<![\s_])_(?![a-zA-Z0-9_])"</span>,<br />		)</pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1345</div>
-        <pre class="arguments" id="Undefined $em_strong_relist">protected  mixed <strong><span class="green">$em_strong_relist</span></strong> = [<br />		<span class="red">''</span>    => <span class="red">'(?:(?<!\*)\*\*\*(?!\*)|(?<![a-zA-Z0-9_])___(?!_))(?![\.,:;]?\s)'</span>,<br />		<span class="red">'***'</span> => <span class="red">'(?<![\s*])\*\*\*(?!\*)'</span>,<br />		<span class="red">'___'</span> => <span class="red">'(?<![\s_])___(?![a-zA-Z0-9_])'</span><br />	]</pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1355</div>
+        <pre class="arguments" id="em_strong_relist">protected  mixed <strong><span class="green">$em_strong_relist</span></strong> = array(<br />		<span class="red">""</span>    => <span class="red">"(?:(?<!\*)\*\*\*(?!\*)|(?<![a-zA-Z0-9_])_(?!_))(?![\.,:;]?\s)"</span>,<br />		<span class="red">"***"</span> => <span class="red">"(?<![\s*])\*\*\*(?!\*)"</span>,<br />		<span class="red">"_"</span> => <span class="red">"(?<![\s_])_(?![a-zA-Z0-9_])"</span>,<br />		)</pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 33</div>
-        <pre class="arguments" id="Undefined $fn_backlink_class">public  mixed <strong><span class="green">$fn_backlink_class</span></strong> = <span class="red">'footnote-backref'</span></pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 29</div>
+        <pre class="arguments" id="fn_backlink_class">public  mixed <strong><span class="green">$fn_backlink_class</span></strong> = <span class="red">"footnote-backref"</span></pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 29</div>
-        <pre class="arguments" id="Undefined $fn_backlink_title">public  mixed <strong><span class="green">$fn_backlink_title</span></strong> = <span class="red">''</span></pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 34</div>
+        <pre class="arguments" id="fn_backlink_html">public  mixed <strong><span class="green">$fn_backlink_html</span></strong> = <span class="red">"&#8617;&#xFE0E;"</span></pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 25</div>
-        <pre class="arguments" id="Undefined $fn_id_prefix">public  mixed <strong><span class="green">$fn_id_prefix</span></strong> = <span class="red">''</span></pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 25</div>
+        <pre class="arguments" id="fn_backlink_title">public  mixed <strong><span class="green">$fn_backlink_title</span></strong> = <span class="red">""</span></pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 32</div>
-        <pre class="arguments" id="Undefined $fn_link_class">public  mixed <strong><span class="green">$fn_link_class</span></strong> = <span class="red">'footnote-ref'</span></pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 21</div>
+        <pre class="arguments" id="fn_id_prefix">public  mixed <strong><span class="green">$fn_id_prefix</span></strong> = <span class="red">""</span></pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 28</div>
-        <pre class="arguments" id="Undefined $fn_link_title">public  mixed <strong><span class="green">$fn_link_title</span></strong> = <span class="red">''</span></pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 28</div>
+        <pre class="arguments" id="fn_link_class">public  mixed <strong><span class="green">$fn_link_class</span></strong> = <span class="red">"footnote-ref"</span></pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 91</div>
-        <pre class="arguments" id="Undefined $footnote_counter">protected  mixed <strong><span class="green">$footnote_counter</span></strong> = 1</pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 24</div>
+        <pre class="arguments" id="fn_link_title">public  mixed <strong><span class="green">$fn_link_title</span></strong> = <span class="red">""</span></pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 83</div>
-        <pre class="arguments" id="Undefined $footnotes">protected  mixed <strong><span class="green">$footnotes</span></strong> = []</pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 92</div>
+        <pre class="arguments" id="footnote_counter">protected  mixed <strong><span class="green">$footnote_counter</span></strong> = 1</pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 86</div>
-        <pre class="arguments" id="Undefined $footnotes_numbers">protected  mixed <strong><span class="green">$footnotes_numbers</span></strong> = []</pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 84</div>
+        <pre class="arguments" id="footnotes">protected  mixed <strong><span class="green">$footnotes</span></strong> = array()</pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 84</div>
-        <pre class="arguments" id="Undefined $footnotes_ordered">protected  mixed <strong><span class="green">$footnotes_ordered</span></strong> = []</pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 87</div>
+        <pre class="arguments" id="footnotes_numbers">protected  mixed <strong><span class="green">$footnotes_numbers</span></strong> = array()</pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 85</div>
-        <pre class="arguments" id="Undefined $footnotes_ref_count">protected  mixed <strong><span class="green">$footnotes_ref_count</span></strong> = []</pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 85</div>
+        <pre class="arguments" id="footnotes_ordered">protected  mixed <strong><span class="green">$footnotes_ordered</span></strong> = array()</pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 134</div>
-        <pre class="arguments" id="Undefined $id_class_attr_catch_re">protected  mixed <strong><span class="green">$id_class_attr_catch_re</span></strong> = <span class="red">'\{((?:[ ]*[#.a-z][-_:a-zA-Z0-9=]+){1,})[ ]*\}'</span></pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 86</div>
+        <pre class="arguments" id="footnotes_ref_count">protected  mixed <strong><span class="green">$footnotes_ref_count</span></strong> = array()</pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 136</div>
-        <pre class="arguments" id="Undefined $id_class_attr_nocatch_re">protected  mixed <strong><span class="green">$id_class_attr_nocatch_re</span></strong> = <span class="red">'\{(?:[ ]*[#.a-z][-_:a-zA-Z0-9=]+){1,}[ ]*\}'</span></pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 135</div>
+        <pre class="arguments" id="id_class_attr_catch_re">protected  mixed <strong><span class="green">$id_class_attr_catch_re</span></strong> = <span class="red">"\{((?>[ ]*[#.a-z][-_:a-zA-Z0-9=]+){1,})[ ]*\}"</span></pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 47</div>
-        <pre class="arguments" id="Undefined $predef_abbr">public  mixed <strong><span class="green">$predef_abbr</span></strong> = []</pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 137</div>
+        <pre class="arguments" id="id_class_attr_nocatch_re">protected  mixed <strong><span class="green">$id_class_attr_nocatch_re</span></strong> = <span class="red">"\{(?>[ ]*[#.a-z][-_:a-zA-Z0-9=]+){1,}[ ]*\}"</span></pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1344</div>
-        <pre class="arguments" id="Undefined $strong_relist">protected  mixed <strong><span class="green">$strong_relist</span></strong> = [<br />		<span class="red">''</span>   => <span class="red">'(?:(?<!\*)\*\*(?!\*)|(?<![a-zA-Z0-9_])__(?!_))(?![\.,:;]?\s)'</span>,<br />		<span class="red">'**'</span> => <span class="red">'(?<![\s*])\*\*(?!\*)'</span>,<br />		<span class="red">'__'</span> => <span class="red">'(?<![\s_])__(?![a-zA-Z0-9_])'</span><br />	]</pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 48</div>
+        <pre class="arguments" id="predef_abbr">public  mixed <strong><span class="green">$predef_abbr</span></strong> = array()</pre>
+        <div class="details">No description</div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 38</div>
-        <pre class="arguments" id="Undefined $table_align_class_tmpl">public  mixed <strong><span class="green">$table_align_class_tmpl</span></strong> = <span class="red">''</span></pre>
-        <div class="details">Описания нет</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1354</div>
+        <pre class="arguments" id="strong_relist">protected  mixed <strong><span class="green">$strong_relist</span></strong> = array(<br />		<span class="red">""</span>   => <span class="red">"(?:(?<!\*)\*\*(?!\*)|(?<![a-zA-Z0-9_])(?!_))(?![\.,:;]?\s)"</span>,<br />		<span class="red">"**"</span> => <span class="red">"(?<![\s*])\*\*(?!\*)"</span>,<br />		<span class="red">""</span> => <span class="red">"(?<![\s_])(?![a-zA-Z0-9_])"</span>,<br />		)</pre>
+        <div class="details">No description</div>
         <hr />
-        <h2 id="details_constructor">Конструктор: детали</h2>
-    <div class="location">doclets/markdown/markdownExtra.php at line 51</div>
-    <code class="arguments" id="__construct">public  void <strong>__construct</strong>()</code>
+            <div class="location">system/markdown/markdownExtra.php at line 39</div>
+        <pre class="arguments" id="table_align_class_tmpl">public  mixed <strong><span class="green">$table_align_class_tmpl</span></strong> = <span class="red">""</span></pre>
+        <div class="details">No description</div>
+        <hr />
+        <h2 id="details_constructor">Конструктор</h2>
+    <div class="location">system/markdown/markdownExtra.php at line 52</div>
+    <code class="arguments" id="construct">public  void <strong>construct</strong>()</code>
     <div class="details">
-            <p class="description">Описания нет</p>
+            <p class="description">No description</p>
             </div>
-    <h2 id="details_methods">Методы: детали</h2>
-            <div class="location">doclets/markdown/markdownExtra.php at line 94</div>
+    <h2 id="details_methods">Методы</h2>
+            <div class="location">system/markdown/markdownExtra.php at line 95</div>
         <code class="arguments" id="setup">protected  void <strong>setup</strong> ()</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 116</div>
+            <div class="location">system/markdown/markdownExtra.php at line 117</div>
         <code class="arguments" id="teardown">protected  void <strong>teardown</strong> ()</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 138</div>
-        <code class="arguments" id="doExtraAttributes">protected  void <strong>doExtraAttributes</strong> (<span class="lilac">mixed</span> <span class="blue">$tag_name</span>, <span class="lilac">mixed</span> <span class="blue">$attr</span>, <span class="lilac">string</span> <span class="blue">$defaultIdValue</span>)</code>
+            <div class="location">system/markdown/markdownExtra.php at line 139</div>
+        <code class="arguments" id="doExtraAttributes">protected  void <strong>doExtraAttributes</strong> (<span class="lilac">mixed</span> <span class="blue">$tag_name</span>, <span class="lilac">mixed</span> <span class="blue">$attr</span>, <span class="lilac">string</span> <span class="blue">$defaultIdValue</span>, <span class="lilac">mixed</span> <span class="blue">$classes</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 186</div>
+            <div class="location">system/markdown/markdownExtra.php at line 186</div>
         <code class="arguments" id="stripLinkDefinitions">protected  void <strong>stripLinkDefinitions</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 221</div>
+            <div class="location">system/markdown/markdownExtra.php at line 221</div>
         <code class="arguments" id="_stripLinkDefinitions_callback">protected  void <strong>_stripLinkDefinitions_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 250</div>
+            <div class="location">system/markdown/markdownExtra.php at line 250</div>
         <code class="arguments" id="hashHTMLBlocks">protected  void <strong>hashHTMLBlocks</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 275</div>
+            <div class="location">system/markdown/markdownExtra.php at line 275</div>
         <code class="arguments" id="_hashHTMLBlocks_inMarkdown">protected  void <strong>_hashHTMLBlocks_inMarkdown</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>, <span class="lilac">mixed</span> <span class="blue">$indent</span>, <span class="lilac">string</span> <span class="blue">$enclosing_tag_re</span>, <span class="lilac">string</span> <span class="blue">$span</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 518</div>
+            <div class="location">system/markdown/markdownExtra.php at line 516</div>
         <code class="arguments" id="_hashHTMLBlocks_inHTML">protected  void <strong>_hashHTMLBlocks_inHTML</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>, <span class="lilac">mixed</span> <span class="blue">$hash_method</span>, <span class="lilac">mixed</span> <span class="blue">$md_attr</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 693</div>
+            <div class="location">system/markdown/markdownExtra.php at line 691</div>
         <code class="arguments" id="hashClean">protected  void <strong>hashClean</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 703</div>
+            <div class="location">system/markdown/markdownExtra.php at line 701</div>
         <code class="arguments" id="doAnchors">protected  void <strong>doAnchors</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 774</div>
+            <div class="location">system/markdown/markdownExtra.php at line 772</div>
         <code class="arguments" id="_doAnchors_reference_callback">protected  void <strong>_doAnchors_reference_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 810</div>
+            <div class="location">system/markdown/markdownExtra.php at line 808</div>
         <code class="arguments" id="_doAnchors_inline_callback">protected  void <strong>_doAnchors_inline_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 839</div>
+            <div class="location">system/markdown/markdownExtra.php at line 837</div>
         <code class="arguments" id="doImages">protected  void <strong>doImages</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 895</div>
+            <div class="location">system/markdown/markdownExtra.php at line 893</div>
         <code class="arguments" id="_doImages_reference_callback">protected  void <strong>_doImages_reference_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 925</div>
+            <div class="location">system/markdown/markdownExtra.php at line 923</div>
         <code class="arguments" id="_doImages_inline_callback">protected  void <strong>_doImages_inline_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 946</div>
+            <div class="location">system/markdown/markdownExtra.php at line 944</div>
         <code class="arguments" id="doHeaders">protected  void <strong>doHeaders</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 986</div>
+            <div class="location">system/markdown/markdownExtra.php at line 984</div>
         <code class="arguments" id="_doHeaders_callback_setext">protected  void <strong>_doHeaders_callback_setext</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 998</div>
+            <div class="location">system/markdown/markdownExtra.php at line 996</div>
         <code class="arguments" id="_doHeaders_callback_atx">protected  void <strong>_doHeaders_callback_atx</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1008</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1006</div>
         <code class="arguments" id="doTables">protected  void <strong>doTables</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1069</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1067</div>
         <code class="arguments" id="_doTable_leadingPipe_callback">protected  void <strong>_doTable_leadingPipe_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1079</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1077</div>
         <code class="arguments" id="_doTable_makeAlignAttr">protected  void <strong>_doTable_makeAlignAttr</strong> (<span class="lilac">mixed</span> <span class="blue">$alignname</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1087</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1085</div>
         <code class="arguments" id="_doTable_callback">protected  void <strong>_doTable_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1151</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1149</div>
         <code class="arguments" id="doDefLists">protected  void <strong>doDefLists</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1193</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1191</div>
         <code class="arguments" id="_doDefLists_callback">protected  void <strong>_doDefLists_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1205</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1203</div>
         <code class="arguments" id="processDefListItems">protected  void <strong>processDefListItems</strong> (<span class="lilac">mixed</span> <span class="blue">$list_str</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1248</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1246</div>
         <code class="arguments" id="_processDefListItems_callback_dt">protected  void <strong>_processDefListItems_callback_dt</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1257</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1255</div>
         <code class="arguments" id="_processDefListItems_callback_dd">protected  void <strong>_processDefListItems_callback_dd</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1277</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1275</div>
         <code class="arguments" id="doFencedCodeBlocks">protected  void <strong>doFencedCodeBlocks</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1316</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1316</div>
         <code class="arguments" id="_doFencedCodeBlocks_callback">protected  void <strong>_doFencedCodeBlocks_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1336</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1343</div>
         <code class="arguments" id="_doFencedCodeBlocks_newlines">protected  void <strong>_doFencedCodeBlocks_newlines</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1348</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1358</div>
         <code class="arguments" id="formParagraphs">protected  void <strong>formParagraphs</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1384</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1396</div>
         <code class="arguments" id="stripFootnotes">protected  void <strong>stripFootnotes</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1411</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1423</div>
         <code class="arguments" id="_stripFootnotes_callback">protected  void <strong>_stripFootnotes_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1418</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1430</div>
         <code class="arguments" id="doFootnotes">protected  void <strong>doFootnotes</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1430</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1442</div>
         <code class="arguments" id="appendFootnotes">protected  void <strong>appendFootnotes</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1494</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1507</div>
         <code class="arguments" id="_appendFootnotes_callback">protected  void <strong>_appendFootnotes_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1539</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1552</div>
         <code class="arguments" id="stripAbbreviations">protected  void <strong>stripAbbreviations</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1554</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1567</div>
         <code class="arguments" id="_stripAbbreviations_callback">protected  void <strong>_stripAbbreviations_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1565</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1578</div>
         <code class="arguments" id="doAbbreviations">protected  void <strong>doAbbreviations</strong> (<span class="lilac">mixed</span> <span class="blue">$text</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
-            <div class="location">doclets/markdown/markdownExtra.php at line 1581</div>
+            <div class="location">system/markdown/markdownExtra.php at line 1594</div>
         <code class="arguments" id="_doAbbreviations_callback">protected  void <strong>_doAbbreviations_callback</strong> (<span class="lilac">mixed</span> <span class="blue">$matches</span>)</code>
         <div class="details">
-                    <p class="description">Описания нет</p>
+                    <p class="description">No description</p>
                     </div>
         <hr />
         <div class="header">
-    <span style="float:right">phpAPI ver. 5.0</span>
+    <span style="float:right">phpAPI v6.0</span>
             <ul>
                     <li><a href="../overview-summary.html">Overview</a></li>
                     <li><a href="../markdown/package-summary.html">Namespace</a></li>
@@ -980,8 +541,7 @@
 <div class="small_links">Фреймы: <a href="../index.html" target="_top"> Включить</a> | <a href="" target="_top"> Выключить</a></div>
 <hr />
     <div class="small_links">
-        Общий обзор: <a href="#summary_fields">Поля</a> | <a href="#summary_methods">Методы</a> | <a href="#summary_constructor">Конструктор</a>
-        Детали: <a href="#details_fields">Поля</a> | <a href="#details_methods">Методы</a> | <a href="#details_constructor">Конструктор</a>
+        <a href="#details_fields">Поля</a> | <a href="#details_methods">Методы</a> | <a href="#details_constructor">Конструктор</a>
     </div>
     </body>
 </html>
