@@ -1,5 +1,5 @@
 <body id="frame">
-    <h1>__Полный список__</h1>
+    <h1>__Full list__</h1>
     <!-- IF !empty($interfaces) -->
         <h2>__Interfaces__</h2>
         <ul>

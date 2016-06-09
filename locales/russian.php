@@ -16,6 +16,7 @@ $lang['Exceptions'] = 'Исключения';
 $lang['Fields'] = 'Поля';
 $lang['Fields inherited from'] = 'Поля, унаследованные из';
 $lang['Frames'] = 'Фреймы';
+$lang['Full list'] = 'Полный список';
 $lang['Function'] = 'Функция';
 $lang['Functions'] = 'Функции';
 $lang['Global'] = 'Глобальный элемент';

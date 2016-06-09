@@ -907,4 +907,4 @@ Writing deprecated.html
 Writing todo.html
 Copying stylesheet
 Copying resources
-Done (2,16 seconds)
+Done (2,3 seconds)
