@@ -151,7 +151,7 @@ class classWriter extends htmlWriter {
                         if (!empty($constructor->includes)) {
                             foreach($constructor->includes as $key => $file) {
                                 $file = substr(preg_replace("#[\'\"](.*?)[\'\"]#is", '<span class="red">\'\\1\'</span>', $file), 0, -1);
-                                $output .= preg_replace("#^(.+?) #is", '<span class="bold">\\1</span> ', $file).LF;
+                                $output .= preg_replace("#^(.+?) #is", '<span class="bold">\\1</span> ', $file).'<br/>';
                             }
                             $tpl->set('c_includes', $output).LF;
                         }
