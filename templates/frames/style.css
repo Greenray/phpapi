@@ -2,7 +2,7 @@
 html,body,abbr,b,blockquote,caption,code,dd,div,dl,dt,em,fieldset,footer,h1,h2,h3,h4,h5,h6,
 header,iframe,img,li,label,nav,ol,p,pre,small,span,strong,sub,sup,table,tbody,
 td,th,tr,ul       { background: transparent; border: 0; margin: 0; outline: 0; padding: 0; }
-body              { background: #fff; color: #000; font: 12px normal arial, helvetica, verdana, sans-serif; line-height: 1; padding: 0 0 0 3px; }
+body              { background: #fff; color: #000; font: 12px normal arial, helvetica, verdana, sans-serif; line-height: 1.2; padding: 0 0 0 3px; }
 a                 { background: transparent; color: #00f; font-size: 100%; margin: 0; padding: 0; text-decoration: none; }
 abbr[title]       { border-bottom: 1px dotted; cursor: help; }
 footer,header,nav { display: block; }
@@ -21,7 +21,6 @@ th,
 dd     { margin: 5px 0 0 40px; }
 dt     { font-weight: bold; margin: 10px 0 10px 5px; }
 ol, ul { margin-left: 30px; }
-p      { margin-left: 10px; }
 p.list { margin-left: 0px; }
 
 code.arguments,
