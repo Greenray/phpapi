@@ -172,10 +172,6 @@ return $result;
         }
         #
         # Transform template variables to php code
-        # The templates are:
-        # $var, $var.index        - will be converted to $this-vars[$var], $var['index'] - ex.: <h1>$var.title</h1>
-        # [$var], [$var.index]    - will be converte to $this-vars[$var], $var['index']  - ex.: width:[$var.with]px
-        # __$var_, __$var.index__ - will be translated
         #
         $code = preg_replace_callback(
             '#\[*\$(?:[\w]+\.)?[\w]*[^_\W]\]*#',
@@ -215,12 +211,7 @@ return $result;
 
     /**
      * Trasnforms the FOREACH structure in php code.
-     * <pre>
-     * The template is:
-     *   <!-- FOREACH $array -->
-     *   <!-- FOREACH $array.index -->
-     *   <!-- CONTINUE -->
-     * </pre>
+     *
      * @param  string $param Parameters for FOREACH structure
      * @return string        PHP code
      */
@@ -237,16 +228,7 @@ return $result;
 
     /**
      * Transforms the IF structure in php code.
-     * <pre>
-     * The template is:
-     *   <!-- IF $variable -->
-     *   <!-- IF $var1 == $var2 -->
-     *   <!-- IF !empty($varable) -->
-     *   <!-- ELSEIF $variable -->
-     *   <!-- ELSEIF $var1 == $var2 -->
-     *   <!-- ELSEIF !empty($variable) -->
-     *   <!-- ELSE -->
-     * </pre>
+     *
      * @param  string  $code   Code for IF structure
      * @param  boolean $elseif Flag indicating if the structure is IF or ELSEIF
      * @return string          PHP code
@@ -263,10 +245,7 @@ return $result;
 
     /**
      * Transforms the SWITCH structure in php code.
-     * <pre>
-     * The template is:
-     *   <!-- SWITCH $var -->
-     * </pre>
+     *
      * @param  string $param Code for the SWITCH structure
      * @return string        PHP code
      */
@@ -277,10 +256,7 @@ return $result;
 
     /**
      * Transforms the CASE structure in php code.
-     * <pre>
-     * The template is:
-     *   <!-- CASE $var -->
-     * </pre>
+     *
      * @param  string $param Parameter for CASE structure
      * @return string        PHP code
      */
@@ -290,10 +266,7 @@ return $result;
 
     /**
      * Localization.
-     * <pre>
-     * The template is:
-     *   __string__
-     * </pre>
+     *
      * Array variable $matches contains:
      *  - $matches[0] = part of template between control structures including them;
      *  - $matches[1] = part of template between control structures excluding them.
@@ -310,10 +283,6 @@ return $result;
 
     /**
      * Replaces constants and global variables with their values.
-     * <pre>
-     * The template is:
-     *   {CONST} - global constant
-     * </pre>
      *
      * @param  array  $match Matches for constants
      * @return string        Parsed string

@@ -308,9 +308,10 @@ class htmlWriter {
             if (isset($element->value) && !is_NULL($element->value)) {
                    $value = $element->value;
                    if ((strlen($value) > 100) && (substr($value, 0, 5) === 'array') || (substr($value, 0, 1) === '[') && (substr($value, -1, 1) === ']')) {
-                       $value  = str_replace(["\r\n", "\n\r", "\r", "\n"], '<br />', $value);
+                       $value = htmlspecialchars($value);
+                       $value = str_replace(["\r\n", "\n\r", "\r", "\n"], '<br />', $value);
                    }
-                   $output[$key]['value'] = ' = '.preg_replace(array_keys($this->regexp), array_values($this->regexp), $value);
+                   $output[$key]['value'] = ' = '.preg_replace(array_keys($this->regexp), array_values($this->regexp), $value).';';
             } else $output[$key]['value'] = '';
 
             $text = (isset($element->tags['@text'])) ? $element->tags['@text'] : __('No description');
